@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.fixasset.asset.dao.TfamAssetTransferDao">
+  <sql id="tfamAssetTransferColumns">
+    <trim suffixOverrides=",">
+      a.id AS "id",
+      a.card_id AS "card.id",
+      IFNULL(card.card_code,'') AS "card.cardCode",
+      IFNULL(card.asset_name,'') AS "card.assetName",
+      IFNULL(card.asset_code,'') AS "card.assetCode",
+      a.before_transfer_owner AS "beforeTransferOwner",
+      a.after_transfer_owner AS "afterTransferOwner",
+      a.before_transfer_department AS "beforeTransferDepartment",
+      a.after_transfer_department AS "afterTransferDepartment",
+      a.transfer_reason AS "transferReason",
+      a.company_id AS "companyId",
+      a.transfer_date AS "transferDate",
+      a.transfer_creator_id AS "transferCreatorId",
+      a.transfer_creator_name AS "transferCreatorName",
+      a.remarks AS "remarks",
+      a.create_by AS "createBy",
+      a.create_date AS "createDate",
+      a.update_by AS "updateBy",
+      a.update_date AS "updateDate",
+      a.del_flag AS "delFlag",
+    </trim>
+  </sql>
+  <sql id="tfamAssetTransferJoins">
+    LEFT JOIN tfam_asset card ON card.id = a.card_id
+  </sql>
+  <resultMap id="resultTfamAssetTransferMap" type="com.geeke.fixasset.asset.entity.TfamAssetTransfer">
+    <result property="id" column="id" />
+    <result property="beforeTransferOwner" column="beforeTransferOwner" />
+    <result property="afterTransferOwner" column="afterTransferOwner" />
+    <result property="beforeTransferDepartment" column="beforeTransferDepartment" />
+    <result property="afterTransferDepartment" column="afterTransferDepartment" />
+    <result property="transferReason" column="transferReason" />
+    <result property="companyId" column="companyId" />
+    <result property="transferDate" column="transferDate" />
+    <result property="transferCreatorId" column="transferCreatorId" />
+    <result property="transferCreatorName" column="transferCreatorName" />
+    <result property="remarks" column="remarks" />
+    <result property="createBy" column="createBy" />
+    <result property="createDate" column="createDate" />
+    <result property="updateBy" column="updateBy" />
+    <result property="updateDate" column="updateDate" />
+    <result property="delFlag" column="delFlag" />
+    <association property="card" javaType="com.geeke.fixasset.asset.entity.TfamAsset">
+      <result property="id" column="card.id" />
+      <result property="cardCode" column="card.cardCode" />
+      <result property="assetName" column="card.assetName" />
+      <result property="assetCode" column="card.assetCode" />
+    </association>
+  </resultMap>
+  <select id="get" resultMap="resultTfamAssetTransferMap">
+    SELECT
+    <include refid="tfamAssetTransferColumns" />
+    FROM tfam_asset_transfer a
+    <include refid="tfamAssetTransferJoins" />
+    WHERE a.id = #{id}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tfam_asset_transfer a
+    <include refid="tfamAssetTransferJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="listPage" resultMap="resultTfamAssetTransferMap">
+    SELECT
+    <include refid="tfamAssetTransferColumns" />
+    FROM tfam_asset_transfer a
+    <include refid="tfamAssetTransferJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultMap="resultTfamAssetTransferMap">
+    SELECT
+    <include refid="tfamAssetTransferColumns" />
+    FROM tfam_asset_transfer a
+    <include refid="tfamAssetTransferJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tfam_asset_transfer(
+    <trim suffixOverrides=",">
+      id,
+      card_id,
+      before_transfer_owner,
+      after_transfer_owner,
+      before_transfer_department,
+      after_transfer_department,
+      transfer_reason,
+      company_id,
+      transfer_date,
+      transfer_creator_id,
+      transfer_creator_name,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ id },
+      #{ card.id },
+      #{ beforeTransferOwner },
+      #{ afterTransferOwner },
+      #{ beforeTransferDepartment },
+      #{ afterTransferDepartment },
+      #{ transferReason },
+      #{ companyId },
+      #{ transferDate },
+      #{ transferCreatorId },
+      #{ transferCreatorName },
+      #{ remarks },
+      #{ createBy },
+      #{ createDate },
+      #{ updateBy },
+      #{ updateDate },
+      #{ delFlag },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tfam_asset_transfer SET
+    <trim suffixOverrides=",">
+      card_id = #{ card.id },
+      before_transfer_owner = #{ beforeTransferOwner },
+      after_transfer_owner = #{ afterTransferOwner },
+      before_transfer_department = #{ beforeTransferDepartment },
+      after_transfer_department = #{ afterTransferDepartment },
+      transfer_reason = #{ transferReason },
+      company_id = #{ companyId },
+      transfer_date = #{ transferDate },
+      transfer_creator_id = #{ transferCreatorId },
+      transfer_creator_name = #{ transferCreatorName },
+      remarks = #{ remarks },
+      update_by = #{ updateBy },
+      update_date = #{ updateDate },
+    </trim>
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <update id="delete">
+    UPDATE tfam_asset_transfer SET
+    update_by = #{updateBy},
+    update_date = #{updateDate},
+    del_flag = #{DEL_FLAG_DELETE}
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tfam_asset_transfer(
+    <trim suffixOverrides=",">
+      id,
+      card_id,
+      before_transfer_owner,
+      after_transfer_owner,
+      before_transfer_department,
+      after_transfer_department,
+      transfer_reason,
+      company_id,
+      transfer_date,
+      transfer_creator_id,
+      transfer_creator_name,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.id},
+        #{entity.card.id},
+        #{entity.beforeTransferOwner},
+        #{entity.afterTransferOwner},
+        #{entity.beforeTransferDepartment},
+        #{entity.afterTransferDepartment},
+        #{entity.transferReason},
+        #{entity.companyId},
+        #{entity.transferDate},
+        #{entity.transferCreatorId},
+        #{entity.transferCreatorName},
+        #{entity.remarks},
+        #{entity.createBy},
+        #{entity.createDate},
+        #{entity.updateBy},
+        #{entity.updateDate},
+        #{entity.delFlag},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tfam_asset_transfer
+    <set>
+      <trim prefix="card_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.card.id}
+        </foreach>
+      </trim>
+      <trim prefix="before_transfer_owner=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.beforeTransferOwner}
+        </foreach>
+      </trim>
+      <trim prefix="after_transfer_owner=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.afterTransferOwner}
+        </foreach>
+      </trim>
+      <trim prefix="before_transfer_department=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.beforeTransferDepartment}
+        </foreach>
+      </trim>
+      <trim prefix="after_transfer_department=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.afterTransferDepartment}
+        </foreach>
+      </trim>
+      <trim prefix="transfer_reason=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.transferReason}
+        </foreach>
+      </trim>
+      <trim prefix="company_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.companyId}
+        </foreach>
+      </trim>
+      <trim prefix="transfer_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.transferDate}
+        </foreach>
+      </trim>
+      <trim prefix="transfer_creator_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.transferCreatorId}
+        </foreach>
+      </trim>
+      <trim prefix="transfer_creator_name=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.transferCreatorName}
+        </foreach>
+      </trim>
+      <trim prefix="remarks=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.remarks}
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    UPDATE tfam_asset_transfer
+    <set>
+      <trim prefix="del_flag=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then 1
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+</mapper>

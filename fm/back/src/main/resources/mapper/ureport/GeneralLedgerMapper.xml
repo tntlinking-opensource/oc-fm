@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geeke.ureport.mapper.GeneralLedgerMapper">
+	<!-- 存储过程 -->
+	<select id="getGeneralLedgerTableName" statementType="CALLABLE" parameterType="java.util.HashMap" resultType="map">
+		<![CDATA[{CALL PROC_ZFL(
+			#{parameters.uqcompanyid,mode=IN,jdbcType=VARCHAR},
+			#{parameters.uqaccountsetid,mode=IN,jdbcType=VARCHAR},
+			#{parameters.beginAccount,mode=IN,jdbcType=VARCHAR},
+			#{parameters.endAccount,mode=IN,jdbcType=VARCHAR},
+			#{parameters.hkontLevel,mode=IN,jdbcType=INTEGER},
+			#{parameters.startPeriod,mode=IN,jdbcType=INTEGER},
+			#{parameters.endPeriod,mode=IN,jdbcType=INTEGER},
+			#{parameters.intstatus,mode=IN,jdbcType=INTEGER},
+			#{parameters.isLastLevel,mode=IN,jdbcType=INTEGER},
+			#{parameters.tableName,mode=OUT,jdbcType=VARCHAR},
+			#{parameters.errmsg,mode=OUT,jdbcType=VARCHAR}
+		)}]]>
+	</select>
+	<select id="loadGeneralLedGer" resultType="map">
+		select tb.row_num row_num,tb.dtaccountdate dtfiller,tb.uqaccountid uqaccountid,
+			   tb.varsourcename pingzhengzi ,tb.varnumbername as pingzhengnum,
+			   case when tb.mnydebit = '0.00' then '' else tb.mnydebit end as mnydebit,
+			   case when tb.mnycredit = '0.00' then '' else tb.mnycredit end as mnycredit,
+			   tb.varflag intdcflag,
+			   case when tb.mnyamount = '0.00' then '' else tb.mnyamount end as balance
+	  from ${tablename} tb
+	</select>
+	<select id="getJournalTableName" statementType="CALLABLE" parameterType="java.util.HashMap" resultType="map">
+		<![CDATA[{CALL PROC_RJZ(
+			#{parameters.uqcompanyid,mode=IN,jdbcType=VARCHAR},
+			#{parameters.uqaccountsetid,mode=IN,jdbcType=VARCHAR},
+			#{parameters.beginAccount,mode=IN,jdbcType=VARCHAR},
+			#{parameters.endAccount,mode=IN,jdbcType=VARCHAR},
+			#{parameters.hkontLevel,mode=IN,jdbcType=INTEGER},
+			#{parameters.startPeriod,mode=IN,jdbcType=INTEGER},
+			#{parameters.endPeriod,mode=IN,jdbcType=INTEGER},
+			#{parameters.intstatus,mode=IN,jdbcType=INTEGER},
+			#{parameters.isLastLevel,mode=IN,jdbcType=INTEGER},
+			#{parameters.isseveral,mode=IN,jdbcType=INTEGER},
+			#{parameters.isalldisplayed,mode=IN,jdbcType=INTEGER},
+			#{parameters.tableName,mode=OUT,jdbcType=VARCHAR},
+			#{parameters.errmsg,mode=OUT,jdbcType=VARCHAR}
+
+		)}]]>
+	</select>
+
+	<select id="getDetailedLedgerName" statementType="CALLABLE" parameterType="java.util.HashMap" resultType="map">
+		<![CDATA[{CALL PROC_MXZ(
+			#{parameters.companyId,mode=IN,jdbcType=VARCHAR},
+			#{parameters.uqaccountsetid,mode=IN,jdbcType=VARCHAR},
+			#{parameters.beginAccount,mode=IN,jdbcType=VARCHAR},
+			#{parameters.endAccount,mode=IN,jdbcType=VARCHAR},
+			#{parameters.hkontLevel,mode=IN,jdbcType=INTEGER},
+			#{parameters.startPeriod,mode=IN,jdbcType=INTEGER},
+			#{parameters.endPeriod,mode=IN,jdbcType=INTEGER},
+			#{parameters.intstatus,mode=IN,jdbcType=INTEGER},
+			#{parameters.isLastLevel,mode=IN,jdbcType=INTEGER},
+			#{parameters.isseveral,mode=IN,jdbcType=INTEGER},
+			#{parameters.isalldisplayed,mode=IN,jdbcType=INTEGER},
+			#{parameters.tableName,mode=OUT,jdbcType=VARCHAR},
+			#{parameters.errmsg,mode=OUT,jdbcType=VARCHAR}
+
+		)}]]>
+	</select>
+
+	<select id="loadJournal" resultType="map">
+		select tb.row_num,tb.varsourcename as uqnumbering,tb.intcompanyseq, tb.varnumbername as intvouchernum,
+			   date_format(tb.dtaccountdate,'%y-%m-%d') as dtfiller,
+			   tb.varabstract,case when  tb.mnydebit = '0.00' then '' else  tb.mnydebit end as mnydebit,
+			   case when tb.mnycredit = '0.00' then '' else tb.mnycredit end as mnycredit,tb.varflag as direcflag,
+			   case when tb.mnyamount = '0.00' and tb.inttype=-1 then '' else tb.mnyamount end as  balance,  tb.uqvoucherid,
+			   tb.vargroupcode, tb.uqaccountid, tb.varaccountcode
+		from ${tablename} tb
+	</select>
+
+
+	<select id="loadDetailedLedger" resultType="map">
+		select
+			td.row_num,
+			td.varsourcename uqnumbering ,
+			td.intcompanyseq intcompanyseq,
+			td.varnumbername intvouchernum,
+			date_format(td.dtaccountdate, '%y-%m-%d') as dtfiller,
+			td.varabstract varabstract,
+			uqvoucherid,
+			case
+				when td.mnydebit = '0.00' then ''
+				else td.mnydebit
+				end as mnydebit,
+			case
+				when td.mnycredit = '0.00' then ''
+				else td.mnycredit
+				end as mnycredit ,
+			td.varflag intdcflag,
+			case
+				when td.mnyamount = '0.00' then ''
+				else td.mnyamount
+				end as balance,
+			tt.name as companyname
+		from ${parameters.tableName} td
+		left join ten_tenant tt on
+		td.tenantid = tt.id
+		where 1=1
+		<if test="parameters.summary != '' and parameters.summary != null">
+
+			and ( td.VARABSTRACT like concat('%',#{parameters.summary},'%') or  DATE_FORMAT(td.DTACCOUNTDATE, '%Y-%m-%d') is null )
+
+		</if>
+		<if test="parameters.vcSelect != '' and parameters.vcSelect != null">
+			and ( td.mnycredit + td.MNYDEBIT  > #{parameters.vcSelect,jdbcType=VARCHAR}  or DATE_FORMAT(td.DTACCOUNTDATE, '%Y-%m-%d') is null )
+		</if>
+		<if test="parameters.endSelect != '' and parameters.endSelect != null">
+			<![CDATA[
+			and ( td.mnycredit + td.MNYDEBIT  < #{parameters.endSelect,jdbcType=VARCHAR} or DATE_FORMAT(td.DTACCOUNTDATE, '%Y-%m-%d') is null )
+			]]>
+
+		</if>
+	</select>
+
+	<delete id="addNewTemporary" >
+		truncate table  ${tableName}
+	</delete>
+	<insert id="addtemporary">
+		insert  into ${tableName} select t.*,${companyId} as tenantid from ${temporary} t
+	</insert>
+	<insert id="addAccountBalance">
+		insert  into ${tableName} select t.* from ${temporary} t
+	</insert>
+
+	<select id="loadTrialBalance" resultType="map" >
+		select
+			tmp.row_num,
+			tmp.varcode,
+			ta.uqpreaccountid as varname,
+			tmp.ncjfye,
+			tmp.ncdfye,
+			tmp.sqjfye,
+			tmp.sqdfye,
+			tmp.bqjf,
+			tmp.bqdf,
+			tmp.bqjfye,
+			tmp.bqdfye,
+			tmp.qmjfye,
+			tmp.qmdfye,
+			tmp.bqljjfye,
+			tmp.bqljdfye
+		from
+			${parameters.tableName} tmp
+				left join tgl_accounts ta on
+				ta.varaccountcode = tmp.varcode
+				and ta.tenant_id=${parameters.companyId}
+		order by
+			tmp.row_num
+	</select>
+	<select id="getTrialBalance"  statementType="CALLABLE" parameterType="java.util.HashMap" resultType="map">
+			<![CDATA[{CALL PROC_TrialBalance(
+			#{parameters.companyId,mode=IN,jdbcType=VARCHAR},
+			#{parameters.uqaccountsetid,mode=IN,jdbcType=VARCHAR},
+			#{parameters.period,mode=IN,jdbcType=INTEGER},
+			#{parameters.intstatus,mode=IN,jdbcType=INTEGER},
+			#{parameters.tableName,mode=OUT,jdbcType=VARCHAR},
+			#{parameters.errmsg,mode=OUT,jdbcType=VARCHAR}
+		)}]]>
+	</select>
+
+
+	<select id="getAccountBalance" statementType="CALLABLE" parameterType="java.util.HashMap" resultType="map">
+		<![CDATA[{CALL PROC_PERIOD_ACCREST(
+			#{parameters.companyId,mode=IN,jdbcType=VARCHAR},
+			#{parameters.uqaccountsetid,mode=IN,jdbcType=VARCHAR},
+			#{parameters.beginAccount,mode=IN,jdbcType=VARCHAR},
+			#{parameters.endAccount,mode=IN,jdbcType=VARCHAR},
+			#{parameters.hkontLevel,mode=IN,jdbcType=INTEGER},
+			#{parameters.startPeriod,mode=IN,jdbcType=INTEGER},
+			#{parameters.endPeriod,mode=IN,jdbcType=INTEGER},
+			#{parameters.intstatus,mode=IN,jdbcType=INTEGER},
+			#{parameters.isLastLevel,mode=IN,jdbcType=INTEGER},
+			#{parameters.isseveral,mode=IN,jdbcType=INTEGER},
+			#{parameters.tableName,mode=OUT,jdbcType=VARCHAR},
+			#{parameters.errmsg,mode=OUT,jdbcType=VARCHAR}
+
+		)}]]>
+	</select>
+	<select id="loadAccountBalance" resultType="java.util.Map">
+		<![CDATA[
+		select
+			(@ii := @ii + 1) as row_num,
+			opt.*
+		from
+			(
+				select
+					tmp.varaccountcode,
+					ta.uqpreaccountid as varaccountname,
+					tc.name as companyname,
+					tmp.begindebit,
+					tmp.begincredit,
+					tmp.perioddebit,
+					tmp.periodcredit,
+					tmp.perioddebitrest,
+					tmp.periodcreditrest,
+					tmp.enddebitrest,
+					tmp.endcreditrest,
+					case
+						when ta.isbalance = 0 then tmp.begindebit - tmp.begincredit
+						else tmp.begincredit - tmp.begindebit
+						end as begbalace ,
+					case
+						when ta.isbalance = 0 then tmp.enddebitrest - tmp.endcreditrest
+						else tmp.endcreditrest - tmp.enddebitrest
+						end as endbalace ,
+					ta.intislastlevel,
+					tc.id as tenantid
+				from
+					${parameters.tableName} tmp
+						left join org_company tc on
+						tc.id = tmp.uqcompanyid
+						left join tgl_accounts ta on
+							ta.varaccountcode = tmp.varaccountcode
+							and tc.id = ta.tenant_id
+				where
+					tmp.begindebit <> 0
+				   or tmp.begincredit <> 0
+				   or tmp.perioddebit <> 0
+				   or tmp.periodcredit <> 0
+				   or tmp.perioddebitrest <> 0
+				   or tmp.periodcreditrest <> 0
+				   or tmp.enddebitrest <> 0
+				   or tmp.endcreditrest <> 0
+				   or tmp.begbalace <> 0
+				   or tmp.endbalace <> 0
+				group by
+					tc.id,
+					ta.uqaccountid
+				order by
+					tc.id,
+					tmp.varaccountcode ) opt,
+			(select@ii := 0) as ii
+		]]>
+	</select>
+
+	<select id="getLedgerGlBookName"  statementType="CALLABLE" parameterType="java.util.HashMap" resultType="map">
+			<![CDATA[{CALL PROC_LEDGER_ZFL(
+			#{parameters.uqcompanyid,mode=IN,jdbcType=VARCHAR},
+			#{parameters.uqaccountsetid,mode=IN,jdbcType=VARCHAR},
+			#{parameters.ledgerdeid,mode=IN,jdbcType=INTEGER},
+			#{parameters.ledgertypeid,mode=IN,jdbcType=INTEGER},
+			#{parameters.beginAccount,mode=IN,jdbcType=INTEGER},
+			#{parameters.endAccount,mode=IN,jdbcType=INTEGER},
+			#{parameters.hkontLevel,mode=IN,jdbcType=INTEGER},
+			#{parameters.startPeriod,mode=IN,jdbcType=INTEGER},
+			#{parameters.endPeriod,mode=IN,jdbcType=INTEGER},
+			#{parameters.intstatus,mode=IN,jdbcType=INTEGER},
+			#{parameters.tableName,mode=OUT,jdbcType=VARCHAR},
+			#{parameters.errmsg,mode=OUT,jdbcType=VARCHAR}
+		)}]]>
+	</select>
+
+	<select id="loadLedgerGlBook" resultType="map">
+		select
+			tb.row_num row_num,
+			ta.uqpreaccountid,
+			tb.dtaccountdate dtfiller,
+			tb.uqaccountid uqaccountid,
+			tb.varsourcename pingzhengzi ,
+			tb.varnumbername as pingzhengnum,
+			cast(tb.mnydebit as decimal(18, 2)) as mnydebit,
+			cast(tb.mnycredit as decimal(18, 2)) as mnycredit,
+			tb.varflag intdcflag,
+			cast(tb.mnyamount as decimal(18, 2)) as balance
+		from
+			${parameters.tableName} tb
+				left join tgl_accounts ta on
+				ta.uqaccountid = tb.uqaccountid
+	</select>
+</mapper> 

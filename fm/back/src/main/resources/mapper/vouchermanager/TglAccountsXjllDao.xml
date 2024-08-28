@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.vouchermanager.dao.TglAccountsXjllDao">
+  <sql id="tglAccountsXjllColumns">
+    <trim suffixOverrides=",">
+      a.ID AS "id",
+      a.XJLL_CONFIG_ID AS "xjllConfigId",
+      a.CERTIFUCATE_ID AS "certifucateId",
+      a.ACCOUNTS_ID AS "accountsId",
+      a.ACCOUNTPERIOD_ID AS "accountperiodId",
+      a.JIEMONEY AS "jiemoney",
+      a.DAIMONEY AS "daimoney",
+      a.CREATEDATE AS "createdate",
+      a.CREATOR AS "creator",
+      a.UPDATEDATE AS "updatedate",
+      a.UPDATEOR AS "updateor",
+      a.UQVOUCHERDETAIL_ID AS "uqvoucherdetailId",
+      a.TENANT_ID AS "tenantId",
+    </trim>
+  </sql>
+  <sql id="tglAccountsXjllJoins">
+  </sql>
+  <select id="get" resultType="com.geeke.vouchermanager.entity.TglAccountsXjll">
+    SELECT
+    <include refid="tglAccountsXjllColumns" />
+    FROM tgl_accounts_xjll a
+    <include refid="tglAccountsXjllJoins" />
+    WHERE a.id = #{id}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tgl_accounts_xjll a
+    <include refid="tglAccountsXjllJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="listPage" resultType="com.geeke.vouchermanager.entity.TglAccountsXjll">
+    SELECT
+    <include refid="tglAccountsXjllColumns" />
+    FROM tgl_accounts_xjll a
+    <include refid="tglAccountsXjllJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultType="com.geeke.vouchermanager.entity.TglAccountsXjll">
+    SELECT
+    <include refid="tglAccountsXjllColumns" />
+    FROM tgl_accounts_xjll a
+    <include refid="tglAccountsXjllJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tgl_accounts_xjll(
+    <trim suffixOverrides=",">
+      ID,
+      XJLL_CONFIG_ID,
+      CERTIFUCATE_ID,
+      ACCOUNTS_ID,
+      ACCOUNTPERIOD_ID,
+      JIEMONEY,
+      DAIMONEY,
+      CREATEDATE,
+      CREATOR,
+      UPDATEDATE,
+      UPDATEOR,
+      UQVOUCHERDETAIL_ID,
+      TENANT_ID,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ id },
+      #{ xjllConfigId },
+      #{ certifucateId },
+      #{ accountsId },
+      #{ accountperiodId },
+      #{ jiemoney },
+      #{ daimoney },
+      #{ createDate },
+      #{ creator },
+      #{ updateDate },
+      #{ updateor },
+      #{ uqvoucherdetailId },
+      #{ tenantId },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tgl_accounts_xjll SET
+    <trim suffixOverrides=",">
+      XJLL_CONFIG_ID = #{ xjllConfigId },
+      CERTIFUCATE_ID = #{ certifucateId },
+      ACCOUNTS_ID = #{ accountsId },
+      ACCOUNTPERIOD_ID = #{ accountperiodId },
+      JIEMONEY = #{ jiemoney },
+      DAIMONEY = #{ daimoney },
+      CREATEDATE = #{ createdate },
+      CREATOR = #{ creator },
+      UPDATEDATE = #{ updatedate },
+      UPDATEOR = #{ updateor },
+      UQVOUCHERDETAIL_ID = #{ uqvoucherdetailId },
+      TENANT_ID = #{ tenantId },
+    </trim>
+    WHERE id = #{id}
+  </update>
+  <update id="delete">
+    DELETE FROM tgl_accounts_xjll
+    WHERE id = #{id}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tgl_accounts_xjll(
+    <trim suffixOverrides=",">
+      ID,
+      XJLL_CONFIG_ID,
+      CERTIFUCATE_ID,
+      ACCOUNTS_ID,
+      ACCOUNTPERIOD_ID,
+      JIEMONEY,
+      DAIMONEY,
+      CREATEDATE,
+      CREATOR,
+      UPDATEDATE,
+      UPDATEOR,
+      UQVOUCHERDETAIL_ID,
+      TENANT_ID,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.id},
+        #{entity.xjllConfigId},
+        #{entity.certifucateId},
+        #{entity.accountsId},
+        #{entity.accountperiodId},
+        #{entity.jiemoney},
+        #{entity.daimoney},
+        #{entity.createdate},
+        #{entity.creator},
+        #{entity.updatedate},
+        #{entity.updateor},
+        #{entity.uqvoucherdetailId},
+        #{entity.tenantId},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tgl_accounts_xjll
+    <set>
+      <trim prefix="XJLL_CONFIG_ID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.xjllConfigId}
+        </foreach>
+      </trim>
+      <trim prefix="CERTIFUCATE_ID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.certifucateId}
+        </foreach>
+      </trim>
+      <trim prefix="ACCOUNTS_ID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.accountsId}
+        </foreach>
+      </trim>
+      <trim prefix="ACCOUNTPERIOD_ID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.accountperiodId}
+        </foreach>
+      </trim>
+      <trim prefix="JIEMONEY=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.jiemoney}
+        </foreach>
+      </trim>
+      <trim prefix="DAIMONEY=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.daimoney}
+        </foreach>
+      </trim>
+      <trim prefix="CREATEDATE=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.createdate}
+        </foreach>
+      </trim>
+      <trim prefix="CREATOR=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.creator}
+        </foreach>
+      </trim>
+      <trim prefix="UPDATEDATE=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updatedate}
+        </foreach>
+      </trim>
+      <trim prefix="UPDATEOR=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateor}
+        </foreach>
+      </trim>
+      <trim prefix="UQVOUCHERDETAIL_ID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqvoucherdetailId}
+        </foreach>
+      </trim>
+      <trim prefix="TENANT_ID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.tenantId}
+        </foreach>
+      </trim>
+    </set>
+    WHERE id IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.id}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    DELETE FROM tgl_accounts_xjll
+    WHERE id IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.id}
+    </foreach>
+  </update>
+</mapper>

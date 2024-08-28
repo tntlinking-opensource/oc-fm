@@ -1,0 +1,70 @@
+2023-06-19 01:00:35.105 ERROR --- [MqProduce.java:36][SimpleAsyncTaskExecutor-1] - 【ERROR】消息发送失败: ==>> 
+唯一标识: 7751b04b-a125-49ab-a3a7-8878c7a28d87 
+消息内容{"actionRecycleList":[],"actionType":{"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1290867985774919713","busTableName":"sys_dict_item","delFlag":"0","value":"login"},"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1220000000000000005","busTableName":"sys_action","createBy":"李鑫林(lxl)","createDate":"2023-06-19 01:00:34","delFlag":"0","id":"1574940404089937920","objectComments":"","objectId":"1457259193529540634","objectName":"李鑫林","objectType":"sys_user","status":"0","updateBy":"李鑫林(lxl)","updateDate":"2023-06-19 01:00:34"}
+2023-06-19 01:00:35.106 ERROR --- [MqProduce.java:37][SimpleAsyncTaskExecutor-1] - nested exception is org.apache.rocketmq.client.exception.MQClientException: No route info of this topic: TOPIC-ACTION-LOG-fm-1_0-dev
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-06-19 01:08:13.815 ERROR --- [MqProduce.java:36][SimpleAsyncTaskExecutor-1] - 【ERROR】消息发送失败: ==>> 
+唯一标识: 14f549d5-0f55-4dfb-8004-8a7e994d8bf4 
+消息内容{"actionRecycleList":[],"actionType":{"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1290867985774919713","busTableName":"sys_dict_item","delFlag":"0","value":"login"},"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1220000000000000005","busTableName":"sys_action","createBy":"系统管理员(system)","createDate":"2023-06-19 01:08:13","delFlag":"0","id":"1574953151552897024","objectComments":"","objectId":"1001","objectName":"系统管理员","objectType":"sys_user","status":"0","updateBy":"系统管理员(system)","updateDate":"2023-06-19 01:08:13"}
+2023-06-19 01:08:13.815 ERROR --- [MqProduce.java:37][SimpleAsyncTaskExecutor-1] - nested exception is org.apache.rocketmq.client.exception.MQClientException: No route info of this topic: TOPIC-ACTION-LOG-fm-1_0-dev
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-06-19 01:10:29.528 ERROR --- [MqProduce.java:36][SimpleAsyncTaskExecutor-2] - 【ERROR】消息发送失败: ==>> 
+唯一标识: 81cfa755-2422-40c9-8eb2-b14cbee6a61c 
+消息内容{"actionRecycleList":[],"actionType":{"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1290867985774919713","busTableName":"sys_dict_item","delFlag":"0","value":"updated"},"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1220000000000000005","busTableName":"sys_action","createBy":"系统管理员(system)","createDate":"2023-06-19 01:10:29","delFlag":"0","id":"1574953151552897376","objectComments":"","objectId":"1535914870946512916","objectName":"李鑫林","objectType":"sys_user","status":"0","updateBy":"系统管理员(system)","updateDate":"2023-06-19 01:10:29"}
+2023-06-19 01:10:29.529 ERROR --- [MqProduce.java:37][SimpleAsyncTaskExecutor-2] - nested exception is org.apache.rocketmq.client.exception.MQClientException: No route info of this topic: TOPIC-ACTION-LOG-fm-1_0-dev
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-06-19 01:10:46.700 ERROR --- [MqProduce.java:36][SimpleAsyncTaskExecutor-3] - 【ERROR】消息发送失败: ==>> 
+唯一标识: 831dd59a-ceee-4e21-a70b-3a898f07fa27 
+消息内容{"actionRecycleList":[],"actionType":{"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1290867985774919713","busTableName":"sys_dict_item","delFlag":"0","value":"logout"},"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1220000000000000005","busTableName":"sys_action","createBy":"系统管理员(system)","createDate":"2023-06-19 01:10:46","delFlag":"0","id":"1574953151552897378","objectComments":"","objectId":"1001","objectName":"系统管理员","objectType":"sys_user","status":"0","updateBy":"系统管理员(system)","updateDate":"2023-06-19 01:10:46"}
+2023-06-19 01:10:46.700 ERROR --- [MqProduce.java:37][SimpleAsyncTaskExecutor-3] - nested exception is org.apache.rocketmq.client.exception.MQClientException: No route info of this topic: TOPIC-ACTION-LOG-fm-1_0-dev
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-06-19 01:10:53.162 ERROR --- [MqProduce.java:36][SimpleAsyncTaskExecutor-4] - 【ERROR】消息发送失败: ==>> 
+唯一标识: 257bd7d6-befc-45f3-8971-1c8e28941a3a 
+消息内容{"actionRecycleList":[],"actionType":{"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1290867985774919713","busTableName":"sys_dict_item","delFlag":"0","value":"login"},"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1220000000000000005","busTableName":"sys_action","createBy":"李鑫林(lxl)","createDate":"2023-06-19 01:10:53","delFlag":"0","id":"1574953151552897379","objectComments":"","objectId":"1457259193529540634","objectName":"李鑫林","objectType":"sys_user","status":"0","updateBy":"李鑫林(lxl)","updateDate":"2023-06-19 01:10:53"}
+2023-06-19 01:10:53.162 ERROR --- [MqProduce.java:37][SimpleAsyncTaskExecutor-4] - nested exception is org.apache.rocketmq.client.exception.MQClientException: No route info of this topic: TOPIC-ACTION-LOG-fm-1_0-dev
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-06-19 01:13:52.182 ERROR --- [MqProduce.java:36][SimpleAsyncTaskExecutor-5] - 【ERROR】消息发送失败: ==>> 
+唯一标识: 7f04bb7c-0869-40e1-af67-3245e06b6576 
+消息内容{"actionRecycleList":[],"actionType":{"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1290867985774919713","busTableName":"sys_dict_item","delFlag":"0","value":"login"},"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1220000000000000005","busTableName":"sys_action","createBy":"系统管理员(system)","createDate":"2023-06-19 01:13:52","delFlag":"0","id":"1574953151552897380","objectComments":"","objectId":"1001","objectName":"系统管理员","objectType":"sys_user","status":"0","updateBy":"系统管理员(system)","updateDate":"2023-06-19 01:13:52"}
+2023-06-19 01:13:52.182 ERROR --- [MqProduce.java:37][SimpleAsyncTaskExecutor-5] - nested exception is org.apache.rocketmq.client.exception.MQClientException: No route info of this topic: TOPIC-ACTION-LOG-fm-1_0-dev
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-06-19 01:14:53.967 ERROR --- [MqProduce.java:36][SimpleAsyncTaskExecutor-6] - 【ERROR】消息发送失败: ==>> 
+唯一标识: fea0407b-ea0f-43e8-b5a5-340524c5efce 
+消息内容{"actionRecycleList":[],"actionType":{"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1290867985774919713","busTableName":"sys_dict_item","delFlag":"0","value":"updated"},"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1220000000000000005","busTableName":"sys_action","createBy":"系统管理员(system)","createDate":"2023-06-19 01:14:53","delFlag":"0","id":"1574953151552897381","objectComments":"","objectId":"1535914870946512916","objectName":"李鑫林","objectType":"sys_user","status":"0","updateBy":"系统管理员(system)","updateDate":"2023-06-19 01:14:53"}
+2023-06-19 01:14:53.967 ERROR --- [MqProduce.java:37][SimpleAsyncTaskExecutor-6] - nested exception is org.apache.rocketmq.client.exception.MQClientException: No route info of this topic: TOPIC-ACTION-LOG-fm-1_0-dev
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-06-19 01:16:10.818 ERROR --- [MqProduce.java:36][SimpleAsyncTaskExecutor-7] - 【ERROR】消息发送失败: ==>> 
+唯一标识: 37f0c5d2-2974-4f7f-baa2-5bec7ed68e55 
+消息内容{"actionRecycleList":[],"actionType":{"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1290867985774919713","busTableName":"sys_dict_item","delFlag":"0","value":"logout"},"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1220000000000000005","busTableName":"sys_action","createBy":"系统管理员(system)","createDate":"2023-06-19 01:16:10","delFlag":"0","id":"1574953151552897384","objectComments":"","objectId":"1001","objectName":"系统管理员","objectType":"sys_user","status":"0","updateBy":"系统管理员(system)","updateDate":"2023-06-19 01:16:10"}
+2023-06-19 01:16:10.818 ERROR --- [MqProduce.java:37][SimpleAsyncTaskExecutor-7] - nested exception is org.apache.rocketmq.client.exception.MQClientException: No route info of this topic: TOPIC-ACTION-LOG-fm-1_0-dev
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-06-19 01:16:16.154 ERROR --- [MqProduce.java:36][SimpleAsyncTaskExecutor-8] - 【ERROR】消息发送失败: ==>> 
+唯一标识: ce1f3127-bd3b-4e0a-809c-5cb9eb6f8128 
+消息内容{"actionRecycleList":[],"actionType":{"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1290867985774919713","busTableName":"sys_dict_item","delFlag":"0","value":"login"},"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1220000000000000005","busTableName":"sys_action","createBy":"李鑫林(lxl)","createDate":"2023-06-19 01:16:16","delFlag":"0","id":"1574953151552897385","objectComments":"","objectId":"1457259193529540634","objectName":"李鑫林","objectType":"sys_user","status":"0","updateBy":"李鑫林(lxl)","updateDate":"2023-06-19 01:16:16"}
+2023-06-19 01:16:16.154 ERROR --- [MqProduce.java:37][SimpleAsyncTaskExecutor-8] - nested exception is org.apache.rocketmq.client.exception.MQClientException: No route info of this topic: TOPIC-ACTION-LOG-fm-1_0-dev
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-06-19 01:17:32.619 ERROR --- [MqProduce.java:36][SimpleAsyncTaskExecutor-9] - 【ERROR】消息发送失败: ==>> 
+唯一标识: abe8a96e-de75-45c1-8c9e-d666dbd5285d 
+消息内容{"actionRecycleList":[],"actionType":{"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1290867985774919713","busTableName":"sys_dict_item","delFlag":"0","value":"login"},"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1220000000000000005","busTableName":"sys_action","createBy":"系统管理员(system)","createDate":"2023-06-19 01:17:32","delFlag":"0","id":"1574953151552897386","objectComments":"","objectId":"1001","objectName":"系统管理员","objectType":"sys_user","status":"0","updateBy":"系统管理员(system)","updateDate":"2023-06-19 01:17:32"}
+2023-06-19 01:17:32.619 ERROR --- [MqProduce.java:37][SimpleAsyncTaskExecutor-9] - nested exception is org.apache.rocketmq.client.exception.MQClientException: No route info of this topic: TOPIC-ACTION-LOG-fm-1_0-dev
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-06-19 01:18:43.192 ERROR --- [MqProduce.java:36][SimpleAsyncTaskExecutor-10] - 【ERROR】消息发送失败: ==>> 
+唯一标识: aeeedded-2258-4a1a-b4f9-99a6d5bc83a3 
+消息内容{"actionRecycleList":[],"actionType":{"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1290867985774919713","busTableName":"sys_dict_item","delFlag":"0","value":"logout"},"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1220000000000000005","busTableName":"sys_action","createBy":"系统管理员(system)","createDate":"2023-06-19 01:18:43","delFlag":"0","id":"1574953151552897387","objectComments":"","objectId":"1001","objectName":"系统管理员","objectType":"sys_user","status":"0","updateBy":"系统管理员(system)","updateDate":"2023-06-19 01:18:43"}
+2023-06-19 01:18:43.193 ERROR --- [MqProduce.java:37][SimpleAsyncTaskExecutor-10] - nested exception is org.apache.rocketmq.client.exception.MQClientException: No route info of this topic: TOPIC-ACTION-LOG-fm-1_0-dev
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-06-19 01:18:48.784 ERROR --- [MqProduce.java:36][SimpleAsyncTaskExecutor-11] - 【ERROR】消息发送失败: ==>> 
+唯一标识: b111f1b3-b53a-449c-8107-7cbc26697429 
+消息内容{"actionRecycleList":[],"actionType":{"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1290867985774919713","busTableName":"sys_dict_item","delFlag":"0","value":"login"},"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1220000000000000005","busTableName":"sys_action","createBy":"超级管理员(super)","createDate":"2023-06-19 01:18:48","delFlag":"0","id":"1574953151552897388","objectComments":"","objectId":"1000","objectName":"超级管理员","objectType":"sys_user","status":"0","updateBy":"超级管理员(super)","updateDate":"2023-06-19 01:18:48"}
+2023-06-19 01:18:48.784 ERROR --- [MqProduce.java:37][SimpleAsyncTaskExecutor-11] - nested exception is org.apache.rocketmq.client.exception.MQClientException: No route info of this topic: TOPIC-ACTION-LOG-fm-1_0-dev
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-06-19 01:20:07.961 ERROR --- [MqProduce.java:36][SimpleAsyncTaskExecutor-12] - 【ERROR】消息发送失败: ==>> 
+唯一标识: 76075412-258f-4ece-a236-ad3b323ba0bf 
+消息内容{"actionRecycleList":[],"actionType":{"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1290867985774919713","busTableName":"sys_dict_item","delFlag":"0","value":"logout"},"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1220000000000000005","busTableName":"sys_action","createBy":"超级管理员(super)","createDate":"2023-06-19 01:20:07","delFlag":"0","id":"1574953151552897389","objectComments":"","objectId":"1000","objectName":"超级管理员","objectType":"sys_user","status":"0","updateBy":"超级管理员(super)","updateDate":"2023-06-19 01:20:07"}
+2023-06-19 01:20:07.961 ERROR --- [MqProduce.java:37][SimpleAsyncTaskExecutor-12] - nested exception is org.apache.rocketmq.client.exception.MQClientException: No route info of this topic: TOPIC-ACTION-LOG-fm-1_0-dev
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-06-19 01:20:13.570 ERROR --- [MqProduce.java:36][SimpleAsyncTaskExecutor-13] - 【ERROR】消息发送失败: ==>> 
+唯一标识: 2d34d266-af59-4cb8-aba1-64c261e63edd 
+消息内容{"actionRecycleList":[],"actionType":{"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1290867985774919713","busTableName":"sys_dict_item","delFlag":"0","value":"login"},"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1220000000000000005","busTableName":"sys_action","createBy":"李鑫林(lxl)","createDate":"2023-06-19 01:20:13","delFlag":"0","id":"1574953151552897390","objectComments":"","objectId":"1457259193529540634","objectName":"李鑫林","objectType":"sys_user","status":"0","updateBy":"李鑫林(lxl)","updateDate":"2023-06-19 01:20:13"}
+2023-06-19 01:20:13.570 ERROR --- [MqProduce.java:37][SimpleAsyncTaskExecutor-13] - nested exception is org.apache.rocketmq.client.exception.MQClientException: No route info of this topic: TOPIC-ACTION-LOG-fm-1_0-dev
+See http://rocketmq.apache.org/docs/faq/ for further details.

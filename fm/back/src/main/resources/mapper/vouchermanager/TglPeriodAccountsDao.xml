@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.vouchermanager.dao.TglPeriodAccountsDao">
+  <sql id="tglPeriodAccountsColumns">
+    <trim suffixOverrides=",">
+      a.UQCOMPANYID AS "uqcompanyid",
+      a.UQGLOBALPERIODID AS "uqglobalperiodid",
+      a.UQACCOUNTID AS "uqaccountid.UQACCOUNTID",
+      IFNULL(uqaccountid.UQACCOUNTSETID,'') AS "uqaccountid.UQACCOUNTSETID",
+      IFNULL(uqaccountid.VARACCOUNTCODE,'') AS "uqaccountid.VARACCOUNTCODE",
+      IFNULL(uqaccountid.UQTYPEID,'') AS "uqaccountid.UQTYPEID",
+      IFNULL(uqaccountid.INTPROPERTY,'') AS "uqaccountid.INTPROPERTY",
+      IFNULL(uqaccountid.INTISLASTLEVEL,'') AS "uqaccountid.INTISLASTLEVEL",
+      IFNULL(uqaccountid.INTLEVEL,'') AS "uqaccountid.INTLEVEL",
+      IFNULL(uqaccountid.INTFLAG,'') AS "uqaccountid.INTFLAG",
+      IFNULL(uqaccountid.VARACCOUNTNAME,'') AS "uqaccountid.VARACCOUNTNAME",
+      IFNULL(uqaccountid.VARACCOUNTFULLCODE,'') AS "uqaccountid.VARACCOUNTFULLCODE",
+      a.MNYDEBITPERIODALL AS "mnydebitperiodall",
+      a.MNYCREDITPERIODALL AS "mnycreditperiodall",
+      a.MNYFDEBITPERIODALL AS "mnyfdebitperiodall",
+      a.MNYFCREDITPERIODALL AS "mnyfcreditperiodall",
+      a.MNYDEBITPERIOD AS "mnydebitperiod",
+      a.MNYCREDITPERIOD AS "mnycreditperiod",
+      a.MNYFDEBITPERIOD AS "mnyfdebitperiod",
+      a.MNYFCREDITPERIOD AS "mnyfcreditperiod",
+      a.MNYDEBITCASHED AS "mnydebitcashed",
+      a.MNYCREDITCASHED AS "mnycreditcashed",
+      a.MNYFDEBITCASHED AS "mnyfdebitcashed",
+      a.MNYFCREDITCASHED AS "mnyfcreditcashed",
+    </trim>
+  </sql>
+  <sql id="tglPeriodAccountsJoins">
+    LEFT JOIN tgl_acc ON uqaccountid.UQACCOUNTID = a.UQACCOUNTID
+  </sql>
+  <select id="get" resultType="com.geeke.vouchermanager.entity.TglPeriodAccounts">
+    SELECT
+    <include refid="tglPeriodAccountsColumns" />
+    FROM tgl_period_accounts a
+    <include refid="tglPeriodAccountsJoins" />
+    WHERE a.id = #{id}
+  </select>
+  <select id="get1" resultType="com.geeke.vouchermanager.entity.TglPeriodAccounts">
+    select
+    ANY_VALUE(a.UQCOMPANYID) AS "uqcompanyid",
+    ANY_VALUE(a.UQGLOBALPERIODID) AS "uqglobalperiodid",
+    ANY_VALUE(IFNULL(ta.UQACCOUNTID,'')) AS "uqaccountid.UQACCOUNTID",
+    ANY_VALUE(IFNULL(ta.UQACCOUNTSETID,'')) AS "uqaccountid.UQACCOUNTSETID",
+    ANY_VALUE(IFNULL(ta.VARACCOUNTCODE,'')) AS "uqaccountid.VARACCOUNTCODE",
+    ANY_VALUE(IFNULL(ta.UQTYPEID,'')) AS "uqaccountid.UQTYPEID",
+    ANY_VALUE(IFNULL(ta.INTPROPERTY,'')) AS "uqaccountid.INTPROPERTY",
+    ANY_VALUE(IFNULL(ta.INTISLASTLEVEL,'')) AS "uqaccountid.INTISLASTLEVEL",
+    ANY_VALUE(IFNULL(ta.INTLEVEL,'')) AS "uqaccountid.INTLEVEL",
+    ANY_VALUE(IFNULL(ta.INTFLAG,'')) AS "uqaccountid.INTFLAG",
+    ANY_VALUE(IFNULL(ta.VARACCOUNTNAME,'')) AS "uqaccountid.VARACCOUNTNAME",
+    ANY_VALUE(IFNULL(ta.VARACCOUNTFULLCODE,'')) AS "uqaccountid.VARACCOUNTFULLCODE",
+    sum( a.MNYDEBITPERIODALL) AS "mnydebitperiodall",
+    sum(a.MNYCREDITPERIODALL) AS "mnycreditperiodall",
+    ANY_VALUE(a.MNYFDEBITPERIODALL) AS "mnyfdebitperiodall",
+    ANY_VALUE(a.MNYFCREDITPERIODALL) AS "mnyfcreditperiodall",
+    sum(a.MNYDEBITPERIOD) AS "mnydebitperiod",
+    sum(a.MNYCREDITPERIOD) AS "mnycreditperiod",
+    ANY_VALUE(a.MNYFDEBITPERIOD) AS "mnyfdebitperiod",
+    ANY_VALUE(a.MNYFCREDITPERIOD) AS "mnyfcreditperiod",
+    ANY_VALUE(a.MNYDEBITCASHED) AS "mnydebitcashed",
+    ANY_VALUE(a.MNYCREDITCASHED) AS "mnycreditcashed",
+    ANY_VALUE(a.MNYFDEBITCASHED) AS "mnyfdebitcashed",
+    ANY_VALUE(a.MNYFCREDITCASHED) AS "mnyfcreditcashed"
+    from tgl_account_group pa
+    left join tgl_period_accounts a
+    on pa.uqaccountid = a.uqaccountid
+    and a.uqglobalperiodid = '00000000-0000-0000-0000-000000000000'
+    left join tgl_accounts ta on pa.tenant_id=ta.tenant_id
+    AND ta.VARACCOUNTCODE = pa.vargroupcode
+    <where>
+      1=1
+      and pa.tenant_id =#{tenantId}
+      and ta.UQACCOUNTID = #{id}
+    </where>
+    group by pa.vargroupcode order by pa.vargroupcode
+  </select>
+  <select id="count" resultType="int">
+    select count(1)
+    from (
+    select
+    ANY_VALUE(a.UQCOMPANYID) AS "uqcompanyid",
+    ANY_VALUE(a.UQGLOBALPERIODID) AS "uqglobalperiodid",
+    ANY_VALUE(a.UQACCOUNTID) AS "uqaccountid.UQACCOUNTID",
+    ANY_VALUE(IFNULL(ta.UQACCOUNTSETID,'')) AS "uqaccountid.UQACCOUNTSETID",
+    ANY_VALUE(IFNULL(ta.VARACCOUNTCODE,'')) AS "uqaccountid.VARACCOUNTCODE",
+    ANY_VALUE(IFNULL(ta.UQTYPEID,'')) AS "uqaccountid.UQTYPEID",
+    ANY_VALUE(IFNULL(ta.INTPROPERTY,'')) AS "uqaccountid.INTPROPERTY",
+    ANY_VALUE(IFNULL(ta.INTISLASTLEVEL,'')) AS "uqaccountid.INTISLASTLEVEL",
+    ANY_VALUE(IFNULL(ta.INTLEVEL,'')) AS "uqaccountid.INTLEVEL",
+    ANY_VALUE(IFNULL(ta.INTFLAG,'')) AS "uqaccountid.INTFLAG",
+    ANY_VALUE(IFNULL(ta.VARACCOUNTNAME,'')) AS "uqaccountid.VARACCOUNTNAME",
+    ANY_VALUE(IFNULL(ta.VARACCOUNTFULLCODE,'')) AS "uqaccountid.VARACCOUNTFULLCODE",
+    sum( a.MNYDEBITPERIODALL) AS "mnydebitperiodall",
+    sum(a.MNYCREDITPERIODALL) AS "mnycreditperiodall",
+    ANY_VALUE(a.MNYFDEBITPERIODALL) AS "mnyfdebitperiodall",
+    ANY_VALUE(a.MNYFCREDITPERIODALL) AS "mnyfcreditperiodall",
+    sum(a.MNYDEBITPERIOD) AS "mnydebitperiod",
+    sum(a.MNYCREDITPERIOD) AS "mnycreditperiod",
+    ANY_VALUE(a.MNYFDEBITPERIOD) AS "mnyfdebitperiod",
+    ANY_VALUE(a.MNYFCREDITPERIOD) AS "mnyfcreditperiod",
+    ANY_VALUE(a.MNYDEBITCASHED) AS "mnydebitcashed",
+    ANY_VALUE(a.MNYCREDITCASHED) AS "mnycreditcashed",
+    ANY_VALUE(a.MNYFDEBITCASHED) AS "mnyfdebitcashed",
+    ANY_VALUE(a.MNYFCREDITCASHED) AS "mnyfcreditcashed"
+    from tgl_account_group pa
+    left join tgl_period_accounts a
+    on pa.uqaccountid = a.uqaccountid
+    and a.uqglobalperiodid = '00000000-0000-0000-0000-000000000000'
+    left join tgl_accounts ta on pa.tenant_id=ta.tenant_id
+    AND ta.VARACCOUNTCODE = pa.vargroupcode
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    group by pa.vargroupcode order by pa.vargroupcode
+    ) tt
+    </select>
+  <select id="count1" resultType="int">
+    select count(1)
+    from (
+    select
+    ANY_VALUE(a.UQCOMPANYID) AS "uqcompanyid",
+    ANY_VALUE(a.UQGLOBALPERIODID) AS "uqglobalperiodid",
+    ANY_VALUE(a.UQACCOUNTID) AS "uqaccountid.UQACCOUNTID",
+    ANY_VALUE(IFNULL(ta.UQACCOUNTSETID,'')) AS "uqaccountid.UQACCOUNTSETID",
+    ANY_VALUE(IFNULL(ta.VARACCOUNTCODE,'')) AS "uqaccountid.VARACCOUNTCODE",
+    ANY_VALUE(IFNULL(ta.UQTYPEID,'')) AS "uqaccountid.UQTYPEID",
+    ANY_VALUE(IFNULL(ta.INTPROPERTY,'')) AS "uqaccountid.INTPROPERTY",
+    ANY_VALUE(IFNULL(ta.INTISLASTLEVEL,'')) AS "uqaccountid.INTISLASTLEVEL",
+    ANY_VALUE(IFNULL(ta.INTLEVEL,'')) AS "uqaccountid.INTLEVEL",
+    ANY_VALUE(IFNULL(ta.INTFLAG,'')) AS "uqaccountid.INTFLAG",
+    ANY_VALUE(IFNULL(ta.VARACCOUNTNAME,'')) AS "uqaccountid.VARACCOUNTNAME",
+    ANY_VALUE(IFNULL(ta.VARACCOUNTFULLCODE,'')) AS "uqaccountid.VARACCOUNTFULLCODE",
+    sum( a.MNYDEBITPERIODALL) AS "mnydebitperiodall",
+    sum(a.MNYCREDITPERIODALL) AS "mnycreditperiodall",
+    ANY_VALUE(a.MNYFDEBITPERIODALL) AS "mnyfdebitperiodall",
+    ANY_VALUE(a.MNYFCREDITPERIODALL) AS "mnyfcreditperiodall",
+    sum(a.MNYDEBITPERIOD) AS "mnydebitperiod",
+    sum(a.MNYCREDITPERIOD) AS "mnycreditperiod",
+    ANY_VALUE(a.MNYFDEBITPERIOD) AS "mnyfdebitperiod",
+    ANY_VALUE(a.MNYFCREDITPERIOD) AS "mnyfcreditperiod",
+    ANY_VALUE(a.MNYDEBITCASHED) AS "mnydebitcashed",
+    ANY_VALUE(a.MNYCREDITCASHED) AS "mnycreditcashed",
+    ANY_VALUE(a.MNYFDEBITCASHED) AS "mnyfdebitcashed",
+    ANY_VALUE(a.MNYFCREDITCASHED) AS "mnyfcreditcashed"
+    from tgl_account_group pa
+    left join tgl_period_accounts a
+    on pa.uqaccountid = a.uqaccountid
+    and a.uqglobalperiodid = '00000000-0000-0000-0000-000000000000'
+    left join tgl_accounts ta on pa.tenant_id=ta.tenant_id
+    AND ta.VARACCOUNTCODE = pa.vargroupcode
+    <where>
+      1=1
+      and pa.tenant_id =#{tenantId}
+     <if test="accauntid != null">
+       AND (
+       ta.VARACCOUNTCODE like concat('%',#{accauntid},'%')
+        OR ta.VARACCOUNTNAME like concat('%',#{accauntid},'%')
+       )
+     </if>
+    </where>
+    group by pa.vargroupcode order by pa.vargroupcode
+    ) tt
+    </select>
+  <select id="count2" resultType="int">
+    select count(1)
+    from tgl_period_accounts
+    where UQGLOBALPERIODID = '00000000-0000-0000-0000-000000000000'
+      and UQCOMPANYID = #{uqcompanyid}
+      and UQACCOUNTID = #{accauntid}
+    </select>
+  <select id="isHasSeveral" resultType="int">
+    select count(1)
+    from tgl_accounts ta
+           inner join tgl_period_accounts tp
+                      on ta.uqaccountid = tp.uqaccountid
+    where tp.uqglobalperiodid  &lt;&gt; '00000000-0000-0000-0000-000000000000'
+    and ta.varaccountcode = #{code}
+    and tp.uqcompanyid = #{uqcompanyid}
+    </select>
+  <select id="isHasSameData" resultType="int">
+    SELECT COUNT(1)
+    FROM tgl_period_accounts pa
+    WHERE pa.UQACCOUNTID = #{uqaccountid} AND pa.UQCOMPANYID = #{uqcompanyid}
+    </select>
+
+  <select id="listPage" resultType="com.geeke.vouchermanager.entity.TglPeriodAccounts">
+    select
+    ANY_VALUE(a.UQCOMPANYID) AS "uqcompanyid",
+    ANY_VALUE(a.UQGLOBALPERIODID) AS "uqglobalperiodid",
+    ANY_VALUE(a.UQACCOUNTID) AS "uqaccountid.UQACCOUNTID",
+    ANY_VALUE(IFNULL(ta.UQACCOUNTSETID,'')) AS "uqaccountid.UQACCOUNTSETID",
+    ANY_VALUE(IFNULL(ta.VARACCOUNTCODE,'')) AS "uqaccountid.VARACCOUNTCODE",
+    ANY_VALUE(IFNULL(ta.UQTYPEID,'')) AS "uqaccountid.UQTYPEID",
+    ANY_VALUE(IFNULL(ta.INTPROPERTY,'')) AS "uqaccountid.INTPROPERTY",
+    ANY_VALUE(IFNULL(ta.INTISLASTLEVEL,'')) AS "uqaccountid.INTISLASTLEVEL",
+    ANY_VALUE(IFNULL(ta.INTLEVEL,'')) AS "uqaccountid.INTLEVEL",
+    ANY_VALUE(IFNULL(ta.INTFLAG,'')) AS "uqaccountid.INTFLAG",
+    ANY_VALUE(IFNULL(ta.VARACCOUNTNAME,'')) AS "uqaccountid.VARACCOUNTNAME",
+    ANY_VALUE(IFNULL(ta.VARACCOUNTFULLCODE,'')) AS "uqaccountid.VARACCOUNTFULLCODE",
+    sum( a.MNYDEBITPERIODALL) AS "mnydebitperiodall",
+    sum(a.MNYCREDITPERIODALL) AS "mnycreditperiodall",
+    ANY_VALUE(a.MNYFDEBITPERIODALL) AS "mnyfdebitperiodall",
+    ANY_VALUE(a.MNYFCREDITPERIODALL) AS "mnyfcreditperiodall",
+    sum(a.MNYDEBITPERIOD) AS "mnydebitperiod",
+    sum(a.MNYCREDITPERIOD) AS "mnycreditperiod",
+    ANY_VALUE(a.MNYFDEBITPERIOD) AS "mnyfdebitperiod",
+    ANY_VALUE(a.MNYFCREDITPERIOD) AS "mnyfcreditperiod",
+    ANY_VALUE(a.MNYDEBITCASHED) AS "mnydebitcashed",
+    ANY_VALUE(a.MNYCREDITCASHED) AS "mnycreditcashed",
+    ANY_VALUE(a.MNYFDEBITCASHED) AS "mnyfdebitcashed",
+    ANY_VALUE(a.MNYFCREDITCASHED) AS "mnyfcreditcashed"
+    from tgl_account_group pa
+    left join tgl_period_accounts a
+    on pa.uqaccountid = a.uqaccountid
+    and a.uqglobalperiodid = '00000000-0000-0000-0000-000000000000'
+    left join tgl_accounts ta on pa.tenant_id=ta.tenant_id
+    AND ta.VARACCOUNTCODE = pa.vargroupcode
+    <where>
+      1=1
+
+      <include refid="Common.whereParams" />
+     </where>
+    group by pa.vargroupcode order by pa.vargroupcode
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listPage1" resultType="com.geeke.vouchermanager.entity.TglPeriodAccounts">
+    select
+    ANY_VALUE(a.UQCOMPANYID) AS "uqcompanyid",
+    ANY_VALUE(a.UQGLOBALPERIODID) AS "uqglobalperiodid",
+    ANY_VALUE(IFNULL(ta.UQACCOUNTID,'')) AS "uqaccountid.UQACCOUNTID",
+    ANY_VALUE(IFNULL(ta.UQACCOUNTSETID,'')) AS "uqaccountid.UQACCOUNTSETID",
+    ANY_VALUE(IFNULL(ta.VARACCOUNTCODE,'')) AS "uqaccountid.VARACCOUNTCODE",
+    ANY_VALUE(IFNULL(ta.UQTYPEID,'')) AS "uqaccountid.UQTYPEID",
+    ANY_VALUE(IFNULL(ta.INTPROPERTY,'')) AS "uqaccountid.INTPROPERTY",
+    ANY_VALUE(IFNULL(ta.INTISLASTLEVEL,'')) AS "uqaccountid.INTISLASTLEVEL",
+    ANY_VALUE(IFNULL(ta.INTLEVEL,'')) AS "uqaccountid.INTLEVEL",
+    ANY_VALUE(IFNULL(ta.INTFLAG,'')) AS "uqaccountid.INTFLAG",
+    ANY_VALUE(IFNULL(ta.VARACCOUNTNAME,'')) AS "uqaccountid.VARACCOUNTNAME",
+    ANY_VALUE(IFNULL(ta.VARACCOUNTFULLCODE,'')) AS "uqaccountid.VARACCOUNTFULLCODE",
+    sum( a.MNYDEBITPERIODALL) AS "mnydebitperiodall",
+    sum(a.MNYCREDITPERIODALL) AS "mnycreditperiodall",
+    ANY_VALUE(a.MNYFDEBITPERIODALL) AS "mnyfdebitperiodall",
+    ANY_VALUE(a.MNYFCREDITPERIODALL) AS "mnyfcreditperiodall",
+    sum(a.MNYDEBITPERIOD) AS "mnydebitperiod",
+    sum(a.MNYCREDITPERIOD) AS "mnycreditperiod",
+    ANY_VALUE(a.MNYFDEBITPERIOD) AS "mnyfdebitperiod",
+    ANY_VALUE(a.MNYFCREDITPERIOD) AS "mnyfcreditperiod",
+    ANY_VALUE(a.MNYDEBITCASHED) AS "mnydebitcashed",
+    ANY_VALUE(a.MNYCREDITCASHED) AS "mnycreditcashed",
+    ANY_VALUE(a.MNYFDEBITCASHED) AS "mnyfdebitcashed",
+    ANY_VALUE(a.MNYFCREDITCASHED) AS "mnyfcreditcashed"
+    from tgl_account_group pa
+    left join tgl_period_accounts a
+    on pa.uqaccountid = a.uqaccountid
+    and a.uqglobalperiodid = '00000000-0000-0000-0000-000000000000'
+    left join tgl_accounts ta on pa.tenant_id=ta.tenant_id
+    AND ta.VARACCOUNTCODE = pa.vargroupcode
+    <where>
+      1=1
+      and pa.tenant_id =#{tenantId}
+      <if test="accauntid != null">
+        AND (
+        ta.VARACCOUNTCODE like concat('%',#{accauntid},'%')
+        OR ta.VARACCOUNTNAME like concat('%',#{accauntid},'%')
+        )
+      </if>
+     </where>
+    group by pa.vargroupcode order by pa.vargroupcode
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll1" resultType="com.geeke.vouchermanager.entity.TglPeriodAccounts">
+    select
+    ANY_VALUE(a.UQCOMPANYID) AS "uqcompanyid",
+    ANY_VALUE(a.UQGLOBALPERIODID) AS "uqglobalperiodid",
+    ANY_VALUE(IFNULL(ta.UQACCOUNTID,'')) AS "uqaccountid.UQACCOUNTID",
+    ANY_VALUE(IFNULL(ta.UQACCOUNTSETID,'')) AS "uqaccountid.UQACCOUNTSETID",
+    ANY_VALUE(IFNULL(ta.VARACCOUNTCODE,'')) AS "uqaccountid.VARACCOUNTCODE",
+    ANY_VALUE(IFNULL(ta.UQTYPEID,'')) AS "uqaccountid.UQTYPEID",
+    ANY_VALUE(IFNULL(ta.INTPROPERTY,'')) AS "uqaccountid.INTPROPERTY",
+    ANY_VALUE(IFNULL(ta.INTISLASTLEVEL,'')) AS "uqaccountid.INTISLASTLEVEL",
+    ANY_VALUE(IFNULL(ta.INTLEVEL,'')) AS "uqaccountid.INTLEVEL",
+    ANY_VALUE(IFNULL(ta.INTFLAG,'')) AS "uqaccountid.INTFLAG",
+    ANY_VALUE(IFNULL(ta.VARACCOUNTNAME,'')) AS "uqaccountid.VARACCOUNTNAME",
+    ANY_VALUE(IFNULL(ta.VARACCOUNTFULLCODE,'')) AS "uqaccountid.VARACCOUNTFULLCODE",
+    sum( a.MNYDEBITPERIODALL) AS "mnydebitperiodall",
+    sum(a.MNYCREDITPERIODALL) AS "mnycreditperiodall",
+    ANY_VALUE(a.MNYFDEBITPERIODALL) AS "mnyfdebitperiodall",
+    ANY_VALUE(a.MNYFCREDITPERIODALL) AS "mnyfcreditperiodall",
+    sum(a.MNYDEBITPERIOD) AS "mnydebitperiod",
+    sum(a.MNYCREDITPERIOD) AS "mnycreditperiod",
+    ANY_VALUE(a.MNYFDEBITPERIOD) AS "mnyfdebitperiod",
+    ANY_VALUE(a.MNYFCREDITPERIOD) AS "mnyfcreditperiod",
+    ANY_VALUE(a.MNYDEBITCASHED) AS "mnydebitcashed",
+    ANY_VALUE(a.MNYCREDITCASHED) AS "mnycreditcashed",
+    ANY_VALUE(a.MNYFDEBITCASHED) AS "mnyfdebitcashed",
+    ANY_VALUE(a.MNYFCREDITCASHED) AS "mnyfcreditcashed"
+    from tgl_account_group pa
+    left join tgl_period_accounts a
+    on pa.uqaccountid = a.uqaccountid
+    and a.uqglobalperiodid = '00000000-0000-0000-0000-000000000000'
+    left join tgl_accounts ta on pa.tenant_id=ta.tenant_id
+    AND ta.VARACCOUNTCODE = pa.vargroupcode
+    where
+      1=1
+      and pa.tenant_id =#{tenantId}
+    group by pa.vargroupcode order by pa.vargroupcode
+  </select>
+  <select id="listAll" resultType="com.geeke.vouchermanager.entity.TglPeriodAccounts">
+    SELECT
+    <include refid="tglPeriodAccountsColumns" />
+    FROM tgl_period_accounts a
+    <include refid="tglPeriodAccountsJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tgl_period_accounts(
+    <trim suffixOverrides=",">
+      id,
+      UQCOMPANYID,
+      UQGLOBALPERIODID,
+      UQACCOUNTID,
+      MNYDEBITPERIODALL,
+      MNYCREDITPERIODALL,
+      MNYFDEBITPERIODALL,
+      MNYFCREDITPERIODALL,
+      MNYDEBITPERIOD,
+      MNYCREDITPERIOD,
+      MNYFDEBITPERIOD,
+      MNYFCREDITPERIOD,
+      MNYDEBITCASHED,
+      MNYCREDITCASHED,
+      MNYFDEBITCASHED,
+      MNYFCREDITCASHED,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ id },
+      #{ uqcompanyid },
+      #{ uqglobalperiodid },
+      #{ uqaccountid.uqaccountid },
+      #{ mnydebitperiodall },
+      #{ mnycreditperiodall },
+      #{ mnyfdebitperiodall },
+      #{ mnyfcreditperiodall },
+      #{ mnydebitperiod },
+      #{ mnycreditperiod },
+      #{ mnyfdebitperiod },
+      #{ mnyfcreditperiod },
+      #{ mnydebitcashed },
+      #{ mnycreditcashed },
+      #{ mnyfdebitcashed },
+      #{ mnyfcreditcashed },
+    </trim>
+    )
+  </insert>
+
+  <update id="update">
+    UPDATE tgl_period_accounts SET
+    <trim suffixOverrides=",">
+      MNYDEBITPERIODALL = #{ mnydebitperiodall },
+      MNYCREDITPERIODALL = #{ mnycreditperiodall },
+      MNYFDEBITPERIODALL = #{ mnyfdebitperiodall },
+      MNYFCREDITPERIODALL = #{ mnyfcreditperiodall },
+      MNYDEBITPERIOD = #{ mnydebitperiod },
+      MNYCREDITPERIOD = #{ mnycreditperiod },
+      MNYFDEBITPERIOD = #{ mnyfdebitperiod },
+      MNYFCREDITPERIOD = #{ mnyfcreditperiod },
+      MNYDEBITCASHED = #{ mnydebitcashed },
+      MNYCREDITCASHED = #{ mnycreditcashed },
+      MNYFDEBITCASHED = #{ mnyfdebitcashed },
+      MNYFCREDITCASHED = #{ mnyfcreditcashed },
+    </trim>
+    WHERE UQCOMPANYID = #{ uqcompanyid }
+    and  UQGLOBALPERIODID = #{ uqglobalperiodid }
+    and UQACCOUNTID = #{ uqaccountid.uqaccountid }
+  </update>
+  <update id="newupdate">
+    UPDATE tgl_period_accounts SET
+    <trim suffixOverrides=",">
+      MNYDEBITPERIODALL = MNYDEBITPERIODALL+ #{ mnydebitperiodall },
+      MNYCREDITPERIODALL = MNYCREDITPERIODALL+ #{ mnycreditperiodall },
+      MNYFDEBITPERIODALL = MNYFDEBITPERIODALL+ #{ mnyfdebitperiodall },
+      MNYFCREDITPERIODALL = MNYFCREDITPERIODALL+ #{ mnyfcreditperiodall },
+      MNYDEBITPERIOD = MNYDEBITPERIOD + #{ mnydebitperiod },
+      MNYCREDITPERIOD = MNYCREDITPERIOD + #{ mnycreditperiod },
+      MNYFDEBITPERIOD = MNYFDEBITPERIOD + #{ mnyfdebitperiod },
+      MNYFCREDITPERIOD = MNYFCREDITPERIOD + #{ mnyfcreditperiod },
+      MNYDEBITCASHED = MNYDEBITCASHED + #{ mnydebitcashed },
+      MNYCREDITCASHED = MNYCREDITCASHED+ #{ mnycreditcashed },
+      MNYFDEBITCASHED = MNYFDEBITCASHED + #{ mnyfdebitcashed },
+      MNYFCREDITCASHED = MNYFCREDITCASHED + #{ mnyfcreditcashed },
+    </trim>
+    WHERE UQCOMPANYID = #{ uqcompanyid }
+    and  UQGLOBALPERIODID = #{ uqglobalperiodid }
+    and UQACCOUNTID = #{ uqaccountid.uqaccountid }
+  </update>
+  <update id="newSubtractUpdate">
+    UPDATE tgl_period_accounts SET
+    <trim suffixOverrides=",">
+      MNYDEBITPERIODALL = MNYDEBITPERIODALL- #{ mnydebitperiodall },
+      MNYCREDITPERIODALL = MNYCREDITPERIODALL- #{ mnycreditperiodall },
+      MNYFDEBITPERIODALL = MNYFDEBITPERIODALL- #{ mnyfdebitperiodall },
+      MNYFCREDITPERIODALL = MNYFCREDITPERIODALL- #{ mnyfcreditperiodall },
+      MNYDEBITPERIOD = MNYDEBITPERIOD - #{ mnydebitperiod },
+      MNYCREDITPERIOD = MNYCREDITPERIOD - #{ mnycreditperiod },
+      MNYFDEBITPERIOD = MNYFDEBITPERIOD - #{ mnyfdebitperiod },
+      MNYFCREDITPERIOD = MNYFCREDITPERIOD - #{ mnyfcreditperiod },
+      MNYDEBITCASHED = MNYDEBITCASHED - #{ mnydebitcashed },
+      MNYCREDITCASHED = MNYCREDITCASHED- #{ mnycreditcashed },
+      MNYFDEBITCASHED = MNYFDEBITCASHED - #{ mnyfdebitcashed },
+      MNYFCREDITCASHED = MNYFCREDITCASHED - #{ mnyfcreditcashed },
+    </trim>
+    WHERE UQCOMPANYID = #{ uqcompanyid }
+    and  UQGLOBALPERIODID = #{ uqglobalperiodid }
+    and UQACCOUNTID = #{ uqaccountid.uqaccountid }
+  </update>
+  <update id="delete">
+    UPDATE tgl_period_accounts SET
+    <trim suffixOverrides=",">
+      MNYDEBITPERIODALL = 0,
+      MNYCREDITPERIODALL =0,
+      MNYDEBITPERIOD = 0,
+      MNYCREDITPERIOD = 0 ,
+    </trim>
+    WHERE UQCOMPANYID = #{ uqcompanyid }
+    and  UQGLOBALPERIODID = #{ uqglobalperiodid }
+    and UQACCOUNTID = #{ uqaccountid.uqaccountid }
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tgl_period_accounts(
+    <trim suffixOverrides=",">
+      id,
+      UQCOMPANYID,
+      UQGLOBALPERIODID,
+      UQACCOUNTID,
+      MNYDEBITPERIODALL,
+      MNYCREDITPERIODALL,
+      MNYFDEBITPERIODALL,
+      MNYFCREDITPERIODALL,
+      MNYDEBITPERIOD,
+      MNYCREDITPERIOD,
+      MNYFDEBITPERIOD,
+      MNYFCREDITPERIOD,
+      MNYDEBITCASHED,
+      MNYCREDITCASHED,
+      MNYFDEBITCASHED,
+      MNYFCREDITCASHED,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.id},
+        #{entity.uqcompanyid},
+        #{entity.uqglobalperiodid},
+        #{entity.uqaccountid.UQACCOUNTID},
+        #{entity.mnydebitperiodall},
+        #{entity.mnycreditperiodall},
+        #{entity.mnyfdebitperiodall},
+        #{entity.mnyfcreditperiodall},
+        #{entity.mnydebitperiod},
+        #{entity.mnycreditperiod},
+        #{entity.mnyfdebitperiod},
+        #{entity.mnyfcreditperiod},
+        #{entity.mnydebitcashed},
+        #{entity.mnycreditcashed},
+        #{entity.mnyfdebitcashed},
+        #{entity.mnyfcreditcashed},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tgl_period_accounts
+    <set>
+      <trim prefix="UQCOMPANYID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqcompanyid}
+        </foreach>
+      </trim>
+      <trim prefix="UQGLOBALPERIODID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqglobalperiodid}
+        </foreach>
+      </trim>
+      <trim prefix="UQACCOUNTID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqaccountid.UQACCOUNTID}
+        </foreach>
+      </trim>
+      <trim prefix="MNYDEBITPERIODALL=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnydebitperiodall}
+        </foreach>
+      </trim>
+      <trim prefix="MNYCREDITPERIODALL=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnycreditperiodall}
+        </foreach>
+      </trim>
+      <trim prefix="MNYFDEBITPERIODALL=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnyfdebitperiodall}
+        </foreach>
+      </trim>
+      <trim prefix="MNYFCREDITPERIODALL=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnyfcreditperiodall}
+        </foreach>
+      </trim>
+      <trim prefix="MNYDEBITPERIOD=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnydebitperiod}
+        </foreach>
+      </trim>
+      <trim prefix="MNYCREDITPERIOD=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnycreditperiod}
+        </foreach>
+      </trim>
+      <trim prefix="MNYFDEBITPERIOD=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnyfdebitperiod}
+        </foreach>
+      </trim>
+      <trim prefix="MNYFCREDITPERIOD=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnyfcreditperiod}
+        </foreach>
+      </trim>
+      <trim prefix="MNYDEBITCASHED=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnydebitcashed}
+        </foreach>
+      </trim>
+      <trim prefix="MNYCREDITCASHED=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnycreditcashed}
+        </foreach>
+      </trim>
+      <trim prefix="MNYFDEBITCASHED=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnyfdebitcashed}
+        </foreach>
+      </trim>
+      <trim prefix="MNYFCREDITCASHED=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnyfcreditcashed}
+        </foreach>
+      </trim>
+    </set>
+    WHERE id IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.id}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    DELETE FROM tgl_period_accounts
+    WHERE id IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.id}
+    </foreach>
+  </update>
+</mapper>

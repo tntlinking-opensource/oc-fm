@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.vouchermanager.dao.HandlerGroupTenantTreeDao">
+  <sql id="tglAccountsColumns">
+    <trim suffixOverrides=",">
+      a.UQACCOUNTID AS "id",
+      a.UQACCOUNTID AS "uqaccountid",
+      a.UQACCOUNTSETID AS "uqaccountsetid",
+      a.VARACCOUNTCODE AS "varaccountcode",
+      CONCAT("[",a.VARACCOUNTCODE,"]",a.VARACCOUNTNAME)AS "name",
+      a.VARACCOUNTFULLCODE AS "varaccountfullcode",
+      a.VARACCOUNTFULLCODE AS "ids",
+      a.VARACCOUNTNAME AS "varaccountname",
+      a.INTPROPERTY AS "intproperty",
+      a.UQTYPEID AS "uqtypeid",
+      a.UQFOREIGNCURRID AS "uqforeigncurrid",
+      a.VARMEASURE AS "varmeasure",
+      a.INTISLEDGE AS "intisledge",
+      a.INTISCROSSLEDGE AS "intiscrossledge",
+      a.UQPREACCOUNTID AS "uqpreaccountid",
+      a.UQPARENTID AS "parent.id",
+      IFNULL(parent.UQTYPEID,'') AS "parent.UQTYPEID",
+      IFNULL(parent.UQPARENTID,'') AS "parent.UQPARENTID",
+      IFNULL(parent.UQFOREIGNCURRID,'') AS "parent.UQFOREIGNCURRID",
+      IFNULL(parent.INTISLASTLEVEL,'') AS "parent.INTISLASTLEVEL",
+      IFNULL(parent.INTISFLOW,'') AS "parent.INTISFLOW",
+      IFNULL(parent.group_id,'') AS "parent.tenantId",
+      IFNULL(parent.INTLEVEL,'') AS "parent.INTLEVEL",
+      IFNULL(parent.VARMEASURE,'') AS "parent.VARMEASURE",
+      IFNULL(parent.UQACCOUNTSETID,'') AS "parent.UQACCOUNTSETID",
+      IFNULL(parent.VARACCOUNTCODE,'') AS "parent.VARACCOUNTCODE",
+      IFNULL(parent.VARACCOUNTFULLCODE,'') AS "parent.VARACCOUNTFULLCODE",
+      IFNULL(parent.VARACCOUNTFULLCODE,'') AS "parent.ids",
+      IFNULL(parent.INTISCROSSLEDGE,'') AS "parent.INTISCROSSLEDGE",
+      IFNULL(parent.INTISLEDGE,'') AS "parent.INTISLEDGE",
+      IFNULL(parent.INTFLAG,'') AS "parent.INTFLAG",
+      IFNULL(parent.ISBALANCE,'') AS "parent.ISBALANCE",
+      IFNULL(parent.UQPREACCOUNTID,'') AS "parent.UQPREACCOUNTID",
+      IFNULL(parent.VARACCOUNTNAME,'') AS "parent.VARACCOUNTNAME",
+      IFNULL(parent.VARACCOUNTFULLNAME,'') AS "parent.VARACCOUNTFULLNAME",
+      IFNULL(parent.INTPROPERTY,'') AS "parent.INTPROPERTY",
+      a.INTISLASTLEVEL AS "intislastlevel",
+      a.INTLEVEL AS "intlevel",
+      a.INTFLAG AS "intflag",
+      a.VARACCOUNTFULLNAME AS "varaccountfullname",
+      a.INTISFLOW AS "intisflow",
+      a.group_id AS "group_id",
+      a.ISBALANCE AS "isbalance",
+    </trim>
+  </sql>
+  <sql id="tglAccountsJoins">
+    LEFT JOIN tgl_group_accounts parent ON parent.UQACCOUNTID = a.UQPARENTID
+  </sql>
+  <select id="listAll" resultType="com.geeke.vouchermanager.entity.GroupAccountsEntityTree">
+    SELECT
+    <include refid="tglAccountsColumns" />
+    FROM tgl_group_accounts a
+    <include refid="tglAccountsJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    ORDER BY a.varaccountfullcode ASC
+  </select>
+  <select id="listPage" resultType="com.geeke.vouchermanager.entity.GroupAccountsEntityTree">
+    SELECT
+    <include refid="tglAccountsColumns" />
+    FROM tgl_group_accounts a
+    <include refid="tglAccountsJoins" />
+    <where>
+      1=1
+      AND a.uqaccountid &lt;&gt; "00000000-0000-0000-0000-000000000000"
+      <include refid="Common.whereParams" />
+    </where>
+    ORDER BY a.varaccountfullcode ASC
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tgl_group_accounts a
+    <include refid="tglAccountsJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+</mapper>

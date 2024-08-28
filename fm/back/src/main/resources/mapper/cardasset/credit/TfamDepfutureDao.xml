@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.cardasset.credit.dao.TfamDepfutureDao">
+  <sql id="tfamDepfutureColumns">
+    <trim suffixOverrides=",">
+      a.id AS "id",
+      a.asset_id AS "assetId",
+      a.year AS "year",
+      a.month AS "month",
+      a.usingstatus AS "usingstatus",
+      a.value AS "value",
+      a.accudep AS "accudep",
+      a.netvalue AS "netvalue",
+      a.currdep AS "currdep",
+      a.naturemonth AS "naturemonth",
+      a.servicemonth AS "servicemonth",
+      a.company_id AS "companyId",
+      a.remarks AS "remarks",
+      a.create_by AS "createBy",
+      a.create_date AS "createDate",
+      a.update_by AS "updateBy",
+      a.update_date AS "updateDate",
+      a.del_flag AS "delFlag",
+    </trim>
+  </sql>
+  <sql id="tfamDepfutureJoins">
+  </sql>
+  <select id="get" resultType="com.geeke.cardasset.credit.entity.TfamDepfuture">
+    SELECT
+    <include refid="tfamDepfutureColumns" />
+    FROM tfam_depfuture a
+    <include refid="tfamDepfutureJoins" />
+    WHERE a.id = #{id}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tfam_depfuture a
+    <include refid="tfamDepfutureJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="listPage" resultType="com.geeke.cardasset.credit.entity.TfamDepfuture">
+    SELECT
+    <include refid="tfamDepfutureColumns" />
+    FROM tfam_depfuture a
+    <include refid="tfamDepfutureJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultType="com.geeke.cardasset.credit.entity.TfamDepfuture">
+    SELECT
+    <include refid="tfamDepfutureColumns" />
+    FROM tfam_depfuture a
+    <include refid="tfamDepfutureJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tfam_depfuture(
+    <trim suffixOverrides=",">
+      id,
+      asset_id,
+      year,
+      month,
+      usingstatus,
+      value,
+      accudep,
+      netvalue,
+      currdep,
+      naturemonth,
+      servicemonth,
+      company_id,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ id },
+      #{ assetId },
+      #{ year },
+      #{ month },
+      #{ usingstatus },
+      #{ value },
+      #{ accudep },
+      #{ netvalue },
+      #{ currdep },
+      #{ naturemonth },
+      #{ servicemonth },
+      #{ companyId },
+      #{ remarks },
+      #{ createBy },
+      #{ createDate },
+      #{ updateBy },
+      #{ updateDate },
+      #{ delFlag },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tfam_depfuture SET
+    <trim suffixOverrides=",">
+      asset_id = #{ assetId },
+      year = #{ year },
+      month = #{ month },
+      usingstatus = #{ usingstatus },
+      value = #{ value },
+      accudep = #{ accudep },
+      netvalue = #{ netvalue },
+      currdep = #{ currdep },
+      naturemonth = #{ naturemonth },
+      servicemonth = #{ servicemonth },
+      company_id = #{ companyId },
+      remarks = #{ remarks },
+      update_by = #{ updateBy },
+      update_date = #{ updateDate },
+    </trim>
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <update id="delete">
+    UPDATE tfam_depfuture SET
+    update_by = #{updateBy},
+    update_date = #{updateDate},
+    del_flag = #{DEL_FLAG_DELETE}
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tfam_depfuture(
+    <trim suffixOverrides=",">
+      id,
+      asset_id,
+      year,
+      month,
+      usingstatus,
+      value,
+      accudep,
+      netvalue,
+      currdep,
+      naturemonth,
+      servicemonth,
+      company_id,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.id},
+        #{entity.assetId},
+        #{entity.year},
+        #{entity.month},
+        #{entity.usingstatus},
+        #{entity.value},
+        #{entity.accudep},
+        #{entity.netvalue},
+        #{entity.currdep},
+        #{entity.naturemonth},
+        #{entity.servicemonth},
+        #{entity.companyId},
+        #{entity.remarks},
+        #{entity.createBy},
+        #{entity.createDate},
+        #{entity.updateBy},
+        #{entity.updateDate},
+        #{entity.delFlag},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tfam_depfuture
+    <set>
+      <trim prefix="asset_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.assetId}
+        </foreach>
+      </trim>
+      <trim prefix="year=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.year}
+        </foreach>
+      </trim>
+      <trim prefix="month=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.month}
+        </foreach>
+      </trim>
+      <trim prefix="usingstatus=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.usingstatus}
+        </foreach>
+      </trim>
+      <trim prefix="value=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.value}
+        </foreach>
+      </trim>
+      <trim prefix="accudep=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.accudep}
+        </foreach>
+      </trim>
+      <trim prefix="netvalue=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.netvalue}
+        </foreach>
+      </trim>
+      <trim prefix="currdep=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.currdep}
+        </foreach>
+      </trim>
+      <trim prefix="naturemonth=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.naturemonth}
+        </foreach>
+      </trim>
+      <trim prefix="servicemonth=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.servicemonth}
+        </foreach>
+      </trim>
+      <trim prefix="company_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.companyId}
+        </foreach>
+      </trim>
+      <trim prefix="remarks=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.remarks}
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    UPDATE tfam_depfuture
+    <set>
+      <trim prefix="del_flag=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then 1
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+</mapper>

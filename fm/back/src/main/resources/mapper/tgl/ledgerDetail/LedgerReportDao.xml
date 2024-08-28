@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.tgl.ledgerReport.dao.LedgerReportDao">
+  <select id="createLedgerDetail" statementType="CALLABLE" parameterType="map" resultType="map">
+    { CALL PROC_LEDGER_MXZ(
+        #{ map.uqcompanyid, mode=IN, jdbcType=VARCHAR },
+        #{ map.uqaccountsetid, mode=IN, jdbcType=VARCHAR },
+        #{ map.ledgerdeid, mode=IN, jdbcType=VARCHAR },
+        #{ map.ledgertype, mode=IN, jdbcType=VARCHAR },
+        #{ map.beginaccount, mode=IN, jdbcType=VARCHAR },
+        #{ map.endaccount, mode=IN, jdbcType=VARCHAR },
+        #{ map.accountlevel, mode=IN, jdbcType=INTEGER },
+        #{ map.beginyearmonth, mode=IN, jdbcType=INTEGER },
+        #{ map.endyearmonth, mode=IN, jdbcType=INTEGER },
+        #{ map.intstatus, mode=IN, jdbcType=VARCHAR },
+        #{ map.isallzerodata, mode=IN, jdbcType=VARCHAR },
+        #{ map.isallbalance, mode=IN, jdbcType=VARCHAR },
+        #{ map.tableName, mode=OUT, jdbcType=VARCHAR },
+        #{ map.params, mode=OUT, jdbcType=VARCHAR }
+    )}
+  </select>
+    <select id="createLedgerBook" statementType="CALLABLE" parameterType="map" resultType="map">
+        { CALL PROC_LEDGER_ACCREST(
+                #{ map.uqcompanyid, mode=IN, jdbcType=VARCHAR },
+                #{ map.uqaccountsetid, mode=IN, jdbcType=VARCHAR },
+                #{ map.ledgerde, mode=IN, jdbcType=VARCHAR },
+                #{ map.ledgerTypeID, mode=IN, jdbcType=VARCHAR },
+                #{ map.beginaccount, mode=IN, jdbcType=VARCHAR },
+                #{ map.endaccount, mode=IN, jdbcType=VARCHAR },
+                #{ map.accountlevel, mode=IN, jdbcType=INTEGER },
+                #{ map.beginyearmonth, mode=IN, jdbcType=INTEGER },
+                #{ map.endyearmonth, mode=IN, jdbcType=INTEGER },
+                #{ map.intstatus, mode=IN, jdbcType=VARCHAR },
+                #{ map.tableName, mode=OUT, jdbcType=VARCHAR },
+                #{ map.params, mode=OUT, jdbcType=VARCHAR }
+            )}
+    </select>
+    <select id="createLedgerGeneral" statementType="CALLABLE" parameterType="map" resultType="map">
+        { CALL PROC_ALZFL(
+                #{ map.uqcompanyid, mode=IN, jdbcType=VARCHAR },
+                #{ map.uqaccountsetid, mode=IN, jdbcType=VARCHAR },
+                #{ map.bulkid, mode=IN, jdbcType=VARCHAR },
+                #{ map.accountcode, mode=IN, jdbcType=VARCHAR },
+                #{ map.accountlevel, mode=IN, jdbcType=INTEGER },
+                #{ map.beginyearmonth, mode=IN, jdbcType=INTEGER },
+                #{ map.endyearmonth, mode=IN, jdbcType=INTEGER },
+                #{ map.intstatus, mode=IN, jdbcType=VARCHAR },
+                #{ map.tableName, mode=OUT, jdbcType=VARCHAR },
+                #{ map.params, mode=OUT, jdbcType=VARCHAR }
+            )}
+    </select>
+    <select id="createAccountDetail" statementType="CALLABLE" parameterType="map" resultType="map">
+        { CALL PROC_ALMXZ(
+                #{ map.uqcompanyid, mode=IN, jdbcType=VARCHAR },
+                #{ map.uqaccountsetid, mode=IN, jdbcType=VARCHAR },
+                #{ map.accountcode, mode=IN, jdbcType=VARCHAR },
+                #{ map.bulkid, mode=IN, jdbcType=VARCHAR },
+                #{ map.ledgerlevel, mode=IN, jdbcType=INTEGER },
+                #{ map.beginyearmonth, mode=IN, jdbcType=INTEGER },
+                #{ map.endyearmonth, mode=IN, jdbcType=INTEGER },
+                #{ map.intstatus, mode=IN, jdbcType=VARCHAR },
+                #{ map.isallzerodata, mode=IN, jdbcType=VARCHAR },
+                #{ map.isallbalance, mode=IN, jdbcType=VARCHAR },
+                #{ map.tableName, mode=OUT, jdbcType=VARCHAR },
+                #{ map.params, mode=OUT, jdbcType=VARCHAR }
+            )}
+    </select>
+    <select id="createAccountBook" statementType="CALLABLE" parameterType="map" resultType="map">
+        { CALL PROC_KMFH_BALANCE(
+                #{ map.uqcompanyid, mode=IN, jdbcType=VARCHAR },
+                #{ map.uqaccountsetid, mode=IN, jdbcType=VARCHAR },
+                #{ map.accountcode, mode=IN, jdbcType=VARCHAR },
+                #{ map.bulkid, mode=IN, jdbcType=VARCHAR },
+                #{ map.beginyearmonth, mode=IN, jdbcType=INTEGER },
+                #{ map.endyearmonth, mode=IN, jdbcType=INTEGER },
+                #{ map.intstatus, mode=IN, jdbcType=VARCHAR },
+                #{ map.tableName, mode=OUT, jdbcType=VARCHAR },
+                #{ map.params, mode=OUT, jdbcType=VARCHAR }
+            )}
+    </select>
+    <select id="getLedgerDetailData" resultType="map">
+        select td.ROW_NUM,td.VARSOURCENAME UQNUMBERING ,td.INTCOMPANYSEQ  INTCOMPANYSEQ,td.VARNUMBERNAME INTVOUCHERNUM,
+               DATE_FORMAT(td.DTACCOUNTDATE,'%Y-%m-%d') as DTFILLER,
+               td.VARABSTRACT VARABSTRACT,ta.UQPREACCOUNTID as accountsname, td.UQVOUCHERID, cast(td.MNYDEBIT as DECIMAL(18,2)) as MNYDEBIT,
+               cast(td.MNYCREDIT as DECIMAL(18,2)) as MNYCREDIT ,td.VARFLAG INTDCFLAG,
+               cast(td.MNYAMOUNT as DECIMAL(18,2))as BALANCE
+        from ${tableName} td left join tgl_accounts ta on ta.uqaccountid=td.uqaccountid
+    </select>
+    <select id="getLedgerBookData" resultType="map">
+        select ( @i := @i + 1 ) AS ROW_NUM, opt.*
+        from
+             (
+                 SELECT tmp.VARACCOUNTCODE,ta.UQPREACCOUNTID as VARACCOUNTNAME,tmp.BEGINDEBIT,
+                        tmp.BEGINCREDIT,tmp.PERIODDEBIT,tmp.PERIODCREDIT,tmp.ENDDEBITREST,tmp.ENDCREDITREST
+                 FROM ${tableName} tmp
+                 LEFT JOIN tgl_accounts ta ON ta.VARACCOUNTCODE = tmp.VARACCOUNTCODE
+                 where 1=1 and ta.tenant_id=#{companyId}
+                    <if test="isseveral != null and isseveral != '' and isseveral == '1'.toString()">
+                        and (tmp.BEGINDEBIT != 0 or tmp.BEGINCREDIT != 0 or tmp.PERIODDEBIT != 0 or tmp.PERIODCREDIT != 0 or tmp.ENDDEBITREST != 0 or tmp.ENDCREDITREST != 0)
+                    </if>
+                 ORDER BY VARACCOUNTCODE
+             ) opt, ( SELECT @i := 0 ) AS itable
+    </select>
+    <select id="getLedgerGeneralData" resultType="map">
+        select ( @i := @i + 1 ) AS ROW_NUM,
+               opt.*
+        from
+            (
+                select ta.UQPREACCOUNTID,tb.DTACCOUNTDATE DTFILLER,
+                       cast(tb.MNYDEBIT as DECIMAL(18,2)) as MNYDEBIT,
+                       cast(tb.MNYCREDIT as DECIMAL(18,2)) as MNYCREDIT,
+                       tb.VARFLAG INTDCFLAG,
+                       cast(tb.MNYAMOUNT as DECIMAL(18,2)) as BALANCE
+                from ${tableName} tb
+                left join tgl_accounts ta on ta.uqaccountid=tb.uqaccountid
+            ) opt, ( SELECT @i := 0 ) AS itable
+    </select>
+    <select id="getAccountDetailData" resultType="map">
+        Select td.VARSOURCENAME UQNUMBERING ,td.INTCOMPANYSEQ  INTCOMPANYSEQ,td.VARNUMBERNAME INTVOUCHERNUM,
+               DATE_FORMAT(td.DTACCOUNTDATE,'%Y-%m-%d') as DTFILLER,
+               td.VARABSTRACT VARABSTRACT,td.Auxiliary, ta.UQPREACCOUNTID, UQVOUCHERID, ta.VARACCOUNTNAME,
+               cast(td.MNYDEBIT as DECIMAL(18,2)) as MNYDEBIT,
+               cast(td.MNYCREDIT as DECIMAL(18,2)) as MNYCREDIT ,td.VARFLAG INTDCFLAG,
+               cast(td.MNYAMOUNT as DECIMAL(18,2)) as BALANCE
+        from ${tableName} td
+                 left join tgl_accounts ta on ta.uqaccountid=td.uqaccountid
+    </select>
+    <select id="getAccountBookData" resultType="map">
+        select tmp.LEDGERCODE,tmp.LEDGERNAME,tmp.BEGINDEBIT,
+               tmp.BEGINCREDIT, ta.UQPREACCOUNTID, tmp.PERIODDEBIT,tmp.PERIODCREDIT,
+               tmp.ENDDEBITREST,tmp.ENDCREDITREST, ta.VARACCOUNTNAME
+        FROM ${tableName} tmp
+        left join tgl_accounts ta on ta.uqaccountid=tmp.uqaccountid
+        where 1=1
+        <if test="isseveral != null and isseveral != '' and isseveral == '1'.toString()">
+            and (tmp.begindebit != 0 or tmp.begincredit != 0 or tmp.perioddebit != 0 or tmp.periodcredit != 0 or tmp.enddebitrest != 0 or tmp.endcreditrest != 0)
+        </if>
+    </select>
+</mapper>

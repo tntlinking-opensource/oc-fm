@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.assetting.dao.TfamAssetManagerDao">
+  <sql id="tfamAssetManagerColumns">
+    <trim suffixOverrides=",">
+      a.id AS "id",
+      a.userid AS "userid.id",
+      IFNULL(userid.name,'') AS "userid.name",
+      IFNULL(department.id,'') AS "department.id",
+      IFNULL(department.code,'') AS "department.code",
+      IFNULL(department.name,'') AS "department.name",
+      a.create_time AS "createTime",
+      a.company_id AS "companyId",
+      a.remarks AS "remarks",
+      a.create_by AS "createBy",
+      a.create_date AS "createDate",
+      a.update_by AS "updateBy",
+      a.update_date AS "updateDate",
+      a.del_flag AS "delFlag",
+    </trim>
+  </sql>
+  <sql id="tfamAssetManagerJoins">
+    LEFT JOIN sys_user userid ON userid.id = a.userid
+    LEFT JOIN org_department department ON userid.department_id=department.id
+  </sql>
+  <delete id="deleteAssetManagerMenu">
+    delete from tfam_asset_manager_power where userid = #{userId}
+  </delete>
+  <resultMap id="resultTfamAssetManagerMap" type="com.geeke.assetting.entity.TfamAssetManager">
+    <result property="id" column="id" />
+    <result property="createTime" column="createTime" />
+    <result property="companyId" column="companyId" />
+    <result property="remarks" column="remarks" />
+    <result property="createBy" column="createBy" />
+    <result property="createDate" column="createDate" />
+    <result property="updateBy" column="updateBy" />
+    <result property="updateDate" column="updateDate" />
+    <result property="delFlag" column="delFlag" />
+    <association property="userid" javaType="com.geeke.assetting.entity.AssettingSysUser">
+      <result property="id" column="userid.id" />
+      <result property="name" column="userid.name" />
+    </association>
+    <association property="userid.department" javaType="com.geeke.assetting.entity.AssettingOrgDepartment">
+      <result property="id" column="department.id" />
+      <result property="code" column="department.code" />
+      <result property="name" column="department.name" />
+    </association>
+  </resultMap>
+  <select id="get" resultMap="resultTfamAssetManagerMap">
+    SELECT
+    <include refid="tfamAssetManagerColumns" />
+    FROM tfam_asset_manager a
+    <include refid="tfamAssetManagerJoins" />
+    WHERE a.id = #{id}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tfam_asset_manager a
+    <include refid="tfamAssetManagerJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="listPage" resultMap="resultTfamAssetManagerMap">
+    SELECT
+    <include refid="tfamAssetManagerColumns" />
+    FROM tfam_asset_manager a
+    <include refid="tfamAssetManagerJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultMap="resultTfamAssetManagerMap">
+    SELECT
+    <include refid="tfamAssetManagerColumns" />
+    FROM tfam_asset_manager a
+    <include refid="tfamAssetManagerJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+  </select>
+  <select id="listManagerMenu" resultType="java.util.Map">
+    select switch_name,open
+    from tfam_asset_manager_power t
+    where t.userid = #{userId} and company_id = #{companyId}
+  </select>
+  <insert id="insert">
+    INSERT INTO tfam_asset_manager(
+    <trim suffixOverrides=",">
+      id,
+      userid,
+      create_time,
+      company_id,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ id },
+      #{ userid.id },
+      #{ createTime },
+      #{ companyId },
+      #{ remarks },
+      #{ createBy },
+      #{ createDate },
+      #{ updateBy },
+      #{ updateDate },
+      #{ delFlag },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tfam_asset_manager SET
+    <trim suffixOverrides=",">
+      userid = #{ userid.id },
+      create_time = #{ createTime },
+      company_id = #{ companyId },
+      remarks = #{ remarks },
+      update_by = #{ updateBy },
+      update_date = #{ updateDate },
+    </trim>
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <update id="delete">
+    UPDATE tfam_asset_manager SET
+    update_by = #{updateBy},
+    update_date = #{updateDate},
+    del_flag = #{DEL_FLAG_DELETE}
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tfam_asset_manager(
+    <trim suffixOverrides=",">
+      id,
+      userid,
+      create_time,
+      company_id,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.id},
+        #{entity.userid.id},
+        #{entity.createTime},
+        #{entity.companyId},
+        #{entity.remarks},
+        #{entity.createBy},
+        #{entity.createDate},
+        #{entity.updateBy},
+        #{entity.updateDate},
+        #{entity.delFlag},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tfam_asset_manager
+    <set>
+      <trim prefix="userid=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.userid.id}
+        </foreach>
+      </trim>
+      <trim prefix="create_time=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.createTime}
+        </foreach>
+      </trim>
+      <trim prefix="company_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.companyId}
+        </foreach>
+      </trim>
+      <trim prefix="remarks=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.remarks}
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    UPDATE tfam_asset_manager
+    <set>
+      <trim prefix="del_flag=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then 1
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+</mapper>

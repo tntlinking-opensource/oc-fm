@@ -1,39 +1,55 @@
-# 开源企业代码仓库-财务
+# 项目介绍
 
-#### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+新致新源是新致软件旗下开源平台品牌，秉持“开源、共享、众包”的理念，致力于践行开源精神，打造应用管理软件开源生态。新致开源平台旨在激发新一代技术创新、构建可信的协作模式，加速行业的数字化进程。
 
-#### 软件架构
-软件架构说明
+作为中国应用管理软件开源的引领者，新致新源于2022年6月发布开源医疗软件平台OpenHIS.org.cn，于2023年6月发布开源企业软件平台OpenCOM.com.cn。您可以自行登录官网平台获取开源软件源代码、安装包和技术文档等。
 
+我们欢迎多元化合作方式，包括但不仅限于开源产品协作开发、信息化产品协作落地、行业活动合作举办、客户合作共享、客户产品需求协作支持等方式。欢迎联系我们咨询合作！
 
-#### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+本开源项目是OpenCOM发布的财务管理系统模块，模版包含：财务设置、凭证管理、会计报表、会计帐簿、往来管理、期末处理。
+如需要其他产品源码，可访问新致开源企业官网。
 
 
-#### 特技
+# 官网地址
+开源企业：http://opencom.com.cn/?site=gitee
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+# 产品体验
+地址：http://61.172.179.26:8099/fm/#/login   yd1  cDLG@336
+
+# 联系我们
+* 技术问题可扫码进群提问
+
+![img_10.png](readmeImg/img_10.png)
+* 产品和商务合作问题请加微沟通
+
+![img_9.png](readmeImg/img_9.png)
+
+* 请关注开源公众号以便获得最新咨询
+
+![img_11.png](readmeImg/img_11.png)
+
+
+# 源码结构
+![img_3.png](readmeImg/img_3.png)
+
+# 技术架构
+* 前端技术选型
+![img.png](readmeImg/img.png)
+
+* 后端技术选型
+![img_1.png](readmeImg/img_1.png)
+![img_2.png](readmeImg/img_2.png)
+# 启动部署
+请参考代码目录中名为【产品源代码运行部署指南v1.0】文档
+
+# 系统截图
+![img_4.png](readmeImg/img_4.png)
+![img_5.png](readmeImg/img_5.png)
+![img_6.png](readmeImg/img_6.png)
+![img_7.png](readmeImg/img_7.png)
+![img_8.png](readmeImg/img_8.png)
+
+
+
+
+

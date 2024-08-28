@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.vouchermanager.dao.TglLedgerDao">
+  <sql id="tglLedgerColumns">
+    <trim suffixOverrides=",">
+      a.UQLEDGEID AS "uqledgeid",
+      a.UQLEDGETYPEID AS "uqledgetypeid.uqledgetypeid",
+      IFNULL(uqledgetypeid.VARLEDGETYPECODE,'') AS "uqledgetypeid.varledgetypecode",
+      IFNULL(uqledgetypeid.VARLEDGETYPENAME,'') AS "uqledgetypeid.varledgetypename",
+      IFNULL(uqledgetypeid.UQPARENTID,'') AS "uqledgetypeid.uqparentid",
+      IFNULL(uqledgetypeid.INTISLASTLEVEL,'') AS "uqledgetypeid.intislastlevel",
+      IFNULL(uqledgetypeid.INTSTATUS,'') AS "uqledgetypeid.intstatus",
+      a.VARLEDGECODE AS "varledgecode",
+      a.VARLEDGENAME AS "varledgename",
+      a.VARLEDGEFULLCODE AS "varledgefullcode",
+      a.VARLEDGEFULLNAME AS "varledgefullname",
+      a.UQPARENTID AS "uqparentid",
+      a.INTLEVEL AS "intlevel",
+      a.INTISLASTLEVEL AS "intislastlevel",
+      a.INTSTATUS AS "intstatus",
+      a.tenant_id AS "tenantId",
+    </trim>
+  </sql>
+  <sql id="tglLedgerJoins">
+    LEFT JOIN tgl_ledgetype uqledgetypeid ON uqledgetypeid.UQLEDGETYPEID = a.UQLEDGETYPEID
+  </sql>
+  <resultMap id="resultTglLedgerMap" type="com.geeke.vouchermanager.entity.TglLedger">
+    <result property="uqledgeid" column="uqledgeid" />
+    <result property="varledgecode" column="varledgecode" />
+    <result property="varledgename" column="varledgename" />
+    <result property="varledgefullcode" column="varledgefullcode" />
+    <result property="varledgefullname" column="varledgefullname" />
+    <result property="uqparentid" column="uqparentid" />
+    <result property="intlevel" column="intlevel" />
+    <result property="intislastlevel" column="intislastlevel" />
+    <result property="intstatus" column="intstatus" />
+    <result property="tenantId" column="tenantId" />
+    <association property="uqledgetypeid" javaType="com.geeke.vouchermanager.entity.TglLedgetype">
+      <result property="varledgetypecode" column="uqledgetypeid.varledgetypecode" />
+      <result property="varledgetypename" column="uqledgetypeid.varledgetypename" />
+      <result property="uqparentid" column="uqledgetypeid.uqparentid" />
+      <result property="intislastlevel" column="uqledgetypeid.intislastlevel" />
+      <result property="intstatus" column="uqledgetypeid.intstatus" />
+      <result property="uqledgetypeid" column="uqledgetypeid.uqledgetypeid" />
+    </association>
+  </resultMap>
+  <select id="get" resultMap="resultTglLedgerMap">
+    SELECT
+    <include refid="tglLedgerColumns" />
+    FROM tgl_ledger a
+    <include refid="tglLedgerJoins" />
+    WHERE a.uqledgeid = #{uqledgeid}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tgl_ledger a
+    <include refid="tglLedgerJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="listPage" resultMap="resultTglLedgerMap">
+    SELECT
+    <include refid="tglLedgerColumns" />
+    FROM tgl_ledger a
+    <include refid="tglLedgerJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultMap="resultTglLedgerMap">
+    SELECT
+    <include refid="tglLedgerColumns" />
+    FROM tgl_ledger a
+    <include refid="tglLedgerJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tgl_ledger(
+    <trim suffixOverrides=",">
+      UQLEDGEID,
+      UQLEDGETYPEID,
+      VARLEDGECODE,
+      VARLEDGENAME,
+      VARLEDGEFULLCODE,
+      VARLEDGEFULLNAME,
+      UQPARENTID,
+      INTLEVEL,
+      INTISLASTLEVEL,
+      INTSTATUS,
+      tenant_id,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ uqledgeid },
+      #{ uqledgetypeid.UQLEDGETYPEID },
+      #{ varledgecode },
+      #{ varledgename },
+      #{ varledgefullcode },
+      #{ varledgefullname },
+      #{ uqparentid },
+      #{ intlevel },
+      #{ intislastlevel },
+      #{ intstatus },
+      #{ tenantId },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tgl_ledger SET
+    <trim suffixOverrides=",">
+      UQLEDGEID = #{ uqledgeid },
+      UQLEDGETYPEID = #{ uqledgetypeid.UQLEDGETYPEID },
+      VARLEDGECODE = #{ varledgecode },
+      VARLEDGENAME = #{ varledgename },
+      VARLEDGEFULLCODE = #{ varledgefullcode },
+      VARLEDGEFULLNAME = #{ varledgefullname },
+      UQPARENTID = #{ uqparentid },
+      INTLEVEL = #{ intlevel },
+      INTISLASTLEVEL = #{ intislastlevel },
+      INTSTATUS = #{ intstatus },
+      tenant_id = #{ tenantId },
+    </trim>
+    WHERE uqledgeid = #{uqledgeid}
+  </update>
+  <update id="delete">
+    DELETE FROM tgl_ledger
+    WHERE uqledgeid = #{uqledgeid}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tgl_ledger(
+    <trim suffixOverrides=",">
+      UQLEDGEID,
+      UQLEDGETYPEID,
+      VARLEDGECODE,
+      VARLEDGENAME,
+      VARLEDGEFULLCODE,
+      VARLEDGEFULLNAME,
+      UQPARENTID,
+      INTLEVEL,
+      INTISLASTLEVEL,
+      INTSTATUS,
+      tenant_id,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.uqledgeid},
+        #{entity.uqledgetypeid.uqledgetypeid},
+        #{entity.varledgecode},
+        #{entity.varledgename},
+        #{entity.varledgefullcode},
+        #{entity.varledgefullname},
+        #{entity.uqparentid},
+        #{entity.intlevel},
+        #{entity.intislastlevel},
+        #{entity.intstatus},
+        #{entity.tenantId},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tgl_ledger
+    <set>
+      <trim prefix="UQLEDGEID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when uqledgeid=#{entity.uqledgeid} then #{entity.uqledgeid}
+        </foreach>
+      </trim>
+      <trim prefix="UQLEDGETYPEID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when uqledgeid=#{entity.uqledgeid} then #{entity.uqledgetypeid.uqledgetypeid}
+        </foreach>
+      </trim>
+      <trim prefix="VARLEDGECODE=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when uqledgeid=#{entity.uqledgeid} then #{entity.varledgecode}
+        </foreach>
+      </trim>
+      <trim prefix="VARLEDGENAME=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when uqledgeid=#{entity.uqledgeid} then #{entity.varledgename}
+        </foreach>
+      </trim>
+      <trim prefix="VARLEDGEFULLCODE=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when uqledgeid=#{entity.uqledgeid} then #{entity.varledgefullcode}
+        </foreach>
+      </trim>
+      <trim prefix="VARLEDGEFULLNAME=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when uqledgeid=#{entity.uqledgeid} then #{entity.varledgefullname}
+        </foreach>
+      </trim>
+      <trim prefix="UQPARENTID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when uqledgeid=#{entity.uqledgeid} then #{entity.uqparentid}
+        </foreach>
+      </trim>
+      <trim prefix="INTLEVEL=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when uqledgeid=#{entity.uqledgeid} then #{entity.intlevel}
+        </foreach>
+      </trim>
+      <trim prefix="INTISLASTLEVEL=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when uqledgeid=#{entity.uqledgeid} then #{entity.intislastlevel}
+        </foreach>
+      </trim>
+      <trim prefix="INTSTATUS=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when uqledgeid=#{entity.uqledgeid} then #{entity.intstatus}
+        </foreach>
+      </trim>
+      <trim prefix="tenant_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when uqledgeid=#{entity.uqledgeid} then #{entity.tenantId}
+        </foreach>
+      </trim>
+    </set>
+    WHERE uqledgeid IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.id}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    DELETE FROM tgl_ledger
+    WHERE UQLEDGEID IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.uqledgeid}
+    </foreach>
+  </update>
+  <select id="listCompanyLedgerByLedgety" resultType="com.geeke.vouchermanager.entity.TglLedger">
+    SELECT
+    a.UQLEDGEID AS "uqledgeid",
+    a.UQLEDGETYPEID AS "uqledgetypeid.uqledgetypeid",
+    IFNULL(uqledgetypeid.VARLEDGETYPECODE,'') AS "uqledgetypeid.varledgetypecode",
+    IFNULL(uqledgetypeid.VARLEDGETYPENAME,'') AS "uqledgetypeid.varledgetypename",
+    a.VARLEDGECODE AS "varledgecode",
+    a.VARLEDGENAME AS "varledgename",
+    a.VARLEDGEFULLCODE AS "varledgefullcode",
+    a.VARLEDGEFULLNAME AS "varledgefullname",
+    companyLedgerPeriods.id AS "companyLedgerPeriods.id",
+    companyLedgerPeriods.UQLEDGEID AS "companyLedgerPeriods.uqledgeid",
+    companyLedgerPeriods.UQACCOUNTID AS "companyLedgerPeriods.uqaccountid.uqaccountid",
+    IFNULL(uqaccountid.VARACCOUNTCODE,'') AS "companyLedgerPeriods.uqaccountid.varaccountcode",
+    IFNULL(uqaccountid.VARACCOUNTNAME,'') AS "companyLedgerPeriods.uqaccountid.varaccountname",
+    companyLedgerPeriods.MNYDEBITPERIODALL AS "companyLedgerPeriods.mnydebitperiodall",
+    companyLedgerPeriods.MNYCREDITPERIODALL AS "companyLedgerPeriods.mnycreditperiodall"
+    FROM tgl_ledger a
+    LEFT JOIN tgl_ledgetype uqledgetypeid ON uqledgetypeid.UQLEDGETYPEID = a.UQLEDGETYPEID
+    LEFT JOIN tgl_company_ledger_periods companyLedgerPeriods ON companyLedgerPeriods.UQLEDGEID = a.UQLEDGEID and companyLedgerPeriods.UQCOMPANYID = #{map.UQCOMPANYID}
+    <if test="map.UQACCOUNTID != null and map.UQACCOUNTID != ''">
+      and companyLedgerPeriods.UQACCOUNTID = #{map.UQACCOUNTID}
+    </if>
+    and companyLedgerPeriods.uqglobalperiodid = '00000000-0000-0000-0000-000000000000'
+    LEFT JOIN tgl_accounts uqaccountid ON uqaccountid.UQACCOUNTID = companyLedgerPeriods.UQACCOUNTID
+    <where>
+      1=1
+      <if test="map.UQLEDGETYPEID != null and map.UQLEDGETYPEID != ''">
+        and a.UQLEDGETYPEID = #{map.UQLEDGETYPEID}
+      </if>
+      and a.intislastlevel = 1
+    </where>
+    <choose>
+      <when test="map.order != null and map.order != ''">
+        ORDER BY ${map.order}
+      </when>
+      <otherwise>
+      </otherwise>
+    </choose>
+    LIMIT #{map.limit} OFFSET #{map.offset}
+  </select>
+  <select id="countAndCompanyLedger" resultType="int">
+    SELECT COUNT(a.UQLEDGEID) FROM tgl_ledger a
+    LEFT JOIN tgl_ledgetype uqledgetypeid ON uqledgetypeid.UQLEDGETYPEID = a.UQLEDGETYPEID
+    LEFT JOIN tgl_company_ledger_periods companyLedgerPeriods ON companyLedgerPeriods.UQLEDGEID = a.UQLEDGEID and companyLedgerPeriods.UQCOMPANYID = #{map.UQCOMPANYID}
+    <if test="map.UQACCOUNTID != null and map.UQACCOUNTID != ''">
+      and companyLedgerPeriods.UQACCOUNTID = #{map.UQACCOUNTID}
+    </if>
+    and companyLedgerPeriods.uqglobalperiodid = '00000000-0000-0000-0000-000000000000'
+    LEFT JOIN tgl_accounts uqaccountid ON uqaccountid.UQACCOUNTID = companyLedgerPeriods.UQACCOUNTID
+    <where>
+      1=1
+      <if test="map.UQLEDGETYPEID != null and map.UQLEDGETYPEID != ''">
+        and a.UQLEDGETYPEID = #{map.UQLEDGETYPEID}
+      </if>
+      and a.intislastlevel = 1
+    </where>
+  </select>
+  <select id="isDeleteByUqledgerid" resultType="int">
+    SELECT COUNT(*) FROM tgl_voucher_detail_ledger tvdl
+                    left join tgl_voucher_details tvd on tvdl.UQVOUCHERDETAILID=tvd.UQVOUCHERDETAILID
+                    left join tgl_voucher_mains tvm on tvd.UQVOUCHERID=tvd.UQVOUCHERID
+    where tvdl.uqledgerid =#{uqledgeid} and tvm.INTDELETEFLAG = 0
+  </select>
+  <select id="isDeleteByUqledgetypeid" resultType="int">
+    SELECT COUNT(*) FROM tgl_voucher_detail_ledger tvdl
+                    left join tgl_voucher_details tvd on tvdl.UQVOUCHERDETAILID=tvd.UQVOUCHERDETAILID
+                    left join tgl_voucher_mains tvm on tvd.UQVOUCHERID=tvd.UQVOUCHERID
+    where tvdl.UQLEDGERTYPEID =#{uqledgetypeid} and tvm.INTDELETEFLAG = 0
+  </select>
+  <delete id="deleteGroup">
+    DELETE FROM tgl_ledger_group
+    WHERE uqledgeid = #{Uqledgeid}
+  </delete>
+  <delete id="deleteLEDGERCOMPANY">
+   DELETE FROM TGL_LEDGER_COMPANY
+    WHERE UQLEDGEID = #{Uqledgeid}
+  </delete>
+  <insert id="insertLastLevelToGroupTable" parameterType="java.util.List">
+    INSERT INTO tgl_ledger_group (
+    <trim suffixOverrides=",">
+        uqgroupid,
+        vargroupname,
+        vargroupcode,
+        vargroupfullcode,
+        intgrouplevel,
+        uqledgeid,
+        varledgecode,
+        intlevel,
+        intislastlevel,
+        tenant_id,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        uuid(),
+        #{entity.varledgename},
+        #{entity.varledgecode},
+        #{entity.varledgecode},
+        1,
+        #{entity.uqledgeid},
+        #{entity.varledgecode},
+        1,
+        1,
+        #{entity.tenantId},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <insert id="insertLEDGERCOMPANY">
+    INSERT INTO TGL_LEDGER_COMPANY (
+    <trim suffixOverrides=",">
+      UQLEDGEID,
+      UQCOMPANYID,
+      tenant_id,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.uqledgeid},
+        #{entity.companyid},
+        #{entity.companyid},
+      </trim>
+      )
+    </foreach>
+  </insert>
+
+</mapper>

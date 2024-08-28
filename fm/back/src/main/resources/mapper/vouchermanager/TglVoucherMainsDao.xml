@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.vouchermanager.dao.TglVoucherMainsDao">
+  <sql id="tglVoucherMainsColumns">
+    <trim suffixOverrides=",">
+      a.UQVOUCHERID AS "uqvoucherid",
+      a.INTVOUCHERNUM AS "intvouchernum",
+      a.UQNUMBERING AS "uqnumbering",
+      a.UQCOMPANYID AS "uqcompanyid",
+      a.INTCOMPANYSEQ AS "intcompanyseq",
+      a.INTAFFIX AS "intaffix",
+      a.UQGLOBALPERIODID AS "uqglobalperiodid.UQGLOBALPERIODID",
+      IFNULL(uqglobalperiodid.varname,'') AS "uqglobalperiodid.varname",
+      a.MNYDEBITSUM AS "mnydebitsum",
+      a.MNYCREDITSUM AS "mnycreditsum",
+      a.UQFINACIALMANAGERID AS "uqfinacialmanagerid.id",
+      IFNULL(uqfinacialmanagerid.name,'') AS "uqfinacialmanagerid.name",
+      a.UQACCOUNTANTID AS "uqaccountantid.id",
+      IFNULL(uqaccountantid.name,'') AS "uqaccountantid.name",
+      a.UQCASHERID AS "uqcasherid.id",
+      IFNULL(uqcasherid.name,'') AS "uqcasherid.name",
+      a.UQCHECKERID AS "uqcheckerid.id",
+      IFNULL(uqcheckerid.name,'') AS "uqcheckerid.name",
+      a.UQFILLERID AS "uqfillerid.id",
+      IFNULL(uqfillerid.name,'') AS "uqfillerid.name",
+      a.DTACCOUNTANT AS "dtaccountant",
+      a.DTCASHER AS "dtcasher",
+      a.DTCHECKER AS "dtchecker",
+      a.DTFILLER AS "dtfiller",
+      a.DTACCOUNTANTSRV AS "dtaccountantsrv",
+      a.DTCASHERSRV AS "dtcashersrv",
+      a.DTCHECKERSRV AS "dtcheckersrv",
+      a.DTFILLERSRV AS "dtfillersrv",
+      a.INTFLAG AS "intflag",
+      a.INTCASHFLAG AS "intcashflag",
+      a.INTDELETEFLAG AS "intdeleteflag",
+      a.UQCANCELID AS "uqcancelid",
+      a.FROMID AS "fromid",
+      a.SUBMITODD AS "submitodd",
+      a.CHARGEAGAINSTSUBMITODD AS "chargeagainstsubmitodd",
+      a.tenant_id AS "tenantId",
+      oc.name AS "companyname",
+    </trim>
+  </sql>
+  <sql id="tglVoucherMainsJoins">
+    LEFT JOIN tgl_global_periods uqglobalperiodid ON uqglobalperiodid.UQGLOBALPERIODID = a.UQGLOBALPERIODID
+    LEFT JOIN sys_user uqfinacialmanagerid ON uqfinacialmanagerid.id = a.UQFINACIALMANAGERID
+    LEFT JOIN sys_user uqaccountantid ON uqaccountantid.id = a.UQACCOUNTANTID
+    LEFT JOIN sys_user uqcasherid ON uqcasherid.id = a.UQCASHERID
+    LEFT JOIN sys_user uqcheckerid ON uqcheckerid.id = a.UQCHECKERID
+    LEFT JOIN sys_user uqfillerid ON uqfillerid.id = a.UQFILLERID
+    LEFT JOIN tgl_voucher_numberings n on n.UQNUMBERINGID=a.UQNUMBERING
+    LEFT JOIN org_company oc on oc.id = a.tenant_id
+  </sql>
+  <resultMap id="resultTglVoucherMainsMap" type="com.geeke.vouchermanager.entity.TglVoucherMains">
+    <result property="uqvoucherid" column="uqvoucherid" />
+    <result property="intvouchernum" column="intvouchernum" />
+    <result property="uqnumbering" column="uqnumbering" />
+    <result property="uqcompanyid" column="uqcompanyid" />
+    <result property="intcompanyseq" column="intcompanyseq" />
+    <result property="intaffix" column="intaffix" />
+    <result property="mnydebitsum" column="mnydebitsum" />
+    <result property="mnycreditsum" column="mnycreditsum" />
+    <result property="dtaccountant" column="dtaccountant" />
+    <result property="dtcasher" column="dtcasher" />
+    <result property="dtchecker" column="dtchecker" />
+    <result property="dtfiller" column="dtfiller" />
+    <result property="dtaccountantsrv" column="dtaccountantsrv" />
+    <result property="dtcashersrv" column="dtcashersrv" />
+    <result property="dtcheckersrv" column="dtcheckersrv" />
+    <result property="dtfillersrv" column="dtfillersrv" />
+    <result property="intflag" column="intflag" />
+    <result property="intcashflag" column="intcashflag" />
+    <result property="intdeleteflag" column="intdeleteflag" />
+    <result property="uqcancelid" column="uqcancelid" />
+    <result property="fromid" column="fromid" />
+    <result property="submitodd" column="submitodd" />
+    <result property="chargeagainstsubmitodd" column="chargeagainstsubmitodd" />
+    <result property="tenantId" column="tenantId" />
+    <result property="companyname" column="companyname" />
+    <association property="uqglobalperiodid" javaType="com.geeke.vouchermanager.entity.TglGlobalPeriods">
+      <result property="varname" column="uqglobalperiodid.varname" />
+      <result property="uqglobalperiodid" column="uqglobalperiodid.UQGLOBALPERIODID" />
+    </association>
+    <association property="uqfinacialmanagerid" javaType="com.geeke.vouchermanager.entity.SysUser">
+      <result property="id" column="uqfinacialmanagerid.id" />
+      <result property="name" column="uqfinacialmanagerid.name" />
+    </association>
+    <association property="uqaccountantid" javaType="com.geeke.vouchermanager.entity.SysUser">
+      <result property="name" column="uqaccountantid.name" />
+      <result property="id" column="uqaccountantid.id" />
+    </association>
+    <association property="uqcasherid" javaType="com.geeke.vouchermanager.entity.SysUser">
+      <result property="id" column="uqcasherid.id" />
+      <result property="name" column="uqcasherid.name" />
+    </association>
+    <association property="uqcheckerid" javaType="com.geeke.vouchermanager.entity.SysUser">
+      <result property="id" column="uqcheckerid.id" />
+      <result property="name" column="uqcheckerid.name" />
+    </association>
+    <association property="uqfillerid" javaType="com.geeke.vouchermanager.entity.SysUser">
+      <result property="id" column="uqfillerid.id" />
+      <result property="name" column="uqfillerid.name" />
+    </association>
+
+  </resultMap>
+  <select id="get" resultMap="resultTglVoucherMainsMap">
+    SELECT
+    <include refid="tglVoucherMainsColumns" />
+    FROM tgl_voucher_mains a
+    <include refid="tglVoucherMainsJoins" />
+    WHERE a.uqvoucherid = #{uqvoucherid}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) from (
+    SELECT
+    <include refid="tglVoucherMainsColumns" />
+    FROM tgl_voucher_mains a
+    <include refid="tglVoucherMainsJoins" />
+    <where>
+      1=1
+      AND a.INTDELETEFLAG= '0'
+      <include refid="Common.whereParams" />
+    </where>
+    <!--    <choose>-->
+    <!--      <when test="order != null and order != ''">-->
+    <!--        ORDER BY ${order}-->
+    <!--      </when>-->
+    <!--      <otherwise>-->
+    <!--      </otherwise>-->
+    <!--    </choose>-->
+    group by  uqglobalperiodid.intyearmonth,a.UQVOUCHERID
+    order by n.sort asc, uqglobalperiodid.intyearmonth desc,SUBSTRING_INDEX(  a.INTVOUCHERNUM , '-', 1 ),cast(SUBSTRING_INDEX(  a.INTVOUCHERNUM , '-', - 1 ) as signed)
+    ) tt
+  </select>
+  <select id="selectSeq" resultType="int">
+    select IFNULL(MAX(cast(SUBSTRING_INDEX(  INTVOUCHERNUM , '-', - 1 ) as signed)),0)+1 AS num
+    from tgl_voucher_mains nm
+    where
+     nm.uqglobalperiodid = #{uqglobalperiodid}
+      and nm.tenant_id = #{tenantId}
+      and uqnumbering=#{uqnumbering}
+  </select>
+  <select id="listPage" resultMap="resultTglVoucherMainsMap">
+    SELECT
+    <include refid="tglVoucherMainsColumns" />
+    FROM tgl_voucher_mains a
+    <include refid="tglVoucherMainsJoins" />
+    <where>
+      1=1
+      AND a.INTDELETEFLAG= '0'
+      <include refid="Common.whereParams" />
+    </where>
+<!--    <choose>-->
+<!--      <when test="order != null and order != ''">-->
+<!--        ORDER BY ${order}-->
+<!--      </when>-->
+<!--      <otherwise>-->
+<!--      </otherwise>-->
+<!--    </choose>-->
+    group by  uqglobalperiodid.intyearmonth,a.UQVOUCHERID
+    order by n.sort asc, uqglobalperiodid.intyearmonth desc,SUBSTRING_INDEX(  a.INTVOUCHERNUM , '-', 1 ),cast(SUBSTRING_INDEX(  a.INTVOUCHERNUM , '-', - 1 ) as signed)
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultMap="resultTglVoucherMainsMap">
+    SELECT
+    <include refid="tglVoucherMainsColumns" />
+    FROM tgl_voucher_mains a
+    <include refid="tglVoucherMainsJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tgl_voucher_mains(
+    <trim suffixOverrides=",">
+      UQVOUCHERID,
+      INTVOUCHERNUM,
+      UQNUMBERING,
+      UQCOMPANYID,
+      INTCOMPANYSEQ,
+      INTAFFIX,
+      UQGLOBALPERIODID,
+      MNYDEBITSUM,
+      MNYCREDITSUM,
+      UQFINACIALMANAGERID,
+      UQACCOUNTANTID,
+      UQCASHERID,
+      UQCHECKERID,
+      UQFILLERID,
+      DTACCOUNTANT,
+      DTCASHER,
+      DTCHECKER,
+      DTFILLER,
+      DTACCOUNTANTSRV,
+      DTCASHERSRV,
+      DTCHECKERSRV,
+      DTFILLERSRV,
+      INTFLAG,
+      INTCASHFLAG,
+      INTDELETEFLAG,
+      UQCANCELID,
+      FROMID,
+      SUBMITODD,
+      CHARGEAGAINSTSUBMITODD,
+      tenant_id,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ uqvoucherid },
+      #{ intvouchernum },
+      #{ uqnumbering },
+      #{ uqcompanyid },
+      #{ intcompanyseq },
+      #{ intaffix },
+      #{ uqglobalperiodid.uqglobalperiodid },
+      #{ mnydebitsum },
+      #{ mnycreditsum },
+      #{ uqfinacialmanagerid.id },
+      #{ uqaccountantid.id },
+      #{ uqcasherid.id },
+      #{ uqcheckerid.id },
+      #{ uqfillerid.id },
+      #{ dtaccountant },
+      #{ dtcasher },
+      #{ dtchecker },
+      #{ dtfiller },
+      #{ dtaccountantsrv },
+      #{ dtcashersrv },
+      #{ dtcheckersrv },
+      #{ dtfillersrv },
+      #{ intflag },
+      #{ intcashflag },
+      #{ intdeleteflag },
+      #{ uqcancelid },
+      #{ fromid },
+      #{ submitodd },
+      #{ chargeagainstsubmitodd },
+      #{ tenantId },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tgl_voucher_mains SET
+    <trim suffixOverrides=",">
+      INTVOUCHERNUM = #{ intvouchernum },
+      UQNUMBERING = #{ uqnumbering },
+      UQCOMPANYID = #{ uqcompanyid },
+      INTCOMPANYSEQ = #{ intcompanyseq },
+      INTAFFIX = #{ intaffix },
+      UQGLOBALPERIODID = #{ uqglobalperiodid.uqglobalperiodid },
+      MNYDEBITSUM = #{ mnydebitsum },
+      MNYCREDITSUM = #{ mnycreditsum },
+      UQFINACIALMANAGERID = #{ uqfinacialmanagerid.id },
+      UQACCOUNTANTID = #{ uqaccountantid.id },
+      UQCASHERID = #{ uqcasherid.id },
+      UQCHECKERID = #{ uqcheckerid.id },
+      UQFILLERID = #{ uqfillerid.id },
+      DTACCOUNTANT = #{ dtaccountant },
+      DTCASHER = #{ dtcasher },
+      DTCHECKER = #{ dtchecker },
+      DTFILLER = #{ dtfiller },
+      DTACCOUNTANTSRV = #{ dtaccountantsrv },
+      DTCASHERSRV = #{ dtcashersrv },
+      DTCHECKERSRV = #{ dtcheckersrv },
+      DTFILLERSRV = #{ dtfillersrv },
+      INTFLAG = #{ intflag },
+      INTCASHFLAG = #{ intcashflag },
+      INTDELETEFLAG = #{ intdeleteflag },
+      UQCANCELID = #{ uqcancelid },
+      FROMID = #{ fromid },
+      SUBMITODD = #{ submitodd },
+      CHARGEAGAINSTSUBMITODD = #{ chargeagainstsubmitodd },
+      tenant_id = #{ tenantId },
+    </trim>
+    WHERE uqvoucherid = #{uqvoucherid}
+  </update>
+  <update id="delete">
+    DELETE FROM tgl_voucher_mains
+    WHERE uqvoucherid = #{uqvoucherid}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tgl_voucher_mains(
+    <trim suffixOverrides=",">
+      UQVOUCHERID,
+      INTVOUCHERNUM,
+      UQNUMBERING,
+      UQCOMPANYID,
+      INTCOMPANYSEQ,
+      INTAFFIX,
+      UQGLOBALPERIODID,
+      MNYDEBITSUM,
+      MNYCREDITSUM,
+      UQFINACIALMANAGERID,
+      UQACCOUNTANTID,
+      UQCASHERID,
+      UQCHECKERID,
+      UQFILLERID,
+      DTACCOUNTANT,
+      DTCASHER,
+      DTCHECKER,
+      DTFILLER,
+      DTACCOUNTANTSRV,
+      DTCASHERSRV,
+      DTCHECKERSRV,
+      DTFILLERSRV,
+      INTFLAG,
+      INTCASHFLAG,
+      INTDELETEFLAG,
+      UQCANCELID,
+      FROMID,
+      SUBMITODD,
+      CHARGEAGAINSTSUBMITODD,
+      tenant_id,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.uqvoucherid},
+        #{entity.intvouchernum},
+        #{entity.uqnumbering},
+        #{entity.uqcompanyid},
+        #{entity.intcompanyseq},
+        #{entity.intaffix},
+        #{entity.uqglobalperiodid.UQGLOBALPERIODID},
+        #{entity.mnydebitsum},
+        #{entity.mnycreditsum},
+        #{entity.uqfinacialmanagerid.id},
+        #{entity.uqaccountantid.id},
+        #{entity.uqcasherid.id},
+        #{entity.uqcheckerid.id},
+        #{entity.uqfillerid.id},
+        #{entity.dtaccountant},
+        #{entity.dtcasher},
+        #{entity.dtchecker},
+        #{entity.dtfiller},
+        #{entity.dtaccountantsrv},
+        #{entity.dtcashersrv},
+        #{entity.dtcheckersrv},
+        #{entity.dtfillersrv},
+        #{entity.intflag},
+        #{entity.intcashflag},
+        #{entity.intdeleteflag},
+        #{entity.uqcancelid},
+        #{entity.fromid},
+        #{entity.submitodd},
+        #{entity.chargeagainstsubmitodd},
+        #{entity.tenantId},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tgl_voucher_mains
+    <set>
+      <trim prefix="UQVOUCHERID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.uqvoucherid}
+        </foreach>
+      </trim>
+      <trim prefix="INTVOUCHERNUM=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.intvouchernum}
+        </foreach>
+      </trim>
+      <trim prefix="UQNUMBERING=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.uqnumbering}
+        </foreach>
+      </trim>
+      <trim prefix="UQCOMPANYID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.uqcompanyid}
+        </foreach>
+      </trim>
+      <trim prefix="INTCOMPANYSEQ=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.intcompanyseq}
+        </foreach>
+      </trim>
+      <trim prefix="INTAFFIX=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.intaffix}
+        </foreach>
+      </trim>
+      <trim prefix="UQGLOBALPERIODID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.uqglobalperiodid.UQGLOBALPERIODID}
+        </foreach>
+      </trim>
+      <trim prefix="MNYDEBITSUM=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.mnydebitsum}
+        </foreach>
+      </trim>
+      <trim prefix="MNYCREDITSUM=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.mnycreditsum}
+        </foreach>
+      </trim>
+      <trim prefix="UQFINACIALMANAGERID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.uqfinacialmanagerid.id}
+        </foreach>
+      </trim>
+      <trim prefix="UQACCOUNTANTID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.uqaccountantid.id}
+        </foreach>
+      </trim>
+      <trim prefix="UQCASHERID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.uqcasherid.id}
+        </foreach>
+      </trim>
+      <trim prefix="UQCHECKERID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.uqcheckerid.id}
+        </foreach>
+      </trim>
+      <trim prefix="UQFILLERID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.uqfillerid.id}
+        </foreach>
+      </trim>
+      <trim prefix="DTACCOUNTANT=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.dtaccountant}
+        </foreach>
+      </trim>
+      <trim prefix="DTCASHER=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.dtcasher}
+        </foreach>
+      </trim>
+      <trim prefix="DTCHECKER=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.dtchecker}
+        </foreach>
+      </trim>
+      <trim prefix="DTFILLER=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.dtfiller}
+        </foreach>
+      </trim>
+      <trim prefix="DTACCOUNTANTSRV=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.dtaccountantsrv}
+        </foreach>
+      </trim>
+      <trim prefix="DTCASHERSRV=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.dtcashersrv}
+        </foreach>
+      </trim>
+      <trim prefix="DTCHECKERSRV=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.dtcheckersrv}
+        </foreach>
+      </trim>
+      <trim prefix="DTFILLERSRV=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.dtfillersrv}
+        </foreach>
+      </trim>
+      <trim prefix="INTFLAG=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.intflag}
+        </foreach>
+      </trim>
+      <trim prefix="INTCASHFLAG=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.intcashflag}
+        </foreach>
+      </trim>
+      <trim prefix="INTDELETEFLAG=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.intdeleteflag}
+        </foreach>
+      </trim>
+      <trim prefix="UQCANCELID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.uqcancelid}
+        </foreach>
+      </trim>
+      <trim prefix="FROMID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.fromid}
+        </foreach>
+      </trim>
+      <trim prefix="SUBMITODD=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.submitodd}
+        </foreach>
+      </trim>
+      <trim prefix="CHARGEAGAINSTSUBMITODD=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.chargeagainstsubmitodd}
+        </foreach>
+      </trim>
+      <trim prefix="tenant_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.uqvoucherid} then #{entity.tenantId}
+        </foreach>
+      </trim>
+    </set>
+    WHERE id IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.uqvoucherid}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    DELETE FROM tgl_voucher_mains
+    WHERE uqvoucherid IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.uqvoucherid}
+    </foreach>
+  </update>
+  <select id="decideMoney" resultType="java.lang.String">
+    SELECT  ifnull(sum(a.MNYDEBITPERIODALL-a.MNYCREDITPERIODALL),0) as debitMoney
+    FROM tgl_accounts  t
+        LEFT JOIN tgl_period_accounts a ON t.UQACCOUNTID = a.UQACCOUNTID
+    WHERE t.INTFLAG = 2 AND t.tenant_id = #{tenantId} AND t.VARACCOUNTCODE like concat(#{accountCode},'%')
+  </select>
+  <select id="getPmCash" resultType="java.lang.String">
+    select MNYDEBITPERIODALL
+    from tgl_period_accounts
+    where UQACCOUNTID=#{accountid}
+      AND UQGLOBALPERIODID=#{uqglobalperiodid}
+  </select>
+  <select id="getLastDayOfMonth" resultType="java.lang.String">
+
+    SELECT DTEND
+    FROM tgl_global_periods
+    where
+        uqglobalperiodid=#{getLastDayOfMonth} AND tenant_id=#{tenantId}
+  </select>
+  <select id="getAccountPeriodCashInfo" resultType="map">
+    select d.uqaccountid as uqaccountid,
+           m.uqglobalperiodid as uqglobalperiodid,
+           m.uqcompanyid as uqcompanyid,
+           sum(ifnull(d.mnydebit,0)) as accdebitsum,
+           sum(ifnull(d.mnycredit,0)) as acccreditsum,
+           sum(ifnull(d.mnyfdebit,0)) as accfdebitsum,
+           sum(ifnull(d.mnyfcredit,0)) as accfcreditsum
+    from tgl_voucher_details d
+        inner join tgl_voucher_mains m on m.uqvoucherid=d.uqvoucherid and m.tenant_id=#{tenantId}
+        inner join tgl_accounts gl on gl.uqaccountid = d.uqaccountid and gl.tenant_id=#{tenantId}
+    where m.uqvoucherid= #{voucherid} and gl.UQTYPEID in(5,6)
+    group by d.uqaccountid,m.uqglobalperiodid,m.uqcompanyid
+    order by gl.varaccountcode
+  </select>
+  <select id="findAccountPeriodInfo" resultType="map">
+    select
+        d.uqaccountid as uqaccountid,
+        m.uqglobalperiodid as uqglobalperiodid,
+        m.uqcompanyid as uqcompanyid,
+        sum(ifnull(d.mnydebit,0)) as accdebitsum,
+        sum(ifnull(d.mnycredit,0)) as acccreditsum,
+        sum(ifnull(d.mnyfdebit,0)) as accfdebitsum,
+        sum(ifnull(d.mnyfcredit,0)) as accfcreditsum
+    from tgl_voucher_details d
+        inner join tgl_voucher_mains m on m.uqvoucherid=d.uqvoucherid and m.tenant_id=#{tenantId}
+        inner join tgl_accounts gl on gl.uqaccountid = d.uqaccountid and gl.tenant_id=#{tenantId}
+    where m.uqvoucherid= #{voucherid} and gl.uqtypeid=#{uqtypeid}
+    group by d.uqaccountid,m.uqglobalperiodid,m.uqcompanyid
+    order by gl.varaccountcode
+  </select>
+  <select id="findAccountPeriodInfos" resultType="map">
+    select d.uqaccountid as uqaccountid,
+           m.uqglobalperiodid as uqglobalperiodid,
+           m.uqcompanyid as uqcompanyid,
+           gl.varaccountname as varaccountname,
+           sum(ifnull(d.mnydebit,0)) as accdebitsum,
+           sum(ifnull(d.mnycredit,0)) as acccreditsum,
+           sum(ifnull(d.mnyfdebit,0)) as accfdebitsum,
+           sum(ifnull(d.mnyfcredit,0)) as accfcreditsum
+    from tgl_voucher_details d
+        inner join tgl_voucher_mains m on m.uqvoucherid=d.uqvoucherid and m.tenant_id=#{tenantId}
+        inner join tgl_accounts gl on gl.uqaccountid = d.uqaccountid and gl.tenant_id=#{tenantId}
+    where m.uqvoucherid= #{voucherid} and gl.uqtypeid=#{uqtypeid}
+    group by d.uqaccountid,m.uqglobalperiodid,m.uqcompanyid
+                                             order by gl.varaccountcode
+  </select>
+  <select id="getAccountPeriodInfo" resultType="map">
+  select d.uqaccountid as uqaccountid,
+  m.uqglobalperiodid as uqglobalperiodid,
+  m.uqcompanyid as uqcompanyid,
+  sum(ifnull(d.mnydebit,0)) as accdebitsum,
+  sum(ifnull(d.mnycredit,0)) as acccreditsum,
+  sum(ifnull(d.mnyfdebit,0)) as accfdebitsum,
+  sum(ifnull(d.mnyfcredit,0)) as accfcreditsum
+  from tgl_voucher_details d
+  inner join tgl_voucher_mains m on m.uqvoucherid=d.uqvoucherid and m.tenant_id=#{tenantId}
+  inner join tgl_accounts gl on gl.uqaccountid = d.uqaccountid and gl.tenant_id=#{tenantId}
+  where m.uqvoucherid=  #{voucherid}  group by d.uqaccountid,m.uqglobalperiodid,m.uqcompanyid
+  order by gl.varaccountcode
+  </select>
+  <select id="selectAccountPeriodInfo" resultType="map">
+    select d.uqaccountid as uqaccountid,
+           m.uqglobalperiodid as uqglobalperiodid,
+           m.uqcompanyid as uqcompanyid,
+           sum(ifnull(d.mnydebit,0)) as accdebitsum,
+           sum(ifnull(d.mnycredit,0)) as acccreditsum,
+           sum(ifnull(d.mnyfdebit,0)) as accfdebitsum,
+           sum(ifnull(d.mnyfcredit,0)) as accfcreditsum
+    from tgl_voucher_details d
+        inner join tgl_voucher_mains m on m.uqvoucherid=d.uqvoucherid and m.tenant_id=#{tenantId}
+        inner join tgl_accounts gl on gl.uqaccountid = d.uqaccountid and gl.tenant_id=#{tenantId}
+    where m.uqvoucherid= #{voucherid}
+    group by d.uqaccountid,m.uqglobalperiodid,m.uqcompanyid
+    order by gl.varaccountcode
+  </select>
+  <select id="getLedgerPeriodCashInfo" resultType="map">
+    select d.uqaccountid as uqaccountid,
+           m.uqglobalperiodid as uqglobalperiodid,
+           m.uqcompanyid as uqcompanyid,
+           dl.uqledgerid as uqledgerid,
+           sum(ifnull(dl.mnydebit,0)) as accdebitsum,
+           sum(ifnull(dl.mnycredit,0)) as acccreditsum,
+           0 as accfdebitsum,
+           0 as accfcreditsum
+    from tgl_voucher_detail_ledger dl
+        inner join tgl_voucher_details d on d.UQVOUCHERDETAILID=dl.UQVOUCHERDETAILID
+        inner join tgl_voucher_mains m on m.uqvoucherid=d.uqvoucherid and m.tenant_id=#{tenantId}
+        inner join tgl_accounts gl on gl.uqaccountid = d.uqaccountid and gl.tenant_id=#{tenantId}
+    where m.uqvoucherid= #{voucherid} and gl.UQTYPEID in(5,6)
+    group by d.uqaccountid,m.uqglobalperiodid,m.uqcompanyid,dl.uqledgerid
+    order by gl.varaccountcode
+  </select>
+  <select id="getLedgerPeriodInfo" resultType="map">
+    select d.uqaccountid,
+           m.uqglobalperiodid,
+           m.uqcompanyid,
+           dl.uqledgerid,
+           sum(ifnull(dl.mnydebit,0)) as accdebitsum,
+           sum(ifnull(dl.mnycredit,0)) as acccreditsum,
+           0 as accfdebitsum,
+           0 as accfcreditsum
+    from tgl_voucher_detail_ledger dl
+        inner join tgl_voucher_details d on d.UQVOUCHERDETAILID=dl.UQVOUCHERDETAILID
+        inner join tgl_voucher_mains m on m.uqvoucherid=d.uqvoucherid and m.tenant_id=#{tenantId}
+        inner join tgl_accounts gl on gl.uqaccountid = d.uqaccountid and gl.tenant_id=#{tenantId}
+    where m.uqvoucherid= #{voucherid}
+    group by d.uqaccountid,m.uqglobalperiodid,m.uqcompanyid,dl.uqledgerid
+                            order by gl.varaccountcode
+
+  </select>
+  <select id="lockAccountPeriod" resultType="map">
+    select *
+    from
+        tgl_period_accounts pa
+    where pa.UQACCOUNTID= #{uqaccountid}
+      and pa.UQGLOBALPERIODID= #{uqglobalperiodid}
+      and pa.UQCOMPANYID= #{uqcompanyid}
+    for update
+  </select>
+  <select id="lockLedgerPeriod" resultType="map">
+    select *
+    from tgl_company_ledger_periods pa
+             where pa.UQACCOUNTID= #{uqaccountid}
+               and pa.UQGLOBALPERIODID= #{uqglobalperiodid}
+               and pa.UQCOMPANYID= #{uqcompanyid}
+               and pa.uqledgeid = #{uqledgerid}
+             for update
+  </select>
+  <select id="lockAccountPeriodNoJZ" resultType="map">
+    select * from tgl_period_accounts_notjz pa
+    where pa.UQACCOUNTID= #{uqaccountid}
+      and pa.UQGLOBALPERIODID= #{uqglobalperiodid}
+      and pa.UQCOMPANYID= #{uqcompanyid}
+  </select>
+  <select id="lockVoucher" resultType="map">
+    select vm.intflag as intflag,
+           vm.intcashflag as intcashflag,
+           vm.intdeleteflag as intdeleteflag
+    from tgl_voucher_mains vm
+    where vm.uqvoucherid = #{voucherid} and
+          vm.tenant_id = #{tenantId} for update
+  </select>
+  <select id="selectvouchernum" resultType="map">
+    select count(1)
+    from
+        tgl_voucher_mains
+    where  INTVOUCHERNUM=#{intvouchernum}
+      AND UQGLOBALPERIODID=#{uqglobalperiodid}
+  </select>
+  <update id="deleteVoucherDetail1">
+    delete t
+    from
+        tgl_voucher_detail_ledger t
+    where
+        exists(
+            select 1
+            from tgl_voucher_details d
+                     where t.uqvoucherdetailid=d.uqvoucherdetailid
+                       and d.uqvoucherid = #{voucherid} )
+
+  </update>
+  <update id="deleteVoucherDetail2">
+    delete t from
+      tgl_voucher_detail_ledgertype t
+    where
+      exists(
+              select 1
+              from tgl_voucher_details d
+              where  t.uqvoucherdetailid=d.uqvoucherdetailid
+                and d.uqvoucherid = #{voucherid} )
+  </update>
+  <update id="deleteVoucherDetail3">
+    delete t
+    from tgl_voucher_details t
+    where
+        t.uqvoucherid = #{voucherid}
+  </update>
+  <update id="deleteAc">
+    delete from
+               tgl_ac_offset_temp
+           where uqvoucherid = #{voucherid}
+  </update>
+  <update id="delVoucher">
+    update
+        tgl_voucher_mains m
+    set m.intdeleteflag=1 ,
+        m.INTVOUCHERNUM = #{mdom}
+    where m.uqvoucherid=#{voucherid}
+      and m.tenant_id = #{tenantId}
+  </update>
+  <update id="deleteFlow">
+    delete from
+               tgl_accounts_xjll
+           where CERTIFUCATE_ID = #{voucherid}
+  </update>
+  <select id="selectIntCashFlag" resultType="int">
+    SELECT COUNT(*)
+    FROM
+        tgl_voucher_mains tvm
+    where
+        tvm.UQVOUCHERID =#{voucherid}
+      and tvm.INTFLAG = '2'
+      AND tvm.INTCASHFLAG = '2'
+  </select>
+  <select id="offsetIsTrue" resultType="int">
+    select count(*)
+    from
+        tgl_ac_offset_detail
+    where
+        UQVOUCHERID =#{voucherid}
+  </select>
+  <select id="checks" resultType="map">
+    select submitodd  from tgl_voucher_mains where UQVOUCHERID=#{voucherid}
+  </select>
+  <select id="xjlllistPage" resultType="map">
+    select
+        s.varcode as flowitemcode,s.varname as flowitemname,x.CREATEDATE as dtaccountant,
+        m.DTFILLER as dtfiller, d.VARABSTRACT as varabstract,n.VARNAME as numberingname,
+        m.INTVOUCHERNUM as intvouchernum, a.VARACCOUNTFULLNAME as uqaccountid,d.MNYDEBIT as mnydebit,
+        d.MNYCREDIT as mnycredit,  x.id as xid,m.UQVOUCHERID as voucherid,d.UQVOUCHERDETAILID as voucherdetailid,
+        s.uqflowitemid as uqflowitemid ,substring_index(m.INTVOUCHERNUM ,'-', -1) as num
+    from tgl_accounts_xjll x
+        inner join tgl_voucher_details d on d.UQVOUCHERDETAILID = x.UQVOUCHERDETAIL_ID
+        inner join tgl_voucher_mains m on m.UQVOUCHERID = d.UQVOUCHERID and m.UQVOUCHERID = x.CERTIFUCATE_ID
+        inner join tgl_accounts a on a.UQACCOUNTID = x.ACCOUNTS_ID
+        inner join tgl_global_periods g on g.UQGLOBALPERIODID = x.ACCOUNTPERIOD_ID
+        inner join tgl_flowitems s on s.uqflowitemid = x.XJLL_CONFIG_ID
+        inner join tgl_voucher_numberings n on n.UQNUMBERINGID = m.UQNUMBERING
+    <where>
+      1=1
+      AND m.UQNUMBERING !='00000000-0000-0000-0000-000000000005'
+      AND m.UQNUMBERING !='CF10100D-ED35-4B1D-AAC7-235F68DFB117'
+      <include refid="Common.whereParams" />
+    </where>
+        <choose>
+          <when test="order != null and order != ''">
+            ORDER BY ${order}
+          </when>
+          <otherwise>
+            order by num asc
+          </otherwise>
+        </choose>
+      LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="xjlllistcount" resultType="int">
+    select
+       count(*)
+    from tgl_accounts_xjll x
+        inner join tgl_voucher_details d on d.UQVOUCHERDETAILID = x.UQVOUCHERDETAIL_ID
+        inner join tgl_voucher_mains m on m.UQVOUCHERID = d.UQVOUCHERID and m.UQVOUCHERID = x.CERTIFUCATE_ID
+        inner join tgl_accounts a on a.UQACCOUNTID = x.ACCOUNTS_ID
+        inner join tgl_global_periods g on g.UQGLOBALPERIODID = x.ACCOUNTPERIOD_ID
+        inner join tgl_flowitems s on s.uqflowitemid = x.XJLL_CONFIG_ID
+        inner join tgl_voucher_numberings n on n.UQNUMBERINGID = m.UQNUMBERING
+    <where>
+      1=1
+      AND m.UQNUMBERING !='00000000-0000-0000-0000-000000000005'
+      AND m.UQNUMBERING !='CF10100D-ED35-4B1D-AAC7-235F68DFB117'
+      <include refid="Common.whereParams" />
+    </where>
+        <choose>
+          <when test="order != null and order != ''">
+            ORDER BY ${order}
+          </when>
+        </choose>
+  </select>
+  <select id="getAccountPeriod" resultType="map">
+    select
+    case when tpa.MNYDEBITPERIODALL - tpa.MNYCREDITPERIODALL = 0 then 0
+    else
+    case when  tpa.MNYDEBITPERIOD &gt; tpa.MNYCREDITPERIOD and tpa.MNYCREDITPERIOD &lt; 0
+        then tpa.MNYCREDITPERIOD - tpa.MNYDEBITPERIOD
+    when tpa.MNYDEBITPERIOD &gt; tpa.MNYCREDITPERIOD and tpa.MNYCREDITPERIOD &gt;= 0
+        then tpa.MNYDEBITPERIOD - tpa.MNYCREDITPERIOD
+    when   tpa.MNYDEBITPERIOD &lt; tpa.MNYCREDITPERIOD and tpa.MNYCREDITPERIOD &gt; 0
+        then tpa.MNYCREDITPERIOD - tpa.MNYDEBITPERIOD
+    when  tpa.MNYDEBITPERIOD &lt; tpa.MNYCREDITPERIOD  and tpa.MNYCREDITPERIOD &lt;= 0
+        then tpa.MNYDEBITPERIOD - tpa.MNYCREDITPERIOD
+    else 0 end
+    end as balance, ta.varaccountcode,  ta.varaccountfullname,  ta.uqaccountid,  ta.INTLEVEL
+    FROM tgl_period_accounts tpa  INNER JOIN tgl_accounts ta ON tpa.uqaccountid = ta.uqaccountid
+    WHERE tpa.uqglobalperiodid = #{parameters.uqglobalperiodid}
+      and  ta.UQACCOUNTID= #{parameters.unprofitaccount}
+      AND ta.intproperty = 5
+      AND ta.uqtypeid = #{parameters.uqtypeid}
+      AND ta.INTISLASTLEVEL = 1
+  </select>
+</mapper>

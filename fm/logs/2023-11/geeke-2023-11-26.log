@@ -1,0 +1,454 @@
+2023-11-26 00:00:05.500 ERROR --- [NettyClientChannelManager.java:188][timeoutChecker_1_1] - no available service found in cluster 'default', please make sure registry config correct and keep your seata server running
+2023-11-26 00:00:06.354 ERROR --- [NettyClientChannelManager.java:188][timeoutChecker_2_1] - no available service found in cluster 'default', please make sure registry config correct and keep your seata server running
+2023-11-26 00:00:06.638 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:07.103 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:07.433 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:08.866 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:09.315 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:09.642 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:10.089 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:10.598 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:11.271 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:12.056 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:13.257 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:14.202 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.TOPIC-ACTION-LOG-fm-1_0-dev.ACTION-LOG-GROUP-fm-1_0.errors' has 94 subscriber(s).
+2023-11-26 00:00:14.203 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.TOPIC-ACTION-LOG-fm-1_0-dev.ACTION-LOG-GROUP-fm-1_0.errors' has 95 subscriber(s).
+2023-11-26 00:00:14.203 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.TOPIC-ACTION-LOG-fm-1_0-dev.ACTION-LOG-GROUP-fm-1_0.errors' has 96 subscriber(s).
+2023-11-26 00:00:14.536 ERROR --- [RocketMQInboundChannelAdapter.java:194][scheduling-1] - DefaultMQPushConsumer init failed, Caused by The consumer group[ACTION-LOG-GROUP-fm-1_0] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-11-26 00:00:14.536 ERROR --- [BindingService.java:204][scheduling-1] - Failed to create consumer binding; retrying in 30 seconds
+org.springframework.cloud.stream.binder.BinderException: Exception thrown while starting consumer: 
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:486)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:98)
+	at org.springframework.cloud.stream.binder.AbstractBinder.bindConsumer(AbstractBinder.java:143)
+	at org.springframework.cloud.stream.binding.BindingService.lambda$rescheduleConsumerBinding$1(BindingService.java:209)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
+	at java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.springframework.messaging.MessagingException: nested exception is org.apache.rocketmq.client.exception.MQClientException: The consumer group[ACTION-LOG-GROUP-fm-1_0] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:197)
+	at org.springframework.integration.endpoint.AbstractEndpoint.start(AbstractEndpoint.java:157)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:439)
+	... 12 common frames omitted
+Caused by: org.apache.rocketmq.client.exception.MQClientException: The consumer group[ACTION-LOG-GROUP-fm-1_0] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.start(DefaultMQPushConsumerImpl.java:636)
+	at org.apache.rocketmq.client.consumer.DefaultMQPushConsumer.start(DefaultMQPushConsumer.java:707)
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:189)
+	... 14 common frames omitted
+2023-11-26 00:00:15.090 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.NOTICE-fm-1_0-dev.NOTICE-GROUP-fm-1_0.errors' has 94 subscriber(s).
+2023-11-26 00:00:15.091 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.NOTICE-fm-1_0-dev.NOTICE-GROUP-fm-1_0.errors' has 95 subscriber(s).
+2023-11-26 00:00:15.091 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.NOTICE-fm-1_0-dev.NOTICE-GROUP-fm-1_0.errors' has 96 subscriber(s).
+2023-11-26 00:00:15.423 ERROR --- [RocketMQInboundChannelAdapter.java:194][scheduling-1] - DefaultMQPushConsumer init failed, Caused by The consumer group[NOTICE-GROUP-fm-1_0] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-11-26 00:00:15.423 ERROR --- [BindingService.java:204][scheduling-1] - Failed to create consumer binding; retrying in 30 seconds
+org.springframework.cloud.stream.binder.BinderException: Exception thrown while starting consumer: 
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:486)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:98)
+	at org.springframework.cloud.stream.binder.AbstractBinder.bindConsumer(AbstractBinder.java:143)
+	at org.springframework.cloud.stream.binding.BindingService.lambda$rescheduleConsumerBinding$1(BindingService.java:209)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
+	at java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.springframework.messaging.MessagingException: nested exception is org.apache.rocketmq.client.exception.MQClientException: The consumer group[NOTICE-GROUP-fm-1_0] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:197)
+	at org.springframework.integration.endpoint.AbstractEndpoint.start(AbstractEndpoint.java:157)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:439)
+	... 12 common frames omitted
+Caused by: org.apache.rocketmq.client.exception.MQClientException: The consumer group[NOTICE-GROUP-fm-1_0] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.start(DefaultMQPushConsumerImpl.java:636)
+	at org.apache.rocketmq.client.consumer.DefaultMQPushConsumer.start(DefaultMQPushConsumer.java:707)
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:189)
+	... 14 common frames omitted
+2023-11-26 00:00:15.493 ERROR --- [NettyClientChannelManager.java:188][timeoutChecker_1_1] - no available service found in cluster 'default', please make sure registry config correct and keep your seata server running
+2023-11-26 00:00:15.698 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.input.anonymous_input.errors' has 95 subscriber(s).
+2023-11-26 00:00:15.698 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.input.anonymous_input.errors' has 96 subscriber(s).
+2023-11-26 00:00:15.699 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.input.anonymous_input.errors' has 97 subscriber(s).
+2023-11-26 00:00:16.019 ERROR --- [RocketMQInboundChannelAdapter.java:194][scheduling-1] - DefaultMQPushConsumer init failed, Caused by The consumer group[anonymous_input] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-11-26 00:00:16.019 ERROR --- [BindingService.java:204][scheduling-1] - Failed to create consumer binding; retrying in 30 seconds
+org.springframework.cloud.stream.binder.BinderException: Exception thrown while starting consumer: 
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:486)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:98)
+	at org.springframework.cloud.stream.binder.AbstractBinder.bindConsumer(AbstractBinder.java:143)
+	at org.springframework.cloud.stream.binding.BindingService.lambda$rescheduleConsumerBinding$1(BindingService.java:209)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
+	at java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.springframework.messaging.MessagingException: nested exception is org.apache.rocketmq.client.exception.MQClientException: The consumer group[anonymous_input] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:197)
+	at org.springframework.integration.endpoint.AbstractEndpoint.start(AbstractEndpoint.java:157)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:439)
+	... 12 common frames omitted
+Caused by: org.apache.rocketmq.client.exception.MQClientException: The consumer group[anonymous_input] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.start(DefaultMQPushConsumerImpl.java:636)
+	at org.apache.rocketmq.client.consumer.DefaultMQPushConsumer.start(DefaultMQPushConsumer.java:707)
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:189)
+	... 14 common frames omitted
+2023-11-26 00:00:16.324 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:16.352 ERROR --- [NettyClientChannelManager.java:188][timeoutChecker_2_1] - no available service found in cluster 'default', please make sure registry config correct and keep your seata server running
+2023-11-26 00:00:19.324 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:25.501 ERROR --- [NettyClientChannelManager.java:188][timeoutChecker_1_1] - no available service found in cluster 'default', please make sure registry config correct and keep your seata server running
+2023-11-26 00:00:26.357 ERROR --- [NettyClientChannelManager.java:188][timeoutChecker_2_1] - no available service found in cluster 'default', please make sure registry config correct and keep your seata server running
+2023-11-26 00:00:31.526 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:33.301 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:33.764 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:34.105 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:35.490 ERROR --- [NettyClientChannelManager.java:188][timeoutChecker_1_1] - no available service found in cluster 'default', please make sure registry config correct and keep your seata server running
+2023-11-26 00:00:36.346 ERROR --- [NettyClientChannelManager.java:188][timeoutChecker_2_1] - no available service found in cluster 'default', please make sure registry config correct and keep your seata server running
+2023-11-26 00:00:40.118 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:40.542 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:41.272 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:42.020 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:43.267 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:44.540 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.TOPIC-ACTION-LOG-fm-1_0-dev.ACTION-LOG-GROUP-fm-1_0.errors' has 95 subscriber(s).
+2023-11-26 00:00:44.541 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.TOPIC-ACTION-LOG-fm-1_0-dev.ACTION-LOG-GROUP-fm-1_0.errors' has 96 subscriber(s).
+2023-11-26 00:00:44.541 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.TOPIC-ACTION-LOG-fm-1_0-dev.ACTION-LOG-GROUP-fm-1_0.errors' has 97 subscriber(s).
+2023-11-26 00:00:44.865 ERROR --- [RocketMQInboundChannelAdapter.java:194][scheduling-1] - DefaultMQPushConsumer init failed, Caused by The consumer group[ACTION-LOG-GROUP-fm-1_0] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-11-26 00:00:44.865 ERROR --- [BindingService.java:204][scheduling-1] - Failed to create consumer binding; retrying in 30 seconds
+org.springframework.cloud.stream.binder.BinderException: Exception thrown while starting consumer: 
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:486)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:98)
+	at org.springframework.cloud.stream.binder.AbstractBinder.bindConsumer(AbstractBinder.java:143)
+	at org.springframework.cloud.stream.binding.BindingService.lambda$rescheduleConsumerBinding$1(BindingService.java:209)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
+	at java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.springframework.messaging.MessagingException: nested exception is org.apache.rocketmq.client.exception.MQClientException: The consumer group[ACTION-LOG-GROUP-fm-1_0] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:197)
+	at org.springframework.integration.endpoint.AbstractEndpoint.start(AbstractEndpoint.java:157)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:439)
+	... 12 common frames omitted
+Caused by: org.apache.rocketmq.client.exception.MQClientException: The consumer group[ACTION-LOG-GROUP-fm-1_0] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.start(DefaultMQPushConsumerImpl.java:636)
+	at org.apache.rocketmq.client.consumer.DefaultMQPushConsumer.start(DefaultMQPushConsumer.java:707)
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:189)
+	... 14 common frames omitted
+2023-11-26 00:00:45.427 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.NOTICE-fm-1_0-dev.NOTICE-GROUP-fm-1_0.errors' has 95 subscriber(s).
+2023-11-26 00:00:45.427 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.NOTICE-fm-1_0-dev.NOTICE-GROUP-fm-1_0.errors' has 96 subscriber(s).
+2023-11-26 00:00:45.428 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.NOTICE-fm-1_0-dev.NOTICE-GROUP-fm-1_0.errors' has 97 subscriber(s).
+2023-11-26 00:00:45.489 ERROR --- [NettyClientChannelManager.java:188][timeoutChecker_1_1] - no available service found in cluster 'default', please make sure registry config correct and keep your seata server running
+2023-11-26 00:00:45.742 ERROR --- [RocketMQInboundChannelAdapter.java:194][scheduling-1] - DefaultMQPushConsumer init failed, Caused by The consumer group[NOTICE-GROUP-fm-1_0] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-11-26 00:00:45.742 ERROR --- [BindingService.java:204][scheduling-1] - Failed to create consumer binding; retrying in 30 seconds
+org.springframework.cloud.stream.binder.BinderException: Exception thrown while starting consumer: 
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:486)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:98)
+	at org.springframework.cloud.stream.binder.AbstractBinder.bindConsumer(AbstractBinder.java:143)
+	at org.springframework.cloud.stream.binding.BindingService.lambda$rescheduleConsumerBinding$1(BindingService.java:209)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
+	at java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.springframework.messaging.MessagingException: nested exception is org.apache.rocketmq.client.exception.MQClientException: The consumer group[NOTICE-GROUP-fm-1_0] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:197)
+	at org.springframework.integration.endpoint.AbstractEndpoint.start(AbstractEndpoint.java:157)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:439)
+	... 12 common frames omitted
+Caused by: org.apache.rocketmq.client.exception.MQClientException: The consumer group[NOTICE-GROUP-fm-1_0] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.start(DefaultMQPushConsumerImpl.java:636)
+	at org.apache.rocketmq.client.consumer.DefaultMQPushConsumer.start(DefaultMQPushConsumer.java:707)
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:189)
+	... 14 common frames omitted
+2023-11-26 00:00:46.025 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.input.anonymous_input.errors' has 96 subscriber(s).
+2023-11-26 00:00:46.026 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.input.anonymous_input.errors' has 97 subscriber(s).
+2023-11-26 00:00:46.026 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.input.anonymous_input.errors' has 98 subscriber(s).
+2023-11-26 00:00:46.339 ERROR --- [RocketMQInboundChannelAdapter.java:194][scheduling-1] - DefaultMQPushConsumer init failed, Caused by The consumer group[anonymous_input] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-11-26 00:00:46.339 ERROR --- [BindingService.java:204][scheduling-1] - Failed to create consumer binding; retrying in 30 seconds
+org.springframework.cloud.stream.binder.BinderException: Exception thrown while starting consumer: 
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:486)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:98)
+	at org.springframework.cloud.stream.binder.AbstractBinder.bindConsumer(AbstractBinder.java:143)
+	at org.springframework.cloud.stream.binding.BindingService.lambda$rescheduleConsumerBinding$1(BindingService.java:209)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
+	at java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.springframework.messaging.MessagingException: nested exception is org.apache.rocketmq.client.exception.MQClientException: The consumer group[anonymous_input] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:197)
+	at org.springframework.integration.endpoint.AbstractEndpoint.start(AbstractEndpoint.java:157)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:439)
+	... 12 common frames omitted
+Caused by: org.apache.rocketmq.client.exception.MQClientException: The consumer group[anonymous_input] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.start(DefaultMQPushConsumerImpl.java:636)
+	at org.apache.rocketmq.client.consumer.DefaultMQPushConsumer.start(DefaultMQPushConsumer.java:707)
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:189)
+	... 14 common frames omitted
+2023-11-26 00:00:46.339 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:46.348 ERROR --- [NettyClientChannelManager.java:188][timeoutChecker_2_1] - no available service found in cluster 'default', please make sure registry config correct and keep your seata server running
+2023-11-26 00:00:49.348 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:51.230 INFO  --- [AbstractValidatingSessionManager.java:275][SessionValidationThread-1] - Validating all active sessions...
+2023-11-26 00:00:53.628 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-11-26 00:00:53.628 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-11-26 00:00:53.700 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-11-26 00:00:53.701 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-11-26 00:00:53.703 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-11-26 00:00:53.7(Timestamp), 2023-11-26 00:00:53.7(Timestamp), 2023-11-26 00:00:53.7(Timestamp), 3(Integer), 0(Integer)
+2023-11-26 00:00:53.742 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-11-26 00:00:53.742 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-11-26 00:00:53.742 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-11-26 00:00:53.813 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-11-26 00:00:53.813 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-11-26 00:00:53.813 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 59815 millis
+2023-11-26 00:00:55.491 ERROR --- [NettyClientChannelManager.java:188][timeoutChecker_1_1] - no available service found in cluster 'default', please make sure registry config correct and keep your seata server running
+2023-11-26 00:00:55.591 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:55.995 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:56.326 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:56.349 ERROR --- [NettyClientChannelManager.java:188][timeoutChecker_2_1] - no available service found in cluster 'default', please make sure registry config correct and keep your seata server running
+2023-11-26 00:00:57.828 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:58.193 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:00:58.553 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:01:05.490 ERROR --- [NettyClientChannelManager.java:188][timeoutChecker_1_1] - no available service found in cluster 'default', please make sure registry config correct and keep your seata server running
+2023-11-26 00:01:06.350 ERROR --- [NettyClientChannelManager.java:188][timeoutChecker_2_1] - no available service found in cluster 'default', please make sure registry config correct and keep your seata server running
+2023-11-26 00:01:10.099 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:01:10.537 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:01:11.272 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:01:12.012 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:01:13.261 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:01:14.875 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.TOPIC-ACTION-LOG-fm-1_0-dev.ACTION-LOG-GROUP-fm-1_0.errors' has 96 subscriber(s).
+2023-11-26 00:01:14.875 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.TOPIC-ACTION-LOG-fm-1_0-dev.ACTION-LOG-GROUP-fm-1_0.errors' has 97 subscriber(s).
+2023-11-26 00:01:14.876 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.TOPIC-ACTION-LOG-fm-1_0-dev.ACTION-LOG-GROUP-fm-1_0.errors' has 98 subscriber(s).
+2023-11-26 00:01:15.199 ERROR --- [RocketMQInboundChannelAdapter.java:194][scheduling-1] - DefaultMQPushConsumer init failed, Caused by The consumer group[ACTION-LOG-GROUP-fm-1_0] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-11-26 00:01:15.199 ERROR --- [BindingService.java:204][scheduling-1] - Failed to create consumer binding; retrying in 30 seconds
+org.springframework.cloud.stream.binder.BinderException: Exception thrown while starting consumer: 
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:486)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:98)
+	at org.springframework.cloud.stream.binder.AbstractBinder.bindConsumer(AbstractBinder.java:143)
+	at org.springframework.cloud.stream.binding.BindingService.lambda$rescheduleConsumerBinding$1(BindingService.java:209)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
+	at java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.springframework.messaging.MessagingException: nested exception is org.apache.rocketmq.client.exception.MQClientException: The consumer group[ACTION-LOG-GROUP-fm-1_0] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:197)
+	at org.springframework.integration.endpoint.AbstractEndpoint.start(AbstractEndpoint.java:157)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:439)
+	... 12 common frames omitted
+Caused by: org.apache.rocketmq.client.exception.MQClientException: The consumer group[ACTION-LOG-GROUP-fm-1_0] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.start(DefaultMQPushConsumerImpl.java:636)
+	at org.apache.rocketmq.client.consumer.DefaultMQPushConsumer.start(DefaultMQPushConsumer.java:707)
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:189)
+	... 14 common frames omitted
+2023-11-26 00:01:15.496 ERROR --- [NettyClientChannelManager.java:188][timeoutChecker_1_1] - no available service found in cluster 'default', please make sure registry config correct and keep your seata server running
+2023-11-26 00:01:15.749 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.NOTICE-fm-1_0-dev.NOTICE-GROUP-fm-1_0.errors' has 96 subscriber(s).
+2023-11-26 00:01:15.749 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.NOTICE-fm-1_0-dev.NOTICE-GROUP-fm-1_0.errors' has 97 subscriber(s).
+2023-11-26 00:01:15.749 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.NOTICE-fm-1_0-dev.NOTICE-GROUP-fm-1_0.errors' has 98 subscriber(s).
+2023-11-26 00:01:16.063 ERROR --- [RocketMQInboundChannelAdapter.java:194][scheduling-1] - DefaultMQPushConsumer init failed, Caused by The consumer group[NOTICE-GROUP-fm-1_0] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-11-26 00:01:16.064 ERROR --- [BindingService.java:204][scheduling-1] - Failed to create consumer binding; retrying in 30 seconds
+org.springframework.cloud.stream.binder.BinderException: Exception thrown while starting consumer: 
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:486)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:98)
+	at org.springframework.cloud.stream.binder.AbstractBinder.bindConsumer(AbstractBinder.java:143)
+	at org.springframework.cloud.stream.binding.BindingService.lambda$rescheduleConsumerBinding$1(BindingService.java:209)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
+	at java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.springframework.messaging.MessagingException: nested exception is org.apache.rocketmq.client.exception.MQClientException: The consumer group[NOTICE-GROUP-fm-1_0] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:197)
+	at org.springframework.integration.endpoint.AbstractEndpoint.start(AbstractEndpoint.java:157)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:439)
+	... 12 common frames omitted
+Caused by: org.apache.rocketmq.client.exception.MQClientException: The consumer group[NOTICE-GROUP-fm-1_0] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.start(DefaultMQPushConsumerImpl.java:636)
+	at org.apache.rocketmq.client.consumer.DefaultMQPushConsumer.start(DefaultMQPushConsumer.java:707)
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:189)
+	... 14 common frames omitted
+2023-11-26 00:01:16.329 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:01:16.353 ERROR --- [NettyClientChannelManager.java:188][timeoutChecker_2_1] - no available service found in cluster 'default', please make sure registry config correct and keep your seata server running
+2023-11-26 00:01:16.354 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.input.anonymous_input.errors' has 97 subscriber(s).
+2023-11-26 00:01:16.354 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.input.anonymous_input.errors' has 98 subscriber(s).
+2023-11-26 00:01:16.354 INFO  --- [LogAccessor.java:174][scheduling-1] - Channel 'fm-#{'1.0'.replace('.','-')}-1.input.anonymous_input.errors' has 99 subscriber(s).
+2023-11-26 00:01:16.671 ERROR --- [RocketMQInboundChannelAdapter.java:194][scheduling-1] - DefaultMQPushConsumer init failed, Caused by The consumer group[anonymous_input] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+2023-11-26 00:01:16.672 ERROR --- [BindingService.java:204][scheduling-1] - Failed to create consumer binding; retrying in 30 seconds
+org.springframework.cloud.stream.binder.BinderException: Exception thrown while starting consumer: 
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:486)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:98)
+	at org.springframework.cloud.stream.binder.AbstractBinder.bindConsumer(AbstractBinder.java:143)
+	at org.springframework.cloud.stream.binding.BindingService.lambda$rescheduleConsumerBinding$1(BindingService.java:209)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
+	at java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.springframework.messaging.MessagingException: nested exception is org.apache.rocketmq.client.exception.MQClientException: The consumer group[anonymous_input] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:197)
+	at org.springframework.integration.endpoint.AbstractEndpoint.start(AbstractEndpoint.java:157)
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:439)
+	... 12 common frames omitted
+Caused by: org.apache.rocketmq.client.exception.MQClientException: The consumer group[anonymous_input] has been created before, specify another name please.
+See http://rocketmq.apache.org/docs/faq/ for further details.
+	at org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.start(DefaultMQPushConsumerImpl.java:636)
+	at org.apache.rocketmq.client.consumer.DefaultMQPushConsumer.start(DefaultMQPushConsumer.java:707)
+	at com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter.doStart(RocketMQInboundChannelAdapter.java:189)
+	... 14 common frames omitted
+2023-11-26 00:01:19.333 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:01:20.045 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:01:20.777 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:01:21.538 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:01:22.278 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:01:23.003 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:01:23.766 INFO  --- [Slf4jLoggerFactory.java:95][NettyClientSelector_1] - closeChannel: close the connection to remote address[] result: true
+2023-11-26 00:01:25.501 ERROR --- [NettyClientChannelManager.java:188][timeoutChecker_1_1] - no available service found in cluster 'default', please make sure registry config correct and keep your seata server running
+2023-11-26 00:01:26.355 ERROR --- [NettyClientChannelManager.java:188][timeoutChecker_2_1] - no available service found in cluster 'default', please make sure registry config correct and keep your seata server running
+2023-11-26 00:01:30.752 WARN  --- [HttpClientBeanHolder.java:108][Thread-8] - [HttpClientBeanHolder] Start destroying common HttpClient
+2023-11-26 00:01:30.754 WARN  --- [NotifyCenter.java:136][Thread-14] - [NotifyCenter] Start destroying Publisher
+2023-11-26 00:01:30.755 WARN  --- [NotifyCenter.java:153][Thread-14] - [NotifyCenter] Destruction of the end
+2023-11-26 00:01:30.756 WARN  --- [HttpClientBeanHolder.java:114][Thread-8] - [HttpClientBeanHolder] Destruction of the end
+2023-11-26 00:01:30.763 INFO  --- [QuartzScheduler.java:585][SpringContextShutdownHook] - Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+2023-11-26 00:01:30.945 INFO  --- [WebSocketServer.java:135][SpringContextShutdownHook] - 用户退出:
+2023-11-26 00:01:31.561 INFO  --- [LogAccessor.java:174][SpringContextShutdownHook] - Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2023-11-26 00:01:31.562 INFO  --- [LogAccessor.java:174][SpringContextShutdownHook] - Channel 'fm-#{'1.0'.replace('.','-')}-1.errorChannel' has 0 subscriber(s).
+2023-11-26 00:01:31.562 INFO  --- [LogAccessor.java:292][SpringContextShutdownHook] - stopped bean '_org.springframework.integration.errorLogger'
+2023-11-26 00:01:31.567 INFO  --- [NacosServiceRegistry.java:94][SpringContextShutdownHook] - De-registering from Nacos Server now...
+2023-11-26 00:01:31.624 INFO  --- [NacosServiceRegistry.java:114][SpringContextShutdownHook] - De-registration finished.
+2023-11-26 00:01:31.953 INFO  --- [RpcClient.java:454][SpringContextShutdownHook] - Shutdown rpc client, set status to shutdown
+2023-11-26 00:01:31.953 INFO  --- [RpcClient.java:456][SpringContextShutdownHook] - Shutdown client event executor java.util.concurrent.ScheduledThreadPoolExecutor@310a50bb[Running, pool size = 2, active threads = 2, queued tasks = 0, completed tasks = 0]
+2023-11-26 00:01:31.953 INFO  --- [RpcClient.java:591][SpringContextShutdownHook] - Close current connection 1700926133371_171.214.149.1_11301
+2023-11-26 00:01:31.954 INFO  --- [GrpcClient.java:85][SpringContextShutdownHook] - Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@45c7faa1[Running, pool size = 4, active threads = 0, queued tasks = 0, completed tasks = 805]
+2023-11-26 00:01:31.957 INFO  --- [SchedulerFactoryBean.java:847][SpringContextShutdownHook] - Shutting down Quartz Scheduler
+2023-11-26 00:01:31.957 INFO  --- [QuartzScheduler.java:666][SpringContextShutdownHook] - Scheduler quartzScheduler_$_NON_CLUSTERED shutting down.
+2023-11-26 00:01:31.957 INFO  --- [QuartzScheduler.java:585][SpringContextShutdownHook] - Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+2023-11-26 00:01:31.958 INFO  --- [QuartzScheduler.java:740][SpringContextShutdownHook] - Scheduler quartzScheduler_$_NON_CLUSTERED shutdown complete.
+2023-11-26 00:01:32.202 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-13005 Starting command -------------------- MetricsCollectionTask$1 ----------------------
+2023-11-26 00:01:32.277 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-13009 opening new command context
+2023-11-26 00:01:32.278 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-13011 closing existing command context
+2023-11-26 00:01:32.278 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-03006 Cache state after flush: [
+  PERSISTENT MeterLogEntity[1812316889992953905]
+  PERSISTENT MeterLogEntity[1812316889992953906]
+  PERSISTENT MeterLogEntity[1812316889992953897]
+  PERSISTENT MeterLogEntity[1812316889992953898]
+  PERSISTENT MeterLogEntity[1812316889992953899]
+  PERSISTENT MeterLogEntity[1812316889992953900]
+  PERSISTENT MeterLogEntity[1812316889992953901]
+  PERSISTENT MeterLogEntity[1812316889992953902]
+  PERSISTENT MeterLogEntity[1812316889992953903]
+  PERSISTENT MeterLogEntity[1812316889992953904]
+]
+2023-11-26 00:01:32.278 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-03008 Flush Summary: [
+  INSERT MeterLogEntity[1812316889992953897]
+  INSERT MeterLogEntity[1812316889992953898]
+  INSERT MeterLogEntity[1812316889992953899]
+  INSERT MeterLogEntity[1812316889992953900]
+  INSERT MeterLogEntity[1812316889992953901]
+  INSERT MeterLogEntity[1812316889992953902]
+  INSERT MeterLogEntity[1812316889992953903]
+  INSERT MeterLogEntity[1812316889992953904]
+  INSERT MeterLogEntity[1812316889992953905]
+  INSERT MeterLogEntity[1812316889992953906]
+]
+2023-11-26 00:01:32.278 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1812316889992953897]'
+2023-11-26 00:01:32.278 DEBUG --- [BaseJdbcLogger.java:137][SpringContextShutdownHook] - ==>  Preparing: insert into ACT_RU_METER_LOG (ID_, NAME_, REPORTER_, VALUE_, TIMESTAMP_, MILLISECONDS_) values ( ?, ?, ?, ?, ?, ? )
+2023-11-26 00:01:32.279 DEBUG --- [BaseJdbcLogger.java:137][SpringContextShutdownHook] - ==> Parameters: 1812316889992953897(String), activity-instance-start(String), 192.168.0.112$default(String), 0(Long), 2023-11-26 00:01:32.201(Timestamp), 1700928092201(Long)
+2023-11-26 00:01:32.279 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1812316889992953898]'
+2023-11-26 00:01:32.279 DEBUG --- [BaseJdbcLogger.java:137][SpringContextShutdownHook] - ==> Parameters: 1812316889992953898(String), job-acquired-failure(String), 192.168.0.112$default(String), 0(Long), 2023-11-26 00:01:32.201(Timestamp), 1700928092201(Long)
+2023-11-26 00:01:32.279 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1812316889992953899]'
+2023-11-26 00:01:32.279 DEBUG --- [BaseJdbcLogger.java:137][SpringContextShutdownHook] - ==> Parameters: 1812316889992953899(String), job-locked-exclusive(String), 192.168.0.112$default(String), 0(Long), 2023-11-26 00:01:32.201(Timestamp), 1700928092201(Long)
+2023-11-26 00:01:32.279 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1812316889992953900]'
+2023-11-26 00:01:32.279 DEBUG --- [BaseJdbcLogger.java:137][SpringContextShutdownHook] - ==> Parameters: 1812316889992953900(String), job-execution-rejected(String), 192.168.0.112$default(String), 0(Long), 2023-11-26 00:01:32.201(Timestamp), 1700928092201(Long)
+2023-11-26 00:01:32.280 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1812316889992953901]'
+2023-11-26 00:01:32.280 DEBUG --- [BaseJdbcLogger.java:137][SpringContextShutdownHook] - ==> Parameters: 1812316889992953901(String), executed-decision-elements(String), 192.168.0.112$default(String), 0(Long), 2023-11-26 00:01:32.202(Timestamp), 1700928092202(Long)
+2023-11-26 00:01:32.280 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1812316889992953902]'
+2023-11-26 00:01:32.281 DEBUG --- [BaseJdbcLogger.java:137][SpringContextShutdownHook] - ==> Parameters: 1812316889992953902(String), activity-instance-end(String), 192.168.0.112$default(String), 0(Long), 2023-11-26 00:01:32.202(Timestamp), 1700928092202(Long)
+2023-11-26 00:01:32.281 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1812316889992953903]'
+2023-11-26 00:01:32.281 DEBUG --- [BaseJdbcLogger.java:137][SpringContextShutdownHook] - ==> Parameters: 1812316889992953903(String), job-successful(String), 192.168.0.112$default(String), 0(Long), 2023-11-26 00:01:32.202(Timestamp), 1700928092202(Long)
+2023-11-26 00:01:32.281 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1812316889992953904]'
+2023-11-26 00:01:32.281 DEBUG --- [BaseJdbcLogger.java:137][SpringContextShutdownHook] - ==> Parameters: 1812316889992953904(String), job-acquired-success(String), 192.168.0.112$default(String), 0(Long), 2023-11-26 00:01:32.202(Timestamp), 1700928092202(Long)
+2023-11-26 00:01:32.281 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1812316889992953905]'
+2023-11-26 00:01:32.281 DEBUG --- [BaseJdbcLogger.java:137][SpringContextShutdownHook] - ==> Parameters: 1812316889992953905(String), job-acquisition-attempt(String), 192.168.0.112$default(String), 2(Long), 2023-11-26 00:01:32.202(Timestamp), 1700928092202(Long)
+2023-11-26 00:01:32.282 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1812316889992953906]'
+2023-11-26 00:01:32.282 DEBUG --- [BaseJdbcLogger.java:137][SpringContextShutdownHook] - ==> Parameters: 1812316889992953906(String), job-failed(String), 192.168.0.112$default(String), 0(Long), 2023-11-26 00:01:32.202(Timestamp), 1700928092202(Long)
+2023-11-26 00:01:32.680 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-03082 Batch summary:
+Result 0:	insert into ACT_RU_METER_LOG (ID_, NAME_, REPORTER_, VALUE_, TIMESTAMP_, MILLISECONDS_) values ( ?, ?, ?, ?, ?, ? )	Update counts: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+2023-11-26 00:01:32.752 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-13006 Finishing command -------------------- MetricsCollectionTask$1 ----------------------
+2023-11-26 00:01:32.753 INFO  --- [BaseLogger.java:132][SpringContextShutdownHook] - ENGINE-14015 Shutting down the JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]
+2023-11-26 00:01:32.753 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-11-26 00:01:32.753 INFO  --- [BaseLogger.java:132][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14020 JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor] stopped job acquisition
+2023-11-26 00:01:32.754 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-13005 Starting command -------------------- SchemaOperationProcessEngineClose ----------------------
+2023-11-26 00:01:32.789 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-13009 opening new command context
+2023-11-26 00:01:32.789 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-13011 closing existing command context
+2023-11-26 00:01:32.862 DEBUG --- [BaseLogger.java:118][SpringContextShutdownHook] - ENGINE-13006 Finishing command -------------------- SchemaOperationProcessEngineClose ----------------------
+2023-11-26 00:01:32.864 INFO  --- [BaseLogger.java:132][SpringContextShutdownHook] - ENGINE-00007 Process Engine default closed
+2023-11-26 00:01:32.889 INFO  --- [DynamicRoutingDataSource.java:211][SpringContextShutdownHook] - dynamic-datasource start closing ....
+2023-11-26 00:01:32.889 INFO  --- [HikariDataSource.java:350][SpringContextShutdownHook] - 0 - Shutdown initiated...
+2023-11-26 00:01:32.902 INFO  --- [HikariDataSource.java:352][SpringContextShutdownHook] - 0 - Shutdown completed.
+2023-11-26 00:01:32.902 INFO  --- [HikariDataSource.java:350][SpringContextShutdownHook] - 1574056362378338708 - Shutdown initiated...
+2023-11-26 00:01:32.918 INFO  --- [HikariDataSource.java:352][SpringContextShutdownHook] - 1574056362378338708 - Shutdown completed.
+2023-11-26 00:01:32.918 INFO  --- [HikariDataSource.java:350][SpringContextShutdownHook] - 1457259193529540652 - Shutdown initiated...
+2023-11-26 00:01:32.924 INFO  --- [HikariDataSource.java:352][SpringContextShutdownHook] - 1457259193529540652 - Shutdown completed.
+2023-11-26 00:01:32.924 INFO  --- [HikariDataSource.java:350][SpringContextShutdownHook] - 1457259193529540632 - Shutdown initiated...
+2023-11-26 00:01:32.927 INFO  --- [HikariDataSource.java:352][SpringContextShutdownHook] - 1457259193529540632 - Shutdown completed.
+2023-11-26 00:01:32.927 INFO  --- [HikariDataSource.java:350][SpringContextShutdownHook] - 1577773123997098108 - Shutdown initiated...
+2023-11-26 00:01:32.933 INFO  --- [HikariDataSource.java:352][SpringContextShutdownHook] - 1577773123997098108 - Shutdown completed.
+2023-11-26 00:01:32.933 INFO  --- [DynamicRoutingDataSource.java:215][SpringContextShutdownHook] - dynamic-datasource all closed success,bye
+2023-11-26 00:01:32.942 INFO  --- [AbstractValidatingSessionManager.java:250][SpringContextShutdownHook] - Disabled session validation scheduler.

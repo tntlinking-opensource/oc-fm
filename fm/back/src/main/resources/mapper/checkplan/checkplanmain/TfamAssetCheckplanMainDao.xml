@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.checkplan.checkplanmain.dao.TfamAssetCheckplanMainDao">
+    <sql id="tfamAssetCheckplanMainColumns">
+        <trim suffixOverrides=",">
+            a.id AS "id",
+            a.already_num AS "alreadyNum",
+            a.apply_no AS "applyNo",
+            a.registry_date AS "registryDate",
+            a.registry_person AS "registryPerson.id",
+            IFNULL(registryPerson.name,'') AS "registryPerson.name",
+            a.registry_dept_id AS "registryDept.id",
+            IFNULL(registryDept.name,'') AS "registryDept.name",
+            a.task_name AS "taskName",
+            a.remark AS "remark",
+            a.start_date AS "startDate",
+            a.end_date AS "endDate",
+            a.executor_id AS "executorId",
+            a.total_asset AS "totalAsset",
+            a.company_id AS "companyId",
+            a.status AS "status",
+            a.remarks AS "remarks",
+            a.create_by AS "createBy",
+            a.create_date AS "createDate",
+            a.update_by AS "updateBy",
+            a.update_date AS "updateDate",
+            a.del_flag AS "delFlag",
+        </trim>
+    </sql>
+    <sql id="tfamAssetCheckplanMainJoins">
+        LEFT JOIN sys_user registryPerson ON registryPerson.id = a.registry_person
+    LEFT JOIN org_department registryDept ON registryDept.id = a.registry_dept_id
+    </sql>
+    <select id="get" resultType="com.geeke.checkplan.checkplanmain.entity.TfamAssetCheckplanMain">
+        SELECT
+        <include refid="tfamAssetCheckplanMainColumns"/>
+        FROM tfam_asset_checkplan_main a
+        <include refid="tfamAssetCheckplanMainJoins"/>
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="checkMainById" resultType="int">
+        SELECT count(*)
+        FROM tfam_asset_checkplan_main m
+        left join tfam_asset_checkplan_detail tacd on m.id=tacd.main_id
+        WHERE tacd.card_id = #{mainId}
+          AND m.`status` = 0
+          AND m.`end_date` >= NOW()
+            LIMIT 1
+    </select>
+    <select id="MainById" resultType="com.geeke.checkplan.checkplanmain.entity.TfamAssetCheckplanMain">
+        SELECT
+        <include refid="tfamAssetCheckplanMainColumns"/>
+        FROM tfam_asset_checkplan_main a
+        left join tfam_asset_checkplan_detail tacd on a.id=tacd.main_id
+        LEFT JOIN sys_user registryPerson ON registryPerson.id = a.registry_person
+        LEFT JOIN org_department registryDept ON registryDept.id = a.registry_dept_id
+        WHERE tacd.card_id = #{mainId}
+          AND a.`status` = 0
+          AND a.`end_date` >= NOW()
+            LIMIT 1
+    </select>
+
+    <select id="queryAttachZip" resultType="com.geeke.checkplan.resp.DownloadResp">
+        SELECT i.*, f.attach_title,f.attach_required,m.task_name,IFNULL(a.asset_code,'') asset_code
+        FROM tfam_asset_checkimage i
+                 LEFT JOIN tfam_asset a ON a.id = i.card_id
+                 LEFT JOIN tfam_asset_checkplan_main_attach f ON f.id = i.attach_category
+                 LEFT JOIN tfam_asset_checkplan_main m ON f.main_id = m.id
+        WHERE i.main_id = #{mainId} AND i.attach_category = #{attachCategory}
+        ORDER BY a.asset_code
+    </select>
+    <select id="selectVisablePlan" resultType="com.geeke.checkplan.checkplanmain.entity.TfamAssetCheckplanMain">
+        SELECT
+        <include refid="tfamAssetCheckplanMainColumns"/>
+        FROM tfam_asset_checkplan_main a
+        <include refid="tfamAssetCheckplanMainJoins"/>
+        WHERE a.status = 0 and end_date > now() and a.company_id = #{companyId}
+    </select>
+    <select id="count" resultType="int">
+        SELECT COUNT(*) FROM tfam_asset_checkplan_main a
+        <include refid="tfamAssetCheckplanMainJoins"/>
+        <where>
+            1=1
+            AND a.id > 0
+            AND a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test='params != null and params.size() > 0'>
+                AND ( 1=1
+                <foreach collection="params" item="item" index="index">
+                    <if test='item != null and item.queryType != null and item.columnName != "already_num" '>
+                        <choose>
+                            <when test='item.queryType == "("'>
+                                ${item.logic} ( 1=1
+                            </when>
+                            <when test='item.queryType == ")"'>
+                                )
+                            </when>
+                            <when test='"is null".equalsIgnoreCase(item.queryType) or "is not null".equalsIgnoreCase(item.queryType)'>
+                                ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                ${item.queryType}
+                            </when>
+                            <when test='"between".equalsIgnoreCase(item.queryType) or "not between".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and item.value[0] != null and (item.value[0] != "" or item.value[0] == "0".toString()) and item.value[1] != null and (item.value[1] != "" or item.value[1] == "0".toString())'>
+                                    ${item.logic} ( <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not between".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    BETWEEN
+                                    #{item.value[0]} AND #{item.value[1]} )
+                                </if>
+                            </when>
+                            <when test='"like".equalsIgnoreCase(item.queryType) or "not like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>'%'||#{item.value}||'%'</if>
+                                    <if test='dbName == "mssql"'>'%'+#{item.value}+'%'</if>
+                                    <if test='dbName == "mysql"'>concat('%',#{item.value},'%')</if>
+                                </if>
+                            </when>
+                            <when test='"left_like".equalsIgnoreCase(item.queryType) or "not left_like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not left_like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>'%'||#{item.value}</if>
+                                    <if test='dbName == "mssql"'>'%'+#{item.value}</if>
+                                    <if test='dbName == "mysql"'>concat('%',#{item.value})</if>
+                                </if>
+                            </when>
+                            <when test='"right_like".equalsIgnoreCase(item.queryType) or "not right_like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not right_like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>#{item.value}||'%'</if>
+                                    <if test='dbName == "mssql"'>#{item.value}+'%'</if>
+                                    <if test='dbName == "mysql"'>concat(#{item.value},'%')</if>
+                                </if>
+                            </when>
+                            <when test='"in".equalsIgnoreCase(item.queryType) or "not in".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and item.value.size() > 0'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not in".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    IN
+                                    <foreach collection="item.value" item="name" index="index" open="(" close=")"
+                                             separator=",">
+                                        #{name}
+                                    </foreach>
+                                </if>
+                            </when>
+                            <otherwise>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    ${item.queryType} #{item.value}
+                                </if>
+                            </otherwise>
+                        </choose>
+                    </if>
+                    <if test='item != null and item.columnName == "already_num" '>
+                        <choose>
+                            <when test='item.value == 0 '>
+                                and a.already_num = 0
+                            </when>
+                            <when test='item.value == 1 '>
+                                and a.already_num > 0 and a.total_asset > a.already_num
+                            </when>
+                            <when test='item.value == 2 '>
+                                and a.already_num = a.total_asset
+                            </when>
+                        </choose>
+                    </if>
+                </foreach>
+                )
+            </if>
+        </where>
+    </select>
+    <select id="listPage" resultType="com.geeke.checkplan.checkplanmain.entity.TfamAssetCheckplanMain">
+        SELECT
+        <include refid="tfamAssetCheckplanMainColumns"/>
+        FROM tfam_asset_checkplan_main a
+        <include refid="tfamAssetCheckplanMainJoins"/>
+        <where>
+            1=1
+            AND a.id > 0
+            AND a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test='params != null and params.size() > 0'>
+                AND ( 1=1
+                <foreach collection="params" item="item" index="index">
+                    <if test='item != null and item.queryType != null and item.columnName != "already_num" '>
+                        <choose>
+                            <when test='item.queryType == "("'>
+                                ${item.logic} ( 1=1
+                            </when>
+                            <when test='item.queryType == ")"'>
+                                )
+                            </when>
+                            <when test='"is null".equalsIgnoreCase(item.queryType) or "is not null".equalsIgnoreCase(item.queryType)'>
+                                ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                ${item.queryType}
+                            </when>
+                            <when test='"between".equalsIgnoreCase(item.queryType) or "not between".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and item.value[0] != null and (item.value[0] != "" or item.value[0] == "0".toString()) and item.value[1] != null and (item.value[1] != "" or item.value[1] == "0".toString())'>
+                                    ${item.logic} ( <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not between".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    BETWEEN
+                                    #{item.value[0]} AND #{item.value[1]} )
+                                </if>
+                            </when>
+                            <when test='"like".equalsIgnoreCase(item.queryType) or "not like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>'%'||#{item.value}||'%'</if>
+                                    <if test='dbName == "mssql"'>'%'+#{item.value}+'%'</if>
+                                    <if test='dbName == "mysql"'>concat('%',#{item.value},'%')</if>
+                                </if>
+                            </when>
+                            <when test='"left_like".equalsIgnoreCase(item.queryType) or "not left_like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not left_like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>'%'||#{item.value}</if>
+                                    <if test='dbName == "mssql"'>'%'+#{item.value}</if>
+                                    <if test='dbName == "mysql"'>concat('%',#{item.value})</if>
+                                </if>
+                            </when>
+                            <when test='"right_like".equalsIgnoreCase(item.queryType) or "not right_like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not right_like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>#{item.value}||'%'</if>
+                                    <if test='dbName == "mssql"'>#{item.value}+'%'</if>
+                                    <if test='dbName == "mysql"'>concat(#{item.value},'%')</if>
+                                </if>
+                            </when>
+                            <when test='"in".equalsIgnoreCase(item.queryType) or "not in".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and item.value.size() > 0'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not in".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    IN
+                                    <foreach collection="item.value" item="name" index="index" open="(" close=")"
+                                             separator=",">
+                                        #{name}
+                                    </foreach>
+                                </if>
+                            </when>
+                            <otherwise>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    ${item.queryType} #{item.value}
+                                </if>
+                            </otherwise>
+                        </choose>
+                    </if>
+                    <if test='item != null and item.columnName == "already_num" '>
+                        <choose>
+                            <when test='item.value == 0 '>
+                                and a.already_num = 0
+                            </when>
+                            <when test='item.value == 1 '>
+                                and a.already_num > 0 and a.total_asset > a.already_num
+                            </when>
+                            <when test='item.value == 2 '>
+                                and a.already_num = a.total_asset
+                            </when>
+                        </choose>
+                    </if>
+                </foreach>
+                )
+            </if>
+        </where>
+        <choose>
+            <when test="order != null and order != ''">
+                ORDER BY ${order}
+            </when>
+            <otherwise>
+                ORDER BY a.update_date DESC
+            </otherwise>
+        </choose>
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+    <select id="listAll" resultType="com.geeke.checkplan.checkplanmain.entity.TfamAssetCheckplanMain">
+        SELECT
+        <include refid="tfamAssetCheckplanMainColumns"/>
+        FROM tfam_asset_checkplan_main a
+        <include refid="tfamAssetCheckplanMainJoins"/>
+        <where>
+            1=1
+            AND a.id > 0
+            AND a.del_flag = #{DEL_FLAG_NORMAL}
+            <include refid="Common.whereParams"/>
+        </where>
+        <choose>
+            <when test="order != null and order != ''">
+                ORDER BY ${order}
+            </when>
+            <otherwise>
+                ORDER BY a.update_date DESC
+            </otherwise>
+        </choose>
+    </select>
+    <insert id="insert">
+        INSERT INTO tfam_asset_checkplan_main(
+        <trim suffixOverrides=",">
+            id,
+            already_num,
+            apply_no,
+            registry_date,
+            registry_person,
+            registry_dept_id,
+            task_name,
+            remark,
+            start_date,
+            end_date,
+            executor_id,
+            total_asset,
+            company_id,
+            status,
+            remarks,
+            create_by,
+            create_date,
+            update_by,
+            update_date,
+            del_flag,
+        </trim>
+        ) VALUES (
+        <trim suffixOverrides=",">
+            #{ id },
+            #{alreadyNum},
+            #{ applyNo },
+            #{ registryDate },
+            #{ registryPerson.id },
+            #{ registryDept.id },
+            #{ taskName },
+            #{ remark },
+            #{ startDate },
+            #{ endDate },
+            #{ executorId },
+            #{ totalAsset },
+            #{ companyId },
+            #{ status },
+            #{ remarks },
+            #{ createBy },
+            #{ createDate },
+            #{ updateBy },
+            #{ updateDate },
+            #{ delFlag },
+        </trim>
+        )
+    </insert>
+    <update id="update">
+        UPDATE tfam_asset_checkplan_main SET
+        <trim suffixOverrides=",">
+            already_num = #{alreadyNum},
+            apply_no = #{ applyNo },
+            registry_date = #{ registryDate },
+            registry_person = #{ registryPerson.id },
+            registry_dept_id = #{ registryDept.id },
+            task_name = #{ taskName },
+            remark = #{ remark },
+            start_date = #{ startDate },
+            end_date = #{ endDate },
+            executor_id = #{ executorId },
+            total_asset = #{ totalAsset },
+            company_id = #{ companyId },
+            status = #{ status },
+            remarks = #{ remarks },
+            update_by = #{ updateBy },
+            update_date = #{ updateDate },
+        </trim>
+        WHERE id = #{id}
+        and update_date = #{oldUpdateDate}
+    </update>
+    <update id="delete">
+        UPDATE tfam_asset_checkplan_main
+        SET update_by   = #{updateBy},
+            update_date = #{updateDate},
+            del_flag    = #{DEL_FLAG_DELETE}
+        WHERE id = #{id}
+          and update_date = #{oldUpdateDate}
+    </update>
+    <insert id="bulkInsert" parameterType="java.util.List">
+        INSERT INTO tfam_asset_checkplan_main(
+        <trim suffixOverrides=",">
+            id,
+            apply_no,
+            registry_date,
+            registry_person,
+            registry_dept_id,
+            task_name,
+            remark,
+            start_date,
+            end_date,
+            executor_id,
+            total_asset,
+            company_id,
+            status,
+            remarks,
+            create_by,
+            create_date,
+            update_by,
+            update_date,
+            del_flag,
+        </trim>
+        ) VALUES
+        <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+            (
+            <trim suffixOverrides=",">
+                #{entity.id},
+                #{entity.applyNo},
+                #{entity.registryDate},
+                #{entity.registryPerson.id},
+                #{entity.registryDept.id},
+                #{entity.taskName},
+                #{entity.remark},
+                #{entity.startDate},
+                #{entity.endDate},
+                #{entity.executorId},
+                #{entity.totalAsset},
+                #{entity.companyId},
+                #{entity.status},
+                #{entity.remarks},
+                #{entity.createBy},
+                #{entity.createDate},
+                #{entity.updateBy},
+                #{entity.updateDate},
+                #{entity.delFlag},
+            </trim>
+            )
+        </foreach>
+    </insert>
+    <update id="bulkUpdate" parameterType="java.util.List">
+        UPDATE tfam_asset_checkplan_main
+        <set>
+            <trim prefix="apply_no=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.applyNo}
+                </foreach>
+            </trim>
+            <trim prefix="registry_date=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.registryDate}
+                </foreach>
+            </trim>
+            <trim prefix="registry_person=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.registryPerson.id}
+                </foreach>
+            </trim>
+            <trim prefix="registry_dept_id=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.registryDept.id}
+                </foreach>
+            </trim>
+            <trim prefix="task_name=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.taskName}
+                </foreach>
+            </trim>
+            <trim prefix="remark=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.remark}
+                </foreach>
+            </trim>
+            <trim prefix="start_date=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.startDate}
+                </foreach>
+            </trim>
+            <trim prefix="end_date=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.endDate}
+                </foreach>
+            </trim>
+            <trim prefix="executor_id=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.executorId}
+                </foreach>
+            </trim>
+            <trim prefix="total_asset=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.totalAsset}
+                </foreach>
+            </trim>
+            <trim prefix="company_id=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.companyId}
+                </foreach>
+            </trim>
+            <trim prefix="status=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.status}
+                </foreach>
+            </trim>
+            <trim prefix="remarks=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.remarks}
+                </foreach>
+            </trim>
+            <trim prefix="update_by=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.updateBy}
+                </foreach>
+            </trim>
+            <trim prefix="update_date=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.updateDate}
+                </foreach>
+            </trim>
+        </set>
+        WHERE
+        <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+            id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+        </foreach>
+    </update>
+    <update id="bulkDelete" parameterType="java.util.List">
+        UPDATE tfam_asset_checkplan_main
+        <set>
+            <trim prefix="del_flag=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then 1
+                </foreach>
+            </trim>
+            <trim prefix="update_by=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.updateBy}
+                </foreach>
+            </trim>
+            <trim prefix="update_date=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.updateDate}
+                </foreach>
+            </trim>
+        </set>
+        WHERE
+        <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+            id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+        </foreach>
+    </update>
+</mapper>

@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.cardasset.credit.dao.TglVoucherMainsEntryDao">
+  <sql id="tglVoucherMainsEntryColumns">
+    <trim suffixOverrides=",">
+      a.UQVOUCHERID AS "uqvoucherid",
+      a.INTVOUCHERNUM AS "intvouchernum",
+      a.UQNUMBERING AS "uqnumbering",
+      a.UQCOMPANYID AS "uqcompanyid",
+      a.INTCOMPANYSEQ AS "intcompanyseq",
+      a.INTAFFIX AS "intaffix",
+      a.UQGLOBALPERIODID AS "uqglobalperiodid",
+      a.MNYDEBITSUM AS "mnydebitsum",
+      a.MNYCREDITSUM AS "mnycreditsum",
+      a.UQFINACIALMANAGERID AS "uqfinacialmanagerid",
+      a.UQACCOUNTANTID AS "uqaccountantid",
+      a.UQCASHERID AS "uqcasherid",
+      a.UQCHECKERID AS "uqcheckerid",
+      a.UQFILLERID AS "uqfillerid",
+      a.DTACCOUNTANT AS "dtaccountant",
+      a.DTCASHER AS "dtcasher",
+      a.DTCHECKER AS "dtchecker",
+      a.DTFILLER AS "dtfiller",
+      a.DTACCOUNTANTSRV AS "dtaccountantsrv",
+      a.DTCASHERSRV AS "dtcashersrv",
+      a.DTCHECKERSRV AS "dtcheckersrv",
+      a.DTFILLERSRV AS "dtfillersrv",
+      a.INTFLAG AS "intflag",
+      a.INTCASHFLAG AS "intcashflag",
+      a.INTDELETEFLAG AS "intdeleteflag",
+      a.UQCANCELID AS "uqcancelid",
+      a.FROMID AS "fromid",
+      a.SUBMITODD AS "submitodd",
+      a.CHARGEAGAINSTSUBMITODD AS "chargeagainstsubmitodd",
+      a.tenant_id AS "tenantId",
+    </trim>
+  </sql>
+  <sql id="tglVoucherMainsEntryJoins">
+  </sql>
+  <resultMap id="resultTglVoucherMainsEntryMap" type="com.geeke.cardasset.credit.entity.TglVoucherMainsEntry">
+    <result property="uqvoucherid" column="uqvoucherid" />
+    <result property="intvouchernum" column="intvouchernum" />
+    <result property="uqnumbering" column="uqnumbering" />
+    <result property="uqcompanyid" column="uqcompanyid" />
+    <result property="intcompanyseq" column="intcompanyseq" />
+    <result property="intaffix" column="intaffix" />
+    <result property="uqglobalperiodid" column="uqglobalperiodid" />
+    <result property="mnydebitsum" column="mnydebitsum" />
+    <result property="mnycreditsum" column="mnycreditsum" />
+    <result property="uqfinacialmanagerid" column="uqfinacialmanagerid" />
+    <result property="uqaccountantid" column="uqaccountantid" />
+    <result property="uqcasherid" column="uqcasherid" />
+    <result property="uqcheckerid" column="uqcheckerid" />
+    <result property="uqfillerid" column="uqfillerid" />
+    <result property="dtaccountant" column="dtaccountant" />
+    <result property="dtcasher" column="dtcasher" />
+    <result property="dtchecker" column="dtchecker" />
+    <result property="dtfiller" column="dtfiller" />
+    <result property="dtaccountantsrv" column="dtaccountantsrv" />
+    <result property="dtcashersrv" column="dtcashersrv" />
+    <result property="dtcheckersrv" column="dtcheckersrv" />
+    <result property="dtfillersrv" column="dtfillersrv" />
+    <result property="intflag" column="intflag" />
+    <result property="intcashflag" column="intcashflag" />
+    <result property="intdeleteflag" column="intdeleteflag" />
+    <result property="uqcancelid" column="uqcancelid" />
+    <result property="fromid" column="fromid" />
+    <result property="submitodd" column="submitodd" />
+    <result property="chargeagainstsubmitodd" column="chargeagainstsubmitodd" />
+    <result property="tenantId" column="tenantId" />
+  </resultMap>
+  <select id="get" resultMap="resultTglVoucherMainsEntryMap">
+    SELECT
+    <include refid="tglVoucherMainsEntryColumns" />
+    FROM tgl_voucher_mains a
+    <include refid="tglVoucherMainsEntryJoins" />
+    WHERE a.id = #{id}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tgl_voucher_mains a
+    <include refid="tglVoucherMainsEntryJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="listPage" resultMap="resultTglVoucherMainsEntryMap">
+    SELECT
+    <include refid="tglVoucherMainsEntryColumns" />
+    FROM tgl_voucher_mains a
+    <include refid="tglVoucherMainsEntryJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultMap="resultTglVoucherMainsEntryMap">
+    SELECT
+    <include refid="tglVoucherMainsEntryColumns" />
+    FROM tgl_voucher_mains a
+    <include refid="tglVoucherMainsEntryJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tgl_voucher_mains(
+    <trim suffixOverrides=",">
+      UQVOUCHERID,
+      INTVOUCHERNUM,
+      UQNUMBERING,
+      UQCOMPANYID,
+      INTCOMPANYSEQ,
+      INTAFFIX,
+      UQGLOBALPERIODID,
+      MNYDEBITSUM,
+      MNYCREDITSUM,
+      UQFINACIALMANAGERID,
+      UQACCOUNTANTID,
+      UQCASHERID,
+      UQCHECKERID,
+      UQFILLERID,
+      DTACCOUNTANT,
+      DTCASHER,
+      DTCHECKER,
+      DTFILLER,
+      DTACCOUNTANTSRV,
+      DTCASHERSRV,
+      DTCHECKERSRV,
+      DTFILLERSRV,
+      INTFLAG,
+      INTCASHFLAG,
+      INTDELETEFLAG,
+      UQCANCELID,
+      FROMID,
+      SUBMITODD,
+      CHARGEAGAINSTSUBMITODD,
+      tenant_id,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ uqvoucherid },
+      #{ intvouchernum },
+      #{ uqnumbering },
+      #{ uqcompanyid },
+      #{ intcompanyseq },
+      #{ intaffix },
+      #{ uqglobalperiodid },
+      #{ mnydebitsum },
+      #{ mnycreditsum },
+      #{ uqfinacialmanagerid },
+      #{ uqaccountantid },
+      #{ uqcasherid },
+      #{ uqcheckerid },
+      #{ uqfillerid },
+      #{ dtaccountant },
+      #{ dtcasher },
+      #{ dtchecker },
+      #{ dtfiller },
+      #{ dtaccountantsrv },
+      #{ dtcashersrv },
+      #{ dtcheckersrv },
+      #{ dtfillersrv },
+      #{ intflag },
+      #{ intcashflag },
+      #{ intdeleteflag },
+      #{ uqcancelid },
+      #{ fromid },
+      #{ submitodd },
+      #{ chargeagainstsubmitodd },
+      #{ tenantId },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tgl_voucher_mains SET
+    <trim suffixOverrides=",">
+      UQVOUCHERID = #{ uqvoucherid },
+      INTVOUCHERNUM = #{ intvouchernum },
+      UQNUMBERING = #{ uqnumbering },
+      UQCOMPANYID = #{ uqcompanyid },
+      INTCOMPANYSEQ = #{ intcompanyseq },
+      INTAFFIX = #{ intaffix },
+      UQGLOBALPERIODID = #{ uqglobalperiodid },
+      MNYDEBITSUM = #{ mnydebitsum },
+      MNYCREDITSUM = #{ mnycreditsum },
+      UQFINACIALMANAGERID = #{ uqfinacialmanagerid },
+      UQACCOUNTANTID = #{ uqaccountantid },
+      UQCASHERID = #{ uqcasherid },
+      UQCHECKERID = #{ uqcheckerid },
+      UQFILLERID = #{ uqfillerid },
+      DTACCOUNTANT = #{ dtaccountant },
+      DTCASHER = #{ dtcasher },
+      DTCHECKER = #{ dtchecker },
+      DTFILLER = #{ dtfiller },
+      DTACCOUNTANTSRV = #{ dtaccountantsrv },
+      DTCASHERSRV = #{ dtcashersrv },
+      DTCHECKERSRV = #{ dtcheckersrv },
+      DTFILLERSRV = #{ dtfillersrv },
+      INTFLAG = #{ intflag },
+      INTCASHFLAG = #{ intcashflag },
+      INTDELETEFLAG = #{ intdeleteflag },
+      UQCANCELID = #{ uqcancelid },
+      FROMID = #{ fromid },
+      SUBMITODD = #{ submitodd },
+      CHARGEAGAINSTSUBMITODD = #{ chargeagainstsubmitodd },
+      tenant_id = #{ tenantId },
+    </trim>
+    WHERE id = #{id}
+  </update>
+  <update id="delete">
+    DELETE FROM tgl_voucher_mains
+    WHERE id = #{id}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tgl_voucher_mains(
+    <trim suffixOverrides=",">
+      UQVOUCHERID,
+      INTVOUCHERNUM,
+      UQNUMBERING,
+      UQCOMPANYID,
+      INTCOMPANYSEQ,
+      INTAFFIX,
+      UQGLOBALPERIODID,
+      MNYDEBITSUM,
+      MNYCREDITSUM,
+      UQFINACIALMANAGERID,
+      UQACCOUNTANTID,
+      UQCASHERID,
+      UQCHECKERID,
+      UQFILLERID,
+      DTACCOUNTANT,
+      DTCASHER,
+      DTCHECKER,
+      DTFILLER,
+      DTACCOUNTANTSRV,
+      DTCASHERSRV,
+      DTCHECKERSRV,
+      DTFILLERSRV,
+      INTFLAG,
+      INTCASHFLAG,
+      INTDELETEFLAG,
+      UQCANCELID,
+      FROMID,
+      SUBMITODD,
+      CHARGEAGAINSTSUBMITODD,
+      tenant_id,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.uqvoucherid},
+        #{entity.intvouchernum},
+        #{entity.uqnumbering},
+        #{entity.uqcompanyid},
+        #{entity.intcompanyseq},
+        #{entity.intaffix},
+        #{entity.uqglobalperiodid},
+        #{entity.mnydebitsum},
+        #{entity.mnycreditsum},
+        #{entity.uqfinacialmanagerid},
+        #{entity.uqaccountantid},
+        #{entity.uqcasherid},
+        #{entity.uqcheckerid},
+        #{entity.uqfillerid},
+        #{entity.dtaccountant},
+        #{entity.dtcasher},
+        #{entity.dtchecker},
+        #{entity.dtfiller},
+        #{entity.dtaccountantsrv},
+        #{entity.dtcashersrv},
+        #{entity.dtcheckersrv},
+        #{entity.dtfillersrv},
+        #{entity.intflag},
+        #{entity.intcashflag},
+        #{entity.intdeleteflag},
+        #{entity.uqcancelid},
+        #{entity.fromid},
+        #{entity.submitodd},
+        #{entity.chargeagainstsubmitodd},
+        #{entity.tenantId},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tgl_voucher_mains
+    <set>
+      <trim prefix="UQVOUCHERID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqvoucherid}
+        </foreach>
+      </trim>
+      <trim prefix="INTVOUCHERNUM=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intvouchernum}
+        </foreach>
+      </trim>
+      <trim prefix="UQNUMBERING=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqnumbering}
+        </foreach>
+      </trim>
+      <trim prefix="UQCOMPANYID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqcompanyid}
+        </foreach>
+      </trim>
+      <trim prefix="INTCOMPANYSEQ=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intcompanyseq}
+        </foreach>
+      </trim>
+      <trim prefix="INTAFFIX=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intaffix}
+        </foreach>
+      </trim>
+      <trim prefix="UQGLOBALPERIODID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqglobalperiodid}
+        </foreach>
+      </trim>
+      <trim prefix="MNYDEBITSUM=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnydebitsum}
+        </foreach>
+      </trim>
+      <trim prefix="MNYCREDITSUM=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnycreditsum}
+        </foreach>
+      </trim>
+      <trim prefix="UQFINACIALMANAGERID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqfinacialmanagerid}
+        </foreach>
+      </trim>
+      <trim prefix="UQACCOUNTANTID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqaccountantid}
+        </foreach>
+      </trim>
+      <trim prefix="UQCASHERID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqcasherid}
+        </foreach>
+      </trim>
+      <trim prefix="UQCHECKERID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqcheckerid}
+        </foreach>
+      </trim>
+      <trim prefix="UQFILLERID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqfillerid}
+        </foreach>
+      </trim>
+      <trim prefix="DTACCOUNTANT=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.dtaccountant}
+        </foreach>
+      </trim>
+      <trim prefix="DTCASHER=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.dtcasher}
+        </foreach>
+      </trim>
+      <trim prefix="DTCHECKER=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.dtchecker}
+        </foreach>
+      </trim>
+      <trim prefix="DTFILLER=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.dtfiller}
+        </foreach>
+      </trim>
+      <trim prefix="DTACCOUNTANTSRV=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.dtaccountantsrv}
+        </foreach>
+      </trim>
+      <trim prefix="DTCASHERSRV=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.dtcashersrv}
+        </foreach>
+      </trim>
+      <trim prefix="DTCHECKERSRV=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.dtcheckersrv}
+        </foreach>
+      </trim>
+      <trim prefix="DTFILLERSRV=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.dtfillersrv}
+        </foreach>
+      </trim>
+      <trim prefix="INTFLAG=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intflag}
+        </foreach>
+      </trim>
+      <trim prefix="INTCASHFLAG=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intcashflag}
+        </foreach>
+      </trim>
+      <trim prefix="INTDELETEFLAG=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intdeleteflag}
+        </foreach>
+      </trim>
+      <trim prefix="UQCANCELID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqcancelid}
+        </foreach>
+      </trim>
+      <trim prefix="FROMID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.fromid}
+        </foreach>
+      </trim>
+      <trim prefix="SUBMITODD=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.submitodd}
+        </foreach>
+      </trim>
+      <trim prefix="CHARGEAGAINSTSUBMITODD=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.chargeagainstsubmitodd}
+        </foreach>
+      </trim>
+      <trim prefix="tenant_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.tenantId}
+        </foreach>
+      </trim>
+    </set>
+    WHERE id IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.id}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    DELETE FROM tgl_voucher_mains
+    WHERE id IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.id}
+    </foreach>
+  </update>
+</mapper>

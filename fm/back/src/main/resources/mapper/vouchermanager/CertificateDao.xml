@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.vouchermanager.dao.CertificateDao">
+   <select id="getAbstract" resultType="com.geeke.vouchermanager.entity.TglVarabastractEntity">
+         select id,varabastract,tenant_id from tgl_voucher_common_varabastract
+         <where>
+           <if test="data != null and data != '' ">
+               varabastract=#{data}
+           </if>
+           <if test="tenant_id != null and tenant_id != '' ">
+               and tenant_id=#{tenant_id}
+           </if>
+             order by savedate desc
+           limit #{limit} offset #{offset}
+         </where>
+   </select>
+   <select id="countAbstract" resultType="string">
+       select count(1) from tgl_voucher_common_varabastract
+       <where>
+           <if test="data != null and data != '' ">
+               varabastract=#{data}
+           </if>
+           <if test="tenant_id != null and tenant_id != '' ">
+               and tenant_id=#{tenant_id}
+           </if>
+       </where>
+   </select>
+   <insert id="addAbstract" parameterType="string">
+       insert into tgl_voucher_common_varabastract(id,varabastract,lesseeid,savedate,tenant_id)
+       values(#{id},#{data},#{lesseeId},#{date},#{tenantId})
+   </insert>
+
+    <delete id="delAbstract" parameterType="string">
+        delete from tgl_voucher_common_varabastract
+        <where>
+            id=#{id}
+        </where>
+    </delete>
+
+    <select id="getPeriodList" resultType="java.util.HashMap">
+        select id,varname,DTBEGIN,DTEND from tgl_global_periods
+        <where>
+            intstatus = 2
+        </where>
+        order by varname desc
+    </select>
+</mapper>

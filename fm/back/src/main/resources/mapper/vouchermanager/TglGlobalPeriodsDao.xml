@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.vouchermanager.dao.TglGlobalPeriodsDao">
+  <sql id="tglGlobalPeriodsColumns">
+    <trim suffixOverrides=",">
+      a.id AS "id",
+      a.UQGLOBALPERIODID AS "uqglobalperiodid",
+      a.tenant_id AS "tenantId",
+      a.INTYEAR AS "intyear",
+      a.INTMONTH AS "intmonth",
+      a.varname AS "varname",
+      a.INTSTATUS AS "intstatus",
+      a.INTPROPERTY AS "intproperty",
+      a.DTBEGIN AS "dtbegin",
+      a.DTEND AS "dtend",
+      a.intyearmonth AS "intyearmonth",
+      a.remarks AS "remarks",
+      a.create_by AS "createBy",
+      a.create_date AS "createDate",
+      a.update_by AS "updateBy",
+      a.update_date AS "updateDate",
+      a.del_flag AS "delFlag",
+    </trim>
+  </sql>
+  <sql id="tglGlobalPeriodsJoins">
+  </sql>
+  <resultMap id="resultTglGlobalPeriodsMap" type="com.geeke.vouchermanager.entity.TglGlobalPeriods">
+    <result property="id" column="id" />
+    <result property="uqglobalperiodid" column="uqglobalperiodid" />
+    <result property="tenantId" column="tenantId" />
+    <result property="intyear" column="intyear" />
+    <result property="intmonth" column="intmonth" />
+    <result property="varname" column="varname" />
+    <result property="intstatus" column="intstatus" />
+    <result property="intproperty" column="intproperty" />
+    <result property="dtbegin" column="dtbegin" />
+    <result property="dtend" column="dtend" />
+    <result property="intyearmonth" column="intyearmonth" />
+    <result property="remarks" column="remarks" />
+    <result property="createBy" column="createBy" />
+    <result property="createDate" column="createDate" />
+    <result property="updateBy" column="updateBy" />
+    <result property="updateDate" column="updateDate" />
+    <result property="delFlag" column="delFlag" />
+  </resultMap>
+  <select id="get" resultMap="resultTglGlobalPeriodsMap">
+    SELECT
+    <include refid="tglGlobalPeriodsColumns" />
+    FROM tgl_global_periods a
+    <include refid="tglGlobalPeriodsJoins" />
+    WHERE a.id = #{id}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tgl_global_periods a
+    <include refid="tglGlobalPeriodsJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="listPage" resultMap="resultTglGlobalPeriodsMap">
+    SELECT
+    <include refid="tglGlobalPeriodsColumns" />
+    FROM tgl_global_periods a
+    <include refid="tglGlobalPeriodsJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultMap="resultTglGlobalPeriodsMap">
+    SELECT
+    <include refid="tglGlobalPeriodsColumns" />
+    FROM tgl_global_periods a
+    <include refid="tglGlobalPeriodsJoins" />
+    <where>
+      1=1
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tgl_global_periods(
+    <trim suffixOverrides=",">
+      id,
+      UQGLOBALPERIODID,
+      tenant_id,
+      INTYEAR,
+      INTMONTH,
+      varname,
+      INTSTATUS,
+      INTPROPERTY,
+      DTBEGIN,
+      DTEND,
+      intyearmonth,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ id },
+      #{ uqglobalperiodid },
+      #{ tenantId },
+      #{ intyear },
+      #{ intmonth },
+      #{ varname },
+      #{ intstatus },
+      #{ intproperty },
+      #{ dtbegin },
+      #{ dtend },
+      #{ intyearmonth },
+      #{ remarks },
+      #{ createBy },
+      #{ createDate },
+      #{ updateBy },
+      #{ updateDate },
+      #{ delFlag },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tgl_global_periods SET
+    <trim suffixOverrides=",">
+      UQGLOBALPERIODID = #{ uqglobalperiodid },
+      tenant_id = #{ tenantId },
+      INTYEAR = #{ intyear },
+      INTMONTH = #{ intmonth },
+      varname = #{ varname },
+      INTSTATUS = #{ intstatus },
+      INTPROPERTY = #{ intproperty },
+      DTBEGIN = #{ dtbegin },
+      DTEND = #{ dtend },
+      intyearmonth = #{ intyearmonth },
+      remarks = #{ remarks },
+      update_by = #{ updateBy },
+      update_date = #{ updateDate },
+    </trim>
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <update id="delete">
+    UPDATE tgl_global_periods SET
+    update_by = #{updateBy},
+    update_date = #{updateDate},
+    del_flag = #{DEL_FLAG_DELETE}
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tgl_global_periods(
+    <trim suffixOverrides=",">
+      id,
+      UQGLOBALPERIODID,
+      tenant_id,
+      INTYEAR,
+      INTMONTH,
+      varname,
+      INTSTATUS,
+      INTPROPERTY,
+      DTBEGIN,
+      DTEND,
+      intyearmonth,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.id},
+        #{entity.uqglobalperiodid},
+        #{entity.tenantId},
+        #{entity.intyear},
+        #{entity.intmonth},
+        #{entity.varname},
+        #{entity.intstatus},
+        #{entity.intproperty},
+        #{entity.dtbegin},
+        #{entity.dtend},
+        #{entity.intyearmonth},
+        #{entity.remarks},
+        #{entity.createBy},
+        #{entity.createDate},
+        #{entity.updateBy},
+        #{entity.updateDate},
+        #{entity.delFlag},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tgl_global_periods
+    <set>
+      <trim prefix="UQGLOBALPERIODID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqglobalperiodid}
+        </foreach>
+      </trim>
+      <trim prefix="tenant_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.tenantId}
+        </foreach>
+      </trim>
+      <trim prefix="INTYEAR=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intyear}
+        </foreach>
+      </trim>
+      <trim prefix="INTMONTH=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intmonth}
+        </foreach>
+      </trim>
+      <trim prefix="varname=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.varname}
+        </foreach>
+      </trim>
+      <trim prefix="INTSTATUS=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intstatus}
+        </foreach>
+      </trim>
+      <trim prefix="INTPROPERTY=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intproperty}
+        </foreach>
+      </trim>
+      <trim prefix="DTBEGIN=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.dtbegin}
+        </foreach>
+      </trim>
+      <trim prefix="DTEND=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.dtend}
+        </foreach>
+      </trim>
+      <trim prefix="intyearmonth=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intyearmonth}
+        </foreach>
+      </trim>
+      <trim prefix="remarks=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.remarks}
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    UPDATE tgl_global_periods
+    <set>
+      <trim prefix="del_flag=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then 1
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+</mapper>

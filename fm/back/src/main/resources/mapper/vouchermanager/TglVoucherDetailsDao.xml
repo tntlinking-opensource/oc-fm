@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.vouchermanager.dao.TglVoucherDetailsDao">
+  <sql id="tglVoucherDetailsColumns">
+    <trim suffixOverrides=",">
+      a.UQVOUCHERDETAILID AS "uqvoucherdetailid",
+      a.UQVOUCHERID AS "uqvoucherid",
+      a.INTSEQ AS "intseq",
+      a.VARABSTRACT AS "varabstract",
+      a.UQCGSID AS "uqcgsid",
+      a.UQACCOUNTID AS "uqaccountid",
+      a.MNYDEBIT AS "mnydebit",
+      a.MNYCREDIT AS "mnycredit",
+      a.MNYFDEBIT AS "mnyfdebit",
+      a.MNYFCREDIT AS "mnyfcredit",
+      a.UQPAYTYPEID AS "uqpaytypeid",
+      a.VARTYPENO AS "vartypeno",
+      a.DECNUMBER AS "decnumber",
+      a.MNYPRICE AS "mnyprice",
+      a.MNYFOREIGNCURR AS "mnyforeigncurr",
+      a.DECEXCHAGERATE AS "decexchagerate",
+    </trim>
+  </sql>
+  <sql id="tglVoucherDetailsJoins">
+  </sql>
+  <resultMap id="resultTglVoucherDetailsMap" type="com.geeke.vouchermanager.entity.TglVoucherDetails">
+    <result property="uqvoucherdetailid" column="uqvoucherdetailid" />
+    <result property="uqvoucherid" column="uqvoucherid" />
+    <result property="intseq" column="intseq" />
+    <result property="varabstract" column="varabstract" />
+    <result property="uqcgsid" column="uqcgsid" />
+    <result property="uqaccountid" column="uqaccountid" />
+    <result property="mnydebit" column="mnydebit" />
+    <result property="mnycredit" column="mnycredit" />
+    <result property="mnyfdebit" column="mnyfdebit" />
+    <result property="mnyfcredit" column="mnyfcredit" />
+    <result property="uqpaytypeid" column="uqpaytypeid" />
+    <result property="vartypeno" column="vartypeno" />
+    <result property="decnumber" column="decnumber" />
+    <result property="mnyprice" column="mnyprice" />
+    <result property="mnyforeigncurr" column="mnyforeigncurr" />
+    <result property="decexchagerate" column="decexchagerate" />
+  </resultMap>
+
+
+  <select id="get" resultMap="resultTglVoucherDetailsMap">
+    SELECT
+    <include refid="tglVoucherDetailsColumns" />
+    FROM tgl_voucher_details a
+    <include refid="tglVoucherDetailsJoins" />
+    WHERE a.id = #{id}
+  </select>
+
+  <resultMap id="resultTglVoucherDetailsMaps" type="com.geeke.vouchermanager.entity.TglVoucherDetails">
+    <result property="uqvoucherdetailid" column="uqvoucherdetailid" />
+    <result property="uqvoucherid" column="uqvoucherid" />
+    <result property="intseq" column="intseq" />
+    <result property="varabstract" column="varabstract" />
+    <result property="uqcgsid" column="uqcgsid" />
+    <result property="uqaccountid" column="uqaccountid" />
+    <result property="mnydebit" column="mnydebit" />
+    <result property="mnycredit" column="mnycredit" />
+    <result property="mnyfdebit" column="mnyfdebit" />
+    <result property="mnyfcredit" column="mnyfcredit" />
+    <result property="uqpaytypeid" column="uqpaytypeid" />
+    <result property="vartypeno" column="vartypeno" />
+    <result property="decnumber" column="decnumber" />
+    <result property="mnyprice" column="mnyprice" />
+    <result property="mnyforeigncurr" column="mnyforeigncurr" />
+    <result property="decexchagerate" column="decexchagerate" />
+    <association property="tglAccountsXjll" javaType="com.geeke.vouchermanager.entity.TglAccountsXjll" select="gettglAccountsXjll" column="uqvoucherdetailid">
+    </association>
+    <association property="tglledgetype" javaType="com.geeke.vouchermanager.entity.TglLedgetype" select="selectQuestionItemByQuestionId" column="uqvoucherdetailid">
+    </association>
+  </resultMap>
+  <select id="getByUqvoucherid" resultMap="resultTglVoucherDetailsMaps">
+    SELECT
+    <include refid="tglVoucherDetailsColumns" />
+    FROM tgl_voucher_details a
+    <include refid="tglVoucherDetailsJoins" />
+    WHERE a.uqvoucherid = #{uqvoucherid}
+  </select>
+  <sql id="tglAccountsXjllColumns">
+    <trim suffixOverrides=",">
+      a.ID AS "id",
+      a.XJLL_CONFIG_ID AS "xjllConfigId",
+      a.CERTIFUCATE_ID AS "certifucateId",
+      a.ACCOUNTS_ID AS "accountsId",
+      a.ACCOUNTPERIOD_ID AS "accountperiodId",
+      a.JIEMONEY AS "jiemoney",
+      a.DAIMONEY AS "daimoney",
+      a.CREATEDATE AS "createdate",
+      a.CREATOR AS "creator",
+      a.UPDATEDATE AS "updatedate",
+      a.UPDATEOR AS "updateor",
+      a.UQVOUCHERDETAIL_ID AS "uqvoucherdetailId",
+      a.TENANT_ID AS "tenantId",
+    </trim>
+  </sql>
+  <select id="gettglAccountsXjll" resultType="com.geeke.vouchermanager.entity.TglAccountsXjll">
+    SELECT
+    <include refid="tglAccountsXjllColumns" />
+    FROM tgl_accounts_xjll a
+    <include refid="tglVoucherDetailsJoins" />
+    WHERE a.UQVOUCHERDETAIL_ID = #{uqvoucherdetailid}
+  </select>
+
+  <sql id="tglVoucherDetailsColumnsOne">
+    <trim suffixOverrides=",">
+      a.UQVOUCHERDETAILID AS "uqvoucherdetailid",
+      a.UQVOUCHERID AS "uqvoucherid",
+      a.INTSEQ AS "intseq",
+      a.VARABSTRACT AS "varabstract",
+      a.UQCGSID AS "uqcgsid",
+      a.UQACCOUNTID AS "uqaccountid",
+      a.MNYDEBIT AS "mnydebit",
+      a.MNYCREDIT AS "mnycredit",
+      a.MNYFDEBIT AS "mnyfdebit",
+      a.MNYFCREDIT AS "mnyfcredit",
+      a.UQPAYTYPEID AS "uqpaytypeid",
+      a.VARTYPENO AS "vartypeno",
+      a.DECNUMBER AS "decnumber",
+      a.MNYPRICE AS "mnyprice",
+      a.MNYFOREIGNCURR AS "mnyforeigncurr",
+      a.DECEXCHAGERATE AS "decexchagerate",
+
+    </trim>
+  </sql>
+  <resultMap id="resultTglLedgerMap" type="com.geeke.vouchermanager.entity.TglLedger">
+    <result property="uqledgeid" column="uqledgeid" />
+    <result property="varledgecode" column="varledgecode" />
+    <result property="varledgename" column="varledgename" />
+    <result property="varledgefullcode" column="varledgefullcode" />
+    <result property="varledgefullname" column="varledgefullname" />
+    <result property="uqparentid" column="uqparentid" />
+    <result property="intlevel" column="intlevel" />
+    <result property="intislastlevel" column="intislastlevel" />
+    <result property="intstatus" column="intstatus" />
+    <result property="tenantId" column="tenantId" />
+    <association property="uqledgetypeid" javaType="com.geeke.vouchermanager.entity.TglLedgetype">
+      <result property="varledgetypecode" column="uqledgetypeid.varledgetypecode" />
+      <result property="varledgetypename" column="uqledgetypeid.varledgetypename" />
+      <result property="uqparentid" column="uqledgetypeid.uqparentid" />
+      <result property="intislastlevel" column="uqledgetypeid.intislastlevel" />
+      <result property="intstatus" column="uqledgetypeid.intstatus" />
+      <result property="uqledgetypeid" column="uqledgetypeid.uqledgetypeid" />
+    </association>
+  </resultMap>
+  <resultMap id="resultTglLedgerMapone" type="com.geeke.vouchermanager.entity.TglLedgetype">
+    <result property="varledgetypecode" column="uqledgetypeid.varledgetypecode" />
+    <result property="varledgetypename" column="uqledgetypeid.varledgetypename" />
+    <result property="uqparentid" column="uqledgetypeid.uqparentid" />
+    <result property="intislastlevel" column="uqledgetypeid.intislastlevel" />
+    <result property="intstatus" column="uqledgetypeid.intstatus" />
+    <result property="uqledgetypeid" column="uqledgetypeid.uqledgetypeid" />
+    <association property="tglLedgerList" javaType="com.geeke.vouchermanager.entity.TglLedger">
+      <result property="uqledgeid" column="uqledgeid" />
+      <result property="varledgecode" column="varledgecode" />
+      <result property="varledgename" column="varledgename" />
+      <result property="varledgefullcode" column="varledgefullcode" />
+      <result property="varledgefullname" column="varledgefullname" />
+      <result property="uqparentid" column="uqparentid" />
+      <result property="intlevel" column="intlevel" />
+      <result property="intislastlevel" column="intislastlevel" />
+      <result property="intstatus" column="intstatus" />
+      <result property="tenantId" column="tenantId" />
+    </association>
+  </resultMap>
+
+  <resultMap id="resultTglVoucherDetailLedgerMap" type="com.geeke.vouchermanager.entity.TglVoucherDetailLedger">
+    <result property="uqvouledgerid" column="uqvouledgerid" />
+    <result property="uqledgerid" column="uqledgerid" />
+    <result property="uqledgertypeid" column="uqledgertypeid" />
+    <result property="uqvoucherdetailid" column="uqvoucherdetailid" />
+    <result property="mnyamount" column="mnyamount" />
+    <result property="mnydebit" column="mnydebit" />
+    <result property="mnycredit" column="mnycredit" />
+    <result property="intseq" column="intseq" />
+  </resultMap>
+  <sql id="tglLedgerColumns">
+    <trim suffixOverrides=",">
+      a.UQLEDGEID AS "uqledgeid",
+      a.UQLEDGETYPEID AS "uqledgetypeid.uqledgetypeid",
+      IFNULL(uqledgetypeid.VARLEDGETYPECODE,'') AS "uqledgetypeid.varledgetypecode",
+      IFNULL(uqledgetypeid.VARLEDGETYPENAME,'') AS "uqledgetypeid.varledgetypename",
+      IFNULL(uqledgetypeid.UQPARENTID,'') AS "uqledgetypeid.uqparentid",
+      IFNULL(uqledgetypeid.INTISLASTLEVEL,'') AS "uqledgetypeid.intislastlevel",
+      IFNULL(uqledgetypeid.INTSTATUS,'') AS "uqledgetypeid.intstatus",
+      a.VARLEDGECODE AS "varledgecode",
+      a.VARLEDGENAME AS "varledgename",
+      a.VARLEDGEFULLCODE AS "varledgefullcode",
+      a.VARLEDGEFULLNAME AS "varledgefullname",
+      a.UQPARENTID AS "uqparentid",
+      a.INTLEVEL AS "intlevel",
+      a.INTISLASTLEVEL AS "intislastlevel",
+      a.INTSTATUS AS "intstatus",
+      a.tenant_id AS "tenantId",
+    </trim>
+  </sql>
+  <sql id="tglVoucherDetailLedgerColumns">
+    <trim suffixOverrides=",">
+      a.UQLEDGEID AS "uqledgeid",
+      a.UQLEDGETYPEID AS "uqledgetypeid.uqledgetypeid",
+      IFNULL(uqledgetypeid.VARLEDGETYPECODE,'') AS "uqledgetypeid.varledgetypecode",
+      IFNULL(uqledgetypeid.VARLEDGETYPENAME,'') AS "uqledgetypeid.varledgetypename",
+      IFNULL(uqledgetypeid.UQPARENTID,'') AS "uqledgetypeid.uqparentid",
+      IFNULL(uqledgetypeid.INTISLASTLEVEL,'') AS "uqledgetypeid.intislastlevel",
+      IFNULL(uqledgetypeid.INTSTATUS,'') AS "uqledgetypeid.intstatus",
+      a.VARLEDGECODE AS "varledgecode",
+      a.VARLEDGENAME AS "varledgename",
+      a.VARLEDGEFULLCODE AS "varledgefullcode",
+      a.VARLEDGEFULLNAME AS "varledgefullname",
+      a.UQPARENTID AS "uqparentid",
+      a.INTLEVEL AS "intlevel",
+      a.INTISLASTLEVEL AS "intislastlevel",
+      a.INTSTATUS AS "intstatus",
+      a.tenant_id AS "tenantId",
+      b.UQVOULEDGERID AS "uqvouledgerid",
+      b.UQLEDGERID AS "uqledgerid",
+      b.UQLEDGERTYPEID AS "uqledgertypeid",
+      b.UQVOUCHERDETAILID AS "uqvoucherdetailid",
+      b.MNYAMOUNT AS "mnyamount",
+      b.MNYDEBIT AS "mnydebit",
+      b.MNYCREDIT AS "mnycredit",
+      b.INTSEQ AS "intseq",
+    </trim>
+  </sql>
+  <resultMap id="resultTglLedgerMapTwo" type="com.geeke.vouchermanager.entity.TglLedgetype">
+    <result property="varledgetypecode" column="uqledgetypeid.varledgetypecode" />
+    <result property="varledgetypename" column="uqledgetypeid.varledgetypename" />
+    <result property="uqparentid" column="uqledgetypeid.uqparentid" />
+    <result property="intislastlevel" column="uqledgetypeid.intislastlevel" />
+    <result property="intstatus" column="uqledgetypeid.intstatus" />
+    <result property="uqledgetypeid" column="uqledgetypeid.uqledgetypeid" />
+    <association property="tglLedgerList" javaType="com.geeke.vouchermanager.entity.TglLedger">
+      <result property="uqledgeid" column="uqledgeid" />
+      <result property="varledgecode" column="varledgecode" />
+      <result property="varledgename" column="varledgename" />
+      <result property="varledgefullcode" column="varledgefullcode" />
+      <result property="varledgefullname" column="varledgefullname" />
+      <result property="uqparentid" column="uqparentid" />
+      <result property="intlevel" column="intlevel" />
+      <result property="intislastlevel" column="intislastlevel" />
+      <result property="intstatus" column="intstatus" />
+      <result property="tenantId" column="tenantId" />
+      <collection property="tglVoucherDetailLedger" javaType="com.geeke.vouchermanager.entity.TglVoucherDetailLedger">
+        <result property="uqvouledgerid" column="uqvouledgerid" />
+        <result property="uqledgerid" column="uqledgerid" />
+        <result property="uqledgertypeid" column="uqledgertypeid" />
+        <result property="uqvoucherdetailid" column="uqvoucherdetailid" />
+        <result property="mnyamount" column="mnyamount" />
+        <result property="mnydebit" column="mnydebit" />
+        <result property="mnycredit" column="mnycredit" />
+        <result property="intseq" column="intseq" />
+      </collection>
+    </association>
+  </resultMap>
+  <select id="selectQuestionItemByQuestionId" resultMap="resultTglLedgerMapTwo">
+    SELECT
+    <include refid="tglVoucherDetailLedgerColumns" />
+    from
+    tgl_accounts ta
+    left join tgl_account_ledgetype tal on
+    ta.UQACCOUNTID = tal.UQACCOUNTID
+    left join tgl_ledgetype uqledgetypeid  on tal.UQLEDGETYPEID =uqledgetypeid.UQLEDGETYPEID
+    left join tgl_ledger a on uqledgetypeid.UQLEDGETYPEID =a.UQLEDGETYPEID
+    left join tgl_voucher_detail_ledger b on b.UQLEDGERID= a.UQLEDGEID
+    WHERE b.UQVOUCHERDETAILID= #{id}
+  </select>
+  <select id="getByUqaccountId" resultMap="resultTglLedgerMapone">
+    SELECT
+    <include refid="tglLedgerColumns" />
+    from
+    tgl_accounts ta
+    left join tgl_account_ledgetype tal on
+    ta.UQACCOUNTID = tal.UQACCOUNTID
+    left join tgl_ledgetype uqledgetypeid  on tal.UQLEDGETYPEID =uqledgetypeid.UQLEDGETYPEID
+    left join tgl_ledger a on uqledgetypeid.UQLEDGETYPEID =a.UQLEDGETYPEID
+    WHERE ta.UQACCOUNTID= #{id}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tgl_voucher_details a
+    <include refid="tglVoucherDetailsJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="listPage" resultMap="resultTglVoucherDetailsMap">
+    SELECT
+    <include refid="tglVoucherDetailsColumns" />
+    FROM tgl_voucher_details a
+    <include refid="tglVoucherDetailsJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultMap="resultTglVoucherDetailsMap">
+    SELECT
+    <include refid="tglVoucherDetailsColumns" />
+    FROM tgl_voucher_details a
+    <include refid="tglVoucherDetailsJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tgl_voucher_details(
+    <trim suffixOverrides=",">
+      UQVOUCHERDETAILID,
+      UQVOUCHERID,
+      INTSEQ,
+      VARABSTRACT,
+      UQCGSID,
+      UQACCOUNTID,
+      MNYDEBIT,
+      MNYCREDIT,
+      MNYFDEBIT,
+      MNYFCREDIT,
+      UQPAYTYPEID,
+      VARTYPENO,
+      DECNUMBER,
+      MNYPRICE,
+      MNYFOREIGNCURR,
+      DECEXCHAGERATE,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ uqvoucherdetailid },
+      #{ uqvoucherid },
+      #{ intseq },
+      #{ varabstract },
+      #{ uqcgsid },
+      #{ uqaccountid },
+      #{ mnydebit },
+      #{ mnycredit },
+      #{ mnyfdebit },
+      #{ mnyfcredit },
+      #{ uqpaytypeid },
+      #{ vartypeno },
+      #{ decnumber },
+      #{ mnyprice },
+      #{ mnyforeigncurr },
+      #{ decexchagerate },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tgl_voucher_details SET
+    <trim suffixOverrides=",">
+      UQVOUCHERDETAILID = #{ uqvoucherdetailid },
+      UQVOUCHERID = #{ uqvoucherid },
+      INTSEQ = #{ intseq },
+      VARABSTRACT = #{ varabstract },
+      UQCGSID = #{ uqcgsid },
+      UQACCOUNTID = #{ uqaccountid },
+      MNYDEBIT = #{ mnydebit },
+      MNYCREDIT = #{ mnycredit },
+      MNYFDEBIT = #{ mnyfdebit },
+      MNYFCREDIT = #{ mnyfcredit },
+      UQPAYTYPEID = #{ uqpaytypeid },
+      VARTYPENO = #{ vartypeno },
+      DECNUMBER = #{ decnumber },
+      MNYPRICE = #{ mnyprice },
+      MNYFOREIGNCURR = #{ mnyforeigncurr },
+      DECEXCHAGERATE = #{ decexchagerate },
+    </trim>
+    WHERE id = #{id}
+  </update>
+  <update id="delete">
+    DELETE FROM tgl_voucher_details
+    WHERE id = #{id}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tgl_voucher_details(
+    <trim suffixOverrides=",">
+      UQVOUCHERDETAILID,
+      UQVOUCHERID,
+      INTSEQ,
+      VARABSTRACT,
+      UQCGSID,
+      UQACCOUNTID,
+      MNYDEBIT,
+      MNYCREDIT,
+      MNYFDEBIT,
+      MNYFCREDIT,
+      UQPAYTYPEID,
+      VARTYPENO,
+      DECNUMBER,
+      MNYPRICE,
+      MNYFOREIGNCURR,
+      DECEXCHAGERATE,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.uqvoucherdetailid},
+        #{entity.uqvoucherid},
+        #{entity.intseq},
+        #{entity.varabstract},
+        #{entity.uqcgsid},
+        #{entity.uqaccountid},
+        #{entity.mnydebit},
+        #{entity.mnycredit},
+        #{entity.mnyfdebit},
+        #{entity.mnyfcredit},
+        #{entity.uqpaytypeid},
+        #{entity.vartypeno},
+        #{entity.decnumber},
+        #{entity.mnyprice},
+        #{entity.mnyforeigncurr},
+        #{entity.decexchagerate},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <insert id="saveVoucherDetail" parameterType="java.util.List">
+    INSERT INTO tgl_voucher_details(
+    <trim suffixOverrides=",">
+      uqvoucherdetailid,
+      uqvoucherid,
+      intseq,
+      uqaccountid,
+      varabstract,
+      mnydebit,
+      mnycredit,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.uqvoucherdetailid},
+        #{entity.uqvoucherid},
+        #{entity.intseq},
+        #{entity.varabstract},
+        #{entity.varabstract},
+        #{entity.mnydebit},
+        #{entity.mnycredit},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tgl_voucher_details
+    <set>
+      <trim prefix="UQVOUCHERDETAILID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqvoucherdetailid}
+        </foreach>
+      </trim>
+      <trim prefix="UQVOUCHERID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqvoucherid}
+        </foreach>
+      </trim>
+      <trim prefix="INTSEQ=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intseq}
+        </foreach>
+      </trim>
+      <trim prefix="VARABSTRACT=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.varabstract}
+        </foreach>
+      </trim>
+      <trim prefix="UQCGSID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqcgsid}
+        </foreach>
+      </trim>
+      <trim prefix="UQACCOUNTID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqaccountid}
+        </foreach>
+      </trim>
+      <trim prefix="MNYDEBIT=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnydebit}
+        </foreach>
+      </trim>
+      <trim prefix="MNYCREDIT=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnycredit}
+        </foreach>
+      </trim>
+      <trim prefix="MNYFDEBIT=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnyfdebit}
+        </foreach>
+      </trim>
+      <trim prefix="MNYFCREDIT=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnyfcredit}
+        </foreach>
+      </trim>
+      <trim prefix="UQPAYTYPEID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqpaytypeid}
+        </foreach>
+      </trim>
+      <trim prefix="VARTYPENO=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.vartypeno}
+        </foreach>
+      </trim>
+      <trim prefix="DECNUMBER=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.decnumber}
+        </foreach>
+      </trim>
+      <trim prefix="MNYPRICE=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnyprice}
+        </foreach>
+      </trim>
+      <trim prefix="MNYFOREIGNCURR=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnyforeigncurr}
+        </foreach>
+      </trim>
+      <trim prefix="DECEXCHAGERATE=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.decexchagerate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE id IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.id}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    DELETE FROM tgl_voucher_details
+    WHERE id IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.id}
+    </foreach>
+  </update>
+  <select id="resultparam" resultType="map">
+    SELECT
+        tl.UQLEDGETYPEID,
+        tl.UQLEDGEID
+    FROM tgl_account_ledgetype tal
+        LEFT JOIN tgl_ledger tl ON tl.UQLEDGETYPEID = tal.UQLEDGETYPEID and tl.tenant_id=#{companyid}
+    where UQACCOUNTID =#{uqaccountid}
+  </select>
+  <select id="lst" resultType="map">
+    select bulkid from tgl_tmp_idlist where id='PROFITACCOUNT' and tenant_id=#{companyid}
+  </select>
+  <select id="getentityMaps" resultType="map">
+    SELECT td.*
+    FROM tgl_voucher_detail_ledger td
+        INNER JOIN tgl_voucher_details d
+            ON td.UQVOUCHERDETAILID = d.UQVOUCHERDETAILID
+                   AND d.UQACCOUNTID = #{uqaccountid}
+        INNER JOIN tgl_voucher_mains m
+            ON m.UQVOUCHERID = d.UQVOUCHERID
+                   and m.tenant_id=#{companyid}
+                   AND m.UQGLOBALPERIODID = #{uqglobalperiodid}
+                   AND m.UQNUMBERING != 'CF10100D-ED35-4B1D-AAC7-235F68DFB117'
+    WHERE 1 = 1 and m.INTFLAG = '2' or m.INTCASHFLAG = '2'
+  </select>
+  <select id="getparamResult" resultType="map">
+    SELECT
+        td.UQLEDGERID as UQLEDGERID,
+        sum(td.MNYAMOUNT) as MNYAMOUNT,
+        sum(td.MNYCREDIT)as MNYCREDIT,
+        sum(td.MNYDEBIT) as MNYDEBIT
+    FROM tgl_voucher_detail_ledger td
+        INNER JOIN tgl_voucher_details d
+            ON td.UQVOUCHERDETAILID = d.UQVOUCHERDETAILID
+                   AND d.UQACCOUNTID = #{uqaccountid}
+        INNER JOIN tgl_voucher_mains m
+            ON m.UQVOUCHERID = d.UQVOUCHERID
+                   and m.tenant_id=#{companyid}
+                   AND m.UQGLOBALPERIODID =#{uqglobalperiodid}
+                   AND m.UQNUMBERING != 'CF10100D-ED35-4B1D-AAC7-235F68DFB117'
+    WHERE 1 = 1 and m.INTFLAG = '2' or m.INTCASHFLAG = '2' GROUP BY td.UQLEDGERID
+  </select>
+
+</mapper>

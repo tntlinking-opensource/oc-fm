@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.tgl.tmp.dao.TmpIdlistDao">
+  <sql id="tmpIdlistColumns">
+    <trim suffixOverrides=",">
+      a.id AS "id",
+      a.bulkid AS "bulkid",
+      a.typename AS "typename",
+      a.tenant_id AS "tenantId",
+    </trim>
+  </sql>
+  <sql id="tmpIdlistJoins">
+  </sql>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tgl_tmp_idlist a
+    <include refid="tmpIdlistJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="listPage" resultType="com.geeke.tgl.tmp.entity.TmpIdlist">
+    SELECT
+    <include refid="tmpIdlistColumns" />
+    FROM tgl_tmp_idlist a
+    <include refid="tmpIdlistJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultType="com.geeke.tgl.tmp.entity.TmpIdlist">
+    SELECT
+    <include refid="tmpIdlistColumns" />
+    FROM tgl_tmp_idlist a
+    <include refid="tmpIdlistJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tgl_tmp_idlist(
+    <trim suffixOverrides=",">
+      id,
+      bulkid,
+      typename,
+      tenant_id,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ id },
+      #{ bulkid },
+      #{ typename },
+      #{ tenantId },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tgl_tmp_idlist SET
+    <trim suffixOverrides=",">
+      bulkid = #{ bulkid },
+      typename = #{ typename },
+      tenant_id = #{ tenantId },
+    </trim>
+    WHERE id = #{id} and tenant_id = #{tenantId}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tgl_tmp_idlist(
+    <trim suffixOverrides=",">
+      id,
+      bulkid,
+      typename,
+      tenant_id
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.id},
+        #{entity.bulkid},
+        #{entity.typename},
+        #{entity.tenantId}
+      </trim>
+      )
+    </foreach>
+  </insert>
+</mapper>

@@ -1,0 +1,820 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.fixasset.asset.dao.TfamAssetHistroyDao">
+  <sql id="tfamAssetHistroyColumns">
+    <trim suffixOverrides=",">
+      a.id AS "id",
+      a.year AS "year",
+      a.month AS "month",
+      a.card_code AS "cardCode.cardCode",
+      IFNULL(cardCode.id,'') AS "cardCode.id",
+      IFNULL(cardCode.asset_code,'') AS "cardCode.assetCode",
+      IFNULL(cardCode.asset_name,'') AS "cardCode.assetName",
+      a.asset_code AS "assetCode",
+      a.business_date AS "businessDate",
+      a.nature AS "nature",
+      a.category_id AS "categoryId",
+      a.asset_name AS "assetName",
+      a.spec AS "spec",
+      a.card_model AS "cardModel",
+      a.place AS "place",
+      a.producer AS "producer",
+      a.companyid AS "companyid",
+      a.usedeptid AS "usedeptid",
+      a.userid AS "userid",
+      a.num AS "num",
+      a.unit AS "unit",
+      a.usingstatus AS "usingstatus",
+      a.memo AS "memo",
+      a.asset_accountid AS "assetAccountid",
+      a.accudep_accountid AS "accudepAccountid",
+      a.predevaluate_accountid AS "predevaluateAccountid",
+      a.depcost_accountid AS "depcostAccountid",
+      a.isproject AS "isproject",
+      a.project_accountid AS "projectAccountid",
+      a.predevaluate_coraccountid AS "predevaluateCoraccountid",
+      a.tax_accountid AS "taxAccountid",
+      a.value AS "value",
+      a.rate AS "rate",
+      a.tax AS "tax",
+      a.accudep AS "accudep",
+      a.predevaluate AS "predevaluate",
+      a.netvalue AS "netvalue",
+      a.salvagerate AS "salvagerate",
+      a.salvage AS "salvage",
+      a.depmethod AS "depmethod",
+      a.naturemonth AS "naturemonth",
+      a.servicemonth AS "servicemonth",
+      a.deprate AS "deprate",
+      a.depamount AS "depamount",
+      a.allworkloan AS "allworkloan",
+      a.workloanunit AS "workloanunit",
+      a.add_reason AS "addReason",
+      a.createrid AS "createrid",
+      a.status AS "status",
+      a.reduce_reason AS "reduceReason",
+      a.lastyearaccudep AS "lastyearaccudep",
+      a.usedmonth AS "usedmonth",
+      a.changedmonth AS "changedmonth",
+      a.scrap_date AS "scrapDate",
+      a.company_id AS "companyId",
+      a.remarks AS "remarks",
+      a.create_by AS "createBy",
+      a.create_date AS "createDate",
+      a.update_by AS "updateBy",
+      a.update_date AS "updateDate",
+      a.del_flag AS "delFlag",
+    </trim>
+  </sql>
+  <sql id="tfamAssetHistroyJoins">
+    LEFT JOIN tfam_asset cardCode ON cardCode.card_code = a.card_code
+  </sql>
+  <resultMap id="resultTfamAssetHistroyMap" type="com.geeke.fixasset.asset.entity.TfamAssetHistroy">
+    <result property="id" column="id" />
+    <result property="year" column="year" />
+    <result property="month" column="month" />
+    <result property="assetCode" column="assetCode" />
+    <result property="businessDate" column="businessDate" />
+    <result property="nature" column="nature" />
+    <result property="categoryId" column="categoryId" />
+    <result property="assetName" column="assetName" />
+    <result property="spec" column="spec" />
+    <result property="cardModel" column="cardModel" />
+    <result property="place" column="place" />
+    <result property="producer" column="producer" />
+    <result property="companyid" column="companyid" />
+    <result property="usedeptid" column="usedeptid" />
+    <result property="userid" column="userid" />
+    <result property="num" column="num" />
+    <result property="unit" column="unit" />
+    <result property="usingstatus" column="usingstatus" />
+    <result property="memo" column="memo" />
+    <result property="assetAccountid" column="assetAccountid" />
+    <result property="accudepAccountid" column="accudepAccountid" />
+    <result property="predevaluateAccountid" column="predevaluateAccountid" />
+    <result property="depcostAccountid" column="depcostAccountid" />
+    <result property="isproject" column="isproject" />
+    <result property="projectAccountid" column="projectAccountid" />
+    <result property="predevaluateCoraccountid" column="predevaluateCoraccountid" />
+    <result property="taxAccountid" column="taxAccountid" />
+    <result property="value" column="value" />
+    <result property="rate" column="rate" />
+    <result property="tax" column="tax" />
+    <result property="accudep" column="accudep" />
+    <result property="predevaluate" column="predevaluate" />
+    <result property="netvalue" column="netvalue" />
+    <result property="salvagerate" column="salvagerate" />
+    <result property="salvage" column="salvage" />
+    <result property="depmethod" column="depmethod" />
+    <result property="naturemonth" column="naturemonth" />
+    <result property="servicemonth" column="servicemonth" />
+    <result property="deprate" column="deprate" />
+    <result property="depamount" column="depamount" />
+    <result property="allworkloan" column="allworkloan" />
+    <result property="workloanunit" column="workloanunit" />
+    <result property="addReason" column="addReason" />
+    <result property="createrid" column="createrid" />
+    <result property="status" column="status" />
+    <result property="reduceReason" column="reduceReason" />
+    <result property="lastyearaccudep" column="lastyearaccudep" />
+    <result property="usedmonth" column="usedmonth" />
+    <result property="changedmonth" column="changedmonth" />
+    <result property="scrapDate" column="scrapDate" />
+    <result property="companyId" column="companyId" />
+    <result property="remarks" column="remarks" />
+    <result property="createBy" column="createBy" />
+    <result property="createDate" column="createDate" />
+    <result property="updateBy" column="updateBy" />
+    <result property="updateDate" column="updateDate" />
+    <result property="delFlag" column="delFlag" />
+    <association property="cardCode" javaType="com.geeke.fixasset.asset.entity.TfamAsset">
+      <result property="id" column="cardCode.id" />
+      <result property="cardCode" column="cardCode.cardCode" />
+      <result property="assetCode" column="cardCode.assetCode" />
+      <result property="assetName" column="cardCode.assetName" />
+    </association>
+  </resultMap>
+  <select id="get" resultMap="resultTfamAssetHistroyMap">
+    SELECT
+    <include refid="tfamAssetHistroyColumns" />
+    FROM tfam_asset_histroy a
+    <include refid="tfamAssetHistroyJoins" />
+    WHERE a.id = #{id}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tfam_asset_histroy a
+    <include refid="tfamAssetHistroyJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="listPage" resultMap="resultTfamAssetHistroyMap">
+    SELECT
+    <include refid="tfamAssetHistroyColumns" />
+    FROM tfam_asset_histroy a
+    <include refid="tfamAssetHistroyJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultMap="resultTfamAssetHistroyMap">
+    SELECT
+    <include refid="tfamAssetHistroyColumns" />
+    FROM tfam_asset_histroy a
+    <include refid="tfamAssetHistroyJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tfam_asset_histroy(
+    <trim suffixOverrides=",">
+      id,
+      year,
+      month,
+      card_code,
+      asset_code,
+      business_date,
+      nature,
+      category_id,
+      asset_name,
+      spec,
+      card_model,
+      place,
+      producer,
+      companyid,
+      usedeptid,
+      userid,
+      num,
+      unit,
+      usingstatus,
+      memo,
+      asset_accountid,
+      accudep_accountid,
+      predevaluate_accountid,
+      depcost_accountid,
+      isproject,
+      project_accountid,
+      predevaluate_coraccountid,
+      tax_accountid,
+      value,
+      rate,
+      tax,
+      accudep,
+      predevaluate,
+      netvalue,
+      salvagerate,
+      salvage,
+      depmethod,
+      naturemonth,
+      servicemonth,
+      deprate,
+      depamount,
+      allworkloan,
+      workloanunit,
+      add_reason,
+      createrid,
+      status,
+      reduce_reason,
+      lastyearaccudep,
+      usedmonth,
+      changedmonth,
+      scrap_date,
+      company_id,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ id },
+      #{ year },
+      #{ month },
+      #{ cardCode.cardCode },
+      #{ assetCode },
+      #{ businessDate },
+      #{ nature },
+      #{ categoryId },
+      #{ assetName },
+      #{ spec },
+      #{ cardModel },
+      #{ place },
+      #{ producer },
+      #{ companyid },
+      #{ usedeptid },
+      #{ userid },
+      #{ num },
+      #{ unit },
+      #{ usingstatus },
+      #{ memo },
+      #{ assetAccountid },
+      #{ accudepAccountid },
+      #{ predevaluateAccountid },
+      #{ depcostAccountid },
+      #{ isproject },
+      #{ projectAccountid },
+      #{ predevaluateCoraccountid },
+      #{ taxAccountid },
+      #{ value },
+      #{ rate },
+      #{ tax },
+      #{ accudep },
+      #{ predevaluate },
+      #{ netvalue },
+      #{ salvagerate },
+      #{ salvage },
+      #{ depmethod },
+      #{ naturemonth },
+      #{ servicemonth },
+      #{ deprate },
+      #{ depamount },
+      #{ allworkloan },
+      #{ workloanunit },
+      #{ addReason },
+      #{ createrid },
+      #{ status },
+      #{ reduceReason },
+      #{ lastyearaccudep },
+      #{ usedmonth },
+      #{ changedmonth },
+      #{ scrapDate },
+      #{ companyId },
+      #{ remarks },
+      #{ createBy },
+      #{ createDate },
+      #{ updateBy },
+      #{ updateDate },
+      #{ delFlag },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tfam_asset_histroy SET
+    <trim suffixOverrides=",">
+      year = #{ year },
+      month = #{ month },
+      card_code = #{ cardCode.cardCode },
+      asset_code = #{ assetCode },
+      business_date = #{ businessDate },
+      nature = #{ nature },
+      category_id = #{ categoryId },
+      asset_name = #{ assetName },
+      spec = #{ spec },
+      card_model = #{ cardModel },
+      place = #{ place },
+      producer = #{ producer },
+      companyid = #{ companyid },
+      usedeptid = #{ usedeptid },
+      userid = #{ userid },
+      num = #{ num },
+      unit = #{ unit },
+      usingstatus = #{ usingstatus },
+      memo = #{ memo },
+      asset_accountid = #{ assetAccountid },
+      accudep_accountid = #{ accudepAccountid },
+      predevaluate_accountid = #{ predevaluateAccountid },
+      depcost_accountid = #{ depcostAccountid },
+      isproject = #{ isproject },
+      project_accountid = #{ projectAccountid },
+      predevaluate_coraccountid = #{ predevaluateCoraccountid },
+      tax_accountid = #{ taxAccountid },
+      value = #{ value },
+      rate = #{ rate },
+      tax = #{ tax },
+      accudep = #{ accudep },
+      predevaluate = #{ predevaluate },
+      netvalue = #{ netvalue },
+      salvagerate = #{ salvagerate },
+      salvage = #{ salvage },
+      depmethod = #{ depmethod },
+      naturemonth = #{ naturemonth },
+      servicemonth = #{ servicemonth },
+      deprate = #{ deprate },
+      depamount = #{ depamount },
+      allworkloan = #{ allworkloan },
+      workloanunit = #{ workloanunit },
+      add_reason = #{ addReason },
+      createrid = #{ createrid },
+      status = #{ status },
+      reduce_reason = #{ reduceReason },
+      lastyearaccudep = #{ lastyearaccudep },
+      usedmonth = #{ usedmonth },
+      changedmonth = #{ changedmonth },
+      scrap_date = #{ scrapDate },
+      company_id = #{ companyId },
+      remarks = #{ remarks },
+      update_by = #{ updateBy },
+      update_date = #{ updateDate },
+    </trim>
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <update id="delete">
+    UPDATE tfam_asset_histroy SET
+    update_by = #{updateBy},
+    update_date = #{updateDate},
+    del_flag = #{DEL_FLAG_DELETE}
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tfam_asset_histroy(
+    <trim suffixOverrides=",">
+      id,
+      year,
+      month,
+      card_code,
+      asset_code,
+      business_date,
+      nature,
+      category_id,
+      asset_name,
+      spec,
+      card_model,
+      place,
+      producer,
+      companyid,
+      usedeptid,
+      userid,
+      num,
+      unit,
+      usingstatus,
+      memo,
+      asset_accountid,
+      accudep_accountid,
+      predevaluate_accountid,
+      depcost_accountid,
+      isproject,
+      project_accountid,
+      predevaluate_coraccountid,
+      tax_accountid,
+      value,
+      rate,
+      tax,
+      accudep,
+      predevaluate,
+      netvalue,
+      salvagerate,
+      salvage,
+      depmethod,
+      naturemonth,
+      servicemonth,
+      deprate,
+      depamount,
+      allworkloan,
+      workloanunit,
+      add_reason,
+      createrid,
+      status,
+      reduce_reason,
+      lastyearaccudep,
+      usedmonth,
+      changedmonth,
+      scrap_date,
+      company_id,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.id},
+        #{entity.year},
+        #{entity.month},
+        #{entity.cardCode.cardCode},
+        #{entity.assetCode},
+        #{entity.businessDate},
+        #{entity.nature},
+        #{entity.categoryId},
+        #{entity.assetName},
+        #{entity.spec},
+        #{entity.cardModel},
+        #{entity.place},
+        #{entity.producer},
+        #{entity.companyid},
+        #{entity.usedeptid},
+        #{entity.userid},
+        #{entity.num},
+        #{entity.unit},
+        #{entity.usingstatus},
+        #{entity.memo},
+        #{entity.assetAccountid},
+        #{entity.accudepAccountid},
+        #{entity.predevaluateAccountid},
+        #{entity.depcostAccountid},
+        #{entity.isproject},
+        #{entity.projectAccountid},
+        #{entity.predevaluateCoraccountid},
+        #{entity.taxAccountid},
+        #{entity.value},
+        #{entity.rate},
+        #{entity.tax},
+        #{entity.accudep},
+        #{entity.predevaluate},
+        #{entity.netvalue},
+        #{entity.salvagerate},
+        #{entity.salvage},
+        #{entity.depmethod},
+        #{entity.naturemonth},
+        #{entity.servicemonth},
+        #{entity.deprate},
+        #{entity.depamount},
+        #{entity.allworkloan},
+        #{entity.workloanunit},
+        #{entity.addReason},
+        #{entity.createrid},
+        #{entity.status},
+        #{entity.reduceReason},
+        #{entity.lastyearaccudep},
+        #{entity.usedmonth},
+        #{entity.changedmonth},
+        #{entity.scrapDate},
+        #{entity.companyId},
+        #{entity.remarks},
+        #{entity.createBy},
+        #{entity.createDate},
+        #{entity.updateBy},
+        #{entity.updateDate},
+        #{entity.delFlag},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tfam_asset_histroy
+    <set>
+      <trim prefix="year=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.year}
+        </foreach>
+      </trim>
+      <trim prefix="month=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.month}
+        </foreach>
+      </trim>
+      <trim prefix="card_code=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.cardCode.cardCode}
+        </foreach>
+      </trim>
+      <trim prefix="asset_code=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.assetCode}
+        </foreach>
+      </trim>
+      <trim prefix="business_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.businessDate}
+        </foreach>
+      </trim>
+      <trim prefix="nature=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.nature}
+        </foreach>
+      </trim>
+      <trim prefix="category_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.categoryId}
+        </foreach>
+      </trim>
+      <trim prefix="asset_name=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.assetName}
+        </foreach>
+      </trim>
+      <trim prefix="spec=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.spec}
+        </foreach>
+      </trim>
+      <trim prefix="card_model=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.cardModel}
+        </foreach>
+      </trim>
+      <trim prefix="place=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.place}
+        </foreach>
+      </trim>
+      <trim prefix="producer=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.producer}
+        </foreach>
+      </trim>
+      <trim prefix="companyid=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.companyid}
+        </foreach>
+      </trim>
+      <trim prefix="usedeptid=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.usedeptid}
+        </foreach>
+      </trim>
+      <trim prefix="userid=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.userid}
+        </foreach>
+      </trim>
+      <trim prefix="num=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.num}
+        </foreach>
+      </trim>
+      <trim prefix="unit=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.unit}
+        </foreach>
+      </trim>
+      <trim prefix="usingstatus=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.usingstatus}
+        </foreach>
+      </trim>
+      <trim prefix="memo=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.memo}
+        </foreach>
+      </trim>
+      <trim prefix="asset_accountid=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.assetAccountid}
+        </foreach>
+      </trim>
+      <trim prefix="accudep_accountid=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.accudepAccountid}
+        </foreach>
+      </trim>
+      <trim prefix="predevaluate_accountid=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.predevaluateAccountid}
+        </foreach>
+      </trim>
+      <trim prefix="depcost_accountid=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.depcostAccountid}
+        </foreach>
+      </trim>
+      <trim prefix="isproject=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.isproject}
+        </foreach>
+      </trim>
+      <trim prefix="project_accountid=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.projectAccountid}
+        </foreach>
+      </trim>
+      <trim prefix="predevaluate_coraccountid=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.predevaluateCoraccountid}
+        </foreach>
+      </trim>
+      <trim prefix="tax_accountid=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.taxAccountid}
+        </foreach>
+      </trim>
+      <trim prefix="value=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.value}
+        </foreach>
+      </trim>
+      <trim prefix="rate=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.rate}
+        </foreach>
+      </trim>
+      <trim prefix="tax=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.tax}
+        </foreach>
+      </trim>
+      <trim prefix="accudep=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.accudep}
+        </foreach>
+      </trim>
+      <trim prefix="predevaluate=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.predevaluate}
+        </foreach>
+      </trim>
+      <trim prefix="netvalue=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.netvalue}
+        </foreach>
+      </trim>
+      <trim prefix="salvagerate=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.salvagerate}
+        </foreach>
+      </trim>
+      <trim prefix="salvage=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.salvage}
+        </foreach>
+      </trim>
+      <trim prefix="depmethod=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.depmethod}
+        </foreach>
+      </trim>
+      <trim prefix="naturemonth=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.naturemonth}
+        </foreach>
+      </trim>
+      <trim prefix="servicemonth=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.servicemonth}
+        </foreach>
+      </trim>
+      <trim prefix="deprate=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.deprate}
+        </foreach>
+      </trim>
+      <trim prefix="depamount=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.depamount}
+        </foreach>
+      </trim>
+      <trim prefix="allworkloan=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.allworkloan}
+        </foreach>
+      </trim>
+      <trim prefix="workloanunit=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.workloanunit}
+        </foreach>
+      </trim>
+      <trim prefix="add_reason=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.addReason}
+        </foreach>
+      </trim>
+      <trim prefix="createrid=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.createrid}
+        </foreach>
+      </trim>
+      <trim prefix="status=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.status}
+        </foreach>
+      </trim>
+      <trim prefix="reduce_reason=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.reduceReason}
+        </foreach>
+      </trim>
+      <trim prefix="lastyearaccudep=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.lastyearaccudep}
+        </foreach>
+      </trim>
+      <trim prefix="usedmonth=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.usedmonth}
+        </foreach>
+      </trim>
+      <trim prefix="changedmonth=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.changedmonth}
+        </foreach>
+      </trim>
+      <trim prefix="scrap_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.scrapDate}
+        </foreach>
+      </trim>
+      <trim prefix="company_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.companyId}
+        </foreach>
+      </trim>
+      <trim prefix="remarks=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.remarks}
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    UPDATE tfam_asset_histroy
+    <set>
+      <trim prefix="del_flag=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then 1
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+</mapper>

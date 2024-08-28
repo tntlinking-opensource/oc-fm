@@ -1,0 +1,945 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.vouchermanager.dao.TglAccountsDao">
+  <sql id="tglAccountsColumns">
+    <trim suffixOverrides=",">
+      a.id AS "id",
+      a.UQACCOUNTID AS "uqaccountid",
+      a.UQACCOUNTSETID AS "uqaccountsetid",
+      a.VARACCOUNTCODE AS "varaccountcode",
+      a.VARACCOUNTFULLCODE AS "varaccountfullcode",
+      a.VARACCOUNTNAME AS "varaccountname",
+      a.INTISLEDGE AS "intisledge",
+      a.INTISCROSSLEDGE AS "intiscrossledge",
+      a.UQPREACCOUNTID AS "uqpreaccountid",
+      a.UQPARENTID AS "uqparentid.UQACCOUNTID",
+      IFNULL(uqparentid.UQTYPEID,'') AS "uqparentid.UQTYPEID",
+      IFNULL(uqparentid.UQPARENTID,'') AS "uqparentid.UQPARENTID",
+      IFNULL(uqparentid.UQFOREIGNCURRID,'') AS "uqparentid.UQFOREIGNCURRID",
+      IFNULL(uqparentid.INTISLASTLEVEL,'') AS "uqparentid.INTISLASTLEVEL",
+      IFNULL(uqparentid.INTISFLOW,'') AS "uqparentid.INTISFLOW",
+      IFNULL(uqparentid.update_by,'') AS "uqparentid.updateBy",
+      IFNULL(uqparentid.update_date,'') AS "uqparentid.updateDate",
+      IFNULL(uqparentid.del_flag,'') AS "uqparentid.delFlag",
+      IFNULL(uqparentid.tenant_id,'') AS "uqparentid.tenantId",
+      IFNULL(uqparentid.INTLEVEL,'') AS "uqparentid.INTLEVEL",
+      IFNULL(uqparentid.VARMEASURE,'') AS "uqparentid.VARMEASURE",
+      IFNULL(uqparentid.UQACCOUNTSETID,'') AS "uqparentid.UQACCOUNTSETID",
+      IFNULL(uqparentid.VARACCOUNTCODE,'') AS "uqparentid.VARACCOUNTCODE",
+      IFNULL(uqparentid.VARACCOUNTFULLCODE,'') AS "uqparentid.VARACCOUNTFULLCODE",
+      IFNULL(uqparentid.INTISCROSSLEDGE,'') AS "uqparentid.INTISCROSSLEDGE",
+      IFNULL(uqparentid.INTISLEDGE,'') AS "uqparentid.INTISLEDGE",
+      IFNULL(uqparentid.INTFLAG,'') AS "uqparentid.INTFLAG",
+      IFNULL(uqparentid.ISBALANCE,'') AS "uqparentid.ISBALANCE",
+      IFNULL(uqparentid.create_by,'') AS "uqparentid.createBy",
+      IFNULL(uqparentid.UQPREACCOUNTID,'') AS "uqparentid.UQPREACCOUNTID",
+      IFNULL(uqparentid.VARACCOUNTNAME,'') AS "uqparentid.VARACCOUNTNAME",
+      IFNULL(uqparentid.VARACCOUNTFULLNAME,'') AS "uqparentid.VARACCOUNTFULLNAME",
+      IFNULL(uqparentid.remarks,'') AS "uqparentid.remarks",
+      IFNULL(uqparentid.create_date,'') AS "uqparentid.createDate",
+      IFNULL(uqparentid.INTPROPERTY,'') AS "uqparentid.INTPROPERTY",
+      IFNULL(uqparentid.id,'') AS "uqparentid.id",
+      a.INTISLASTLEVEL AS "intislastlevel",
+      a.INTLEVEL AS "intlevel",
+      a.INTFLAG AS "intflag",
+      a.VARACCOUNTFULLNAME AS "varaccountfullname",
+      a.tenant_id AS "tenantId",
+      a.ISBALANCE AS "isbalance",
+      a.remarks AS "remarks",
+      a.create_by AS "createBy",
+      a.create_date AS "createDate",
+      a.update_by AS "updateBy",
+      a.update_date AS "updateDate",
+      a.del_flag AS "delFlag",
+      tc1.categorycode AS intproperty,
+      tc1.categoryname AS intpropertyno,
+      tc2.categorycode AS uqtypeid,
+      tc2.categoryname AS uqtypeidno,
+      tc3.categorycode AS uqforeigncurrid,
+      tc3.categoryname AS uqforeigncurridno,
+      tc4.categorycode AS varmeasure,
+      tc4.categoryname AS varmeasureno,
+      tc5.categorycode AS intisflow,
+      tc5.categoryname AS intisflowno,
+      (Select GROUP_CONCAT(tl.UQLEDGETYPEID)
+      from tgl_account_ledgetype tal
+      LEFT JOIN tgl_ledgetype tl on tl.UQLEDGETYPEID=tal.UQLEDGETYPEID
+      WHERE  tal.UQACCOUNTID=a.UQACCOUNTID) AS uqledgetypeids,
+      (Select GROUP_CONCAT(tl.VARLEDGETYPENAME)
+      from tgl_account_ledgetype tal
+      LEFT JOIN tgl_ledgetype tl on tl.UQLEDGETYPEID=tal.UQLEDGETYPEID
+      WHERE  tal.UQACCOUNTID=a.UQACCOUNTID
+      ) AS uqledgetypenames,
+    </trim>
+  </sql>
+  <sql id="tglAccountsColumn" >
+    <trim suffixOverrides=",">
+      a.id AS "id",
+      a.UQACCOUNTID AS "uqaccountid",
+      a.UQACCOUNTSETID AS "uqaccountsetid",
+      a.VARACCOUNTCODE AS "varaccountcode",
+      a.VARACCOUNTFULLCODE AS "varaccountfullcode",
+      a.VARACCOUNTNAME AS "varaccountname",
+      a.INTISLEDGE AS "intisledge",
+      a.INTISCROSSLEDGE AS "intiscrossledge",
+      a.UQPREACCOUNTID AS "uqpreaccountid",
+      a.UQPARENTID AS "uqparentid.UQACCOUNTID",
+      a.INTISLASTLEVEL AS "intislastlevel",
+      a.INTLEVEL AS "intlevel",
+      a.INTFLAG AS "intflag",
+      a.VARACCOUNTFULLNAME AS "varaccountfullname",
+      a.tenant_id AS "tenantId",
+      a.ISBALANCE AS "isbalance",
+      a.remarks AS "remarks",
+      a.create_by AS "createBy",
+      a.create_date AS "createDate",
+      a.update_by AS "updateBy",
+      a.update_date AS "updateDate",
+      a.del_flag AS "delFlag",
+      tc1.categorycode AS intproperty,
+      tc1.categoryname AS intpropertyno,
+      tc2.categorycode AS uqtypeid,
+      tc2.categoryname AS uqtypeidno,
+      tc3.categorycode AS uqforeigncurrid,
+      tc3.categoryname AS uqforeigncurridno,
+      tc4.categorycode AS varmeasure,
+      tc4.categoryname AS varmeasureno,
+      tc5.categorycode AS intisflow,
+      tc5.categoryname AS intisflowno,
+      (Select GROUP_CONCAT(tl.UQLEDGETYPEID)
+      from tgl_account_ledgetype tal
+      LEFT JOIN tgl_ledgetype tl on tl.UQLEDGETYPEID=tal.UQLEDGETYPEID
+      WHERE  tal.UQACCOUNTID=a.UQACCOUNTID) AS uqledgetypeids,
+      (Select GROUP_CONCAT(tl.VARLEDGETYPENAME)
+      from tgl_account_ledgetype tal
+      LEFT JOIN tgl_ledgetype tl on tl.UQLEDGETYPEID=tal.UQLEDGETYPEID
+          WHERE  tal.UQACCOUNTID=a.UQACCOUNTID
+          ) AS uqledgetypenames,
+    </trim>
+  </sql>
+  <sql id="tglAccountsJoins">
+    LEFT JOIN tgl_accounts uqparentid ON uqparentid.UQACCOUNTID = a.UQPARENTID
+    LEFT JOIN tob_category tc1 ON tc1.categorycode = a.intproperty AND tc1.categorytype = '10000001'
+    LEFT JOIN tob_category tc2 ON tc2.categorycode = a.uqtypeid AND tc2.categorytype = '10000002'
+    LEFT JOIN tob_category tc3 ON tc3.categorycode = a.uqforeigncurrid AND tc3.categorytype = '10000003'
+    LEFT JOIN tob_category tc4 ON tc4.categorycode = a.varmeasure AND tc4.categorytype = '10000004'
+    LEFT JOIN tob_category tc5 ON tc5.categorycode = a.intisflow AND tc5.categorytype = '10000010'
+  </sql>
+  <select id="get" resultType="com.geeke.vouchermanager.entity.TglAccounts">
+    SELECT
+    <include refid="tglAccountsColumns" />
+    FROM tgl_accounts a
+    <include refid="tglAccountsJoins" />
+    WHERE a.id = #{id}
+  </select>
+  <select id="findAccountById" resultType="com.geeke.vouchermanager.entity.TglAccounts">
+    SELECT
+    <include refid="tglAccountsColumns" />
+    FROM tgl_accounts a
+    <include refid="tglAccountsJoins" />
+    WHERE a.uqaccountid = #{parentid}
+    and a.tenant_id = #{tenantid}
+  </select>
+  <select id="IsParentExistVoucher" resultType="java.lang.Integer">
+    SELECT count( 1 )
+    FROM tgl_voucher_mains tm
+    LEFT JOIN tgl_voucher_details tg ON tg.UQVOUCHERID = tm.UQVOUCHERID
+    LEFT JOIN tgl_accounts tc ON tc.UQACCOUNTID = tg.UQACCOUNTID
+    WHERE tm.tenant_id = #{tenantid}
+      AND tc.tenant_id = #{tenantid}
+      and tc.UQACCOUNTID= #{parentId}
+      and tm.INTDELETEFLAG=0
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tgl_accounts a
+    <include refid="tglAccountsJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="getParid" resultType="com.geeke.vouchermanager.entity.TglAccounts">
+    SELECT
+    <include refid="tglAccountsColumns" />
+    FROM tgl_accounts a
+    <include refid="tglAccountsJoins" />
+    WHERE a.VARACCOUNTCODE = #{code}
+    AND a.tenant_id = #{tenantid}
+  </select>
+  <select id="getShowName" resultType="com.geeke.vouchermanager.entity.TglAccounts">
+    SELECT
+    <include refid="tglAccountsColumns" />
+    FROM tgl_accounts a
+    <include refid="tglAccountsJoins" />
+    WHERE a.VARACCOUNTCODE = #{code}
+    AND a.tenant_id = #{tenantid}
+  </select>
+  <select id="getBytenantid" resultType="com.geeke.vouchermanager.entity.TglAccounts">
+    SELECT
+    <include refid="tglAccountsColumns" />
+    FROM tgl_accounts a
+    <include refid="tglAccountsJoins" />
+    WHERE  a.tenant_id = #{tenantid}
+  </select>
+  <select id="getAccountById" resultType="com.geeke.vouchermanager.entity.TglAccounts">
+    SELECT
+    <include refid="tglAccountsColumns" />
+    FROM tgl_accounts a
+    <include refid="tglAccountsJoins" />
+    WHERE  a.uqaccountid = #{uqaccountid}
+  </select>
+  <select id="queryChildAccount" resultType="com.geeke.vouchermanager.entity.TglAccounts">
+    SELECT
+    <include refid="tglAccountsColumns" />
+    FROM tgl_accounts a
+    <include refid="tglAccountsJoins" />
+    WHERE  a.UQPARENTID = #{uqaccountid}
+      and a.tenant_id = #{tenantid}
+  </select>
+  <select id="getAccountCountByName" resultType="com.geeke.vouchermanager.entity.TglAccounts">
+    SELECT
+    <include refid="tglAccountsColumns" />
+    FROM tgl_accounts a
+    <include refid="tglAccountsJoins" />
+    WHERE  a.varaccountname = #{varaccountname}
+        AND a.uqparentid = #{uqparentid.uqaccountid}
+        AND a.uqaccountsetid = #{uqaccountsetid}
+  </select>
+  <select id="getByUqaccountid" resultType="com.geeke.vouchermanager.entity.TglAccounts">
+    SELECT
+    <include refid="tglAccountsColumns" />
+    FROM tgl_accounts a
+    <include refid="tglAccountsJoins" />
+    WHERE  a.uqaccountid = #{parentId}
+  </select>
+  <select id="selectUqaccountsetid" resultType="String">
+    select UQACCOUNTSETID
+    FROM tgl_accountsets
+    where tenant_id=#{tenantid}
+  </select>
+  <select id="getAccountIdList" resultType="String">
+    SELECT uqaccountid
+    FROM tgl_accounts ta
+    WHERE ta.uqparentid =#{uqaccountid}
+  </select>
+  <select id="listPage" resultType="com.geeke.vouchermanager.entity.TglAccounts">
+    SELECT
+    <include refid="tglAccountsColumns" />
+    FROM tgl_accounts a
+    <include refid="tglAccountsJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.uqaccountid &lt;&gt; "00000000-0000-0000-0000-000000000000"
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.varaccountfullcode ASC
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultType="com.geeke.vouchermanager.entity.TglAccounts">
+    SELECT
+    <include refid="tglAccountsColumns" />
+    FROM tgl_accounts a
+    <include refid="tglAccountsJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.uqaccountid &lt;&gt; "00000000-0000-0000-0000-000000000000"
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tgl_accounts(
+    <trim suffixOverrides=",">
+      id,
+      UQACCOUNTID,
+      UQACCOUNTSETID,
+      VARACCOUNTCODE,
+      VARACCOUNTFULLCODE,
+      VARACCOUNTNAME,
+      INTPROPERTY,
+      UQTYPEID,
+      UQFOREIGNCURRID,
+      VARMEASURE,
+      INTISLEDGE,
+      INTISCROSSLEDGE,
+      UQPREACCOUNTID,
+      UQPARENTID,
+      INTISLASTLEVEL,
+      INTLEVEL,
+      INTFLAG,
+      VARACCOUNTFULLNAME,
+      INTISFLOW,
+      tenant_id,
+      ISBALANCE,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ id },
+      #{ uqaccountid },
+      #{ uqaccountsetid },
+      #{ varaccountcode },
+      #{ varaccountfullcode },
+      #{ varaccountname },
+      #{ intproperty },
+      #{ uqtypeid },
+      #{ uqforeigncurrid },
+      #{ varmeasure },
+      #{ intisledge },
+      #{ intiscrossledge },
+      #{ uqpreaccountid },
+      #{ uqparentid.UQACCOUNTID },
+      #{ intislastlevel },
+      #{ intlevel },
+      #{ intflag },
+      #{ varaccountfullname },
+      #{ intisflow },
+      #{ tenantId },
+      #{ isbalance },
+      #{ remarks },
+      #{ createBy },
+      #{ createDate },
+      #{ updateBy },
+      #{ updateDate },
+      #{ delFlag },
+    </trim>
+    )
+  </insert>
+  <insert id="add">
+    INSERT INTO tgl_accounts(
+    <trim suffixOverrides=",">
+      id,
+      UQACCOUNTID,
+      UQACCOUNTSETID,
+      VARACCOUNTCODE,
+      VARACCOUNTFULLCODE,
+      VARACCOUNTNAME,
+      INTPROPERTY,
+      UQTYPEID,
+      UQFOREIGNCURRID,
+      VARMEASURE,
+      INTISLEDGE,
+      INTISCROSSLEDGE,
+      UQPREACCOUNTID,
+      UQPARENTID,
+      INTISLASTLEVEL,
+      INTLEVEL,
+      INTFLAG,
+      VARACCOUNTFULLNAME,
+      INTISFLOW,
+      tenant_id,
+      ISBALANCE,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+        111,
+      #{ uqaccountid },
+      #{ uqaccountsetid },
+      #{ varaccountcode },
+      #{ varaccountfullcode },
+      #{ varaccountname },
+      #{ intproperty },
+      #{ uqtypeid },
+      #{ uqforeigncurrid },
+      #{ varmeasure },
+      #{ intisledge },
+      #{ intiscrossledge },
+      #{ uqpreaccountid },
+      #{ uqparentid.uqaccountid },
+      #{ intislastlevel },
+      #{ intlevel },
+      #{ intflag },
+      #{ varaccountfullname },
+      #{ intisflow },
+      #{ tenantId },
+      #{ isbalance },
+      #{ remarks },
+      #{ createBy },
+      #{ createDate },
+      #{ updateBy },
+      #{ updateDate },
+      0,
+    </trim>
+    )
+  </insert>
+  <insert id="addTenantAccounts">
+    INSERT INTO tgl_accounts(
+    <trim suffixOverrides=",">
+      id,
+      UQACCOUNTID,
+      UQACCOUNTSETID,
+      VARACCOUNTCODE,
+      VARACCOUNTFULLCODE,
+      VARACCOUNTNAME,
+      INTPROPERTY,
+      UQTYPEID,
+      UQFOREIGNCURRID,
+      VARMEASURE,
+      INTISLEDGE,
+      INTISCROSSLEDGE,
+      UQPREACCOUNTID,
+      UQPARENTID,
+      INTISLASTLEVEL,
+      INTLEVEL,
+      INTFLAG,
+      VARACCOUNTFULLNAME,
+      INTISFLOW,
+      tenant_id,
+      ISBALANCE,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      1,
+      #{ account.uqaccountid },
+      #{ account.uqaccountsetid },
+      #{ account.varaccountcode },
+      #{ account.varaccountfullcode },
+      #{ account.varaccountname },
+      #{ account.intproperty },
+      #{ account.uqtypeid },
+      #{ account.uqforeigncurrid },
+      #{ account.varmeasure },
+      #{ account.intisledge },
+      #{ account.intiscrossledge },
+      #{ account.uqpreaccountid },
+      #{ account.uqparentid },
+      #{ account.intislastlevel },
+      #{ account.intlevel },
+      #{ account.intflag },
+      #{ account.varaccountfullname },
+      #{ account.intisflow },
+      #{ tenantid },
+      #{ account.isbalance },
+    </trim>
+    )
+  </insert>
+  <insert id="addAccountAndLedgeType">
+    INSERT INTO tgl_account_ledgetype
+        (uqaccountid, uqledgetypeid)
+    VALUES (#{uqaccountid}, #{uqledgetypeid})
+  </insert>
+  <update id="update">
+    UPDATE tgl_accounts SET
+    <trim suffixOverrides=",">
+      UQACCOUNTID = #{ uqaccountid },
+      UQACCOUNTSETID = #{ uqaccountsetid },
+      VARACCOUNTCODE = #{ varaccountcode },
+      VARACCOUNTFULLCODE = #{ varaccountfullcode },
+      VARACCOUNTNAME = #{ varaccountname },
+      INTPROPERTY = #{ intproperty },
+      UQTYPEID = #{ uqtypeid },
+      UQFOREIGNCURRID = #{ uqforeigncurrid },
+      VARMEASURE = #{ varmeasure },
+      INTISLEDGE = #{ intisledge },
+      INTISCROSSLEDGE = #{ intiscrossledge },
+      UQPREACCOUNTID = #{ uqpreaccountid },
+      UQPARENTID = #{ uqparentid.UQACCOUNTID },
+      INTISLASTLEVEL = #{ intislastlevel },
+      INTLEVEL = #{ intlevel },
+      INTFLAG = #{ intflag },
+      VARACCOUNTFULLNAME = #{ varaccountfullname },
+      INTISFLOW = #{ intisflow },
+      tenant_id = #{ tenantId },
+      ISBALANCE = #{ isbalance },
+      remarks = #{ remarks },
+      update_by = #{ updateBy },
+      update_date = #{ updateDate },
+    </trim>
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <update id="editAccounts">
+    UPDATE tgl_accounts SET
+    <trim suffixOverrides=",">
+      VARACCOUNTNAME = #{ account.varaccountname },
+      INTPROPERTY = #{ account.intproperty },
+      UQTYPEID = #{ account.uqtypeid },
+      UQFOREIGNCURRID = #{ account.uqforeigncurrid },
+      VARMEASURE = #{ account.varmeasure },
+      INTFLAG = 1,
+      VARACCOUNTFULLNAME = #{ account.varaccountfullname },
+      INTISFLOW = #{ account.intisflow },
+      ISBALANCE = #{ account.isbalance },
+    </trim>
+    WHERE tenant_id = #{tenantid}
+    and VARACCOUNTCODE = #{code}
+  </update>
+  <update id="editAccount">
+    UPDATE tgl_accounts  SET
+    <trim suffixOverrides=",">
+      varaccountname =#{varaccountname},
+      intproperty =#{intproperty},
+      uqtypeid = #{uqtypeid},
+      uqforeigncurrid =#{uqforeigncurrid},
+      varmeasure =#{varmeasure},
+      intisledge =#{intisledge},
+      intisflow = #{intisflow},
+      uqparentid =#{uqparentid.uqaccountid},
+      varaccountcode = #{varaccountcode},
+      varaccountfullcode =#{varaccountfullcode} ,
+      ISBALANCE=#{isbalance}
+    </trim>
+    WHERE uqaccountid = #{uqaccountid}
+  </update>
+  <update id="updateAccountFullName">
+    UPDATE tgl_accounts  SET
+    <trim suffixOverrides=",">
+      varaccountfullname =#{varaccountfullname},
+      intproperty =#{intproperty},
+      uqtypeid = #{uqtypeid},
+      uqforeigncurrid =#{uqforeigncurrid},
+      varmeasure =#{varmeasure},
+      intisledge =#{intisledge},
+      intisflow = #{intisflow},
+      ISBALANCE=#{isbalance}
+    </trim>
+    WHERE uqaccountid = #{uqaccountid}
+  </update>
+  <update id="updateUqper">
+    UPDATE tgl_accounts  SET
+    <trim suffixOverrides=",">
+      INTISLEDGE =#{intisledge},
+      UQPREACCOUNTID =#{uqpreaccountid}
+    </trim>
+    WHERE uqaccountid = #{uqaccountid}
+  </update>
+  <update id="updateIntflag">
+    update tgl_accounts ta
+    SET
+    ta.intflag = #{intflag}
+       where
+            1=1
+          <if test="varaccountfullcode != null ">
+            AND ta.VARACCOUNTFULLCODE  like concat('%',#{varaccountfullcode},'%')
+          </if>
+            <if test="uqaccountsetid != null ">
+              AND ta.UQACCOUNTSETID  = #{uqaccountsetid}
+          </if>
+            <if test="uqaccountid != null ">
+             AND ta.UQACCOUNTID  = #{uqaccountid}
+             </if>
+
+  </update>
+  <update id="updateUqaccountid">
+    UPDATE tgl_accounts ta,(select uqaccountid from tgl_accounts where VARACCOUNTCODE=#{s} and tenant_id=#{tenantid}) tas
+    set ta.UQPARENTID =tas.uqaccountid  where ta.UQACCOUNTID = #{uqaccountid}
+  </update>
+  <update id="updateAccountGroupByGroupId">
+    UPDATE tgl_account_group tag
+    SET tag.vargroupname = #{varaccountname}
+    WHERE tag.uqaccountsetid = #{uqaccountsetid}
+      AND tag.vargroupcode = #{varaccountcode}
+  </update>
+  <update id="updateInsertIntislastlevel">
+    UPDATE tgl_accounts ta SET
+    ta.intislastlevel =#{flag}
+    WHERE ta.uqaccountid = #{parentid}
+  </update>
+  <update id="delete">
+    UPDATE tgl_accounts SET
+    update_by = #{updateBy},
+    update_date = #{updateDate},
+    del_flag = #{DEL_FLAG_DELETE}
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tgl_accounts(
+    <trim suffixOverrides=",">
+      id,
+      UQACCOUNTID,
+      UQACCOUNTSETID,
+      VARACCOUNTCODE,
+      VARACCOUNTFULLCODE,
+      VARACCOUNTNAME,
+      INTPROPERTY,
+      UQTYPEID,
+      UQFOREIGNCURRID,
+      VARMEASURE,
+      INTISLEDGE,
+      INTISCROSSLEDGE,
+      UQPREACCOUNTID,
+      UQPARENTID,
+      INTISLASTLEVEL,
+      INTLEVEL,
+      INTFLAG,
+      VARACCOUNTFULLNAME,
+      INTISFLOW,
+      tenant_id,
+      ISBALANCE,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.id},
+        #{entity.uqaccountid},
+        #{entity.uqaccountsetid},
+        #{entity.varaccountcode},
+        #{entity.varaccountfullcode},
+        #{entity.varaccountname},
+        #{entity.intproperty},
+        #{entity.uqtypeid},
+        #{entity.uqforeigncurrid},
+        #{entity.varmeasure},
+        #{entity.intisledge},
+        #{entity.intiscrossledge},
+        #{entity.uqpreaccountid},
+        #{entity.uqparentid.UQACCOUNTID},
+        #{entity.intislastlevel},
+        #{entity.intlevel},
+        #{entity.intflag},
+        #{entity.varaccountfullname},
+        #{entity.intisflow},
+        #{entity.tenantId},
+        #{entity.isbalance},
+        #{entity.remarks},
+        #{entity.createBy},
+        #{entity.createDate},
+        #{entity.updateBy},
+        #{entity.updateDate},
+        #{entity.delFlag},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tgl_accounts
+    <set>
+      <trim prefix="UQACCOUNTID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqaccountid}
+        </foreach>
+      </trim>
+      <trim prefix="UQACCOUNTSETID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqaccountsetid}
+        </foreach>
+      </trim>
+      <trim prefix="VARACCOUNTCODE=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.varaccountcode}
+        </foreach>
+      </trim>
+      <trim prefix="VARACCOUNTFULLCODE=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.varaccountfullcode}
+        </foreach>
+      </trim>
+      <trim prefix="VARACCOUNTNAME=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.varaccountname}
+        </foreach>
+      </trim>
+      <trim prefix="INTPROPERTY=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intproperty}
+        </foreach>
+      </trim>
+      <trim prefix="UQTYPEID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqtypeid}
+        </foreach>
+      </trim>
+      <trim prefix="UQFOREIGNCURRID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqforeigncurrid}
+        </foreach>
+      </trim>
+      <trim prefix="VARMEASURE=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.varmeasure}
+        </foreach>
+      </trim>
+      <trim prefix="INTISLEDGE=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intisledge}
+        </foreach>
+      </trim>
+      <trim prefix="INTISCROSSLEDGE=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intiscrossledge}
+        </foreach>
+      </trim>
+      <trim prefix="UQPREACCOUNTID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqpreaccountid}
+        </foreach>
+      </trim>
+      <trim prefix="UQPARENTID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqparentid.UQACCOUNTID}
+        </foreach>
+      </trim>
+      <trim prefix="INTISLASTLEVEL=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intislastlevel}
+        </foreach>
+      </trim>
+      <trim prefix="INTLEVEL=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intlevel}
+        </foreach>
+      </trim>
+      <trim prefix="INTFLAG=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intflag}
+        </foreach>
+      </trim>
+      <trim prefix="VARACCOUNTFULLNAME=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.varaccountfullname}
+        </foreach>
+      </trim>
+      <trim prefix="INTISFLOW=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intisflow}
+        </foreach>
+      </trim>
+      <trim prefix="tenant_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.tenantId}
+        </foreach>
+      </trim>
+      <trim prefix="ISBALANCE=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.isbalance}
+        </foreach>
+      </trim>
+      <trim prefix="remarks=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.remarks}
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    UPDATE tgl_accounts
+    <set>
+      <trim prefix="del_flag=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then 1
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+  <delete id="deleteGroupAccounts">
+    delete from tgl_ACCOUNT_GROUP WHERE tenant_id=#{tenantid}
+  </delete>
+  <delete id="deleteAccountAndLedgeType">
+    DELETE FROM tgl_account_ledgetype
+    WHERE uqaccountid = #{uqaccountid}
+  </delete>
+  <select id="getAccountCountByCode" resultType="java.lang.Long">
+    select count(1)
+    FROM tgl_accounts ta
+    WHERE ta.varaccountcode = #{uqaccountsetid}
+      AND ta.uqaccountsetid = #{varaccountcode}
+  </select>
+  <select id="getReportDesignLr" resultType="Map">
+    select ta.VARACCOUNTCODE as code,
+           IFNULL(tt.allMoney,0) as allMoney,
+           IFNULL(tt.accountMoney,0) as accountMoney
+    from tgl_accounts ta
+    left join
+        (
+            select pa.tenant_id,
+                   IFNULL(SUM(a.MNYDEBITPERIODALL), 0)-IFNULL(SUM(a.MNYCREDITPERIODALL), 0) as allMoney,
+                   IFNULL(SUM(a.MNYDEBITPERIOD), 0)-IFNULL(SUM(a.MNYCREDITPERIOD), 0) as accountMoney,
+                   ANY_VALUE(pa.vargroupcode) as code
+            from tgl_account_group pa
+            left join tgl_period_accounts_notjz a on pa.uqaccountid = a.uqaccountid
+            left join tgl_global_periods tgp on tgp.UQGLOBALPERIODID = a.UQGLOBALPERIODID
+            where 1 = 1
+              and pa.tenant_id = #{map.tenantId}
+              and tgp.INTYEARMONTH &gt;= #{map.beforeYearMonth}
+              and tgp.INTYEARMONTH &lt;= #{map.afterYearMonth}
+            group by pa.vargroupcode
+            order by pa.vargroupcode
+        ) tt on tt.code =ta.VARACCOUNTCODE
+    where ta.VARACCOUNTCODE != '0000' and ta.tenant_id = #{map.tenantId}
+  </select>
+  <select id="getReportDesignZcfz" resultType="Map">
+    select ta.VARACCOUNTCODE as code,
+           IFNULL(tt.allMoney,0) as allMoney,
+           IFNULL(tt.accountMoney,0) as accountMoney
+    from tgl_accounts ta
+           left join
+         (
+           SELECT pa.tenant_id, IFNULL(SUM(a.MNYDEBITPERIODALL),0)-IFNULL(SUM(a.MNYCREDITPERIODALL),0) as allMoney,tgp.INTYEARMONTH,
+                  IFNULL(SUM(a.MNYDEBITPERIOD),0)-IFNULL(SUM(a.MNYCREDITPERIOD),0) as accountMoney,
+                  ANY_VALUE(pa.vargroupcode) as code
+           from tgl_account_group pa
+                  left join tgl_period_accounts a on pa.uqaccountid = a.uqaccountid
+                  left join tgl_global_periods tgp on tgp.UQGLOBALPERIODID =a.UQGLOBALPERIODID
+           where 1=1
+             and pa.tenant_id = #{map.tenantId}
+             and tgp.INTYEARMONTH &lt;= #{map.yearMonth}
+           group by pa.vargroupcode, tgp.INTYEARMONTH
+           order by pa.vargroupcode
+         ) tt on tt.code =ta.VARACCOUNTCODE
+    where ta.VARACCOUNTCODE != '0000' and ta.tenant_id = #{map.tenantId}
+  </select>
+  <select id="getReportDesignXjll" resultType="Map">
+    select * from ((select tf.varname ,tf.varcode ,tt.*,tr.yearmoney,tft.varcode as aacode  from
+    tgl_flowitems tf left join (
+    select
+    s.varcode as code,
+    g.intyear as intyear,
+    IFNULL(SUM(d.MNYDEBIT), 0)-IFNULL(SUM(d.MNYCREDIT), 0) as money
+    from
+    tgl_accounts_xjll x
+    inner join tgl_voucher_details d on
+    d.UQVOUCHERDETAILID = x.UQVOUCHERDETAIL_ID
+    inner join tgl_voucher_mains m on
+    m.UQVOUCHERID = d.UQVOUCHERID
+    and m.UQVOUCHERID = x.CERTIFUCATE_ID
+    inner join tgl_accounts a on
+    a.UQACCOUNTID = x.ACCOUNTS_ID
+    inner join tgl_global_periods g on
+    g.UQGLOBALPERIODID = x.ACCOUNTPERIOD_ID and g.del_flag = 0
+    inner join tgl_flowitems s on
+    s.uqflowitemid = x.XJLL_CONFIG_ID and s.del_flag = 0
+    inner join tgl_voucher_numberings n on
+    n.UQNUMBERINGID = m.UQNUMBERING
+    where
+    1 = 1
+    and m.UQNUMBERING != '00000000-0000-0000-0000-000000000005'
+    and m.UQNUMBERING != 'CF10100D-ED35-4B1D-AAC7-235F68DFB117'
+    and a.intisflow != 0
+    <if test="map.yearMonth != null and map.yearMonth != ''">
+      AND g.INTYEARMONTH =  #{map.yearMonth}
+    </if>
+    <if test="map.intFlag != null and map.intFlag != ''">
+      and m.intflag = 2
+    </if>
+    and x.TENANT_ID = #{map.tenantId}
+    group by
+    s.varcode,
+    g.intyear
+    ) tt on tt.code =tf.varcode
+    left join (
+    select
+    s.varcode as code,
+    g.intyear as intyear,
+    IFNULL(SUM(d.MNYDEBIT), 0)-IFNULL(SUM(d.MNYCREDIT), 0) as yearmoney
+    from
+    tgl_accounts_xjll x
+    inner join tgl_voucher_details d on
+    d.UQVOUCHERDETAILID = x.UQVOUCHERDETAIL_ID
+    inner join tgl_voucher_mains m on
+    m.UQVOUCHERID = d.UQVOUCHERID
+    and m.UQVOUCHERID = x.CERTIFUCATE_ID
+    inner join tgl_accounts a on
+    a.UQACCOUNTID = x.ACCOUNTS_ID
+    inner join tgl_global_periods g on
+    g.UQGLOBALPERIODID = x.ACCOUNTPERIOD_ID and g.del_flag = 0
+    inner join tgl_flowitems s on
+    s.uqflowitemid = x.XJLL_CONFIG_ID and s.del_flag = 0
+    inner join tgl_voucher_numberings n on
+    n.UQNUMBERINGID = m.UQNUMBERING
+    where
+    1 = 1
+    and m.UQNUMBERING != '00000000-0000-0000-0000-000000000005'
+    and m.UQNUMBERING != 'CF10100D-ED35-4B1D-AAC7-235F68DFB117'
+    and a.intisflow != 0
+    <if test="map.year != null and map.year != ''">
+      AND g.INTYEAR =  #{map.year}
+    </if>
+    <if test="map.intFlag != null and map.intFlag != ''">
+      and m.intflag = 2
+    </if>
+    and x.TENANT_ID = #{map.tenantId}
+    group by
+    s.varcode,
+    g.intyear
+    ) tr on tr.code =tf.varcode
+    left join tgl_flowtype tft on tft.uqflowtypeid =tf.uqflowtypeid
+    where tf.del_flag = 0
+    and tft.del_flag = 0
+    and tft.uqflowtypeid != "00000000-0000-0000-0000-000000000000"
+    and tf.tenant_id = #{map.tenantId}
+    order by varcode )
+    union all
+    (select concat(varcode,".",varname) as  varname,varcode,varcode as code ,"" as intyear,"" as money,"" as yearmoney,varcode as aacode
+    from tgl_flowtype
+    where del_flag = 0
+      and uqflowtypeid != "00000000-0000-0000-0000-000000000000"
+      and tenant_id = #{map.tenantId})
+    )tt
+    group by aacode,varcode
+  </select>
+  <select id="getSubjectlevelList" resultType="Map">
+    select
+           tc.CATEGORYCODE as code,
+           tc.CATEGORYNAME as name
+    from tob_category tc
+    where tc.CATEGORYTYPE = '10000008'
+    ORDER BY (code+0) asc
+  </select>
+
+</mapper>

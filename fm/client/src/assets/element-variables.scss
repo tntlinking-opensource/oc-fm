@@ -1,0 +1,94 @@
+/* 改变主题色变量 */
+$--color-primary: #018cb7;
+
+/* 改变 icon 字体路径变量，必需 */
+// $--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+// @import "../../node_modules/element-ui/packages/theme-chalk/src/index";
+:export {
+  theme: $--color-primary;
+}
+
+// 边距
+.pt-10 {
+  margin-top: 10px;
+}
+.mtb-10 {
+  margin: 10px 0 10px 0;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+.mr-10 {
+  margin-right: 10px;
+}
+.mr-20 {
+  margin-right: 20px;
+}
+.ml-20 {
+  margin-left: 20px;
+}
+.dis-in-block {
+  display: inline-block;
+}
+
+// 高度
+.h-m {
+  height: 550px;
+}
+
+// overflow
+.txt-center {
+  text-align: center;
+}
+
+.of-auto {
+  overflow: auto;
+}
+
+.footer-class {
+  background-color: #f8f8f9;
+  color: #77797c;
+  font-weight: 700;
+}
+
+// 文本
+.font-w-s {
+  font-weight: 600;
+}
+.font-size-14 {
+  font-size: 14px;
+}
+.font-size-16 {
+  font-size: 16px;
+}
+.font-size-18 {
+  font-size: 18px;
+}
+
+.txt-red {
+  color: red;
+}
+
+.txt-5a5 {
+  color: #5a5a5a;
+}
+.txt-606{
+  color:#606266
+}
+.txt-018cb7 {
+  color: #018cb7;
+}
+
+.flex {
+  display: flex;
+}
+.flex-between {
+  justify-content: space-between;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}

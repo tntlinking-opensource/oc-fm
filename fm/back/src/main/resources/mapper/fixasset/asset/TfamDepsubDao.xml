@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.fixasset.asset.dao.TfamDepsubDao">
+  <sql id="tfamDepsubColumns">
+    <trim suffixOverrides=",">
+      a.id AS "id",
+      a.year AS "year",
+      a.month AS "month",
+      a.date AS "date",
+      a.asset_id AS "asset.id",
+      IFNULL(asset.asset_name,'') AS "asset.assetName",
+      IFNULL(asset.asset_code,'') AS "asset.assetCode",
+      a.depamount AS "depamount",
+      a.dep_type AS "depType",
+      a.resaon AS "resaon",
+      a.value AS "value",
+      a.accudep AS "accudep",
+      a.netvalue AS "netvalue",
+      a.vouformat AS "vouformat",
+      a.voucherid AS "voucherid",
+      a.abstracts AS "abstracts",
+      a.creatorid AS "creatorid",
+      a.create_time AS "createTime",
+      a.companyid AS "companyid",
+      a.workloan AS "workloan",
+      a.depmethod AS "depmethod",
+      a.dbflag AS "dbflag",
+      a.usingstatus AS "usingstatus",
+      a.company_id AS "companyId",
+      a.remarks AS "remarks",
+      a.create_by AS "createBy",
+      a.create_date AS "createDate",
+      a.update_by AS "updateBy",
+      a.update_date AS "updateDate",
+      a.del_flag AS "delFlag",
+    </trim>
+  </sql>
+  <sql id="tfamDepsubJoins">
+    LEFT JOIN tfam_asset asset ON asset.id = a.asset_id
+  </sql>
+  <resultMap id="resultTfamDepsubMap" type="com.geeke.fixasset.asset.entity.TfamDepsub">
+    <result property="id" column="id" />
+    <result property="year" column="year" />
+    <result property="month" column="month" />
+    <result property="date" column="date" />
+    <result property="depamount" column="depamount" />
+    <result property="depType" column="depType" />
+    <result property="resaon" column="resaon" />
+    <result property="value" column="value" />
+    <result property="accudep" column="accudep" />
+    <result property="netvalue" column="netvalue" />
+    <result property="vouformat" column="vouformat" />
+    <result property="voucherid" column="voucherid" />
+    <result property="abstracts" column="abstracts" />
+    <result property="creatorid" column="creatorid" />
+    <result property="createTime" column="createTime" />
+    <result property="companyid" column="companyid" />
+    <result property="workloan" column="workloan" />
+    <result property="depmethod" column="depmethod" />
+    <result property="dbflag" column="dbflag" />
+    <result property="usingstatus" column="usingstatus" />
+    <result property="companyId" column="companyId" />
+    <result property="remarks" column="remarks" />
+    <result property="createBy" column="createBy" />
+    <result property="createDate" column="createDate" />
+    <result property="updateBy" column="updateBy" />
+    <result property="updateDate" column="updateDate" />
+    <result property="delFlag" column="delFlag" />
+    <association property="asset" javaType="com.geeke.fixasset.asset.entity.TfamAsset">
+      <result property="id" column="asset.id" />
+      <result property="assetName" column="asset.assetName" />
+      <result property="assetCode" column="asset.assetCode" />
+    </association>
+  </resultMap>
+  <select id="get" resultMap="resultTfamDepsubMap">
+    SELECT
+    <include refid="tfamDepsubColumns" />
+    FROM tfam_depsub a
+    <include refid="tfamDepsubJoins" />
+    WHERE a.id = #{id}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tfam_depsub a
+    <include refid="tfamDepsubJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="listPage" resultMap="resultTfamDepsubMap">
+    SELECT
+    <include refid="tfamDepsubColumns" />
+    FROM tfam_depsub a
+    <include refid="tfamDepsubJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultMap="resultTfamDepsubMap">
+    SELECT
+    <include refid="tfamDepsubColumns" />
+    FROM tfam_depsub a
+    <include refid="tfamDepsubJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+  </select>
+  <select id="getInfoDatePageCount" resultType="java.lang.Integer">
+    select count(*) from (
+    select ta.id as asset_id,
+           ta.card_code,
+           ta.userid,
+           ta.asset_code,
+           ta.asset_name,
+           date_format(ta.business_date,'%Y-%m-%d') as business_date,
+           ta.category_id,
+           tc.fullname as category_name,
+           ta.add_reason,
+           tch.name as add_reasonname,
+           ta.reduce_reason,
+           tch1.name as reduce_reasonname,
+           tdef.usingstatus,
+           tfu.name as usingstatusname,
+           ta.createrid,
+           tu.name as creatorname,
+           ta.value,
+           ta.tax,
+           tdef.accudep,
+           ta.predevaluate,
+           ta.num,
+           ta.depmethod,
+           tde.name as depmethodname,
+           tdef.naturemonth,
+           tdef.servicemonth,
+           ta.nature,
+           tn.name as naturename
+    from tfam_asset ta 	inner join tfam_depfuture tdef on tdef.asset_id = ta.id
+        left join tfam_nature tn on tn.code = ta.nature
+        left join tfam_category tc on tc.id = ta.category_id
+        left join sys_user tu on tu.id = ta.createrid
+        left join tfam_usingstatus tfu on tfu.id = tdef.usingstatus
+        left join tfam_depmethod tde on tde.code = ta.depmethod
+        left join tfam_change_way tch on tch.id = ta.add_reason
+        left join tfam_change_way tch1 on tch1.id = ta.reduce_reason
+    where 1 = 1
+    <if test='type = 0'>
+      and tdef.year = #{year}
+    </if>
+      <if test='type = 1'>
+        and tdef.year = #{year}
+        and tdef.month = #{month}
+    </if>
+    order by ta.business_date desc
+    ) t
+  </select>
+  <select id="getInfoDatePagePage" resultType="com.alibaba.fastjson.JSONObject">
+    select ta.id as asset_id,
+    ta.card_code as cardcode,
+    ta.userid,
+    ta.asset_code as  assetcode,
+    ta.asset_name as assetname,
+    date_format(ta.business_date,'%Y-%m-%d') as businessdate,
+    ta.category_id as categoryid,
+    tc.fullname as categoryname,
+    ta.add_reason as addreason,
+    tch.name as addreasonname,
+    ta.reduce_reason as reducereason,
+    tch1.name as reducereasonname,
+    tdef.usingstatus,
+    tfu.name as usingstatusname,
+    ta.createrid,
+    tu.name as creatorname,
+    ta.value,
+    ta.tax,
+    tdef.accudep,
+    ta.predevaluate,
+    ta.num,
+    ta.depmethod,
+    tde.name as depmethodname,
+    tdef.naturemonth,
+    tdef.servicemonth,
+    ta.nature,
+    tn.name as naturename
+    from tfam_asset ta 	inner join tfam_depfuture tdef on tdef.asset_id = ta.id
+    left join tfam_nature tn on tn.code = ta.nature
+    left join tfam_category tc on tc.id = ta.category_id
+    left join sys_user tu on tu.id = ta.createrid
+    left join tfam_usingstatus tfu on tfu.id = ta.usingstatus
+    left join tfam_depmethod tde on tde.code = ta.depmethod
+    left join tfam_change_way tch on tch.id = ta.add_reason
+    left join tfam_change_way tch1 on tch1.id = ta.reduce_reason
+    where 1 = 1
+    <if test='type = 0'>
+      and tdef.year = #{year}
+    </if>
+    <if test='type = 1'>
+      and tdef.year = #{year}
+      and tdef.month = #{month}
+    </if>
+    order by ta.business_date desc
+  </select>
+  <select id="getMaxDateVoucherid" resultType="com.alibaba.fastjson.JSONObject">
+    select tfd.voucherid,tm.intvouchernum
+    from tfam_depsub tfd
+        left join tgl_voucher_mains tm on tm.uqvoucherid = tfd.voucherid
+    where tfd.asset_id = #{assetId}
+      and tfd.voucherid &lt;&gt; ''
+    order by tfd.create_time desc
+  </select>
+  <insert id="insert">
+    INSERT INTO tfam_depsub(
+    <trim suffixOverrides=",">
+      id,
+      year,
+      month,
+      date,
+      asset_id,
+      depamount,
+      dep_type,
+      resaon,
+      value,
+      accudep,
+      netvalue,
+      vouformat,
+      voucherid,
+      abstracts,
+      creatorid,
+      create_time,
+      companyid,
+      workloan,
+      depmethod,
+      dbflag,
+      usingstatus,
+      company_id,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ id },
+      #{ year },
+      #{ month },
+      #{ date },
+      #{ asset.id },
+      #{ depamount },
+      #{ depType },
+      #{ resaon },
+      #{ value },
+      #{ accudep },
+      #{ netvalue },
+      #{ vouformat },
+      #{ voucherid },
+      #{ abstracts },
+      #{ creatorid },
+      #{ createTime },
+      #{ companyid },
+      #{ workloan },
+      #{ depmethod },
+      #{ dbflag },
+      #{ usingstatus },
+      #{ companyId },
+      #{ remarks },
+      #{ createBy },
+      #{ createDate },
+      #{ updateBy },
+      #{ updateDate },
+      #{ delFlag },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tfam_depsub SET
+    <trim suffixOverrides=",">
+      year = #{ year },
+      month = #{ month },
+      date = #{ date },
+      asset_id = #{ asset.id },
+      depamount = #{ depamount },
+      dep_type = #{ depType },
+      resaon = #{ resaon },
+      value = #{ value },
+      accudep = #{ accudep },
+      netvalue = #{ netvalue },
+      vouformat = #{ vouformat },
+      voucherid = #{ voucherid },
+      abstracts = #{ abstracts },
+      creatorid = #{ creatorid },
+      create_time = #{ createTime },
+      companyid = #{ companyid },
+      workloan = #{ workloan },
+      depmethod = #{ depmethod },
+      dbflag = #{ dbflag },
+      usingstatus = #{ usingstatus },
+      company_id = #{ companyId },
+      remarks = #{ remarks },
+      update_by = #{ updateBy },
+      update_date = #{ updateDate },
+    </trim>
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <update id="delete">
+    UPDATE tfam_depsub SET
+    update_by = #{updateBy},
+    update_date = #{updateDate},
+    del_flag = #{DEL_FLAG_DELETE}
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tfam_depsub(
+    <trim suffixOverrides=",">
+      id,
+      year,
+      month,
+      date,
+      asset_id,
+      depamount,
+      dep_type,
+      resaon,
+      value,
+      accudep,
+      netvalue,
+      vouformat,
+      voucherid,
+      abstracts,
+      creatorid,
+      create_time,
+      companyid,
+      workloan,
+      depmethod,
+      dbflag,
+      usingstatus,
+      company_id,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.id},
+        #{entity.year},
+        #{entity.month},
+        #{entity.date},
+        #{entity.asset.id},
+        #{entity.depamount},
+        #{entity.depType},
+        #{entity.resaon},
+        #{entity.value},
+        #{entity.accudep},
+        #{entity.netvalue},
+        #{entity.vouformat},
+        #{entity.voucherid},
+        #{entity.abstracts},
+        #{entity.creatorid},
+        #{entity.createTime},
+        #{entity.companyid},
+        #{entity.workloan},
+        #{entity.depmethod},
+        #{entity.dbflag},
+        #{entity.usingstatus},
+        #{entity.companyId},
+        #{entity.remarks},
+        #{entity.createBy},
+        #{entity.createDate},
+        #{entity.updateBy},
+        #{entity.updateDate},
+        #{entity.delFlag},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tfam_depsub
+    <set>
+      <trim prefix="year=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.year}
+        </foreach>
+      </trim>
+      <trim prefix="month=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.month}
+        </foreach>
+      </trim>
+      <trim prefix="date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.date}
+        </foreach>
+      </trim>
+      <trim prefix="asset_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.asset.id}
+        </foreach>
+      </trim>
+      <trim prefix="depamount=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.depamount}
+        </foreach>
+      </trim>
+      <trim prefix="dep_type=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.depType}
+        </foreach>
+      </trim>
+      <trim prefix="resaon=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.resaon}
+        </foreach>
+      </trim>
+      <trim prefix="value=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.value}
+        </foreach>
+      </trim>
+      <trim prefix="accudep=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.accudep}
+        </foreach>
+      </trim>
+      <trim prefix="netvalue=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.netvalue}
+        </foreach>
+      </trim>
+      <trim prefix="vouformat=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.vouformat}
+        </foreach>
+      </trim>
+      <trim prefix="voucherid=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.voucherid}
+        </foreach>
+      </trim>
+      <trim prefix="abstracts=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.abstracts}
+        </foreach>
+      </trim>
+      <trim prefix="creatorid=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.creatorid}
+        </foreach>
+      </trim>
+      <trim prefix="create_time=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.createTime}
+        </foreach>
+      </trim>
+      <trim prefix="companyid=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.companyid}
+        </foreach>
+      </trim>
+      <trim prefix="workloan=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.workloan}
+        </foreach>
+      </trim>
+      <trim prefix="depmethod=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.depmethod}
+        </foreach>
+      </trim>
+      <trim prefix="dbflag=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.dbflag}
+        </foreach>
+      </trim>
+      <trim prefix="usingstatus=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.usingstatus}
+        </foreach>
+      </trim>
+      <trim prefix="company_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.companyId}
+        </foreach>
+      </trim>
+      <trim prefix="remarks=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.remarks}
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    UPDATE tfam_depsub
+    <set>
+      <trim prefix="del_flag=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then 1
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+</mapper>

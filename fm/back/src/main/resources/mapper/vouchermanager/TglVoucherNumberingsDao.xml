@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.vouchermanager.dao.TglVoucherNumberingsDao">
+  <sql id="tglVoucherNumberingsColumns">
+    <trim suffixOverrides=",">
+      a.UQNUMBERINGID AS "uqnumberingid",
+      a.VARNAME AS "varname",
+      a.VARVOUCHERHAVE AS "varvoucherhave",
+      a.VARVOUCHERNO AS "varvoucherno",
+      a.VARDEBITHAVE AS "vardebithave",
+      a.VARDEBITNO AS "vardebitno",
+      a.VARCREDITHAVE AS "varcredithave",
+      a.VARCREDITNO AS "varcreditno",
+      a.INTSTATUS AS "intstatus",
+      a.TENANT_ID AS "tenantId",
+      a.SORT AS "sort",
+    </trim>
+  </sql>
+  <sql id="tglVoucherNumberingsJoins">
+  </sql>
+  <select id="get" resultType="com.geeke.vouchermanager.entity.TglVoucherNumberings">
+    SELECT
+    <include refid="tglVoucherNumberingsColumns" />
+    FROM tgl_voucher_numberings a
+    <include refid="tglVoucherNumberingsJoins" />
+    WHERE a.id = #{id}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tgl_voucher_numberings a
+    <include refid="tglVoucherNumberingsJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="listPage" resultType="com.geeke.vouchermanager.entity.TglVoucherNumberings">
+    SELECT
+    <include refid="tglVoucherNumberingsColumns" />
+    FROM tgl_voucher_numberings a
+    <include refid="tglVoucherNumberingsJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.sort ASC
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultType="com.geeke.vouchermanager.entity.TglVoucherNumberings">
+    SELECT
+    <include refid="tglVoucherNumberingsColumns" />
+    FROM tgl_voucher_numberings a
+    <include refid="tglVoucherNumberingsJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.sort ASC
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tgl_voucher_numberings(
+    <trim suffixOverrides=",">
+      UQNUMBERINGID,
+      VARNAME,
+      VARVOUCHERHAVE,
+      VARVOUCHERNO,
+      VARDEBITHAVE,
+      VARDEBITNO,
+      VARCREDITHAVE,
+      VARCREDITNO,
+      INTSTATUS,
+      TENANT_ID,
+      SORT,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ uqnumberingid },
+      #{ varname },
+      #{ varvoucherhave },
+      #{ varvoucherno },
+      #{ vardebithave },
+      #{ vardebitno },
+      #{ varcredithave },
+      #{ varcreditno },
+      #{ intstatus },
+      #{ tenantId },
+      #{ sort },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tgl_voucher_numberings SET
+    <trim suffixOverrides=",">
+      UQNUMBERINGID = #{ uqnumberingid },
+      VARNAME = #{ varname },
+      VARVOUCHERHAVE = #{ varvoucherhave },
+      VARVOUCHERNO = #{ varvoucherno },
+      VARDEBITHAVE = #{ vardebithave },
+      VARDEBITNO = #{ vardebitno },
+      VARCREDITHAVE = #{ varcredithave },
+      VARCREDITNO = #{ varcreditno },
+      INTSTATUS = #{ intstatus },
+      TENANT_ID = #{ tenantId },
+      SORT = #{ sort },
+    </trim>
+    WHERE id = #{id}
+  </update>
+  <update id="delete">
+    DELETE FROM tgl_voucher_numberings
+    WHERE id = #{id}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tgl_voucher_numberings(
+    <trim suffixOverrides=",">
+      UQNUMBERINGID,
+      VARNAME,
+      VARVOUCHERHAVE,
+      VARVOUCHERNO,
+      VARDEBITHAVE,
+      VARDEBITNO,
+      VARCREDITHAVE,
+      VARCREDITNO,
+      INTSTATUS,
+      TENANT_ID,
+      SORT,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.uqnumberingid},
+        #{entity.varname},
+        #{entity.varvoucherhave},
+        #{entity.varvoucherno},
+        #{entity.vardebithave},
+        #{entity.vardebitno},
+        #{entity.varcredithave},
+        #{entity.varcreditno},
+        #{entity.intstatus},
+        #{entity.tenantId},
+        #{entity.sort},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tgl_voucher_numberings
+    <set>
+      <trim prefix="UQNUMBERINGID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqnumberingid}
+        </foreach>
+      </trim>
+      <trim prefix="VARNAME=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.varname}
+        </foreach>
+      </trim>
+      <trim prefix="VARVOUCHERHAVE=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.varvoucherhave}
+        </foreach>
+      </trim>
+      <trim prefix="VARVOUCHERNO=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.varvoucherno}
+        </foreach>
+      </trim>
+      <trim prefix="VARDEBITHAVE=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.vardebithave}
+        </foreach>
+      </trim>
+      <trim prefix="VARDEBITNO=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.vardebitno}
+        </foreach>
+      </trim>
+      <trim prefix="VARCREDITHAVE=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.varcredithave}
+        </foreach>
+      </trim>
+      <trim prefix="VARCREDITNO=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.varcreditno}
+        </foreach>
+      </trim>
+      <trim prefix="INTSTATUS=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intstatus}
+        </foreach>
+      </trim>
+      <trim prefix="TENANT_ID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.tenantId}
+        </foreach>
+      </trim>
+      <trim prefix="SORT=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.sort}
+        </foreach>
+      </trim>
+    </set>
+    WHERE id IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.id}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    DELETE FROM tgl_voucher_numberings
+    WHERE id IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.id}
+    </foreach>
+  </update>
+</mapper>

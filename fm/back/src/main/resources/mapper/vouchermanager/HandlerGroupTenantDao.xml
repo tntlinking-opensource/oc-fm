@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.vouchermanager.dao.HandlerGroupTenantDao">
+    <resultMap type="com.geeke.vouchermanager.entity.GroupAccountsEntity" id="TglAccountGroupMap">
+        <result property="uqaccountid" column="UQACCOUNTID" jdbcType="VARCHAR"/>
+        <result property="uqaccountsetid" column="UQACCOUNTSETID" jdbcType="VARCHAR"/>
+        <result property="varaccountcode" column="VARACCOUNTCODE" jdbcType="VARCHAR"/>
+        <result property="varaccountfullcode" column="VARACCOUNTFULLCODE" jdbcType="VARCHAR"/>
+        <result property="varaccountname" column="VARACCOUNTNAME" jdbcType="VARCHAR"/>
+        <result property="intproperty" column="INTPROPERTY" jdbcType="INTEGER"/>
+        <result property="uqtypeid" column="UQTYPEID" jdbcType="VARCHAR"/>
+        <result property="uqforeigncurrid" column="UQFOREIGNCURRID" jdbcType="VARCHAR"/>
+        <result property="varmeasure" column="VARMEASURE" jdbcType="VARCHAR"/>
+        <result property="intisledge" column="INTISLEDGE" jdbcType="INTEGER"/>
+        <result property="intiscrossledge" column="INTISCROSSLEDGE" jdbcType="INTEGER"/>
+        <result property="uqpreaccountid" column="UQPREACCOUNTID" jdbcType="VARCHAR"/>
+        <result property="uqparentid" column="UQPARENTID" jdbcType="VARCHAR"/>
+        <result property="intislastlevel" column="INTISLASTLEVEL" jdbcType="INTEGER"/>
+        <result property="intlevel" column="INTLEVEL" jdbcType="INTEGER"/>
+        <result property="intflag" column="INTFLAG" jdbcType="INTEGER"/>
+        <result property="varaccountfullname" column="VARACCOUNTFULLNAME" jdbcType="VARCHAR"/>
+        <result property="intisflow" column="INTISFLOW" jdbcType="INTEGER"/>
+        <result property="group_id" column="group_id" jdbcType="VARCHAR"/>
+        <result property="isbalance" column="ISBALANCE" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TglAccountGroupMap">
+        select
+            UQACCOUNTID, UQACCOUNTSETID, VARACCOUNTCODE, VARACCOUNTFULLCODE, VARACCOUNTNAME, INTPROPERTY, UQTYPEID, UQFOREIGNCURRID, VARMEASURE, INTISLEDGE, INTISCROSSLEDGE, UQPREACCOUNTID, UQPARENTID, INTISLASTLEVEL, INTLEVEL, INTFLAG, VARACCOUNTFULLNAME, INTISFLOW, group_id, ISBALANCE
+        from tgl_group_accounts
+        where uqaccountid = #{uqaccountid}
+    </select>
+    <select id="getParentId" resultMap="TglAccountGroupMap">
+        select
+            UQACCOUNTID, UQACCOUNTSETID, VARACCOUNTCODE, VARACCOUNTFULLCODE, VARACCOUNTNAME, INTPROPERTY, UQTYPEID, UQFOREIGNCURRID, VARMEASURE, INTISLEDGE, INTISCROSSLEDGE, UQPREACCOUNTID, UQPARENTID, INTISLASTLEVEL, INTLEVEL, INTFLAG, VARACCOUNTFULLNAME, INTISFLOW, group_id, ISBALANCE
+        from tgl_group_accounts
+        where VARACCOUNTCODE = #{code} AND group_id = #{groupid}
+    </select>
+    <select id="getParentCode" resultMap="TglAccountGroupMap">
+        select
+            UQACCOUNTID, UQACCOUNTSETID, VARACCOUNTCODE, VARACCOUNTFULLCODE, VARACCOUNTNAME, INTPROPERTY, UQTYPEID, UQFOREIGNCURRID, VARMEASURE, INTISLEDGE, INTISCROSSLEDGE, UQPREACCOUNTID, UQPARENTID, INTISLASTLEVEL, INTLEVEL, INTFLAG, VARACCOUNTFULLNAME, INTISFLOW, group_id, ISBALANCE
+        from tgl_group_accounts
+        where UQACCOUNTID = #{parentId} AND group_id = #{groupid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TglAccountGroupMap">
+        select
+        UQACCOUNTID, UQACCOUNTSETID, VARACCOUNTCODE, VARACCOUNTFULLCODE, VARACCOUNTNAME, INTPROPERTY, UQTYPEID, UQFOREIGNCURRID, VARMEASURE, INTISLEDGE, INTISCROSSLEDGE, UQPREACCOUNTID, UQPARENTID, INTISLASTLEVEL, INTLEVEL, INTFLAG, VARACCOUNTFULLNAME, INTISFLOW, group_id, ISBALANCE
+        from tgl_group_accounts
+        <where>
+            <if test="uqaccountid != null and uqaccountid != ''">
+                and UQACCOUNTID = #{uqaccountid}
+            </if>
+            <if test="uqaccountsetid != null and uqaccountsetid != ''">
+                and UQACCOUNTSETID = #{uqaccountsetid}
+            </if>
+            <if test="varaccountcode != null and varaccountcode != ''">
+                and VARACCOUNTCODE = #{varaccountcode}
+            </if>
+            <if test="varaccountfullcode != null and varaccountfullcode != ''">
+                and VARACCOUNTFULLCODE = #{varaccountfullcode}
+            </if>
+            <if test="varaccountname != null and varaccountname != ''">
+                and VARACCOUNTNAME = #{varaccountname}
+            </if>
+            <if test="intproperty != null">
+                and INTPROPERTY = #{intproperty}
+            </if>
+            <if test="uqtypeid != null and uqtypeid != ''">
+                and UQTYPEID = #{uqtypeid}
+            </if>
+            <if test="uqforeigncurrid != null and uqforeigncurrid != ''">
+                and UQFOREIGNCURRID = #{uqforeigncurrid}
+            </if>
+            <if test="varmeasure != null and varmeasure != ''">
+                and VARMEASURE = #{varmeasure}
+            </if>
+            <if test="intisledge != null">
+                and INTISLEDGE = #{intisledge}
+            </if>
+            <if test="intiscrossledge != null">
+                and INTISCROSSLEDGE = #{intiscrossledge}
+            </if>
+            <if test="uqpreaccountid != null and uqpreaccountid != ''">
+                and UQPREACCOUNTID = #{uqpreaccountid}
+            </if>
+            <if test="uqparentid != null and uqparentid != ''">
+                and UQPARENTID = #{uqparentid}
+            </if>
+            <if test="intislastlevel != null">
+                and INTISLASTLEVEL = #{intislastlevel}
+            </if>
+            <if test="intlevel != null">
+                and INTLEVEL = #{intlevel}
+            </if>
+            <if test="intflag != null">
+                and INTFLAG = #{intflag}
+            </if>
+            <if test="varaccountfullname != null and varaccountfullname != ''">
+                and VARACCOUNTFULLNAME = #{varaccountfullname}
+            </if>
+            <if test="intisflow != null">
+                and INTISFLOW = #{intisflow}
+            </if>
+            <if test="groupId != null and groupId != ''">
+                and group_id = #{groupId}
+            </if>
+            <if test="isbalance != null">
+                and ISBALANCE = #{isbalance}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+    <select id="queryAll" resultMap="TglAccountGroupMap">
+        select
+        UQACCOUNTID, UQACCOUNTSETID, VARACCOUNTCODE, VARACCOUNTFULLCODE, VARACCOUNTNAME, INTPROPERTY, UQTYPEID, UQFOREIGNCURRID, VARMEASURE, INTISLEDGE, INTISCROSSLEDGE, UQPREACCOUNTID, UQPARENTID, INTISLASTLEVEL, INTLEVEL, INTFLAG, VARACCOUNTFULLNAME, INTISFLOW, group_id, ISBALANCE
+        from tgl_group_accounts
+        <where>
+            <if test="uqaccountid != null and uqaccountid != ''">
+                and UQACCOUNTID = #{uqaccountid}
+            </if>
+            <if test="uqaccountsetid != null and uqaccountsetid != ''">
+                and UQACCOUNTSETID = #{uqaccountsetid}
+            </if>
+            <if test="varaccountcode != null and varaccountcode != ''">
+                and VARACCOUNTCODE = #{varaccountcode}
+            </if>
+            <if test="varaccountfullcode != null and varaccountfullcode != ''">
+                and VARACCOUNTFULLCODE = #{varaccountfullcode}
+            </if>
+            <if test="varaccountname != null and varaccountname != ''">
+                and VARACCOUNTNAME = #{varaccountname}
+            </if>
+            <if test="intproperty != null">
+                and INTPROPERTY = #{intproperty}
+            </if>
+            <if test="uqtypeid != null and uqtypeid != ''">
+                and UQTYPEID = #{uqtypeid}
+            </if>
+            <if test="uqforeigncurrid != null and uqforeigncurrid != ''">
+                and UQFOREIGNCURRID = #{uqforeigncurrid}
+            </if>
+            <if test="varmeasure != null and varmeasure != ''">
+                and VARMEASURE = #{varmeasure}
+            </if>
+            <if test="intisledge != null">
+                and INTISLEDGE = #{intisledge}
+            </if>
+            <if test="intiscrossledge != null">
+                and INTISCROSSLEDGE = #{intiscrossledge}
+            </if>
+            <if test="uqpreaccountid != null and uqpreaccountid != ''">
+                and UQPREACCOUNTID = #{uqpreaccountid}
+            </if>
+            <if test="uqparentid != null and uqparentid != ''">
+                and UQPARENTID = #{uqparentid}
+            </if>
+            <if test="intislastlevel != null">
+                and INTISLASTLEVEL = #{intislastlevel}
+            </if>
+            <if test="intlevel != null">
+                and INTLEVEL = #{intlevel}
+            </if>
+            <if test="intflag != null">
+                and INTFLAG = #{intflag}
+            </if>
+            <if test="varaccountfullname != null and varaccountfullname != ''">
+                and VARACCOUNTFULLNAME = #{varaccountfullname}
+            </if>
+            <if test="intisflow != null">
+                and INTISFLOW = #{intisflow}
+            </if>
+            <if test="group_id != null and group_id != ''">
+                and group_id = #{group_id}
+            </if>
+            <if test="isbalance != null">
+                and ISBALANCE = #{isbalance}
+            </if>
+        </where>
+    </select>
+    <select id="getGroupAccountById" resultMap="TglAccountGroupMap">
+        select
+        UQACCOUNTID, UQACCOUNTSETID, VARACCOUNTCODE, VARACCOUNTFULLCODE, VARACCOUNTNAME, INTPROPERTY, UQTYPEID, UQFOREIGNCURRID, VARMEASURE, INTISLEDGE, INTISCROSSLEDGE, UQPREACCOUNTID, UQPARENTID, INTISLASTLEVEL, INTLEVEL, INTFLAG, VARACCOUNTFULLNAME, INTISFLOW, group_id, ISBALANCE
+        from tgl_group_accounts
+        <where>
+            <if test="uqaccountid != null and uqaccountid != ''">
+                and UQACCOUNTID = #{uqaccountid}
+            </if>
+        </where>
+    </select>
+    <select id="getGroupAccountByName" resultMap="TglAccountGroupMap">
+        select
+        UQACCOUNTID, UQACCOUNTSETID, VARACCOUNTCODE, VARACCOUNTFULLCODE, VARACCOUNTNAME, INTPROPERTY, UQTYPEID, UQFOREIGNCURRID, VARMEASURE, INTISLEDGE, INTISCROSSLEDGE, UQPREACCOUNTID, UQPARENTID, INTISLASTLEVEL, INTLEVEL, INTFLAG, VARACCOUNTFULLNAME, INTISFLOW, group_id, ISBALANCE
+        from tgl_group_accounts
+        <where>
+            <if test="varaccountname != null and varaccountname != ''">
+                and VARACCOUNTNAME = #{varaccountname}
+            </if>
+            <if test="uqparentid != null and uqparentid != ''">
+                and uqparentid = #{uqparentid}
+            </if>
+        <if test="uqaccountsetid != null and uqaccountsetid != ''">
+                and UQACCOUNTSETID = #{uqaccountsetid}
+            </if>
+        </where>
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from tgl_group_accounts
+        <where>
+            <if test="uqaccountid != null and uqaccountid != ''">
+                and UQACCOUNTID = #{uqaccountid}
+            </if>
+            <if test="uqaccountsetid != null and uqaccountsetid != ''">
+                and UQACCOUNTSETID = #{uqaccountsetid}
+            </if>
+            <if test="varaccountcode != null and varaccountcode != ''">
+                and VARACCOUNTCODE = #{varaccountcode}
+            </if>
+        </where>
+    </select>
+    <select id="selectIsExist" resultType="java.lang.Integer">
+    select count(1)
+    from tgl_accounts
+    where tenant_id = #{tenantid} and VARACCOUNTCODE=#{accountid}
+    </select>
+    <select id="selectIsExistByCode" resultType="java.lang.Integer">
+    select count(1)
+    from tgl_accounts
+    where VARACCOUNTCODE = #{code} and tenant_id=#{tenantid}
+    </select>
+    <select id="findAccountCountByName" resultType="java.lang.Integer">
+    select count(1)
+    from tgl_accounts
+    WHERE varaccountname = #{varaccountname}
+      AND uqparentid=#{uqparentid}
+      AND uqaccountsetid = #{uqaccountsetid}
+    </select>
+    <select id="getVoucher" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM TGL_VOUCHER_MAINS
+        WHERE TENANT_ID=#{tenantid}
+          AND INTDELETEFLAG=0
+    </select>
+    <select id="IsExistVoucher" resultType="java.lang.Integer">
+    select count(1)
+    from tgl_voucher_mains tm
+    LEFT JOIN tgl_voucher_details tg ON tg.UQVOUCHERID = tm.UQVOUCHERID
+    LEFT JOIN tgl_accounts tc ON tc.UQACCOUNTID = tg.UQACCOUNTID
+    where tm.tenant_id = #{tenantid} AND tc.tenant_id = #{tenantid}
+      AND tc.VARACCOUNTCODE=#{code} AND tm.INTDELETEFLAG=0
+    </select>
+    <select id="findAccountCountByCode" resultType="java.lang.Integer">
+    SELECT COUNT(0)
+    FROM tgl_accounts ta
+    WHERE ta.varaccountcode = #{code}
+    AND ta.uqaccountsetid = #{uqaccountsetid}
+    </select>
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="UQACCOUNTID" useGeneratedKeys="true">
+        insert into tgl_group_accounts(UQACCOUNTID, UQACCOUNTSETID, VARACCOUNTCODE, VARACCOUNTFULLCODE, VARACCOUNTNAME, INTPROPERTY, UQTYPEID, UQFOREIGNCURRID, VARMEASURE, INTISLEDGE, INTISCROSSLEDGE, UQPREACCOUNTID, UQPARENTID, INTISLASTLEVEL, INTLEVEL, INTFLAG, VARACCOUNTFULLNAME, INTISFLOW, group_id, ISBALANCE)
+        values (#{uqaccountid}, #{uqaccountsetid}, #{varaccountcode}, #{varaccountfullcode}, #{varaccountname}, #{intproperty}, #{uqtypeid}, #{uqforeigncurrid}, #{varmeasure}, #{intisledge}, #{intiscrossledge}, #{uqpreaccountid}, #{uqparentid}, #{intislastlevel}, #{intlevel}, #{intflag}, #{varaccountfullname}, #{intisflow}, #{groupId}, #{isbalance})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="UQACCOUNTID" useGeneratedKeys="true">
+        insert into tgl_group_accounts(UQACCOUNTID, UQACCOUNTSETID, VARACCOUNTCODE, VARACCOUNTFULLCODE, VARACCOUNTNAME, INTPROPERTY, UQTYPEID, UQFOREIGNCURRID, VARMEASURE, INTISLEDGE, INTISCROSSLEDGE, UQPREACCOUNTID, UQPARENTID, INTISLASTLEVEL, INTLEVEL, INTFLAG, VARACCOUNTFULLNAME, INTISFLOW, group_id, ISBALANCE)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.uqaccountid}, #{entity.uqaccountsetid}, #{entity.varaccountcode}, #{entity.varaccountfullcode}, #{entity.varaccountname}, #{entity.intproperty}, #{entity.uqtypeid}, #{entity.uqforeigncurrid}, #{entity.varmeasure}, #{entity.intisledge}, #{entity.intiscrossledge}, #{entity.uqpreaccountid}, #{entity.uqparentid}, #{entity.intislastlevel}, #{entity.intlevel}, #{entity.intflag}, #{entity.varaccountfullname}, #{entity.intisflow}, #{entity.groupId}, #{entity.isbalance})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="" useGeneratedKeys="true">
+        insert into tgl_group_accounts(UQACCOUNTID, UQACCOUNTSETID, VARACCOUNTCODE, VARACCOUNTFULLCODE, VARACCOUNTNAME, INTPROPERTY, UQTYPEID, UQFOREIGNCURRID, VARMEASURE, INTISLEDGE, INTISCROSSLEDGE, UQPREACCOUNTID, UQPARENTID, INTISLASTLEVEL, INTLEVEL, INTFLAG, VARACCOUNTFULLNAME, INTISFLOW, group_id, ISBALANCE)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.uqaccountid}, #{entity.uqaccountsetid}, #{entity.varaccountcode}, #{entity.varaccountfullcode}, #{entity.varaccountname}, #{entity.intproperty}, #{entity.uqtypeid}, #{entity.uqforeigncurrid}, #{entity.varmeasure}, #{entity.intisledge}, #{entity.intiscrossledge}, #{entity.uqpreaccountid}, #{entity.uqparentid}, #{entity.intislastlevel}, #{entity.intlevel}, #{entity.intflag}, #{entity.varaccountfullname}, #{entity.intisflow}, #{entity.groupId}, #{entity.isbalance})
+        </foreach>
+        on duplicate key update
+        UQACCOUNTID = values(UQACCOUNTID),
+        UQACCOUNTSETID = values(UQACCOUNTSETID),
+        VARACCOUNTCODE = values(VARACCOUNTCODE),
+        VARACCOUNTFULLCODE = values(VARACCOUNTFULLCODE),
+        VARACCOUNTNAME = values(VARACCOUNTNAME),
+        INTPROPERTY = values(INTPROPERTY),
+        UQTYPEID = values(UQTYPEID),
+        UQFOREIGNCURRID = values(UQFOREIGNCURRID),
+        VARMEASURE = values(VARMEASURE),
+        INTISLEDGE = values(INTISLEDGE),
+        INTISCROSSLEDGE = values(INTISCROSSLEDGE),
+        UQPREACCOUNTID = values(UQPREACCOUNTID),
+        UQPARENTID = values(UQPARENTID),
+        INTISLASTLEVEL = values(INTISLASTLEVEL),
+        INTLEVEL = values(INTLEVEL),
+        INTFLAG = values(INTFLAG),
+        VARACCOUNTFULLNAME = values(VARACCOUNTFULLNAME),
+        INTISFLOW = values(INTISFLOW),
+        group_id = values(group_id),
+        ISBALANCE = values(ISBALANCE)
+    </insert>
+    <insert id="insertIntoAccountGroup" keyProperty="" useGeneratedKeys="true">
+        insert into tgl_account_group(
+                                      uqaccountsetid,
+                                      uqgroupid,
+                                      vargroupname,
+                                      vargroupcode,
+                                      vargroupfullcode,
+                                      intgrouplevel,
+                                      uqaccountid,
+                                      varaccountcode,
+                                      intaccountlevel,
+                                      intislastlevel,
+                                      tenant_id)
+                            values (
+                                     #{map.uqaccountsetid},
+                                     #{map.uqgroupid},
+                                     #{map.vargroupname},
+                                     #{map.vargroupcode},
+                                     #{map.vargroupfullcode},
+                                     #{map.intgrouplevel},
+                                     #{map.uqaccountid},
+                                     #{map.varaccountcode},
+                                     #{map.intaccountlevel},
+                                     #{map.intislastlevel},
+                                     #{map.tenantId}
+                            )
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update tgl_group_accounts
+        <set>
+            <if test="uqaccountsetid != null and uqaccountsetid != ''">
+                UQACCOUNTSETID = #{uqaccountsetid},
+            </if>
+            <if test="varaccountcode != null and varaccountcode != ''">
+                VARACCOUNTCODE = #{varaccountcode},
+            </if>
+            <if test="varaccountfullcode != null and varaccountfullcode != ''">
+                VARACCOUNTFULLCODE = #{varaccountfullcode},
+            </if>
+            <if test="varaccountname != null and varaccountname != ''">
+                VARACCOUNTNAME = #{varaccountname},
+            </if>
+            <if test="intproperty != null">
+                INTPROPERTY = #{intproperty},
+            </if>
+            <if test="uqtypeid != null and uqtypeid != ''">
+                UQTYPEID = #{uqtypeid},
+            </if>
+            <if test="uqforeigncurrid != null and uqforeigncurrid != ''">
+                UQFOREIGNCURRID = #{uqforeigncurrid},
+            </if>
+            <if test="varmeasure != null and varmeasure != ''">
+                VARMEASURE = #{varmeasure},
+            </if>
+            <if test="intisledge != null">
+                INTISLEDGE = #{intisledge},
+            </if>
+            <if test="intiscrossledge != null">
+                INTISCROSSLEDGE = #{intiscrossledge},
+            </if>
+            <if test="uqpreaccountid != null and uqpreaccountid != ''">
+                UQPREACCOUNTID = #{uqpreaccountid},
+            </if>
+            <if test="uqparentid != null and uqparentid != ''">
+                UQPARENTID = #{uqparentid},
+            </if>
+            <if test="intislastlevel != null">
+                INTISLASTLEVEL = #{intislastlevel},
+            </if>
+            <if test="intlevel != null">
+                INTLEVEL = #{intlevel},
+            </if>
+            <if test="intflag != null">
+                INTFLAG = #{intflag},
+            </if>
+            <if test="varaccountfullname != null and varaccountfullname != ''">
+                VARACCOUNTFULLNAME = #{varaccountfullname},
+            </if>
+            <if test="intisflow != null">
+                INTISFLOW = #{intisflow},
+            </if>
+            <if test="group_id != null and group_id != ''">
+                group_id = #{group_id},
+            </if>
+            <if test="isbalance != null">
+                ISBALANCE = #{isbalance},
+            </if>
+        </set>
+        where  uqaccountid = #{uqaccountid}
+    </update>
+    <update id="updateGroupIntislastlevel">
+        update tgl_group_accounts
+        set  intislastlevel = #{flag}
+        where uqaccountid = #{uqparentid}
+    </update>
+    <update id="updateIsfinal">
+        update tgl_group_accounts
+        <set>
+            <if test="flag != null and flag != ''">
+                intislastlevel = #{flag},
+            </if>
+        </set>
+        where uqaccountid = #{uqparentid}
+    </update>
+    <update id="updateUqper">
+        update tgl_group_accounts
+        SET INTISLASTLEVEL = 1
+        where uqaccountid = #{uqaccountid}
+    </update>
+
+    <update id="updateAccountGroupByGroupId">
+        UPDATE tgl_account_group tag
+        SET tag.vargroupname =#{varaccountname}
+        WHERE tag.uqaccountsetid = #{uqaccountsetid}
+          AND tag.vargroupcode  = #{code}
+    </update>
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from tgl_group_accounts where uqaccountid = #{uqaccountid}
+    </delete>
+    <delete id="deleteAccountGroupByAccountId">
+        delete from tgl_account_group where uqaccountid = #{uqaccountid}
+    </delete>
+    <delete id="delete">
+        delete from tgl_group_accounts where uqaccountid = #{accountid}
+    </delete>
+    <delete id="deleteAccounts">
+        delete from tgl_ACCOUNTS where tenant_id = #{tenantid}
+    </delete>
+
+    <select id="getAccountCountByCode" resultType="java.lang.Long">
+        SELECT COUNT(1) FROM tgl_group_accounts ta
+        <where>
+        <if test="accountCode != null and accountCode != ''">
+            and ta.varaccountcode = #{accountCode}
+        </if>
+            <if test="uqaccountsetid != null and uqaccountsetid != ''">
+            and ta.uqaccountsetid = #{uqaccountsetid}
+        </if>
+        </where>
+    </select>
+    <select id="getAccountCountByName" resultType="java.lang.String">
+        SELECT ta.* FROM tgl_group_accounts ta
+        <where>
+        <if test="varaccountname != null and varaccountname != ''">
+            ta.varaccountname = #{varaccountname}
+        </if>
+            <if test="uqparentid != null and uqparentid != ''">
+            and ta.uqparentid = #{uqparentid}
+        </if>
+            <if test="uqaccountsetid != null and uqaccountsetid != ''">
+            and ta.uqaccountsetid = #{uqaccountsetid}
+        </if>
+        </where>
+    </select>
+    <select id="getGroupAccountIdList" resultType="java.lang.String">
+         SELECT ta.uqaccountid FROM tgl_group_accounts ta
+        <where>
+            <if test="uqaccountid != null and uqaccountid != ''">
+            and ta.uqparentid = #{uqaccountid}
+            </if>
+        </where>
+    </select>
+    <select id="getAccountById" resultMap="TglAccountGroupMap">
+        SELECT 	* FROM tgl_group_accounts
+        WHERE uqaccountid=#{uqaccountid}
+    </select>
+        <select id="getAccountCount" resultMap="TglAccountGroupMap">
+        SELECT 	ta.* FROM tgl_group_accounts ta
+        WHERE
+            ta.VARACCOUNTCODE = #{code}
+            AND ta.group_id= #{groupid}
+
+    </select>
+    <select id="getShowName" resultMap="TglAccountGroupMap">
+        SELECT ta.* FROM tgl_group_accounts ta
+        <where>
+            <if test="groupid != null and groupid != ''">
+                ta.group_id = #{groupid}
+            </if>
+            <if test="code != null and code != ''">
+                and ta.VARACCOUNTCODE = #{code}
+            </if>
+        </where>
+    </select>
+    <select id="queryGroupChildAccount" resultMap="TglAccountGroupMap">
+        SELECT 	uqaccountid
+        FROM tgl_group_accounts ta
+        <where>
+            <if test="uqparentid != null and uqparentid != ''">
+                ta.UQPARENTID = #{uqparentid}
+            </if>
+            <if test="groupid != null and groupid != ''">
+                and ta.group_id = #{groupid}
+            </if>
+        </where>
+    </select>
+    <update id="updateIntislastlevel" >
+         UPDATE tgl_group_accounts ta SET
+         ta.intislastlevel = #{flag}
+         WHERE ta.uqaccountid = #{uqaccountid}
+    </update>
+    <select id="addAccounts" resultType="java.lang.String">
+        INSERT INTO tgl_group_accounts(uqaccountid, uqaccountsetid, varaccountcode,
+                                       varaccountfullcode, varaccountname, varaccountfullname,
+                                       intproperty, uqtypeid, uqforeigncurrid,
+                                       varmeasure, intisledge, intiscrossledge,
+                                       uqpreaccountid, uqparentid, intislastlevel,
+                                       intlevel, intflag, intisflow,group_id, ISBALANCE)
+        VALUES (
+                #{uqaccountid},
+                #{uqaccountsetid},
+                #{varaccountcode},
+                #{varaccountfullcode},
+                #{varaccountname},
+                #{varaccountfullname},
+                #{intproperty},
+                #{uqtypeid},
+                #{uqforeigncurrid},
+                #{varmeasure},
+                #{intisledge},
+                #{intiscrossledge},
+                #{uqpreaccountid},
+                #{uqparentid},
+                #{intislastlevel},
+                #{intlevel},
+                #{intflag},
+                #{intisflow},
+                #{group_id},
+                #{isbalance}
+               )
+    </select>
+</mapper>

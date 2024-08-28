@@ -1,0 +1,1135 @@
+2023-06-20 15:29:43.471 INFO  --- [Version.java:21][background-preinit] - HV000001: Hibernate Validator 6.2.4.Final
+2023-06-20 15:29:44.699 INFO  --- [RpcClientFactory.java:80][main] - [RpcClientFactory] create a new rpc client of c9f61f69-4572-403c-857c-8a5dbc8c0e6d_config-0
+2023-06-20 15:29:44.762 INFO  --- [Reflections.java:232][main] - Reflections took 34 ms to scan 1 urls, producing 3 keys and 6 values 
+2023-06-20 15:29:44.803 INFO  --- [Reflections.java:232][main] - Reflections took 15 ms to scan 1 urls, producing 4 keys and 9 values 
+2023-06-20 15:29:44.819 INFO  --- [Reflections.java:232][main] - Reflections took 13 ms to scan 1 urls, producing 3 keys and 10 values 
+2023-06-20 15:29:44.841 INFO  --- [Reflections.java:232][main] - Reflections took 17 ms to scan 14 urls, producing 0 keys and 0 values 
+2023-06-20 15:29:44.855 INFO  --- [Reflections.java:232][main] - Reflections took 13 ms to scan 1 urls, producing 1 keys and 5 values 
+2023-06-20 15:29:44.878 INFO  --- [Reflections.java:232][main] - Reflections took 17 ms to scan 1 urls, producing 1 keys and 7 values 
+2023-06-20 15:29:44.894 INFO  --- [Reflections.java:232][main] - Reflections took 14 ms to scan 1 urls, producing 2 keys and 8 values 
+2023-06-20 15:29:44.918 INFO  --- [Reflections.java:232][main] - Reflections took 21 ms to scan 14 urls, producing 0 keys and 0 values 
+2023-06-20 15:29:44.920 INFO  --- [LoggerUtils.java:60][main] - [c9f61f69-4572-403c-857c-8a5dbc8c0e6d_config-0] RpcClient init label, labels = {module=config, Vipserver-Tag=null, source=sdk, Amory-Tag=null, Location-Tag=null, taskId=0, AppName=unknown}
+2023-06-20 15:29:44.922 INFO  --- [LoggerUtils.java:60][main] - [c9f61f69-4572-403c-857c-8a5dbc8c0e6d_config-0] Register server push request handler:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$$Lambda$363/1104938392
+2023-06-20 15:29:44.923 INFO  --- [LoggerUtils.java:60][main] - [c9f61f69-4572-403c-857c-8a5dbc8c0e6d_config-0] Register server push request handler:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$$Lambda$364/426435961
+2023-06-20 15:29:44.924 INFO  --- [LoggerUtils.java:60][main] - [c9f61f69-4572-403c-857c-8a5dbc8c0e6d_config-0] Registry connection listener to current client:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$1
+2023-06-20 15:29:44.926 INFO  --- [LoggerUtils.java:60][main] - [c9f61f69-4572-403c-857c-8a5dbc8c0e6d_config-0] RpcClient init, ServerListFactory = com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$2
+2023-06-20 15:29:44.944 INFO  --- [LoggerUtils.java:60][main] - [c9f61f69-4572-403c-857c-8a5dbc8c0e6d_config-0] Try to connect to server on start up, server: {serverIp = '61.172.179.56', server main port = 8848}
+2023-06-20 15:29:46.633 INFO  --- [LoggerUtils.java:60][main] - [c9f61f69-4572-403c-857c-8a5dbc8c0e6d_config-0] Success to connect to server [61.172.179.56:8848] on start up, connectionId = 1687246186345_221.237.228.218_64766
+2023-06-20 15:29:46.634 INFO  --- [LoggerUtils.java:60][com.alibaba.nacos.client.remote.worker] - [c9f61f69-4572-403c-857c-8a5dbc8c0e6d_config-0] Notify connected event to listeners.
+2023-06-20 15:29:46.635 INFO  --- [LoggerUtils.java:60][main] - [c9f61f69-4572-403c-857c-8a5dbc8c0e6d_config-0] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+2023-06-20 15:29:46.636 INFO  --- [LoggerUtils.java:60][main] - [c9f61f69-4572-403c-857c-8a5dbc8c0e6d_config-0] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$373/1648231985
+2023-06-20 15:29:46.973 WARN  --- [NacosPropertySourceBuilder.java:87][main] - Ignore the empty nacos configuration and get it based on dataId[fm-1.0] & group[DEFAULT_GROUP]
+2023-06-20 15:29:47.017 WARN  --- [NacosPropertySourceBuilder.java:87][main] - Ignore the empty nacos configuration and get it based on dataId[fm-1.0.yaml] & group[DEFAULT_GROUP]
+2023-06-20 15:29:47.066 WARN  --- [NacosPropertySourceBuilder.java:87][main] - Ignore the empty nacos configuration and get it based on dataId[fm-1.0-dev.yaml] & group[DEFAULT_GROUP]
+2023-06-20 15:29:47.067 INFO  --- [PropertySourceBootstrapConfiguration.java:109][main] - Located property source: [BootstrapPropertySource {name='bootstrapProperties-fm-1.0-dev.yaml,DEFAULT_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-fm-1.0.yaml,DEFAULT_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-fm-1.0,DEFAULT_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-oec-cloud-mybatis.yml,DEV_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-oec-cloud-sentinel.yml,DEV_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-oec-cloud-feign.yml,DEV_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-oec-cloud-seata.yml,DEV_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-oec-cloud-common.yml,DEV_GROUP'}]
+2023-06-20 15:29:47.103 INFO  --- [SpringApplication.java:651][main] - The following 1 profile is active: "dev"
+2023-06-20 15:29:49.914 INFO  --- [RepositoryConfigurationDelegate.java:262][main] - Multiple Spring Data modules found, entering strict repository configuration mode
+2023-06-20 15:29:49.919 INFO  --- [RepositoryConfigurationDelegate.java:132][main] - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2023-06-20 15:29:50.017 INFO  --- [RepositoryConfigurationDelegate.java:201][main] - Finished Spring Data repository scanning in 75 ms. Found 0 Redis repository interfaces.
+2023-06-20 15:29:50.378 INFO  --- [LogAccessor.java:292][main] - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2023-06-20 15:29:50.395 INFO  --- [LogAccessor.java:292][main] - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2023-06-20 15:29:50.479 WARN  --- [Logger.java:44][main] - Skipping MapperFactoryBean with name 'accountingBookMapper' and 'com.geeke.ureport.mapper.AccountingBookMapper' mapperInterface. Bean already defined with the same name!
+2023-06-20 15:29:50.480 WARN  --- [Logger.java:44][main] - Skipping MapperFactoryBean with name 'generalLedgerMapper' and 'com.geeke.ureport.mapper.GeneralLedgerMapper' mapperInterface. Bean already defined with the same name!
+2023-06-20 15:29:50.480 WARN  --- [Logger.java:44][main] - Skipping MapperFactoryBean with name 'ureportFileMapper' and 'com.geeke.ureport.mapper.UreportFileMapper' mapperInterface. Bean already defined with the same name!
+2023-06-20 15:29:50.480 WARN  --- [Logger.java:44][main] - Skipping MapperFactoryBean with name 'viewUreportMapper' and 'com.geeke.ureport.mapper.ViewUreportMapper' mapperInterface. Bean already defined with the same name!
+2023-06-20 15:29:50.726 INFO  --- [GenericScope.java:283][main] - BeanFactory id=28f8c8ac-4225-3b3a-9a65-c559c80c55f0
+2023-06-20 15:29:50.875 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'shiroConfiguration' of type [com.geeke.config.shiro.ShiroConfiguration$$EnhancerBySpringCGLIB$$26c75ae0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:51.348 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'com.newtouch.cloud.common.dependency.remote.config.RemoteConfig' of type [com.newtouch.cloud.common.dependency.remote.config.RemoteConfig$$EnhancerBySpringCGLIB$$fcd94d73] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.027 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'restTemplate' of type [org.springframework.web.client.RestTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.028 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'dynamicRestTemplate' of type [com.newtouch.cloud.common.dependency.remote.rest.DynamicRestTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.029 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'realm' of type [com.geeke.config.shiro.UserRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.037 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'redisConfig' of type [com.geeke.config.cache.RedisConfig$$EnhancerBySpringCGLIB$$f1ed08eb] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.042 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'redisManager' of type [org.crazycake.shiro.RedisManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.049 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'redisSessionDAO' of type [org.crazycake.shiro.RedisSessionDAO] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.064 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'jwtUtils' of type [com.geeke.utils.JwtUtils] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.065 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'sessionManager' of type [com.geeke.config.shiro.StatelessSessionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.069 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'redisCacheManager' of type [org.crazycake.shiro.RedisCacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.138 INFO  --- [ShiroConfiguration.java:182][main] - Use the customer StatelessSessionManager in SecurityManager
+2023-06-20 15:29:52.139 INFO  --- [ShiroConfiguration.java:184][main] - Use the RedisCacheManager in SecurityManager
+2023-06-20 15:29:52.142 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.167 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'io.seata.spring.boot.autoconfigure.SeataCoreAutoConfiguration' of type [io.seata.spring.boot.autoconfigure.SeataCoreAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.168 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'springApplicationContextProvider' of type [io.seata.spring.boot.autoconfigure.provider.SpringApplicationContextProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.168 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'io.seata.spring.boot.autoconfigure.SeataAutoConfiguration' of type [io.seata.spring.boot.autoconfigure.SeataAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.215 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'failureHandler' of type [io.seata.tm.api.DefaultFailureHandlerImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.222 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'org.springframework.cloud.stream.config.BindersHealthIndicatorAutoConfiguration' of type [org.springframework.cloud.stream.config.BindersHealthIndicatorAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.226 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'bindersHealthContributor' of type [org.springframework.cloud.stream.config.BindersHealthIndicatorAutoConfiguration$BindersHealthContributor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.227 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'bindersHealthIndicatorListener' of type [org.springframework.cloud.stream.config.BindersHealthIndicatorAutoConfiguration$BindersHealthIndicatorListener] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.229 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'com.alibaba.cloud.stream.binder.rocketmq.autoconfigurate.ExtendedBindingHandlerMappingsProviderConfiguration' of type [com.alibaba.cloud.stream.binder.rocketmq.autoconfigurate.ExtendedBindingHandlerMappingsProviderConfiguration$$EnhancerBySpringCGLIB$$b10185c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.231 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'rocketExtendedPropertiesDefaultMappingsProvider' of type [com.alibaba.cloud.stream.binder.rocketmq.autoconfigurate.ExtendedBindingHandlerMappingsProviderConfiguration$$Lambda$538/1218188770] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.232 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'BindingHandlerAdvise' of type [org.springframework.cloud.stream.config.BindingHandlerAdvise] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.233 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration' of type [org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.235 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.236 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'loadBalancerClientsDefaultsMappingsProvider' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration$$Lambda$539/169237521] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.237 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'defaultsBindHandlerAdvisor' of type [org.springframework.cloud.commons.config.DefaultsBindHandlerAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.247 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'spelConverter' of type [org.springframework.cloud.stream.config.SpelExpressionConverterConfiguration$SpelConverter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.249 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration' of type [org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.250 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'stringOrNumberMigrationVersionConverter' of type [org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration$StringOrNumberToMigrationVersionConverter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.259 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'springCloudAlibabaConfiguration' of type [io.seata.spring.boot.autoconfigure.properties.SpringCloudAlibabaConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.265 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'seataProperties' of type [io.seata.spring.boot.autoconfigure.properties.SeataProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:52.276 INFO  --- [SeataAutoConfiguration.java:63][main] - Automatically configure Seata
+2023-06-20 15:29:52.360 INFO  --- [ConfigurationFactory.java:69][main] - load Configuration from :Spring Configuration
+2023-06-20 15:29:52.371 INFO  --- [NacosConfiguration.java:232][main] - Nacos check auth with userName/password.
+2023-06-20 15:29:52.646 INFO  --- [RpcClientFactory.java:80][main] - [RpcClientFactory] create a new rpc client of dfacc0dd-70b3-420e-88e5-efe86f46f440_config-0
+2023-06-20 15:29:52.647 INFO  --- [LoggerUtils.java:60][main] - [dfacc0dd-70b3-420e-88e5-efe86f46f440_config-0] RpcClient init label, labels = {module=config, Vipserver-Tag=null, source=sdk, Amory-Tag=null, Location-Tag=null, taskId=0, AppName=unknown}
+2023-06-20 15:29:52.647 INFO  --- [LoggerUtils.java:60][main] - [dfacc0dd-70b3-420e-88e5-efe86f46f440_config-0] Register server push request handler:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$$Lambda$363/1104938392
+2023-06-20 15:29:52.647 INFO  --- [LoggerUtils.java:60][main] - [dfacc0dd-70b3-420e-88e5-efe86f46f440_config-0] Register server push request handler:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$$Lambda$364/426435961
+2023-06-20 15:29:52.647 INFO  --- [LoggerUtils.java:60][main] - [dfacc0dd-70b3-420e-88e5-efe86f46f440_config-0] Registry connection listener to current client:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$1
+2023-06-20 15:29:52.647 INFO  --- [LoggerUtils.java:60][main] - [dfacc0dd-70b3-420e-88e5-efe86f46f440_config-0] RpcClient init, ServerListFactory = com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$2
+2023-06-20 15:29:52.648 INFO  --- [LoggerUtils.java:60][main] - [dfacc0dd-70b3-420e-88e5-efe86f46f440_config-0] Try to connect to server on start up, server: {serverIp = '61.172.179.56', server main port = 8848}
+2023-06-20 15:29:52.879 INFO  --- [LoggerUtils.java:60][main] - [dfacc0dd-70b3-420e-88e5-efe86f46f440_config-0] Success to connect to server [61.172.179.56:8848] on start up, connectionId = 1687246192678_221.237.228.218_64772
+2023-06-20 15:29:52.880 INFO  --- [LoggerUtils.java:60][com.alibaba.nacos.client.remote.worker] - [dfacc0dd-70b3-420e-88e5-efe86f46f440_config-0] Notify connected event to listeners.
+2023-06-20 15:29:52.880 INFO  --- [LoggerUtils.java:60][main] - [dfacc0dd-70b3-420e-88e5-efe86f46f440_config-0] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+2023-06-20 15:29:52.881 INFO  --- [LoggerUtils.java:60][main] - [dfacc0dd-70b3-420e-88e5-efe86f46f440_config-0] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$373/1648231985
+2023-06-20 15:29:53.111 INFO  --- [GlobalTransactionScanner.java:208][main] - Initializing Global Transaction Clients ... 
+2023-06-20 15:29:53.935 INFO  --- [NettyClientBootstrap.java:147][main] - NettyClientBootstrap has started
+2023-06-20 15:29:54.204 INFO  --- [RpcClientFactory.java:80][main] - [RpcClientFactory] create a new rpc client of e7eae54b-dd18-4b85-bfa2-d4cba11ec4ea
+2023-06-20 15:29:54.205 INFO  --- [LoggerUtils.java:60][main] - [e7eae54b-dd18-4b85-bfa2-d4cba11ec4ea] RpcClient init label, labels = {module=naming, source=sdk}
+2023-06-20 15:29:54.207 INFO  --- [LoggerUtils.java:60][main] - [e7eae54b-dd18-4b85-bfa2-d4cba11ec4ea] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
+2023-06-20 15:29:54.207 INFO  --- [LoggerUtils.java:60][main] - [e7eae54b-dd18-4b85-bfa2-d4cba11ec4ea] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
+2023-06-20 15:29:54.208 INFO  --- [LoggerUtils.java:60][main] - [e7eae54b-dd18-4b85-bfa2-d4cba11ec4ea] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
+2023-06-20 15:29:54.208 INFO  --- [LoggerUtils.java:60][main] - [e7eae54b-dd18-4b85-bfa2-d4cba11ec4ea] Try to connect to server on start up, server: {serverIp = '61.172.179.56', server main port = 8848}
+2023-06-20 15:29:54.442 INFO  --- [LoggerUtils.java:60][main] - [e7eae54b-dd18-4b85-bfa2-d4cba11ec4ea] Success to connect to server [61.172.179.56:8848] on start up, connectionId = 1687246194236_221.237.228.218_64779
+2023-06-20 15:29:54.442 INFO  --- [LoggerUtils.java:60][com.alibaba.nacos.client.remote.worker] - [e7eae54b-dd18-4b85-bfa2-d4cba11ec4ea] Notify connected event to listeners.
+2023-06-20 15:29:54.442 INFO  --- [LoggerUtils.java:60][main] - [e7eae54b-dd18-4b85-bfa2-d4cba11ec4ea] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+2023-06-20 15:29:54.443 INFO  --- [LoggerUtils.java:60][main] - [e7eae54b-dd18-4b85-bfa2-d4cba11ec4ea] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$373/1648231985
+2023-06-20 15:29:54.548 INFO  --- [NettyClientChannelManager.java:108][main] - will connect to 61.172.179.56:8091
+2023-06-20 15:29:54.759 INFO  --- [NettyPoolableFactory.java:56][main] - NettyPool create channel to transactionRole:TMROLE,address:61.172.179.56:8091,msg:< RegisterTMRequest{applicationId='fm-#{'1.0'.replace('.','-')}', transactionServiceGroup='oec-tx-dev-group'} >
+2023-06-20 15:29:55.065 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-4] - [e7eae54b-dd18-4b85-bfa2-d4cba11ec4ea] Receive server push request, request = NotifySubscriberRequest, requestId = 9672
+2023-06-20 15:29:55.066 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-4] - [e7eae54b-dd18-4b85-bfa2-d4cba11ec4ea] Ack server push request, request = NotifySubscriberRequest, requestId = 9672
+2023-06-20 15:29:55.465 INFO  --- [TmNettyRemotingClient.java:224][main] - register TM success. client version:1.5.2, server version:1.5.2,channel:[id: 0xbf9c9a1f, L:/10.43.203.25:64780 - R:/61.172.179.56:8091]
+2023-06-20 15:29:55.472 INFO  --- [NettyPoolableFactory.java:81][main] - register success, cost 206 ms, version:1.5.2,role:TMROLE,channel:[id: 0xbf9c9a1f, L:/10.43.203.25:64780 - R:/61.172.179.56:8091]
+2023-06-20 15:29:55.473 INFO  --- [GlobalTransactionScanner.java:222][main] - Transaction Manager Client is initialized. applicationId[fm-#{'1.0'.replace('.','-')}] txServiceGroup[oec-tx-dev-group]
+2023-06-20 15:29:55.619 INFO  --- [AsyncWorker.java:73][main] - Async Commit Buffer Limit: 10000
+2023-06-20 15:29:55.619 INFO  --- [ResourceManagerXA.java:60][main] - ResourceManagerXA init ...
+2023-06-20 15:29:55.632 INFO  --- [NettyClientBootstrap.java:147][main] - NettyClientBootstrap has started
+2023-06-20 15:29:55.632 INFO  --- [GlobalTransactionScanner.java:227][main] - Resource Manager is initialized. applicationId[fm-#{'1.0'.replace('.','-')}] txServiceGroup[oec-tx-dev-group]
+2023-06-20 15:29:55.632 INFO  --- [GlobalTransactionScanner.java:231][main] - Global Transaction Clients are initialized. 
+2023-06-20 15:29:55.930 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:55.938 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$1c0f8898] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:55.954 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:56.022 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'integrationChannelResolver' of type [org.springframework.integration.support.channel.BeanFactoryChannelResolver] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:56.037 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'com.alibaba.cloud.seata.feign.SeataFeignClientAutoConfiguration$FeignBeanPostProcessorConfiguration' of type [com.alibaba.cloud.seata.feign.SeataFeignClientAutoConfiguration$FeignBeanPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:56.040 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'seataFeignObjectWrapper' of type [com.alibaba.cloud.seata.feign.SeataFeignObjectWrapper] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:56.057 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'org.springframework.integration.config.IntegrationManagementConfiguration' of type [org.springframework.integration.config.IntegrationManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:56.065 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'org.springframework.boot.autoconfigure.integration.IntegrationAutoConfiguration$IntegrationJmxConfiguration' of type [org.springframework.boot.autoconfigure.integration.IntegrationAutoConfiguration$IntegrationJmxConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:56.079 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration' of type [org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:56.089 INFO  --- [PostProcessorRegistrationDelegate.java:376][main] - Bean 'mbeanServer' of type [com.sun.jmx.mbeanserver.JmxMBeanServer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-20 15:29:56.573 INFO  --- [TomcatWebServer.java:108][main] - Tomcat initialized with port(s): 5000 (http)
+2023-06-20 15:29:56.586 INFO  --- [DirectJDKLog.java:173][main] - Initializing ProtocolHandler ["http-nio-5000"]
+2023-06-20 15:29:56.587 INFO  --- [DirectJDKLog.java:173][main] - Starting service [Tomcat]
+2023-06-20 15:29:56.587 INFO  --- [DirectJDKLog.java:173][main] - Starting Servlet engine: [Apache Tomcat/9.0.65]
+2023-06-20 15:29:56.686 INFO  --- [DirectJDKLog.java:173][main] - Initializing Spring embedded WebApplicationContext
+2023-06-20 15:29:56.686 INFO  --- [ServletWebServerApplicationContext.java:290][main] - Root WebApplicationContext: initialization completed in 9539 ms
+2023-06-20 15:29:56.731 INFO  --- [CamundaJerseyResourceConfig.java:38][main] - Configuring camunda rest api.
+2023-06-20 15:29:56.764 INFO  --- [CamundaJerseyResourceConfig.java:44][main] - Finished configuring camunda rest api.
+2023-06-20 15:29:57.785 INFO  --- [DynamicRoutingDataSource.java:252][main] - dynamic-datasource detect ALIBABA SEATA and enabled it
+2023-06-20 15:29:57.808 INFO  --- [HikariDataSource.java:80][main] - 0 - Starting...
+2023-06-20 15:29:57.814 WARN  --- [DriverDataSource.java:70][main] - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-06-20 15:29:58.543 INFO  --- [HikariDataSource.java:82][main] - 0 - Start completed.
+2023-06-20 15:29:58.610 INFO  --- [NettyClientChannelManager.java:108][main] - will connect to 61.172.179.56:8091
+2023-06-20 15:29:58.611 INFO  --- [RmNettyRemotingClient.java:276][main] - RM will register :jdbc:mysql://61.172.179.56:3306/fm$develope$1457259193529540652
+2023-06-20 15:29:58.613 INFO  --- [NettyPoolableFactory.java:56][main] - NettyPool create channel to transactionRole:RMROLE,address:61.172.179.56:8091,msg:< RegisterRMRequest{resourceIds='jdbc:mysql://61.172.179.56:3306/fm$develope$1457259193529540652', applicationId='fm-#{'1.0'.replace('.','-')}', transactionServiceGroup='oec-tx-dev-group'} >
+2023-06-20 15:29:58.706 INFO  --- [RmNettyRemotingClient.java:177][main] - register RM success. client version:1.5.2, server version:1.5.2,channel:[id: 0x19682696, L:/10.43.203.25:64786 - R:/61.172.179.56:8091]
+2023-06-20 15:29:58.706 INFO  --- [NettyPoolableFactory.java:81][main] - register success, cost 51 ms, version:1.5.2,role:RMROLE,channel:[id: 0x19682696, L:/10.43.203.25:64786 - R:/61.172.179.56:8091]
+2023-06-20 15:29:58.715 INFO  --- [DynamicRoutingDataSource.java:154][main] - dynamic-datasource - add a datasource named [0] success
+2023-06-20 15:29:58.716 INFO  --- [DynamicRoutingDataSource.java:234][main] - dynamic-datasource initial loaded [1] datasource,primary datasource named [0]
+2023-06-20 15:30:00.424 INFO  --- [FeignClientFactoryBean.java:418][main] - For 'eb-oec-file-system-cloud' URL not provided. Will try picking an instance via load-balancing.
+2023-06-20 15:30:00.791 INFO  --- [FeignClientFactoryBean.java:418][main] - For 'eb-oec-log-system-cloud' URL not provided. Will try picking an instance via load-balancing.
+2023-06-20 15:30:00.942 INFO  --- [WebSocketServer.java:50][main] - --------websocket init---------
+2023-06-20 15:30:01.258 INFO  --- [Slf4jLog.java:49][main] - Flyway Community Edition 5.2.4 by Boxfuse
+2023-06-20 15:30:01.296 INFO  --- [Slf4jLog.java:49][main] - Database: jdbc:mysql://61.172.179.56:3306/fm$develope$1457259193529540652 (MySQL 5.7)
+2023-06-20 15:30:01.850 INFO  --- [Slf4jLog.java:49][main] - Successfully validated 1 migration (execution time 00:00.237s)
+2023-06-20 15:30:02.335 INFO  --- [Slf4jLog.java:49][main] - Current version of schema `fm$develope$1457259193529540652`: 20230523.01
+2023-06-20 15:30:02.374 INFO  --- [Slf4jLog.java:49][main] - Schema `fm$develope$1457259193529540652` is up to date. No migration necessary.
+2023-06-20 15:30:03.014 INFO  --- [MyDisposableWorkerIdAssigner.java:61][main] - Add worker node:WorkerNodeEntity[id=393,hostName=10.43.203.25,port=1687246202880-23323,type=2,launchDate=Tue Jun 20 15:30:02 CST 2023,created=<null>,modified=<null>]
+2023-06-20 15:30:03.093 INFO  --- [DefaultUidGenerator.java:95][main] - Initialized bits(1, 29, 21, 13) for workerID:393
+2023-06-20 15:30:03.100 INFO  --- [CachedUidGenerator.java:124][main] - Initialized ring buffer size:65536, paddingFactor:50
+2023-06-20 15:30:03.105 INFO  --- [CachedUidGenerator.java:133][main] - Initialized BufferPaddingExecutor. Using schdule:false, interval:null
+2023-06-20 15:30:03.105 INFO  --- [BufferPaddingExecutor.java:141][main] - Ready to padding buffer lastSecond:1687246203. RingBuffer [bufferSize=65536, tail=-1, cursor=-1, paddingThreshold=32768]
+2023-06-20 15:30:03.120 WARN  --- [RingBuffer.java:197][main] - Rejected putting buffer for uid:1577328663604568064. RingBuffer [bufferSize=65536, tail=65535, cursor=-1, paddingThreshold=32768]
+2023-06-20 15:30:03.120 INFO  --- [BufferPaddingExecutor.java:163][main] - End to padding buffer lastSecond:1687246212. RingBuffer [bufferSize=65536, tail=65535, cursor=-1, paddingThreshold=32768]
+2023-06-20 15:30:03.121 INFO  --- [CachedUidGenerator.java:74][main] - Initialized RingBuffer successfully.
+2023-06-20 15:30:03.220 INFO  --- [BaseLogger.java:132][main] - STARTER-SB040 Setting up jobExecutor with corePoolSize=3, maxPoolSize:10
+2023-06-20 15:30:03.274 INFO  --- [CamundaBpmConfigurationEx.java:40][main] - ------- inject SpringProcessEngineConfigurationEx bean as processEngineConfigurationImpl
+2023-06-20 15:30:03.389 INFO  --- [BaseLogger.java:132][main] - ENGINE-12003 Plugin 'ConnectProcessEnginePlugin' activated on process engine 'default'
+2023-06-20 15:30:03.398 INFO  --- [BaseLogger.java:132][main] - CNCT-01004 Discovered provider for connector id 'mail-send' and class 'org.camunda.bpm.extension.mail.send.SendMailConnector': 'org.camunda.bpm.extension.mail.send.SendMailProvider'
+2023-06-20 15:30:03.399 INFO  --- [BaseLogger.java:132][main] - CNCT-01004 Discovered provider for connector id 'mail-poll' and class 'org.camunda.bpm.extension.mail.poll.PollMailConnector': 'org.camunda.bpm.extension.mail.poll.PollMailProvider'
+2023-06-20 15:30:03.402 INFO  --- [BaseLogger.java:132][main] - CNCT-01004 Discovered provider for connector id 'mail-delete' and class 'org.camunda.bpm.extension.mail.delete.DeleteMailConnector': 'org.camunda.bpm.extension.mail.delete.DeleteMailProvider'
+2023-06-20 15:30:03.406 INFO  --- [BaseLogger.java:132][main] - ENGINE-12003 Plugin 'CompositeProcessEnginePlugin[genericPropertiesConfiguration, camundaProcessEngineConfiguration, camundaDatasourceConfiguration, camundaJobConfiguration, camundaHistoryConfiguration, camundaMetricsConfiguration, camundaAuthorizationConfiguration, camundaDeploymentConfiguration, failedJobConfiguration, eventPublisherPlugin, ConnectProcessEnginePlugin]' activated on process engine 'default'
+2023-06-20 15:30:03.409 DEBUG --- [DefaultDeploymentConfiguration.java:55][main] - resolving deployment resources for pattern classpath*:**/*.cmmn
+2023-06-20 15:30:03.726 INFO  --- [BaseLogger.java:132][main] - STARTER-SB021 Auto-Deploying resources: []
+2023-06-20 15:30:03.729 INFO  --- [EventPublisherPlugin.java:57][main] - EVENTING-001: Initialized Camunda Spring Boot Eventing Engine Plugin.
+2023-06-20 15:30:03.729 INFO  --- [EventPublisherPlugin.java:59][main] - EVENTING-003: Task events will be published as Spring Events.
+2023-06-20 15:30:03.729 INFO  --- [EventPublisherPlugin.java:65][main] - EVENTING-005: Execution events will be published as Spring Events.
+2023-06-20 15:30:03.734 INFO  --- [EventPublisherPlugin.java:74][main] - EVENTING-007: History events will be published as Spring events.
+2023-06-20 15:30:03.739 INFO  --- [BaseLogger.java:132][main] - CNCT-01004 Discovered provider for connector id 'mail-send' and class 'org.camunda.bpm.extension.mail.send.SendMailConnector': 'org.camunda.bpm.extension.mail.send.SendMailProvider'
+2023-06-20 15:30:03.739 INFO  --- [BaseLogger.java:132][main] - CNCT-01004 Discovered provider for connector id 'mail-poll' and class 'org.camunda.bpm.extension.mail.poll.PollMailConnector': 'org.camunda.bpm.extension.mail.poll.PollMailProvider'
+2023-06-20 15:30:03.739 INFO  --- [BaseLogger.java:132][main] - CNCT-01004 Discovered provider for connector id 'mail-delete' and class 'org.camunda.bpm.extension.mail.delete.DeleteMailConnector': 'org.camunda.bpm.extension.mail.delete.DeleteMailProvider'
+2023-06-20 15:30:03.973 DEBUG --- [BaseLogger.java:118][main] - ENGINE-12004 Database product name MySQL
+2023-06-20 15:30:03.974 DEBUG --- [BaseLogger.java:118][main] - ENGINE-12005 Database type mysql
+2023-06-20 15:30:07.456 DEBUG --- [BaseLogger.java:118][main] - ENGINE-13005 Starting command -------------------- SchemaOperationsProcessEngineBuild ----------------------
+2023-06-20 15:30:07.540 DEBUG --- [BaseLogger.java:118][main] - ENGINE-13009 opening new command context
+2023-06-20 15:30:11.454 DEBUG --- [BaseLogger.java:118][main] - ENGINE-13011 closing existing command context
+2023-06-20 15:30:11.526 DEBUG --- [BaseLogger.java:118][main] - ENGINE-13006 Finishing command -------------------- SchemaOperationsProcessEngineBuild ----------------------
+2023-06-20 15:30:11.526 DEBUG --- [BaseLogger.java:118][main] - ENGINE-13005 Starting command -------------------- HistoryLevelSetupCommand ----------------------
+2023-06-20 15:30:11.561 DEBUG --- [BaseLogger.java:118][main] - ENGINE-13009 opening new command context
+2023-06-20 15:30:11.573 DEBUG --- [BaseJdbcLogger.java:137][main] - ==>  Preparing: select * from ACT_GE_PROPERTY where NAME_ = ?
+2023-06-20 15:30:11.579 DEBUG --- [BaseJdbcLogger.java:137][main] - ==> Parameters: startup.lock(String)
+2023-06-20 15:30:11.623 DEBUG --- [BaseJdbcLogger.java:137][main] - <==      Total: 1
+2023-06-20 15:30:11.626 DEBUG --- [BaseJdbcLogger.java:137][main] - ==>  Preparing: select * from ACT_GE_PROPERTY where NAME_ = ?
+2023-06-20 15:30:11.626 DEBUG --- [BaseJdbcLogger.java:137][main] - ==> Parameters: historyLevel(String)
+2023-06-20 15:30:11.662 DEBUG --- [BaseJdbcLogger.java:137][main] - <==      Total: 1
+2023-06-20 15:30:11.662 DEBUG --- [BaseLogger.java:118][main] - ENGINE-13011 closing existing command context
+2023-06-20 15:30:11.663 DEBUG --- [BaseLogger.java:118][main] - ENGINE-03006 Cache state after flush: [
+  PERSISTENT PropertyEntity[startup.lock]
+  PERSISTENT PropertyEntity[historyLevel]
+]
+2023-06-20 15:30:11.734 DEBUG --- [BaseLogger.java:118][main] - ENGINE-13006 Finishing command -------------------- HistoryLevelSetupCommand ----------------------
+2023-06-20 15:30:11.735 DEBUG --- [BaseLogger.java:118][main] - ENGINE-13005 Starting command -------------------- BootstrapEngineCommand ----------------------
+2023-06-20 15:30:11.771 DEBUG --- [BaseLogger.java:118][main] - ENGINE-13009 opening new command context
+2023-06-20 15:30:11.771 DEBUG --- [BaseJdbcLogger.java:137][main] - ==>  Preparing: select * from ACT_GE_PROPERTY where NAME_ = ?
+2023-06-20 15:30:11.772 DEBUG --- [BaseJdbcLogger.java:137][main] - ==> Parameters: deployment.lock(String)
+2023-06-20 15:30:11.808 DEBUG --- [BaseJdbcLogger.java:137][main] - <==      Total: 1
+2023-06-20 15:30:11.809 DEBUG --- [BaseJdbcLogger.java:137][main] - ==>  Preparing: select * from ACT_GE_PROPERTY where NAME_ = ?
+2023-06-20 15:30:11.809 DEBUG --- [BaseJdbcLogger.java:137][main] - ==> Parameters: history.cleanup.job.lock(String)
+2023-06-20 15:30:11.846 DEBUG --- [BaseJdbcLogger.java:137][main] - <==      Total: 1
+2023-06-20 15:30:11.847 DEBUG --- [BaseLogger.java:118][main] - ENGINE-13005 Starting command -------------------- GetTableMetaDataCmd ----------------------
+2023-06-20 15:30:11.848 DEBUG --- [BaseLogger.java:118][main] - ENGINE-13010 reusing existing command context
+2023-06-20 15:30:12.594 DEBUG --- [BaseLogger.java:118][main] - ENGINE-13006 Finishing command -------------------- GetTableMetaDataCmd ----------------------
+2023-06-20 15:30:12.598 DEBUG --- [BaseLogger.java:118][main] - ENGINE-13005 Starting command -------------------- HistoryCleanupCmd ----------------------
+2023-06-20 15:30:12.599 DEBUG --- [BaseLogger.java:118][main] - ENGINE-13010 reusing existing command context
+2023-06-20 15:30:12.599 DEBUG --- [BaseLogger.java:118][main] - ENGINE-13038 History cleanup won't be scheduled. Either configure batch window or call it with immediatelyDue = true.
+2023-06-20 15:30:12.601 DEBUG --- [BaseJdbcLogger.java:137][main] - ==>  Preparing: select * from ACT_RU_JOB where HANDLER_TYPE_ = ?
+2023-06-20 15:30:12.602 DEBUG --- [BaseJdbcLogger.java:137][main] - ==> Parameters: history-cleanup(String)
+2023-06-20 15:30:12.651 DEBUG --- [BaseJdbcLogger.java:137][main] - <==      Total: 0
+2023-06-20 15:30:12.651 DEBUG --- [BaseLogger.java:118][main] - ENGINE-13006 Finishing command -------------------- HistoryCleanupCmd ----------------------
+2023-06-20 15:30:12.652 DEBUG --- [BaseLogger.java:118][main] - ENGINE-13011 closing existing command context
+2023-06-20 15:30:12.652 DEBUG --- [BaseLogger.java:118][main] - ENGINE-03006 Cache state after flush: [
+  PERSISTENT PropertyEntity[deployment.lock]
+  PERSISTENT PropertyEntity[history.cleanup.job.lock]
+]
+2023-06-20 15:30:12.730 DEBUG --- [BaseLogger.java:118][main] - ENGINE-13006 Finishing command -------------------- BootstrapEngineCommand ----------------------
+2023-06-20 15:30:12.731 INFO  --- [BaseLogger.java:132][main] - ENGINE-00001 Process Engine default created.
+2023-06-20 15:30:13.712 INFO  --- [FeignClientFactoryBean.java:418][main] - For 'cloud-geeke-devtool' URL not provided. Will try picking an instance via load-balancing.
+2023-06-20 15:30:13.790 INFO  --- [ScheduleUtil.java:34][main] - 定时任务启动
+2023-06-20 15:30:15.047 INFO  --- [StdSchedulerFactory.java:1220][main] - Using default implementation for ThreadExecutor
+2023-06-20 15:30:15.066 INFO  --- [SchedulerSignalerImpl.java:61][main] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2023-06-20 15:30:15.067 INFO  --- [QuartzScheduler.java:229][main] - Quartz Scheduler v.2.3.2 created.
+2023-06-20 15:30:15.068 INFO  --- [RAMJobStore.java:155][main] - RAMJobStore initialized.
+2023-06-20 15:30:15.070 INFO  --- [QuartzScheduler.java:294][main] - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2023-06-20 15:30:15.071 INFO  --- [StdSchedulerFactory.java:1374][main] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2023-06-20 15:30:15.072 INFO  --- [StdSchedulerFactory.java:1378][main] - Quartz scheduler version: 2.3.2
+2023-06-20 15:30:15.072 INFO  --- [QuartzScheduler.java:2293][main] - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@433dd165
+2023-06-20 15:30:15.246 INFO  --- [EndpointLinksResolver.java:58][main] - Exposing 1 endpoint(s) beneath base path '/actuator'
+2023-06-20 15:30:15.337 INFO  --- [SentinelWebMvcConfigurer.java:52][main] - [Sentinel Starter] register SentinelWebInterceptor with urlPatterns: [/**].
+2023-06-20 15:30:17.129 INFO  --- [PropertySourcedRequestMappingHandlerMapping.java:69][main] - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-06-20 15:30:17.972 INFO  --- [FunctionConfiguration.java:896][main] - Functional binding is disabled due to the presense of @EnableBinding annotation in your configuration
+2023-06-20 15:30:18.714 WARN  --- [FreeMarkerAutoConfiguration.java:65][main] - Cannot find template location(s): [classpath:/templates/] (please add some templates, check your FreeMarker configuration, or set spring.freemarker.checkTemplateLocation=false)
+2023-06-20 15:30:19.529 INFO  --- [LogAccessor.java:174][main] - Channel 'fm-#{'1.0'.replace('.','-')}-1.notice-in' has 1 subscriber(s).
+2023-06-20 15:30:19.530 INFO  --- [LogAccessor.java:174][main] - Channel 'fm-#{'1.0'.replace('.','-')}-1.action-log-in' has 1 subscriber(s).
+2023-06-20 15:30:19.793 INFO  --- [IntegrationMBeanExporter.java:681][main] - Registering MessageChannel output
+2023-06-20 15:30:19.997 INFO  --- [IntegrationMBeanExporter.java:681][main] - Registering MessageChannel action-log-in
+2023-06-20 15:30:20.004 INFO  --- [IntegrationMBeanExporter.java:681][main] - Registering MessageChannel input
+2023-06-20 15:30:20.011 INFO  --- [IntegrationMBeanExporter.java:681][main] - Registering MessageChannel notice-in
+2023-06-20 15:30:20.016 INFO  --- [IntegrationMBeanExporter.java:681][main] - Registering MessageChannel errorChannel
+2023-06-20 15:30:20.085 INFO  --- [IntegrationMBeanExporter.java:681][main] - Registering MessageChannel nullChannel
+2023-06-20 15:30:20.106 INFO  --- [IntegrationMBeanExporter.java:681][main] - Registering MessageChannel action-log-out
+2023-06-20 15:30:20.110 INFO  --- [IntegrationMBeanExporter.java:681][main] - Registering MessageChannel notice-out
+2023-06-20 15:30:20.125 INFO  --- [IntegrationMBeanExporter.java:703][main] - Registering MessageHandler _org.springframework.integration.errorLogger
+2023-06-20 15:30:20.276 INFO  --- [LogAccessor.java:174][main] - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2023-06-20 15:30:20.276 INFO  --- [LogAccessor.java:174][main] - Channel 'fm-#{'1.0'.replace('.','-')}-1.errorChannel' has 1 subscriber(s).
+2023-06-20 15:30:20.277 INFO  --- [LogAccessor.java:292][main] - started bean '_org.springframework.integration.errorLogger'
+2023-06-20 15:30:22.266 INFO  --- [LogAccessor.java:174][main] - Channel 'fm-#{'1.0'.replace('.','-')}-1.output' has 1 subscriber(s).
+2023-06-20 15:30:23.136 INFO  --- [LogAccessor.java:174][main] - Channel 'fm-#{'1.0'.replace('.','-')}-1.action-log-out' has 1 subscriber(s).
+2023-06-20 15:30:23.996 INFO  --- [LogAccessor.java:174][main] - Channel 'fm-#{'1.0'.replace('.','-')}-1.notice-out' has 1 subscriber(s).
+2023-06-20 15:30:24.003 INFO  --- [RpcClientFactory.java:80][main] - [RpcClientFactory] create a new rpc client of 44ddc185-7a9c-484b-936e-27de99b195ef
+2023-06-20 15:30:24.003 INFO  --- [LoggerUtils.java:60][main] - [44ddc185-7a9c-484b-936e-27de99b195ef] RpcClient init label, labels = {module=naming, source=sdk}
+2023-06-20 15:30:24.005 INFO  --- [LoggerUtils.java:60][main] - [44ddc185-7a9c-484b-936e-27de99b195ef] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
+2023-06-20 15:30:24.005 INFO  --- [LoggerUtils.java:60][main] - [44ddc185-7a9c-484b-936e-27de99b195ef] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
+2023-06-20 15:30:24.005 INFO  --- [LoggerUtils.java:60][main] - [44ddc185-7a9c-484b-936e-27de99b195ef] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
+2023-06-20 15:30:24.006 INFO  --- [LoggerUtils.java:60][main] - [44ddc185-7a9c-484b-936e-27de99b195ef] Try to connect to server on start up, server: {serverIp = '61.172.179.56', server main port = 8848}
+2023-06-20 15:30:24.260 INFO  --- [LoggerUtils.java:60][main] - [44ddc185-7a9c-484b-936e-27de99b195ef] Success to connect to server [61.172.179.56:8848] on start up, connectionId = 1687246224051_221.237.228.218_64827
+2023-06-20 15:30:24.260 INFO  --- [LoggerUtils.java:60][com.alibaba.nacos.client.remote.worker] - [44ddc185-7a9c-484b-936e-27de99b195ef] Notify connected event to listeners.
+2023-06-20 15:30:24.260 INFO  --- [LoggerUtils.java:60][main] - [44ddc185-7a9c-484b-936e-27de99b195ef] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+2023-06-20 15:30:24.260 INFO  --- [LoggerUtils.java:60][main] - [44ddc185-7a9c-484b-936e-27de99b195ef] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$373/1648231985
+2023-06-20 15:30:24.431 INFO  --- [LogAccessor.java:174][main] - Channel 'input.anonymous_input.errors' has 1 subscriber(s).
+2023-06-20 15:30:24.432 INFO  --- [LogAccessor.java:174][main] - Channel 'input.anonymous_input.errors' has 0 subscriber(s).
+2023-06-20 15:30:24.432 INFO  --- [LogAccessor.java:174][main] - Channel 'input.anonymous_input.errors' has 1 subscriber(s).
+2023-06-20 15:30:24.432 INFO  --- [LogAccessor.java:174][main] - Channel 'input.anonymous_input.errors' has 2 subscriber(s).
+2023-06-20 15:30:24.906 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-4] - [44ddc185-7a9c-484b-936e-27de99b195ef] Receive server push request, request = NotifySubscriberRequest, requestId = 9673
+2023-06-20 15:30:24.906 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-4] - [44ddc185-7a9c-484b-936e-27de99b195ef] Ack server push request, request = NotifySubscriberRequest, requestId = 9673
+2023-06-20 15:30:25.647 INFO  --- [LogAccessor.java:292][main] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@7615eb9f
+2023-06-20 15:30:25.696 INFO  --- [LogAccessor.java:174][main] - Channel 'TOPIC-ACTION-LOG-fm-1_0-dev.ACTION-LOG-GROUP-fm-1_0.errors' has 1 subscriber(s).
+2023-06-20 15:30:25.696 INFO  --- [LogAccessor.java:174][main] - Channel 'TOPIC-ACTION-LOG-fm-1_0-dev.ACTION-LOG-GROUP-fm-1_0.errors' has 0 subscriber(s).
+2023-06-20 15:30:25.696 INFO  --- [LogAccessor.java:174][main] - Channel 'TOPIC-ACTION-LOG-fm-1_0-dev.ACTION-LOG-GROUP-fm-1_0.errors' has 1 subscriber(s).
+2023-06-20 15:30:25.697 INFO  --- [LogAccessor.java:174][main] - Channel 'TOPIC-ACTION-LOG-fm-1_0-dev.ACTION-LOG-GROUP-fm-1_0.errors' has 2 subscriber(s).
+2023-06-20 15:30:26.891 INFO  --- [LogAccessor.java:292][main] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@555df150
+2023-06-20 15:30:26.925 INFO  --- [LogAccessor.java:174][main] - Channel 'NOTICE-fm-1_0-dev.NOTICE-GROUP-fm-1_0.errors' has 1 subscriber(s).
+2023-06-20 15:30:26.925 INFO  --- [LogAccessor.java:174][main] - Channel 'NOTICE-fm-1_0-dev.NOTICE-GROUP-fm-1_0.errors' has 0 subscriber(s).
+2023-06-20 15:30:26.926 INFO  --- [LogAccessor.java:174][main] - Channel 'NOTICE-fm-1_0-dev.NOTICE-GROUP-fm-1_0.errors' has 1 subscriber(s).
+2023-06-20 15:30:26.926 INFO  --- [LogAccessor.java:174][main] - Channel 'NOTICE-fm-1_0-dev.NOTICE-GROUP-fm-1_0.errors' has 2 subscriber(s).
+2023-06-20 15:30:28.076 INFO  --- [LogAccessor.java:292][main] - started com.alibaba.cloud.stream.binder.rocketmq.integration.inbound.RocketMQInboundChannelAdapter@5056e33f
+2023-06-20 15:30:28.079 INFO  --- [DirectJDKLog.java:173][main] - Starting ProtocolHandler ["http-nio-5000"]
+2023-06-20 15:30:28.108 INFO  --- [TomcatWebServer.java:220][main] - Tomcat started on port(s): 5000 (http) with context path ''
+2023-06-20 15:30:28.162 INFO  --- [NacosServiceRegistry.java:75][main] - nacos registry, DEFAULT_GROUP fm-1-0 61.172.179.26:5000 register finished
+2023-06-20 15:30:28.565 INFO  --- [DocumentationPluginsBootstrapper.java:160][main] - Context refreshed
+2023-06-20 15:30:28.599 INFO  --- [DocumentationPluginsBootstrapper.java:163][main] - Found 1 custom documentation plugin(s)
+2023-06-20 15:30:28.676 INFO  --- [ApiListingReferenceScanner.java:41][main] - Scanning for api listing references
+2023-06-20 15:30:28.779 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-7] - [44ddc185-7a9c-484b-936e-27de99b195ef] Receive server push request, request = NotifySubscriberRequest, requestId = 9674
+2023-06-20 15:30:28.780 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-7] - [44ddc185-7a9c-484b-936e-27de99b195ef] Ack server push request, request = NotifySubscriberRequest, requestId = 9674
+2023-06-20 15:30:29.050 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_1
+2023-06-20 15:30:29.164 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_1
+2023-06-20 15:30:29.169 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_1
+2023-06-20 15:30:29.173 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_1
+2023-06-20 15:30:29.177 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_2
+2023-06-20 15:30:29.179 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_3
+2023-06-20 15:30:29.219 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_1
+2023-06-20 15:30:29.223 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_1
+2023-06-20 15:30:29.226 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_1
+2023-06-20 15:30:29.229 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_2
+2023-06-20 15:30:29.232 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_2
+2023-06-20 15:30:29.234 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_2
+2023-06-20 15:30:29.236 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_4
+2023-06-20 15:30:29.238 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_5
+2023-06-20 15:30:29.240 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_1
+2023-06-20 15:30:29.246 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_2
+2023-06-20 15:30:29.248 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_2
+2023-06-20 15:30:29.250 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_2
+2023-06-20 15:30:29.255 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_3
+2023-06-20 15:30:29.257 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_3
+2023-06-20 15:30:29.259 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_3
+2023-06-20 15:30:29.261 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_6
+2023-06-20 15:30:29.262 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_7
+2023-06-20 15:30:29.264 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_2
+2023-06-20 15:30:29.274 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_3
+2023-06-20 15:30:29.276 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_3
+2023-06-20 15:30:29.280 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_3
+2023-06-20 15:30:29.282 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_4
+2023-06-20 15:30:29.284 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_4
+2023-06-20 15:30:29.287 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_4
+2023-06-20 15:30:29.289 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_8
+2023-06-20 15:30:29.290 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_9
+2023-06-20 15:30:29.293 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_3
+2023-06-20 15:30:29.350 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_4
+2023-06-20 15:30:29.354 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_4
+2023-06-20 15:30:29.356 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_4
+2023-06-20 15:30:29.359 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_5
+2023-06-20 15:30:29.367 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_5
+2023-06-20 15:30:29.370 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_5
+2023-06-20 15:30:29.372 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_10
+2023-06-20 15:30:29.374 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_11
+2023-06-20 15:30:29.377 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_4
+2023-06-20 15:30:29.391 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_5
+2023-06-20 15:30:29.395 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_5
+2023-06-20 15:30:29.399 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_5
+2023-06-20 15:30:29.404 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_6
+2023-06-20 15:30:29.439 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_6
+2023-06-20 15:30:29.442 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_6
+2023-06-20 15:30:29.445 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_12
+2023-06-20 15:30:29.447 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_13
+2023-06-20 15:30:29.449 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_5
+2023-06-20 15:30:29.456 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_6
+2023-06-20 15:30:29.458 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_6
+2023-06-20 15:30:29.460 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_6
+2023-06-20 15:30:29.465 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_7
+2023-06-20 15:30:29.470 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_7
+2023-06-20 15:30:29.476 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_7
+2023-06-20 15:30:29.479 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_14
+2023-06-20 15:30:29.480 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_15
+2023-06-20 15:30:29.484 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_6
+2023-06-20 15:30:29.510 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_7
+2023-06-20 15:30:29.514 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_7
+2023-06-20 15:30:29.519 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_7
+2023-06-20 15:30:29.526 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_8
+2023-06-20 15:30:29.533 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_8
+2023-06-20 15:30:29.537 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_8
+2023-06-20 15:30:29.539 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_16
+2023-06-20 15:30:29.540 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_17
+2023-06-20 15:30:29.543 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_7
+2023-06-20 15:30:29.548 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_18
+2023-06-20 15:30:29.550 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_19
+2023-06-20 15:30:29.572 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_8
+2023-06-20 15:30:29.575 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_8
+2023-06-20 15:30:29.577 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_8
+2023-06-20 15:30:29.581 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_9
+2023-06-20 15:30:29.583 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_9
+2023-06-20 15:30:29.584 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_9
+2023-06-20 15:30:29.586 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_20
+2023-06-20 15:30:29.587 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_21
+2023-06-20 15:30:29.589 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_8
+2023-06-20 15:30:29.598 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_9
+2023-06-20 15:30:29.603 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_9
+2023-06-20 15:30:29.605 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_9
+2023-06-20 15:30:29.610 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_10
+2023-06-20 15:30:29.611 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_10
+2023-06-20 15:30:29.613 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_10
+2023-06-20 15:30:29.615 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_22
+2023-06-20 15:30:29.617 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_23
+2023-06-20 15:30:29.620 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_9
+2023-06-20 15:30:29.627 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_10
+2023-06-20 15:30:29.629 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_10
+2023-06-20 15:30:29.632 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_10
+2023-06-20 15:30:29.638 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_11
+2023-06-20 15:30:29.644 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_11
+2023-06-20 15:30:29.650 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_11
+2023-06-20 15:30:29.653 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_24
+2023-06-20 15:30:29.655 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_25
+2023-06-20 15:30:29.658 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_10
+2023-06-20 15:30:29.661 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: treeUsingPOST_1
+2023-06-20 15:30:29.666 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_11
+2023-06-20 15:30:29.670 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_11
+2023-06-20 15:30:29.673 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_11
+2023-06-20 15:30:29.676 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_12
+2023-06-20 15:30:29.686 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_12
+2023-06-20 15:30:29.688 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_12
+2023-06-20 15:30:29.690 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_26
+2023-06-20 15:30:29.692 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_27
+2023-06-20 15:30:29.694 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_11
+2023-06-20 15:30:29.699 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_12
+2023-06-20 15:30:29.700 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_12
+2023-06-20 15:30:29.702 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_12
+2023-06-20 15:30:29.704 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_13
+2023-06-20 15:30:29.706 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_13
+2023-06-20 15:30:29.710 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_13
+2023-06-20 15:30:29.715 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_28
+2023-06-20 15:30:29.717 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_29
+2023-06-20 15:30:29.720 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_12
+2023-06-20 15:30:29.769 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_14
+2023-06-20 15:30:29.785 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_14
+2023-06-20 15:30:29.794 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_14
+2023-06-20 15:30:29.799 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_30
+2023-06-20 15:30:29.801 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_31
+2023-06-20 15:30:29.808 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_13
+2023-06-20 15:30:29.834 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_13
+2023-06-20 15:30:29.836 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_13
+2023-06-20 15:30:29.837 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_13
+2023-06-20 15:30:29.839 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_15
+2023-06-20 15:30:29.840 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_15
+2023-06-20 15:30:29.842 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_15
+2023-06-20 15:30:29.844 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_32
+2023-06-20 15:30:29.845 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_33
+2023-06-20 15:30:29.847 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_14
+2023-06-20 15:30:29.853 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_14
+2023-06-20 15:30:29.854 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_14
+2023-06-20 15:30:29.856 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_14
+2023-06-20 15:30:29.857 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_16
+2023-06-20 15:30:29.859 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_16
+2023-06-20 15:30:29.860 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_16
+2023-06-20 15:30:29.862 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_34
+2023-06-20 15:30:29.863 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_35
+2023-06-20 15:30:29.865 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_15
+2023-06-20 15:30:29.866 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: treeUsingPOST_2
+2023-06-20 15:30:29.869 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_15
+2023-06-20 15:30:29.870 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_15
+2023-06-20 15:30:29.871 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_15
+2023-06-20 15:30:29.872 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_17
+2023-06-20 15:30:29.873 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_17
+2023-06-20 15:30:29.874 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_17
+2023-06-20 15:30:29.875 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_36
+2023-06-20 15:30:29.876 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_37
+2023-06-20 15:30:29.877 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_16
+2023-06-20 15:30:30.022 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_38
+2023-06-20 15:30:30.024 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_39
+2023-06-20 15:30:30.034 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: treeUsingPOST_3
+2023-06-20 15:30:30.076 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: agreeUsingPOST_1
+2023-06-20 15:30:30.080 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: backUsingPOST_1
+2023-06-20 15:30:30.085 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: commissionUsingPOST_1
+2023-06-20 15:30:30.088 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: createUsingPOST_1
+2023-06-20 15:30:30.097 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_18
+2023-06-20 15:30:30.100 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: forwardUsingPOST_1
+2023-06-20 15:30:30.109 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_18
+2023-06-20 15:30:30.112 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByTaskIdUsingGET_1
+2023-06-20 15:30:30.116 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_18
+2023-06-20 15:30:30.118 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listBackActivityUsingGET_1
+2023-06-20 15:30:30.120 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_40
+2023-06-20 15:30:30.121 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_41
+2023-06-20 15:30:30.125 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: proposeUsingPOST_1
+2023-06-20 15:30:30.130 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: rejectUsingPOST_1
+2023-06-20 15:30:30.136 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: terminateUsingPOST_1
+2023-06-20 15:30:30.156 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_16
+2023-06-20 15:30:30.158 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_16
+2023-06-20 15:30:30.159 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_16
+2023-06-20 15:30:30.161 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_19
+2023-06-20 15:30:30.170 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_19
+2023-06-20 15:30:30.172 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_19
+2023-06-20 15:30:30.173 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_42
+2023-06-20 15:30:30.174 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_43
+2023-06-20 15:30:30.177 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_17
+2023-06-20 15:30:30.190 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_17
+2023-06-20 15:30:30.192 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_17
+2023-06-20 15:30:30.193 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_17
+2023-06-20 15:30:30.195 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_20
+2023-06-20 15:30:30.201 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_20
+2023-06-20 15:30:30.206 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_20
+2023-06-20 15:30:30.207 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_44
+2023-06-20 15:30:30.208 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_45
+2023-06-20 15:30:30.210 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_18
+2023-06-20 15:30:30.251 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_18
+2023-06-20 15:30:30.252 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_18
+2023-06-20 15:30:30.253 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_18
+2023-06-20 15:30:30.255 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_21
+2023-06-20 15:30:30.259 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_21
+2023-06-20 15:30:30.262 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_21
+2023-06-20 15:30:30.264 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_46
+2023-06-20 15:30:30.266 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_47
+2023-06-20 15:30:30.268 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_19
+2023-06-20 15:30:30.286 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_19
+2023-06-20 15:30:30.288 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_19
+2023-06-20 15:30:30.289 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_19
+2023-06-20 15:30:30.293 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_22
+2023-06-20 15:30:30.297 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_22
+2023-06-20 15:30:30.299 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_22
+2023-06-20 15:30:30.303 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_48
+2023-06-20 15:30:30.305 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_49
+2023-06-20 15:30:30.308 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_20
+2023-06-20 15:30:30.317 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_20
+2023-06-20 15:30:30.319 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_20
+2023-06-20 15:30:30.322 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_20
+2023-06-20 15:30:30.324 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_23
+2023-06-20 15:30:30.330 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_23
+2023-06-20 15:30:30.332 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_23
+2023-06-20 15:30:30.334 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_50
+2023-06-20 15:30:30.335 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_51
+2023-06-20 15:30:30.337 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_21
+2023-06-20 15:30:30.343 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_24
+2023-06-20 15:30:30.348 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_24
+2023-06-20 15:30:30.350 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_24
+2023-06-20 15:30:30.352 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_52
+2023-06-20 15:30:30.354 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_53
+2023-06-20 15:30:30.355 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_22
+2023-06-20 15:30:30.377 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_21
+2023-06-20 15:30:30.379 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_21
+2023-06-20 15:30:30.381 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_21
+2023-06-20 15:30:30.383 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_25
+2023-06-20 15:30:30.385 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_25
+2023-06-20 15:30:30.387 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_25
+2023-06-20 15:30:30.389 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_54
+2023-06-20 15:30:30.390 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_55
+2023-06-20 15:30:30.393 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_23
+2023-06-20 15:30:30.399 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_22
+2023-06-20 15:30:30.401 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_22
+2023-06-20 15:30:30.403 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_22
+2023-06-20 15:30:30.406 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_26
+2023-06-20 15:30:30.409 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_26
+2023-06-20 15:30:30.412 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_26
+2023-06-20 15:30:30.414 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_56
+2023-06-20 15:30:30.416 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_57
+2023-06-20 15:30:30.418 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_24
+2023-06-20 15:30:30.422 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_23
+2023-06-20 15:30:30.424 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_23
+2023-06-20 15:30:30.426 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_23
+2023-06-20 15:30:30.428 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_27
+2023-06-20 15:30:30.429 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_27
+2023-06-20 15:30:30.431 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_27
+2023-06-20 15:30:30.432 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_58
+2023-06-20 15:30:30.433 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_59
+2023-06-20 15:30:30.435 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_25
+2023-06-20 15:30:30.436 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: treeUsingPOST_4
+2023-06-20 15:30:30.439 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_24
+2023-06-20 15:30:30.442 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_24
+2023-06-20 15:30:30.444 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_24
+2023-06-20 15:30:30.446 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_28
+2023-06-20 15:30:30.452 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_28
+2023-06-20 15:30:30.454 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_28
+2023-06-20 15:30:30.455 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_60
+2023-06-20 15:30:30.456 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_61
+2023-06-20 15:30:30.459 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_26
+2023-06-20 15:30:30.482 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_27
+2023-06-20 15:30:30.492 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_29
+2023-06-20 15:30:30.502 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_25
+2023-06-20 15:30:30.505 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_25
+2023-06-20 15:30:30.507 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_25
+2023-06-20 15:30:30.509 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_29
+2023-06-20 15:30:30.518 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_30
+2023-06-20 15:30:30.521 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_29
+2023-06-20 15:30:30.522 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_62
+2023-06-20 15:30:30.524 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_63
+2023-06-20 15:30:30.527 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_28
+2023-06-20 15:30:30.541 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_26
+2023-06-20 15:30:30.542 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_26
+2023-06-20 15:30:30.544 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_26
+2023-06-20 15:30:30.546 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_30
+2023-06-20 15:30:30.552 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_31
+2023-06-20 15:30:30.562 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_32
+2023-06-20 15:30:30.566 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_30
+2023-06-20 15:30:30.569 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_64
+2023-06-20 15:30:30.570 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_65
+2023-06-20 15:30:30.573 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_29
+2023-06-20 15:30:30.580 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_27
+2023-06-20 15:30:30.582 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_27
+2023-06-20 15:30:30.583 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_27
+2023-06-20 15:30:30.585 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_31
+2023-06-20 15:30:30.586 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_33
+2023-06-20 15:30:30.589 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_31
+2023-06-20 15:30:30.592 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_66
+2023-06-20 15:30:30.593 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_67
+2023-06-20 15:30:30.596 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_30
+2023-06-20 15:30:30.620 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_28
+2023-06-20 15:30:30.622 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_28
+2023-06-20 15:30:30.624 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_28
+2023-06-20 15:30:30.628 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_32
+2023-06-20 15:30:30.630 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_34
+2023-06-20 15:30:30.632 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_32
+2023-06-20 15:30:30.634 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_68
+2023-06-20 15:30:30.635 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_69
+2023-06-20 15:30:30.638 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_31
+2023-06-20 15:30:30.645 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_29
+2023-06-20 15:30:30.648 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_29
+2023-06-20 15:30:30.650 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_29
+2023-06-20 15:30:30.652 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_33
+2023-06-20 15:30:30.653 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_35
+2023-06-20 15:30:30.655 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_33
+2023-06-20 15:30:30.656 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_70
+2023-06-20 15:30:30.657 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_71
+2023-06-20 15:30:30.659 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_32
+2023-06-20 15:30:30.668 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_30
+2023-06-20 15:30:30.670 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_30
+2023-06-20 15:30:30.672 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_30
+2023-06-20 15:30:30.674 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_34
+2023-06-20 15:30:30.675 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_36
+2023-06-20 15:30:30.676 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_34
+2023-06-20 15:30:30.677 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_72
+2023-06-20 15:30:30.678 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_73
+2023-06-20 15:30:30.679 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_33
+2023-06-20 15:30:30.690 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_31
+2023-06-20 15:30:30.693 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_31
+2023-06-20 15:30:30.695 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_31
+2023-06-20 15:30:30.698 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_35
+2023-06-20 15:30:30.702 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_37
+2023-06-20 15:30:30.706 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_35
+2023-06-20 15:30:30.708 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_74
+2023-06-20 15:30:30.709 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_75
+2023-06-20 15:30:30.713 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_34
+2023-06-20 15:30:30.718 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_32
+2023-06-20 15:30:30.722 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_32
+2023-06-20 15:30:30.725 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_32
+2023-06-20 15:30:30.727 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_36
+2023-06-20 15:30:30.729 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_38
+2023-06-20 15:30:30.733 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_36
+2023-06-20 15:30:30.734 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_76
+2023-06-20 15:30:30.736 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_77
+2023-06-20 15:30:30.737 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_35
+2023-06-20 15:30:30.739 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: treeUsingPOST_5
+2023-06-20 15:30:30.762 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_33
+2023-06-20 15:30:30.763 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_33
+2023-06-20 15:30:30.765 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_33
+2023-06-20 15:30:30.766 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_37
+2023-06-20 15:30:30.767 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_39
+2023-06-20 15:30:30.768 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_37
+2023-06-20 15:30:30.769 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_78
+2023-06-20 15:30:30.769 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_79
+2023-06-20 15:30:30.771 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_36
+2023-06-20 15:30:30.777 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_34
+2023-06-20 15:30:30.779 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_34
+2023-06-20 15:30:30.780 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_34
+2023-06-20 15:30:30.783 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_38
+2023-06-20 15:30:30.784 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_40
+2023-06-20 15:30:30.786 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_38
+2023-06-20 15:30:30.787 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_80
+2023-06-20 15:30:30.788 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_81
+2023-06-20 15:30:30.789 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_37
+2023-06-20 15:30:30.798 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_35
+2023-06-20 15:30:30.799 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_35
+2023-06-20 15:30:30.802 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_35
+2023-06-20 15:30:30.803 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_39
+2023-06-20 15:30:30.804 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_41
+2023-06-20 15:30:30.805 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_39
+2023-06-20 15:30:30.806 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_82
+2023-06-20 15:30:30.807 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_83
+2023-06-20 15:30:30.808 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_38
+2023-06-20 15:30:30.820 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_36
+2023-06-20 15:30:30.821 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_36
+2023-06-20 15:30:30.822 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_36
+2023-06-20 15:30:30.822 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_40
+2023-06-20 15:30:30.824 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_42
+2023-06-20 15:30:30.825 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_40
+2023-06-20 15:30:30.827 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_84
+2023-06-20 15:30:30.827 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_85
+2023-06-20 15:30:30.828 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_39
+2023-06-20 15:30:30.831 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_37
+2023-06-20 15:30:30.833 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_37
+2023-06-20 15:30:30.834 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_37
+2023-06-20 15:30:30.836 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_41
+2023-06-20 15:30:30.837 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_43
+2023-06-20 15:30:30.838 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_41
+2023-06-20 15:30:30.841 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listCompanyLedgerByLedgetyUsingPOST_1
+2023-06-20 15:30:30.843 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_86
+2023-06-20 15:30:30.844 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_87
+2023-06-20 15:30:30.845 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_40
+2023-06-20 15:30:30.850 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_38
+2023-06-20 15:30:30.851 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_38
+2023-06-20 15:30:30.852 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_38
+2023-06-20 15:30:30.853 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_42
+2023-06-20 15:30:30.854 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_44
+2023-06-20 15:30:30.855 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_42
+2023-06-20 15:30:30.857 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_88
+2023-06-20 15:30:30.857 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_89
+2023-06-20 15:30:30.858 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_41
+2023-06-20 15:30:30.862 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_39
+2023-06-20 15:30:30.864 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_39
+2023-06-20 15:30:30.865 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_39
+2023-06-20 15:30:30.867 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_43
+2023-06-20 15:30:30.869 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_45
+2023-06-20 15:30:30.872 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_43
+2023-06-20 15:30:30.874 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_90
+2023-06-20 15:30:30.874 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_91
+2023-06-20 15:30:30.876 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_42
+2023-06-20 15:30:30.885 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_40
+2023-06-20 15:30:30.887 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_40
+2023-06-20 15:30:30.889 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_40
+2023-06-20 15:30:30.893 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_44
+2023-06-20 15:30:30.895 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_46
+2023-06-20 15:30:30.898 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_44
+2023-06-20 15:30:30.920 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_92
+2023-06-20 15:30:30.922 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_93
+2023-06-20 15:30:30.924 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_43
+2023-06-20 15:30:30.932 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_41
+2023-06-20 15:30:30.932 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_41
+2023-06-20 15:30:30.933 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_41
+2023-06-20 15:30:30.934 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_45
+2023-06-20 15:30:30.935 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_47
+2023-06-20 15:30:30.936 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_45
+2023-06-20 15:30:30.937 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_94
+2023-06-20 15:30:30.938 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_95
+2023-06-20 15:30:30.938 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_44
+2023-06-20 15:30:30.940 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_42
+2023-06-20 15:30:30.942 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_42
+2023-06-20 15:30:30.943 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_42
+2023-06-20 15:30:30.944 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_46
+2023-06-20 15:30:30.945 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_48
+2023-06-20 15:30:30.946 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_46
+2023-06-20 15:30:30.946 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_96
+2023-06-20 15:30:30.947 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_97
+2023-06-20 15:30:30.948 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_45
+2023-06-20 15:30:30.954 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_43
+2023-06-20 15:30:30.955 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_43
+2023-06-20 15:30:30.955 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_43
+2023-06-20 15:30:30.956 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_47
+2023-06-20 15:30:30.957 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_49
+2023-06-20 15:30:30.957 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_47
+2023-06-20 15:30:30.958 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_98
+2023-06-20 15:30:30.959 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_99
+2023-06-20 15:30:30.959 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_46
+2023-06-20 15:30:30.970 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_44
+2023-06-20 15:30:30.973 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_44
+2023-06-20 15:30:30.975 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_44
+2023-06-20 15:30:30.977 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_48
+2023-06-20 15:30:30.978 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_50
+2023-06-20 15:30:30.997 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_48
+2023-06-20 15:30:30.999 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_100
+2023-06-20 15:30:30.999 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_101
+2023-06-20 15:30:31.000 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_47
+2023-06-20 15:30:31.022 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_45
+2023-06-20 15:30:31.024 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_45
+2023-06-20 15:30:31.026 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_45
+2023-06-20 15:30:31.027 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_49
+2023-06-20 15:30:31.028 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_51
+2023-06-20 15:30:31.030 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_49
+2023-06-20 15:30:31.031 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_102
+2023-06-20 15:30:31.032 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_103
+2023-06-20 15:30:31.035 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_48
+2023-06-20 15:30:31.044 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: xjlllistPageUsingPOST_1
+2023-06-20 15:30:31.052 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_46
+2023-06-20 15:30:31.053 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_46
+2023-06-20 15:30:31.054 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_46
+2023-06-20 15:30:31.056 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_50
+2023-06-20 15:30:31.057 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_52
+2023-06-20 15:30:31.058 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_50
+2023-06-20 15:30:31.059 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_104
+2023-06-20 15:30:31.060 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_105
+2023-06-20 15:30:31.061 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_49
+2023-06-20 15:30:31.067 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_47
+2023-06-20 15:30:31.068 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_47
+2023-06-20 15:30:31.070 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_47
+2023-06-20 15:30:31.071 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_51
+2023-06-20 15:30:31.075 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_53
+2023-06-20 15:30:31.077 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_51
+2023-06-20 15:30:31.078 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_106
+2023-06-20 15:30:31.079 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_107
+2023-06-20 15:30:31.080 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_50
+2023-06-20 15:30:31.082 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_52
+2023-06-20 15:30:31.083 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_108
+2023-06-20 15:30:31.084 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_109
+2023-06-20 15:30:31.089 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_51
+2023-06-20 15:30:31.092 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_52
+2023-06-20 15:30:31.093 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_54
+2023-06-20 15:30:31.094 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_53
+2023-06-20 15:30:31.094 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_110
+2023-06-20 15:30:31.095 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_111
+2023-06-20 15:30:31.096 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_52
+2023-06-20 15:30:31.098 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: startUsingPOST_1
+2023-06-20 15:30:31.100 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: updateUsingPOST_1
+2023-06-20 15:30:31.105 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_48
+2023-06-20 15:30:31.106 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_48
+2023-06-20 15:30:31.108 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_48
+2023-06-20 15:30:31.110 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_53
+2023-06-20 15:30:31.113 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_55
+2023-06-20 15:30:31.117 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_54
+2023-06-20 15:30:31.119 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_112
+2023-06-20 15:30:31.120 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_113
+2023-06-20 15:30:31.122 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_53
+2023-06-20 15:30:31.128 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_49
+2023-06-20 15:30:31.129 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_49
+2023-06-20 15:30:31.130 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_49
+2023-06-20 15:30:31.130 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_54
+2023-06-20 15:30:31.136 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_56
+2023-06-20 15:30:31.138 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_55
+2023-06-20 15:30:31.139 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_114
+2023-06-20 15:30:31.140 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_115
+2023-06-20 15:30:31.141 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_54
+2023-06-20 15:30:31.146 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkDeleteUsingPOST_50
+2023-06-20 15:30:31.148 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkInsertUsingPOST_50
+2023-06-20 15:30:31.149 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: bulkUpdateUsingPOST_50
+2023-06-20 15:30:31.153 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_55
+2023-06-20 15:30:31.157 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_57
+2023-06-20 15:30:31.161 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_56
+2023-06-20 15:30:31.162 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_116
+2023-06-20 15:30:31.164 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_117
+2023-06-20 15:30:31.166 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: saveUsingPOST_55
+2023-06-20 15:30:31.182 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: indexUsingGET_1
+2023-06-20 15:30:31.185 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: indexUsingHEAD_1
+2023-06-20 15:30:31.187 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: indexUsingPOST_1
+2023-06-20 15:30:31.190 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: indexUsingPUT_1
+2023-06-20 15:30:31.192 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: indexUsingPATCH_1
+2023-06-20 15:30:31.195 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: indexUsingDELETE_1
+2023-06-20 15:30:31.198 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: indexUsingOPTIONS_1
+2023-06-20 15:30:31.200 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: indexUsingTRACE_1
+2023-06-20 15:30:31.202 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: createUsingPOST_2
+2023-06-20 15:30:31.208 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: deleteUsingPOST_56
+2023-06-20 15:30:31.220 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: getByIdUsingGET_58
+2023-06-20 15:30:31.222 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listAllUsingPOST_57
+2023-06-20 15:30:31.224 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_118
+2023-06-20 15:30:31.225 INFO  --- [CachingOperationNameGenerator.java:40][main] - Generating unique operation named: listPageUsingPOST_119
+2023-06-20 15:30:31.251 INFO  --- [SchedulerFactoryBean.java:729][main] - Starting Quartz Scheduler now
+2023-06-20 15:30:31.252 INFO  --- [QuartzScheduler.java:547][main] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2023-06-20 15:30:31.308 INFO  --- [IntegrationMBeanExporter.java:681][main] - Registering MessageChannel input.anonymous_input.errors
+2023-06-20 15:30:31.616 INFO  --- [IntegrationMBeanExporter.java:681][main] - Registering MessageChannel TOPIC-ACTION-LOG-fm-1_0-dev.ACTION-LOG-GROUP-fm-1_0.errors
+2023-06-20 15:30:31.628 INFO  --- [IntegrationMBeanExporter.java:681][main] - Registering MessageChannel NOTICE-fm-1_0-dev.NOTICE-GROUP-fm-1_0.errors
+2023-06-20 15:30:31.665 INFO  --- [StartupInfoLogger.java:61][main] - Started MyApplication in 49.523 seconds (JVM running for 51.945)
+2023-06-20 15:30:31.681 INFO  --- [DataSourceRunner.java:50][main] - >>>>>>>>>>>>>>>执行加载数据源 <<<<<<<<<<<<<
+2023-06-20 15:30:32.504 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-9] - [44ddc185-7a9c-484b-936e-27de99b195ef] Receive server push request, request = NotifySubscriberRequest, requestId = 9677
+2023-06-20 15:30:32.509 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-9] - [44ddc185-7a9c-484b-936e-27de99b195ef] Ack server push request, request = NotifySubscriberRequest, requestId = 9677
+2023-06-20 15:30:32.723 INFO  --- [HikariDataSource.java:80][main] - 1457259193529540652 - Starting...
+2023-06-20 15:30:32.723 WARN  --- [DriverDataSource.java:70][main] - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2023-06-20 15:30:33.237 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-12] - [44ddc185-7a9c-484b-936e-27de99b195ef] Receive server push request, request = NotifySubscriberRequest, requestId = 9678
+2023-06-20 15:30:33.238 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-12] - [44ddc185-7a9c-484b-936e-27de99b195ef] Ack server push request, request = NotifySubscriberRequest, requestId = 9678
+2023-06-20 15:30:34.617 INFO  --- [HikariDataSource.java:82][main] - 1457259193529540652 - Start completed.
+2023-06-20 15:30:34.618 INFO  --- [RmNettyRemotingClient.java:221][main] - will register resourceId:jdbc:mysql://61.172.179.56:3306/fm$develope$1457259193529540652
+2023-06-20 15:30:34.619 INFO  --- [Slf4jLog.java:49][main] - Database: jdbc:mysql://61.172.179.56:3306/fm$develope$1457259193529540652 (MySQL 5.7)
+2023-06-20 15:30:34.687 INFO  --- [AbstractRMHandler.java:155][NettyClientSelector_RMROLE_1_1] - the rm client received response msg [version=1.5.2,extraData=null,identified=true,resultCode=null,msg=null] from tc server.
+2023-06-20 15:30:35.863 INFO  --- [Slf4jLog.java:49][main] - Successfully validated 1 migration (execution time 00:00.591s)
+2023-06-20 15:30:37.107 INFO  --- [Slf4jLog.java:49][main] - Current version of schema `fm$develope$1457259193529540652`: 20230523.01
+2023-06-20 15:30:37.158 INFO  --- [Slf4jLog.java:49][main] - Schema `fm$develope$1457259193529540652` is up to date. No migration necessary.
+2023-06-20 15:30:38.867 INFO  --- [DynamicRoutingDataSource.java:154][main] - dynamic-datasource - add a datasource named [1457259193529540652] success
+2023-06-20 15:30:38.867 INFO  --- [DataSourceRunner.java:85][main] - >>>>>>>>>>>>>>>结束加载数据源 <<<<<<<<<<<<<
+2023-06-20 15:30:38.870 INFO  --- [NacosContextRefresher.java:129][main] - [Nacos Config] Listening config: dataId=fm-1.0.yaml, group=DEFAULT_GROUP
+2023-06-20 15:30:38.874 INFO  --- [NacosContextRefresher.java:129][main] - [Nacos Config] Listening config: dataId=oec-cloud-feign.yml, group=DEV_GROUP
+2023-06-20 15:30:38.876 INFO  --- [NacosContextRefresher.java:129][main] - [Nacos Config] Listening config: dataId=oec-cloud-common.yml, group=DEV_GROUP
+2023-06-20 15:30:38.877 INFO  --- [NacosContextRefresher.java:129][main] - [Nacos Config] Listening config: dataId=oec-cloud-mybatis.yml, group=DEV_GROUP
+2023-06-20 15:30:38.878 INFO  --- [NacosContextRefresher.java:129][main] - [Nacos Config] Listening config: dataId=fm-1.0-dev.yaml, group=DEFAULT_GROUP
+2023-06-20 15:30:38.878 INFO  --- [NacosContextRefresher.java:129][main] - [Nacos Config] Listening config: dataId=fm-1.0, group=DEFAULT_GROUP
+2023-06-20 15:30:38.880 INFO  --- [NacosContextRefresher.java:129][main] - [Nacos Config] Listening config: dataId=oec-cloud-seata.yml, group=DEV_GROUP
+2023-06-20 15:30:38.881 INFO  --- [NacosContextRefresher.java:129][main] - [Nacos Config] Listening config: dataId=oec-cloud-sentinel.yml, group=DEV_GROUP
+2023-06-20 15:30:38.881 INFO  --- [BaseLogger.java:132][main] - ENGINE-14014 Starting up the JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor].
+2023-06-20 15:30:38.887 INFO  --- [BaseLogger.java:132][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14018 JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor] starting to acquire jobs
+2023-06-20 15:30:38.891 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:30:39.307 INFO  --- [DirectJDKLog.java:173][RMI TCP Connection(4)-10.43.203.25] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-06-20 15:30:39.307 INFO  --- [FrameworkServlet.java:525][RMI TCP Connection(4)-10.43.203.25] - Initializing Servlet 'dispatcherServlet'
+2023-06-20 15:30:39.316 INFO  --- [FrameworkServlet.java:547][RMI TCP Connection(4)-10.43.203.25] - Completed initialization in 8 ms
+2023-06-20 15:30:39.515 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-06-20 15:30:39.572 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-06-20 15:30:39.573 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-06-20 15:30:39.519(Timestamp), 2023-06-20 15:30:39.519(Timestamp), 2023-06-20 15:30:39.519(Timestamp), 3(Integer), 0(Integer)
+2023-06-20 15:30:39.759 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-06-20 15:30:39.760 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-06-20 15:30:39.760 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-06-20 15:30:40.317 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:30:40.318 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-06-20 15:30:40.318 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 3572 millis
+2023-06-20 15:30:43.896 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-06-20 15:30:43.896 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:30:44.078 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-06-20 15:30:44.079 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-06-20 15:30:44.080 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-06-20 15:30:44.078(Timestamp), 2023-06-20 15:30:44.078(Timestamp), 2023-06-20 15:30:44.078(Timestamp), 3(Integer), 0(Integer)
+2023-06-20 15:30:44.226 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-06-20 15:30:44.226 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-06-20 15:30:44.227 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-06-20 15:30:44.515 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:30:44.515 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-06-20 15:30:44.515 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 9381 millis
+2023-06-20 15:30:53.899 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-06-20 15:30:53.899 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:30:54.140 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-06-20 15:30:54.141 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-06-20 15:30:54.142 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-06-20 15:30:54.14(Timestamp), 2023-06-20 15:30:54.14(Timestamp), 2023-06-20 15:30:54.14(Timestamp), 3(Integer), 0(Integer)
+2023-06-20 15:30:54.524 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-06-20 15:30:54.524 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-06-20 15:30:54.525 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-06-20 15:30:54.913 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:30:54.913 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-06-20 15:30:54.914 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 18985 millis
+2023-06-20 15:31:13.902 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-06-20 15:31:13.903 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:31:14.240 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-06-20 15:31:14.241 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-06-20 15:31:14.242 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-06-20 15:31:14.241(Timestamp), 2023-06-20 15:31:14.241(Timestamp), 2023-06-20 15:31:14.241(Timestamp), 3(Integer), 0(Integer)
+2023-06-20 15:31:14.447 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-06-20 15:31:14.448 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-06-20 15:31:14.448 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-06-20 15:31:14.707 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:31:14.707 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-06-20 15:31:14.708 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 39195 millis
+2023-06-20 15:31:53.917 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-06-20 15:31:53.918 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:31:54.319 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-06-20 15:31:54.320 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-06-20 15:31:54.322 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-06-20 15:31:54.319(Timestamp), 2023-06-20 15:31:54.319(Timestamp), 2023-06-20 15:31:54.319(Timestamp), 3(Integer), 0(Integer)
+2023-06-20 15:31:54.404 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-06-20 15:31:54.405 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-06-20 15:31:54.405 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-06-20 15:31:54.533 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:31:54.533 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-06-20 15:31:54.534 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 59384 millis
+2023-06-20 15:32:32.639 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-38] - [44ddc185-7a9c-484b-936e-27de99b195ef] Receive server push request, request = NotifySubscriberRequest, requestId = 9681
+2023-06-20 15:32:32.640 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-38] - [44ddc185-7a9c-484b-936e-27de99b195ef] Ack server push request, request = NotifySubscriberRequest, requestId = 9681
+2023-06-20 15:32:32.662 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-39] - [44ddc185-7a9c-484b-936e-27de99b195ef] Receive server push request, request = NotifySubscriberRequest, requestId = 9686
+2023-06-20 15:32:32.664 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-39] - [44ddc185-7a9c-484b-936e-27de99b195ef] Ack server push request, request = NotifySubscriberRequest, requestId = 9686
+2023-06-20 15:32:53.926 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-06-20 15:32:53.926 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:32:54.002 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-06-20 15:32:54.004 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-06-20 15:32:54.006 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-06-20 15:32:54.003(Timestamp), 2023-06-20 15:32:54.003(Timestamp), 2023-06-20 15:32:54.003(Timestamp), 3(Integer), 0(Integer)
+2023-06-20 15:32:54.045 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-06-20 15:32:54.046 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-06-20 15:32:54.047 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-06-20 15:32:54.125 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:32:54.126 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-06-20 15:32:54.126 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 59800 millis
+2023-06-20 15:33:53.934 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-06-20 15:33:53.934 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:33:54.006 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-06-20 15:33:54.007 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-06-20 15:33:54.009 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-06-20 15:33:54.007(Timestamp), 2023-06-20 15:33:54.007(Timestamp), 2023-06-20 15:33:54.007(Timestamp), 3(Integer), 0(Integer)
+2023-06-20 15:33:54.049 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-06-20 15:33:54.049 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-06-20 15:33:54.050 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-06-20 15:33:54.123 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:33:54.124 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-06-20 15:33:54.125 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 59809 millis
+2023-06-20 15:34:53.940 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-06-20 15:34:53.940 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:34:54.018 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-06-20 15:34:54.019 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-06-20 15:34:54.023 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-06-20 15:34:54.018(Timestamp), 2023-06-20 15:34:54.018(Timestamp), 2023-06-20 15:34:54.018(Timestamp), 3(Integer), 0(Integer)
+2023-06-20 15:34:54.061 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-06-20 15:34:54.061 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-06-20 15:34:54.061 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-06-20 15:34:54.135 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:34:54.136 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-06-20 15:34:54.136 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 59804 millis
+2023-06-20 15:35:53.945 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-06-20 15:35:53.945 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:35:54.018 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-06-20 15:35:54.019 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-06-20 15:35:54.020 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-06-20 15:35:54.018(Timestamp), 2023-06-20 15:35:54.018(Timestamp), 2023-06-20 15:35:54.018(Timestamp), 3(Integer), 0(Integer)
+2023-06-20 15:35:54.060 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-06-20 15:35:54.060 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-06-20 15:35:54.060 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-06-20 15:35:54.132 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:35:54.133 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-06-20 15:35:54.133 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 59812 millis
+2023-06-20 15:36:53.952 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-06-20 15:36:53.953 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:36:54.027 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-06-20 15:36:54.031 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-06-20 15:36:54.032 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-06-20 15:36:54.027(Timestamp), 2023-06-20 15:36:54.027(Timestamp), 2023-06-20 15:36:54.027(Timestamp), 3(Integer), 0(Integer)
+2023-06-20 15:36:54.074 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-06-20 15:36:54.075 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-06-20 15:36:54.075 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-06-20 15:36:54.154 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:36:54.155 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-06-20 15:36:54.155 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 59798 millis
+2023-06-20 15:37:32.384 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-103] - [44ddc185-7a9c-484b-936e-27de99b195ef] Receive server push request, request = NotifySubscriberRequest, requestId = 9692
+2023-06-20 15:37:32.385 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-103] - [44ddc185-7a9c-484b-936e-27de99b195ef] Ack server push request, request = NotifySubscriberRequest, requestId = 9692
+2023-06-20 15:37:32.389 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-104] - [44ddc185-7a9c-484b-936e-27de99b195ef] Receive server push request, request = NotifySubscriberRequest, requestId = 9696
+2023-06-20 15:37:32.390 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-104] - [44ddc185-7a9c-484b-936e-27de99b195ef] Ack server push request, request = NotifySubscriberRequest, requestId = 9696
+2023-06-20 15:37:53.967 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-06-20 15:37:53.968 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:37:54.045 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-06-20 15:37:54.046 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-06-20 15:37:54.048 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-06-20 15:37:54.045(Timestamp), 2023-06-20 15:37:54.045(Timestamp), 2023-06-20 15:37:54.045(Timestamp), 3(Integer), 0(Integer)
+2023-06-20 15:37:54.093 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-06-20 15:37:54.097 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-06-20 15:37:54.097 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-06-20 15:37:54.169 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:37:54.171 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-06-20 15:37:54.171 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 59797 millis
+2023-06-20 15:38:53.973 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-06-20 15:38:53.973 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:38:54.085 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-06-20 15:38:54.086 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-06-20 15:38:54.087 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-06-20 15:38:54.085(Timestamp), 2023-06-20 15:38:54.085(Timestamp), 2023-06-20 15:38:54.085(Timestamp), 3(Integer), 0(Integer)
+2023-06-20 15:38:54.124 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-06-20 15:38:54.124 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-06-20 15:38:54.124 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-06-20 15:38:54.203 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:38:54.203 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-06-20 15:38:54.203 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 59770 millis
+2023-06-20 15:39:53.974 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-06-20 15:39:53.974 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:39:54.367 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-06-20 15:39:54.368 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-06-20 15:39:54.369 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-06-20 15:39:54.368(Timestamp), 2023-06-20 15:39:54.368(Timestamp), 2023-06-20 15:39:54.368(Timestamp), 3(Integer), 0(Integer)
+2023-06-20 15:39:54.555 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-06-20 15:39:54.556 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-06-20 15:39:54.556 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-06-20 15:39:55.280 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:39:55.280 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-06-20 15:39:55.281 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 58693 millis
+2023-06-20 15:40:53.987 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-06-20 15:40:53.988 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:40:54.060 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-06-20 15:40:54.061 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-06-20 15:40:54.061 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-06-20 15:40:54.06(Timestamp), 2023-06-20 15:40:54.06(Timestamp), 2023-06-20 15:40:54.06(Timestamp), 3(Integer), 0(Integer)
+2023-06-20 15:40:54.099 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-06-20 15:40:54.100 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-06-20 15:40:54.101 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-06-20 15:40:54.173 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:40:54.173 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-06-20 15:40:54.173 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 59815 millis
+2023-06-20 15:41:54.001 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-06-20 15:41:54.006 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:41:54.085 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-06-20 15:41:54.095 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-06-20 15:41:54.099 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-06-20 15:41:54.091(Timestamp), 2023-06-20 15:41:54.091(Timestamp), 2023-06-20 15:41:54.091(Timestamp), 3(Integer), 0(Integer)
+2023-06-20 15:41:54.138 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-06-20 15:41:54.139 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-06-20 15:41:54.139 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-06-20 15:41:54.212 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:41:54.212 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-06-20 15:41:54.212 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 59794 millis
+2023-06-20 15:42:32.406 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-166] - [44ddc185-7a9c-484b-936e-27de99b195ef] Receive server push request, request = NotifySubscriberRequest, requestId = 9700
+2023-06-20 15:42:32.408 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-166] - [44ddc185-7a9c-484b-936e-27de99b195ef] Ack server push request, request = NotifySubscriberRequest, requestId = 9700
+2023-06-20 15:42:32.412 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-167] - [44ddc185-7a9c-484b-936e-27de99b195ef] Receive server push request, request = NotifySubscriberRequest, requestId = 9704
+2023-06-20 15:42:32.413 INFO  --- [LoggerUtils.java:60][nacos-grpc-client-executor-167] - [44ddc185-7a9c-484b-936e-27de99b195ef] Ack server push request, request = NotifySubscriberRequest, requestId = 9704
+2023-06-20 15:42:54.016 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-06-20 15:42:54.016 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:42:54.087 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-06-20 15:42:54.088 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-06-20 15:42:54.089 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-06-20 15:42:54.088(Timestamp), 2023-06-20 15:42:54.088(Timestamp), 2023-06-20 15:42:54.088(Timestamp), 3(Integer), 0(Integer)
+2023-06-20 15:42:54.127 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-06-20 15:42:54.127 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-06-20 15:42:54.128 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-06-20 15:42:54.199 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:42:54.199 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-06-20 15:42:54.199 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 59817 millis
+2023-06-20 15:43:54.021 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-06-20 15:43:54.021 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:43:54.093 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-06-20 15:43:54.094 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-06-20 15:43:54.095 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-06-20 15:43:54.094(Timestamp), 2023-06-20 15:43:54.094(Timestamp), 2023-06-20 15:43:54.094(Timestamp), 3(Integer), 0(Integer)
+2023-06-20 15:43:54.132 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-06-20 15:43:54.133 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-06-20 15:43:54.133 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-06-20 15:43:54.203 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:43:54.204 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-06-20 15:43:54.204 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 59817 millis
+2023-06-20 15:44:54.022 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-06-20 15:44:54.023 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:44:54.094 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-06-20 15:44:54.095 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-06-20 15:44:54.096 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-06-20 15:44:54.094(Timestamp), 2023-06-20 15:44:54.094(Timestamp), 2023-06-20 15:44:54.094(Timestamp), 3(Integer), 0(Integer)
+2023-06-20 15:44:54.136 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-06-20 15:44:54.137 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-06-20 15:44:54.137 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-06-20 15:44:54.216 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:44:54.216 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-06-20 15:44:54.216 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 59807 millis
+2023-06-20 15:45:12.746 DEBUG --- [BaseLogger.java:118][Camunda Metrics Reporter] - ENGINE-13005 Starting command -------------------- MetricsCollectionTask$1 ----------------------
+2023-06-20 15:45:12.817 DEBUG --- [BaseLogger.java:118][Camunda Metrics Reporter] - ENGINE-13009 opening new command context
+2023-06-20 15:45:12.828 DEBUG --- [BaseLogger.java:118][Camunda Metrics Reporter] - ENGINE-13011 closing existing command context
+2023-06-20 15:45:12.835 DEBUG --- [BaseLogger.java:118][Camunda Metrics Reporter] - ENGINE-03006 Cache state after flush: [
+  PERSISTENT MeterLogEntity[1577328526165614601]
+  PERSISTENT MeterLogEntity[1577328526165614599]
+  PERSISTENT MeterLogEntity[1577328526165614600]
+  PERSISTENT MeterLogEntity[1577328526165614593]
+  PERSISTENT MeterLogEntity[1577328526165614594]
+  PERSISTENT MeterLogEntity[1577328526165614592]
+  PERSISTENT MeterLogEntity[1577328526165614597]
+  PERSISTENT MeterLogEntity[1577328526165614598]
+  PERSISTENT MeterLogEntity[1577328526165614595]
+  PERSISTENT MeterLogEntity[1577328526165614596]
+]
+2023-06-20 15:45:12.836 DEBUG --- [BaseLogger.java:118][Camunda Metrics Reporter] - ENGINE-03008 Flush Summary: [
+  INSERT MeterLogEntity[1577328526165614592]
+  INSERT MeterLogEntity[1577328526165614593]
+  INSERT MeterLogEntity[1577328526165614594]
+  INSERT MeterLogEntity[1577328526165614595]
+  INSERT MeterLogEntity[1577328526165614596]
+  INSERT MeterLogEntity[1577328526165614597]
+  INSERT MeterLogEntity[1577328526165614598]
+  INSERT MeterLogEntity[1577328526165614599]
+  INSERT MeterLogEntity[1577328526165614600]
+  INSERT MeterLogEntity[1577328526165614601]
+]
+2023-06-20 15:45:12.838 DEBUG --- [BaseLogger.java:118][Camunda Metrics Reporter] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1577328526165614592]'
+2023-06-20 15:45:12.839 DEBUG --- [BaseJdbcLogger.java:137][Camunda Metrics Reporter] - ==>  Preparing: insert into ACT_RU_METER_LOG (ID_, NAME_, REPORTER_, VALUE_, TIMESTAMP_, MILLISECONDS_) values ( ?, ?, ?, ?, ?, ? )
+2023-06-20 15:45:12.842 DEBUG --- [BaseJdbcLogger.java:137][Camunda Metrics Reporter] - ==> Parameters: 1577328526165614592(String), activity-instance-start(String), 10.43.203.25$default(String), 0(Long), 2023-06-20 15:45:12.738(Timestamp), 1687247112738(Long)
+2023-06-20 15:45:12.843 DEBUG --- [BaseLogger.java:118][Camunda Metrics Reporter] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1577328526165614593]'
+2023-06-20 15:45:12.844 DEBUG --- [BaseJdbcLogger.java:137][Camunda Metrics Reporter] - ==> Parameters: 1577328526165614593(String), job-acquired-failure(String), 10.43.203.25$default(String), 0(Long), 2023-06-20 15:45:12.738(Timestamp), 1687247112738(Long)
+2023-06-20 15:45:12.844 DEBUG --- [BaseLogger.java:118][Camunda Metrics Reporter] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1577328526165614594]'
+2023-06-20 15:45:12.845 DEBUG --- [BaseJdbcLogger.java:137][Camunda Metrics Reporter] - ==> Parameters: 1577328526165614594(String), job-locked-exclusive(String), 10.43.203.25$default(String), 0(Long), 2023-06-20 15:45:12.738(Timestamp), 1687247112738(Long)
+2023-06-20 15:45:12.845 DEBUG --- [BaseLogger.java:118][Camunda Metrics Reporter] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1577328526165614595]'
+2023-06-20 15:45:12.847 DEBUG --- [BaseJdbcLogger.java:137][Camunda Metrics Reporter] - ==> Parameters: 1577328526165614595(String), job-execution-rejected(String), 10.43.203.25$default(String), 0(Long), 2023-06-20 15:45:12.738(Timestamp), 1687247112738(Long)
+2023-06-20 15:45:12.847 DEBUG --- [BaseLogger.java:118][Camunda Metrics Reporter] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1577328526165614596]'
+2023-06-20 15:45:12.848 DEBUG --- [BaseJdbcLogger.java:137][Camunda Metrics Reporter] - ==> Parameters: 1577328526165614596(String), executed-decision-elements(String), 10.43.203.25$default(String), 0(Long), 2023-06-20 15:45:12.738(Timestamp), 1687247112738(Long)
+2023-06-20 15:45:12.849 DEBUG --- [BaseLogger.java:118][Camunda Metrics Reporter] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1577328526165614597]'
+2023-06-20 15:45:12.849 DEBUG --- [BaseJdbcLogger.java:137][Camunda Metrics Reporter] - ==> Parameters: 1577328526165614597(String), activity-instance-end(String), 10.43.203.25$default(String), 0(Long), 2023-06-20 15:45:12.738(Timestamp), 1687247112738(Long)
+2023-06-20 15:45:12.850 DEBUG --- [BaseLogger.java:118][Camunda Metrics Reporter] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1577328526165614598]'
+2023-06-20 15:45:12.850 DEBUG --- [BaseJdbcLogger.java:137][Camunda Metrics Reporter] - ==> Parameters: 1577328526165614598(String), job-successful(String), 10.43.203.25$default(String), 0(Long), 2023-06-20 15:45:12.738(Timestamp), 1687247112738(Long)
+2023-06-20 15:45:12.850 DEBUG --- [BaseLogger.java:118][Camunda Metrics Reporter] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1577328526165614599]'
+2023-06-20 15:45:12.851 DEBUG --- [BaseJdbcLogger.java:137][Camunda Metrics Reporter] - ==> Parameters: 1577328526165614599(String), job-acquired-success(String), 10.43.203.25$default(String), 0(Long), 2023-06-20 15:45:12.738(Timestamp), 1687247112738(Long)
+2023-06-20 15:45:12.851 DEBUG --- [BaseLogger.java:118][Camunda Metrics Reporter] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1577328526165614600]'
+2023-06-20 15:45:12.852 DEBUG --- [BaseJdbcLogger.java:137][Camunda Metrics Reporter] - ==> Parameters: 1577328526165614600(String), job-acquisition-attempt(String), 10.43.203.25$default(String), 18(Long), 2023-06-20 15:45:12.738(Timestamp), 1687247112738(Long)
+2023-06-20 15:45:12.852 DEBUG --- [BaseLogger.java:118][Camunda Metrics Reporter] - ENGINE-03009 SQL operation: 'INSERT'; Entity: 'MeterLogEntity[id=1577328526165614601]'
+2023-06-20 15:45:12.852 DEBUG --- [BaseJdbcLogger.java:137][Camunda Metrics Reporter] - ==> Parameters: 1577328526165614601(String), job-failed(String), 10.43.203.25$default(String), 0(Long), 2023-06-20 15:45:12.738(Timestamp), 1687247112738(Long)
+2023-06-20 15:45:13.262 DEBUG --- [BaseLogger.java:118][Camunda Metrics Reporter] - ENGINE-03082 Batch summary:
+Result 0:	insert into ACT_RU_METER_LOG (ID_, NAME_, REPORTER_, VALUE_, TIMESTAMP_, MILLISECONDS_) values ( ?, ?, ?, ?, ?, ? )	Update counts: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+2023-06-20 15:45:13.337 DEBUG --- [BaseLogger.java:118][Camunda Metrics Reporter] - ENGINE-13006 Finishing command -------------------- MetricsCollectionTask$1 ----------------------
+2023-06-20 15:45:54.029 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14012 Job acquisition thread woke up
+2023-06-20 15:45:54.029 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13005 Starting command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:45:54.100 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13009 opening new command context
+2023-06-20 15:45:54.101 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==>  Preparing: select RES.* from ACT_RU_JOB RES where (RES.RETRIES_ > 0) and ( RES.DUEDATE_ is null or RES.DUEDATE_ <= ? ) and (RES.LOCK_OWNER_ is null or RES.LOCK_EXP_TIME_ < ?) and RES.SUSPENSION_STATE_ = 1 and ( ( RES.EXCLUSIVE_ = 1 and not exists( select J2.* from ACT_RU_JOB J2 where J2.PROCESS_INSTANCE_ID_ = RES.PROCESS_INSTANCE_ID_ -- from the same proc. inst. and (J2.EXCLUSIVE_ = 1) -- also exclusive and (J2.LOCK_OWNER_ is not null and J2.LOCK_EXP_TIME_ >= ?) -- in progress ) ) or RES.EXCLUSIVE_ = 0 ) LIMIT ? OFFSET ?
+2023-06-20 15:45:54.102 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ==> Parameters: 2023-06-20 15:45:54.101(Timestamp), 2023-06-20 15:45:54.101(Timestamp), 2023-06-20 15:45:54.101(Timestamp), 3(Integer), 0(Integer)
+2023-06-20 15:45:54.150 DEBUG --- [BaseJdbcLogger.java:137][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - <==      Total: 0
+2023-06-20 15:45:54.150 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13011 closing existing command context
+2023-06-20 15:45:54.151 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-03006 Cache state after flush: [
+]
+2023-06-20 15:45:54.226 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-13006 Finishing command -------------------- AcquireJobsCmd ----------------------
+2023-06-20 15:45:54.226 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14022 Acquired 0 jobs for process engine 'default': []
+2023-06-20 15:45:54.226 DEBUG --- [BaseLogger.java:118][JobExecutor[org.camunda.bpm.engine.spring.components.jobexecutor.SpringJobExecutor]] - ENGINE-14011 Job acquisition thread sleeping for 59803 millis

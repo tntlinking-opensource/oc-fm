@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.vouchermanager.dao.TglVoucherDetailLedgertypeDao">
+  <sql id="tglVoucherDetailLedgertypeColumns">
+    <trim suffixOverrides=",">
+      a.UQVOULEDGERTYPEID AS "uqvouledgertypeid",
+      a.UQLEDGERTYPEID AS "uqledgertypeid",
+      a.UQVOUCHERDETAILID AS "uqvoucherdetailid",
+      a.UQVOUCHERID AS "uqvoucherid",
+      a.INTSEQ AS "intseq",
+    </trim>
+  </sql>
+  <sql id="tglVoucherDetailLedgertypeJoins">
+  </sql>
+  <select id="get" resultType="com.geeke.vouchermanager.entity.TglVoucherDetailLedgertype">
+    SELECT
+    <include refid="tglVoucherDetailLedgertypeColumns" />
+    FROM tgl_voucher_detail_ledgertype a
+    <include refid="tglVoucherDetailLedgertypeJoins" />
+    WHERE a.id = #{id}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tgl_voucher_detail_ledgertype a
+    <include refid="tglVoucherDetailLedgertypeJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="listPage" resultType="com.geeke.vouchermanager.entity.TglVoucherDetailLedgertype">
+    SELECT
+    <include refid="tglVoucherDetailLedgertypeColumns" />
+    FROM tgl_voucher_detail_ledgertype a
+    <include refid="tglVoucherDetailLedgertypeJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultType="com.geeke.vouchermanager.entity.TglVoucherDetailLedgertype">
+    SELECT
+    <include refid="tglVoucherDetailLedgertypeColumns" />
+    FROM tgl_voucher_detail_ledgertype a
+    <include refid="tglVoucherDetailLedgertypeJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tgl_voucher_detail_ledgertype(
+    <trim suffixOverrides=",">
+      UQVOULEDGERTYPEID,
+      UQLEDGERTYPEID,
+      UQVOUCHERDETAILID,
+      UQVOUCHERID,
+      INTSEQ,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ uqvouledgertypeid },
+      #{ uqledgertypeid },
+      #{ uqvoucherdetailid },
+      #{ uqvoucherid },
+      #{ intseq },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tgl_voucher_detail_ledgertype SET
+    <trim suffixOverrides=",">
+      UQVOULEDGERTYPEID = #{ uqvouledgertypeid },
+      UQLEDGERTYPEID = #{ uqledgertypeid },
+      UQVOUCHERDETAILID = #{ uqvoucherdetailid },
+      UQVOUCHERID = #{ uqvoucherid },
+      INTSEQ = #{ intseq },
+    </trim>
+    WHERE id = #{id}
+  </update>
+  <update id="delete">
+    DELETE FROM tgl_voucher_detail_ledgertype
+    WHERE id = #{id}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tgl_voucher_detail_ledgertype(
+    <trim suffixOverrides=",">
+      UQVOULEDGERTYPEID,
+      UQLEDGERTYPEID,
+      UQVOUCHERDETAILID,
+      UQVOUCHERID,
+      INTSEQ,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.uqvouledgertypeid},
+        #{entity.uqledgertypeid},
+        #{entity.uqvoucherdetailid},
+        #{entity.uqvoucherid},
+        #{entity.intseq},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tgl_voucher_detail_ledgertype
+    <set>
+      <trim prefix="UQVOULEDGERTYPEID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqvouledgertypeid}
+        </foreach>
+      </trim>
+      <trim prefix="UQLEDGERTYPEID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqledgertypeid}
+        </foreach>
+      </trim>
+      <trim prefix="UQVOUCHERDETAILID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqvoucherdetailid}
+        </foreach>
+      </trim>
+      <trim prefix="UQVOUCHERID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqvoucherid}
+        </foreach>
+      </trim>
+      <trim prefix="INTSEQ=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intseq}
+        </foreach>
+      </trim>
+    </set>
+    WHERE id IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.id}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    DELETE FROM tgl_voucher_detail_ledgertype
+    WHERE id IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.id}
+    </foreach>
+  </update>
+</mapper>

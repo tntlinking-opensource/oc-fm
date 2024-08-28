@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geeke.ureport.mapper.AccountingBookMapper">
+	<select id="getAccountingBookStatus" resultType="java.util.HashMap">
+		select distinct  case tc.categorycode
+							 when '1000' then
+								 0
+							 when '1006' then
+								 2
+							 else
+								 1
+							 end as categorycode,
+						 case tc.categoryname
+							 when '全部' then
+								 '全部'
+							 when '已记账' then
+								 '已记账'
+							 else
+								 '未记账'
+							 end as categoryname
+		from tob_category tc
+		where tc.categorytype = '10000007'
+
+	</select>
+
+	<select id="getHkontLevel" resultType="java.util.HashMap">
+		select tc.categorycode , tc.categoryname
+		from tob_category tc
+		where tc.categorytype = '10000008'
+		ORDER by cast(tc.categorycode as decimal)  asc
+
+	</select>
+	<select id="queryHkontList" resultType="java.util.HashMap">
+		select concat("[",varaccountcode,"]",varaccountname) value from tgl_accounts ta where varaccountcode != '0000' order by varaccountcode asc
+	</select>
+</mapper> 

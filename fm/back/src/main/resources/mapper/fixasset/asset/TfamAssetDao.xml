@@ -1,0 +1,1904 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.fixasset.asset.dao.TfamAssetDao">
+    <sql id="tfamAssetColumns">
+        <trim suffixOverrides=",">
+            a.id AS "id",
+            userid.del_flag AS "userstatus",
+            a.year AS "year",
+            a.month AS "month",
+            a.card_code AS "cardCode",
+            a.asset_code AS "assetCode",
+            a.business_date AS "businessDate",
+            a.nature AS "nature.id",
+            IFNULL(nature.name,'') AS "nature.name",
+            IFNULL(nature.remarks,'') AS "nature.remarks",
+            a.category_id AS "category.id",
+            IFNULL(category.name,'') AS "category.name",
+            IFNULL(category.fullname,'') AS "category.fullname",
+            IFNULL(category.fullcode,'') AS "category.fullcode",
+            a.asset_name AS "assetName",
+            a.spec AS "spec",
+            a.card_model AS "cardModel",
+            a.place AS "place",
+            a.producer AS "producer.id",
+            IFNULL(producer.name,'') AS "producer.name",
+            IFNULL(producer.code,'') AS "producer.code",
+            a.company_id AS "companyid1",
+            a.usedeptid AS "usedeptid.id",
+            IFNULL(usedeptid.name,'') AS "usedeptid.name",
+            IFNULL(usedeptid.code,'') AS "usedeptid.code",
+            IFNULL(usedeptid.director,'') AS "usedeptid.director",
+            IFNULL(usedeptid.manager,'') AS "usedeptid.manager",
+            IFNULL(usedeptid.company_id,'') AS "usedeptid.companyId",
+            a.userid AS "userid.id",
+            IFNULL(userid.name,'') AS "userid.name",
+            IFNULL(userid.company_id,'') AS "userid.companyId",
+            IFNULL(userid.department_id,'') AS "userid.departmentId",
+            IFNULL(userid.empolyno,'') AS "userid.empolyno",
+            IFNULL(userid.del_flag,'') AS "userid.delFlag",
+            a.num AS "num",
+            a.unit AS "unit",
+            a.usingstatus AS "usingstatus.id",
+            IFNULL(usingstatus.name,'') AS "usingstatus.name",
+            IFNULL(usingstatus.code,'') AS "usingstatus.code",
+            IFNULL(usingstatus.remarks,'') AS "usingstatus.remarks",
+            IFNULL(usingstatus.company_id,'') AS "usingstatus.companyId",
+            a.memo AS "memo",
+            ta.VARACCOUNTNAME AS "assetAccountid.VARACCOUNTNAME",
+            ta1.VARACCOUNTNAME AS "accudepAccountid.VARACCOUNTNAME",
+            ta2.VARACCOUNTNAME AS "predevaluateAccountid.VARACCOUNTNAME",
+            ta3.VARACCOUNTNAME AS "depcostAccountid.VARACCOUNTNAME",
+            a.isproject AS "isproject",
+            ta4.VARACCOUNTNAME AS "projectAccountid.VARACCOUNTNAME",
+            ta5.VARACCOUNTNAME AS "predevaluateCoraccountid.VARACCOUNTNAME",
+            ta6.VARACCOUNTNAME AS "taxAccountid.VARACCOUNTNAME",
+            a.value AS "value",
+            a.rate AS "rate",
+            a.tax AS "tax",
+            a.accudep AS "accudep",
+            a.predevaluate AS "predevaluate",
+            a.netvalue AS "netvalue",
+            a.salvagerate AS "salvagerate",
+            a.salvage AS "salvage",
+            a.depmethod AS "depmethod.id",
+            IFNULL(depmethod.name,'') AS "depmethod.name",
+            IFNULL(depmethod.remarks,'') AS "depmethod.remarks",
+            IFNULL(depmethod.code,'') AS "depmethod.code",
+            a.naturemonth AS "naturemonth",
+            a.servicemonth AS "servicemonth",
+            a.deprate AS "deprate",
+            a.depamount AS "depamount",
+            a.allworkloan AS "allworkloan",
+            a.workloanunit AS "workloanunit",
+            a.add_reason AS "addReason.id",
+            IFNULL(addReason.name,'') AS "addReason.name",
+            IFNULL(addReason.code,'') AS "addReason.code",
+            IFNULL(addReason.type,'') AS "addReason.type",
+            IFNULL(addReason.remarks,'') AS "addReason.remarks",
+            a.createrid AS "createrid",
+            a.status AS "status.id",
+            IFNULL(status.name,'') AS "status.name",
+            IFNULL(status.remarks,'') AS "status.remarks",
+            IFNULL(status.code,'') AS "status.code",
+            a.reduce_reason AS "reduceReason",
+            a.lastyearaccudep AS "lastyearaccudep",
+            a.usedmonth AS "usedmonth",
+            a.changedmonth AS "changedmonth",
+            a.scrap_date AS "scrapDate",
+            a.company_id AS "companyId",
+            a.businessdept AS "businessdept",
+            a.employeeno AS "employeeno",
+            a.user_ascription AS "userAscription",
+            a.asset_ascription AS "assetAscription",
+            a.mac_address AS "macAddress",
+            a.startup_date AS "startupDate",
+            a.assetbrand AS "assetbrand",
+            a.enable_date AS "enableDate",
+            a.remarks AS "remarks",
+            a.create_by AS "createBy",
+            a.create_date AS "createDate",
+            a.update_by AS "updateBy",
+            a.update_date AS "updateDate",
+            a.del_flag AS "delFlag",
+        </trim>
+    </sql>
+    <sql id="tfamAssetJoins">
+    LEFT JOIN tfam_nature nature ON nature.id = a.nature
+    LEFT JOIN tfam_category category ON category.id = a.category_id
+    LEFT JOIN tfam_supplier producer ON producer.id = a.producer
+    LEFT JOIN org_department usedeptid ON usedeptid.id = a.usedeptid
+    LEFT JOIN sys_user userid ON userid.id = a.userid
+    LEFT JOIN tfam_usingstatus usingstatus ON usingstatus.id = a.usingstatus
+    LEFT JOIN tfam_depmethod depmethod ON depmethod.id = a.depmethod
+    LEFT JOIN tfam_change_way addReason ON addReason.id = a.add_reason
+    LEFT JOIN tfam_status status ON status.id = a.status
+    LEFT JOIN tgl_accounts ta ON ta.UQACCOUNTID = a.asset_accountid
+    LEFT JOIN tgl_accounts ta1 ON ta1.UQACCOUNTID = a.accudep_accountid
+    LEFT JOIN tgl_accounts ta2 ON ta2.UQACCOUNTID = a.predevaluate_accountid
+    LEFT JOIN tgl_accounts ta3 ON ta3.UQACCOUNTID = a.depcost_accountid
+    LEFT JOIN tgl_accounts ta4 ON ta4.UQACCOUNTID = a.project_accountid
+    LEFT JOIN tgl_accounts ta5 ON ta5.UQACCOUNTID = a.predevaluate_coraccountid
+    LEFT JOIN tgl_accounts ta6 ON ta6.UQACCOUNTID = a.tax_accountid
+    </sql>
+    <!--    <resultMap id="resultTfamAssetMap" type="com.geeke.fixasset.asset.entity.TfamAsset">-->
+    <resultMap id="resultTfamAssetMap" type="com.geeke.fixasset.asset.dto.TfamAssetDto">
+        <result property="id" column="id"/>
+        <result property="userstatus" column="userstatus"/>
+        <result property="year" column="year"/>
+        <result property="month" column="month"/>
+        <result property="cardCode" column="cardCode"/>
+        <result property="assetCode" column="assetCode"/>
+        <result property="businessDate" column="businessDate"/>
+        <result property="assetName" column="assetName"/>
+        <result property="spec" column="spec"/>
+        <result property="cardModel" column="cardModel"/>
+        <result property="place" column="place"/>
+        <result property="companyid" column="companyid"/>
+        <result property="num" column="num"/>
+        <result property="unit" column="unit"/>
+        <result property="memo" column="memo"/>
+        <result property="isproject" column="isproject"/>
+        <result property="value" column="value"/>
+        <result property="rate" column="rate"/>
+        <result property="tax" column="tax"/>
+        <result property="accudep" column="accudep"/>
+        <result property="predevaluate" column="predevaluate"/>
+        <result property="netvalue" column="netvalue"/>
+        <result property="salvagerate" column="salvagerate"/>
+        <result property="salvage" column="salvage"/>
+        <result property="naturemonth" column="naturemonth"/>
+        <result property="servicemonth" column="servicemonth"/>
+        <result property="deprate" column="deprate"/>
+        <result property="depamount" column="depamount"/>
+        <result property="allworkloan" column="allworkloan"/>
+        <result property="workloanunit" column="workloanunit"/>
+        <result property="createrid" column="createrid"/>
+        <result property="reduceReason" column="reduceReason"/>
+        <result property="lastyearaccudep" column="lastyearaccudep"/>
+        <result property="usedmonth" column="usedmonth"/>
+        <result property="changedmonth" column="changedmonth"/>
+        <result property="scrapDate" column="scrapDate"/>
+        <result property="companyId" column="companyId"/>
+        <result property="businessdept" column="businessdept"/>
+        <result property="employeeno" column="employeeno"/>
+        <result property="userAscription" column="userAscription"/>
+        <result property="assetAscription" column="assetAscription"/>
+        <result property="macAddress" column="macAddress"/>
+        <result property="startupDate" column="startupDate"/>
+        <result property="assetbrand" column="assetbrand"/>
+        <result property="enableDate" column="enableDate"/>
+        <result property="remarks" column="remarks"/>
+        <result property="createBy" column="createBy"/>
+        <result property="createDate" column="createDate"/>
+        <result property="updateBy" column="updateBy"/>
+        <result property="updateDate" column="updateDate"/>
+        <result property="delFlag" column="delFlag"/>
+        <association property="nature" javaType="com.geeke.fixasset.nature.entity.TfamNature">
+            <result property="name" column="nature.name"/>
+            <result property="id" column="nature.id"/>
+            <result property="remarks" column="nature.remarks"/>
+        </association>
+        <association property="category" javaType="com.geeke.fixasset.category.entity.TfamCategory">
+            <result property="id" column="category.id"/>
+            <result property="name" column="category.name"/>
+            <result property="fullname" column="category.fullname"/>
+            <result property="fullcode" column="category.fullcode"/>
+        </association>
+        <association property="producer" javaType="com.geeke.fixasset.producer.entity.TfamSupplier">
+            <result property="id" column="producer.id"/>
+            <result property="name" column="producer.name"/>
+            <result property="code" column="producer.code"/>
+        </association>
+        <association property="usedeptid" javaType="com.geeke.org.entity.Department">
+            <result property="id" column="usedeptid.id"/>
+            <result property="name" column="usedeptid.name"/>
+            <result property="code" column="usedeptid.code"/>
+        </association>
+        <association property="userid" javaType="com.geeke.admin.entity.User">
+            <result property="id" column="userid.id"/>
+            <result property="name" column="userid.name"/>
+            <result property="empolyno" column="userid.empolyno"/>
+            <result property="delFlag" column="userid.delFlag"/>
+        </association>
+        <association property="usingstatus" javaType="com.geeke.fixasset.usingstatus.entity.TfamUsingstatus">
+            <result property="id" column="usingstatus.id"/>
+            <result property="name" column="usingstatus.name"/>
+            <result property="code" column="usingstatus.code"/>
+            <result property="remarks" column="usingstatus.remarks"/>
+            <result property="companyId" column="usingstatus.companyId"/>
+        </association>
+        <association property="assetAccountid" javaType="com.geeke.vouchermanager.entity.TglAccounts">
+            <result property="id" column="assetAccountid.id"/>
+            <result property="uqaccountid" column="assetAccountid.uqaccountid"/>
+            <result property="VARACCOUNTCODE" column="assetAccountid.VARACCOUNTCODE"/>
+            <result property="VARACCOUNTFULLCODE" column="assetAccountid.VARACCOUNTFULLCODE"/>
+            <result property="varaccountname" column="assetAccountid.varaccountname"/>
+        </association>
+        <association property="accudepAccountid" javaType="com.geeke.vouchermanager.entity.TglAccounts">
+            <result property="id" column="accudepAccountid.id"/>
+            <result property="uqaccountid" column="accudepAccountid.uqaccountid"/>
+            <result property="varaccountname" column="accudepAccountid.varaccountname"/>
+        </association>
+        <association property="predevaluateAccountid" javaType="com.geeke.vouchermanager.entity.TglAccounts">
+            <result property="id" column="predevaluateAccountid.id"/>
+            <result property="uqaccountid" column="predevaluateAccountid.uqaccountid"/>
+            <result property="VARACCOUNTCODE" column="predevaluateAccountid.VARACCOUNTCODE"/>
+            <result property="VARACCOUNTFULLCODE" column="predevaluateAccountid.VARACCOUNTFULLCODE"/>
+            <result property="varaccountname" column="predevaluateAccountid.varaccountname"/>
+        </association>
+        <association property="depcostAccountid" javaType="com.geeke.vouchermanager.entity.TglAccounts">
+            <result property="id" column="depcostAccountid.id"/>
+            <result property="uqaccountid" column="depcostAccountid.uqaccountid"/>
+            <result property="VARACCOUNTCODE" column="depcostAccountid.VARACCOUNTCODE"/>
+            <result property="VARACCOUNTFULLCODE" column="depcostAccountid.VARACCOUNTFULLCODE"/>
+            <result property="varaccountname" column="depcostAccountid.varaccountname"/>
+        </association>
+        <association property="projectAccountid" javaType="com.geeke.vouchermanager.entity.TglAccounts">
+            <result property="id" column="projectAccountid.id"/>
+            <result property="uqaccountid" column="projectAccountid.uqaccountid"/>
+            <result property="VARACCOUNTCODE" column="projectAccountid.VARACCOUNTCODE"/>
+            <result property="VARACCOUNTFULLCODE" column="projectAccountid.VARACCOUNTFULLCODE"/>
+            <result property="varaccountname" column="projectAccountid.varaccountname"/>
+        </association>
+        <association property="predevaluateCoraccountid" javaType="com.geeke.vouchermanager.entity.TglAccounts">
+            <result property="id" column="predevaluateCoraccountid.id"/>
+            <result property="uqaccountid" column="predevaluateCoraccountid.uqaccountid"/>
+            <result property="VARACCOUNTCODE" column="predevaluateCoraccountid.VARACCOUNTCODE"/>
+            <result property="VARACCOUNTFULLCODE" column="predevaluateCoraccountid.VARACCOUNTFULLCODE"/>
+            <result property="varaccountname" column="predevaluateCoraccountid.varaccountname"/>
+        </association>
+        <association property="taxAccountid" javaType="com.geeke.vouchermanager.entity.TglAccounts">
+            <result property="id" column="taxAccountid.id"/>
+            <result property="uqaccountid" column="taxAccountid.uqaccountid"/>
+            <result property="VARACCOUNTCODE" column="taxAccountid.VARACCOUNTCODE"/>
+            <result property="VARACCOUNTFULLCODE" column="taxAccountid.VARACCOUNTFULLCODE"/>
+            <result property="varaccountname" column="taxAccountid.varaccountname"/>
+        </association>
+        <association property="depmethod" javaType="com.geeke.fixasset.depmethod.entity.TfamDepmethod">
+            <result property="name" column="depmethod.name"/>
+            <result property="remarks" column="depmethod.remarks"/>
+            <result property="code" column="depmethod.code"/>
+            <result property="id" column="depmethod.id"/>
+        </association>
+        <association property="addReason" javaType="com.geeke.fixasset.changeway.entity.TfamChangeWay">
+            <result property="id" column="addReason.id"/>
+            <result property="name" column="addReason.name"/>
+            <result property="code" column="addReason.code"/>
+            <result property="type" column="addReason.type"/>
+            <result property="remarks" column="addReason.remarks"/>
+        </association>
+        <association property="status" javaType="com.geeke.fixasset.status.entity.TfamStatus">
+            <result property="name" column="status.name"/>
+            <result property="remarks" column="status.remarks"/>
+            <result property="id" column="status.id"/>
+        </association>
+    </resultMap>
+    <select id="get" resultMap="resultTfamAssetMap">
+        SELECT
+        <include refid="tfamAssetColumns"/>
+        FROM tfam_asset a
+        <include refid="tfamAssetJoins"/>
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="selectStatusAndCategory" resultType="com.geeke.checkplan.resp.StatusAndCategoryResp">
+        SELECT
+        a.category_id AS categoryId,
+        count( 1 ) AS num,
+        a.usingstatus as statusId,
+        a.unit as unit,
+        (SELECT `name` FROM tfam_category WHERE id = a.category_id) as categoryName,
+        (SELECT `name` FROM tfam_usingstatus WHERE id = a.usingstatus) as statusName
+        FROM
+        tfam_asset a
+        WHERE
+        a.usedeptid IN
+        <foreach collection="deptIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and a.usingstatus in
+        <foreach collection="statusIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and a.category_id in
+        <foreach collection="categoryIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY
+        a.usingstatus,
+        a.category_id;
+    </select>
+
+    <select id="selectStatusAndCategoryItem" resultMap="resultTfamAssetMap">
+        SELECT
+        <include refid="tfamAssetColumns"/>
+        FROM tfam_asset a
+        <include refid="tfamAssetJoins"/>
+        WHERE
+        a.usedeptid IN
+        <foreach collection="deptIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and a.usingstatus in
+        <foreach collection="statusIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and a.category_id in
+        <foreach collection="categoryIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <select id="getAllDataByDept" resultType="com.geeke.fixasset.asset.dto.GraphDeptDataDto">
+        SELECT sum(a.num) AS num,
+               sum(a.VALUE) AS value,
+               sum(a.accudep) AS accudep,
+               sum(a.netvalue) AS netvalue,
+               a.usedeptid AS deptId,
+               usedeptid.name AS name
+        FROM tfam_asset a
+            LEFT JOIN org_department usedeptid
+        ON usedeptid.id = a.usedeptid
+        GROUP BY a.usedeptid
+        ORDER BY num DESC LIMIT 5
+    </select>
+    <select id="getAllDataByAssetCategory" resultType="com.geeke.fixasset.asset.dto.GraphCategoryDataDto">
+        SELECT sum(a.num) AS num,
+               sum(a.VALUE) AS value,
+               sum(a.accudep) AS accudep,
+               sum(a.netvalue) AS netvalue,
+               a.category_id AS categoryId,
+               tc.fullname AS name
+        FROM
+            tfam_asset a LEFT JOIN tfam_category tc
+        ON tc.id = a.category_id
+        GROUP BY a.category_id
+        order by num desc
+    </select>
+    <select id="getAllScrapAssetGroupByMonth" resultType="com.geeke.fixasset.asset.dto.GraphAddScrapDataDto">
+        SELECT b.num     AS adNum,
+               b.`VALUE` AS adValue,
+               b.item    AS adItem,
+               s.num     as sNum,
+               s.`VALUE` as sValue,
+               s.item    as sItem
+        FROM (
+              (
+                  SELECT SUM(a.num) AS num,
+                         SUM(a.VALUE) AS VALUE,
+			        DATE_FORMAT( a.business_date, '%Y%m' ) AS item
+                  FROM
+                      tfam_asset a
+                  WHERE
+                      a.`status` = 1
+                  GROUP BY
+                      item
+                  ORDER BY
+                      item
+              ) AS b, (
+              SELECT
+              SUM(a.num) AS num,
+                 SUM(a.VALUE) AS
+                 VALUE
+                 ,
+                 DATE_FORMAT (a . scrap_date, '%Y%m') AS item
+                 FROM
+                 tfam_asset a
+                 WHERE
+                 a.`status` = 4
+                 GROUP BY
+                 item
+                 ORDER BY
+                 item
+                 ) AS s
+                 )
+    </select>
+
+    <select id="getAllTransferDataByMonthly" resultType="com.geeke.fixasset.asset.dto.GraphTransferDataDto">
+        SELECT count(DISTINCT tat.id) AS num,
+               date_format(tat.transfer_date, '%Y%m') AS time
+        FROM tfam_asset_transfer tat
+        GROUP BY time
+    </select>
+    <select id="count" resultType="int">
+        SELECT COUNT(*) FROM tfam_asset a
+        <!--<include refid="tfamAssetJoins"/>-->
+        LEFT JOIN tfam_nature nature ON nature.id = a.nature
+        LEFT JOIN tfam_category category ON category.id = a.category_id
+        LEFT JOIN tfam_supplier producer ON producer.id = a.producer
+        LEFT JOIN org_department usedeptid ON usedeptid.id = a.usedeptid
+        LEFT JOIN sys_user userid ON userid.id = a.userid
+        LEFT JOIN tfam_usingstatus usingstatus ON usingstatus.id = a.usingstatus
+        LEFT JOIN tfam_depmethod depmethod ON depmethod.id = a.depmethod
+        LEFT JOIN tfam_change_way addReason ON addReason.id = a.add_reason
+        LEFT JOIN tfam_status status ON status.id = a.status
+        LEFT JOIN tgl_accounts ta ON ta.UQACCOUNTID = a.asset_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta1 ON ta1.UQACCOUNTID = a.accudep_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta1.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta2 ON ta2.UQACCOUNTID = a.predevaluate_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta2.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta3 ON ta3.UQACCOUNTID = a.depcost_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta3.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta4 ON ta4.UQACCOUNTID = a.project_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta4.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta5 ON ta5.UQACCOUNTID = a.predevaluate_coraccountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta5.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta6 ON ta6.UQACCOUNTID = a.tax_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta6.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        <where>
+            1=1
+            AND a.id > 0
+            AND a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test='params != null and params.size() > 0'>
+                AND ( 1=1
+                <foreach collection="params" item="item" index="index">
+                    <if test="item != null and item.queryType != null and item.columnName != 'userstatus'">
+                        <choose>
+                            <when test='item.queryType == "("'>
+                                ${item.logic} ( 1=1
+                            </when>
+                            <when test='item.queryType == ")"'>
+                                )
+                            </when>
+                            <when test='"is null".equalsIgnoreCase(item.queryType) or "is not null".equalsIgnoreCase(item.queryType)'>
+                                ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                ${item.queryType}
+                            </when>
+                            <when test='"between".equalsIgnoreCase(item.queryType) or "not between".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and item.value[0] != null and (item.value[0] != "" or item.value[0] == "0".toString()) and item.value[1] != null and (item.value[1] != "" or item.value[1] == "0".toString())'>
+                                    ${item.logic} ( <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not between".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    BETWEEN
+                                    #{item.value[0]} AND #{item.value[1]} )
+                                </if>
+                            </when>
+                            <when test='"like".equalsIgnoreCase(item.queryType) or "not like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>'%'||#{item.value}||'%'</if>
+                                    <if test='dbName == "mssql"'>'%'+#{item.value}+'%'</if>
+                                    <if test='dbName == "mysql"'>concat('%',#{item.value},'%')</if>
+                                </if>
+                            </when>
+                            <when test='"left_like".equalsIgnoreCase(item.queryType) or "not left_like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not left_like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>'%'||#{item.value}</if>
+                                    <if test='dbName == "mssql"'>'%'+#{item.value}</if>
+                                    <if test='dbName == "mysql"'>concat('%',#{item.value})</if>
+                                </if>
+                            </when>
+                            <when test='"right_like".equalsIgnoreCase(item.queryType) or "not right_like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not right_like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>#{item.value}||'%'</if>
+                                    <if test='dbName == "mssql"'>#{item.value}+'%'</if>
+                                    <if test='dbName == "mysql"'>concat(#{item.value},'%')</if>
+                                </if>
+                            </when>
+                            <when test='"in".equalsIgnoreCase(item.queryType) or "not in".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and item.value.size() > 0'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not in".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    IN
+                                    <foreach collection="item.value" item="name" index="index" open="(" close=")"
+                                             separator=",">
+                                        #{name}
+                                    </foreach>
+                                </if>
+                            </when>
+                            <otherwise>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    ${item.queryType} #{item.value}
+                                </if>
+                            </otherwise>
+                        </choose>
+                    </if>
+                    <if test='item != null and item.queryType != null and item.columnName == "userstatus"'>
+                        and userid.del_flag = #{item.value}
+                    </if>
+                </foreach>
+                )
+            </if>
+        </where>
+    </select>
+    <select id="listPage" resultMap="resultTfamAssetMap">
+        SELECT
+        <include refid="tfamAssetColumns"/>
+        FROM tfam_asset a
+        <!--    <include refid="tfamAssetJoins"/>-->
+        LEFT JOIN tfam_nature nature ON nature.id = a.nature
+        LEFT JOIN tfam_category category ON category.id = a.category_id
+        LEFT JOIN tfam_supplier producer ON producer.id = a.producer
+        LEFT JOIN org_department usedeptid ON usedeptid.id = a.usedeptid
+        LEFT JOIN sys_user userid ON userid.id = a.userid
+        LEFT JOIN tfam_usingstatus usingstatus ON usingstatus.id = a.usingstatus
+        LEFT JOIN tfam_depmethod depmethod ON depmethod.id = a.depmethod
+        LEFT JOIN tfam_change_way addReason ON addReason.id = a.add_reason
+        LEFT JOIN tfam_status status ON status.id = a.status
+        LEFT JOIN tgl_accounts ta ON ta.UQACCOUNTID = a.asset_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta1 ON ta1.UQACCOUNTID = a.accudep_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta1.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta2 ON ta2.UQACCOUNTID = a.predevaluate_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta2.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta3 ON ta3.UQACCOUNTID = a.depcost_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta3.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta4 ON ta4.UQACCOUNTID = a.project_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta4.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta5 ON ta5.UQACCOUNTID = a.predevaluate_coraccountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta5.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta6 ON ta6.UQACCOUNTID = a.tax_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta6.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        <where>
+            1=1
+            AND a.id > 0
+            AND a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test='params != null and params.size() > 0'>
+                AND ( 1=1
+                <foreach collection="params" item="item" index="index">
+                    <if test="item != null and item.queryType != null and item.columnName != 'userstatus'">
+                        <choose>
+                            <when test='item.queryType == "("'>
+                                ${item.logic} ( 1=1
+                            </when>
+                            <when test='item.queryType == ")"'>
+                                )
+                            </when>
+                            <when test='"is null".equalsIgnoreCase(item.queryType) or "is not null".equalsIgnoreCase(item.queryType)'>
+                                ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                ${item.queryType}
+                            </when>
+                            <when test='"between".equalsIgnoreCase(item.queryType) or "not between".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and item.value[0] != null and (item.value[0] != "" or item.value[0] == "0".toString()) and item.value[1] != null and (item.value[1] != "" or item.value[1] == "0".toString())'>
+                                    ${item.logic} ( <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not between".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    BETWEEN
+                                    #{item.value[0]} AND #{item.value[1]} )
+                                </if>
+                            </when>
+                            <when test='"like".equalsIgnoreCase(item.queryType) or "not like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>'%'||#{item.value}||'%'</if>
+                                    <if test='dbName == "mssql"'>'%'+#{item.value}+'%'</if>
+                                    <if test='dbName == "mysql"'>concat('%',#{item.value},'%')</if>
+                                </if>
+                            </when>
+                            <when test='"left_like".equalsIgnoreCase(item.queryType) or "not left_like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not left_like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>'%'||#{item.value}</if>
+                                    <if test='dbName == "mssql"'>'%'+#{item.value}</if>
+                                    <if test='dbName == "mysql"'>concat('%',#{item.value})</if>
+                                </if>
+                            </when>
+                            <when test='"right_like".equalsIgnoreCase(item.queryType) or "not right_like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not right_like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>#{item.value}||'%'</if>
+                                    <if test='dbName == "mssql"'>#{item.value}+'%'</if>
+                                    <if test='dbName == "mysql"'>concat(#{item.value},'%')</if>
+                                </if>
+                            </when>
+                            <when test='"in".equalsIgnoreCase(item.queryType) or "not in".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and item.value.size() > 0'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not in".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    IN
+                                    <foreach collection="item.value" item="name" index="index" open="(" close=")"
+                                             separator=",">
+                                        #{name}
+                                    </foreach>
+                                </if>
+                            </when>
+                            <otherwise>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    ${item.queryType} #{item.value}
+                                </if>
+                            </otherwise>
+                        </choose>
+                    </if>
+                    <if test='item != null and item.queryType != null and item.columnName == "userstatus"'>
+                        and userid.del_flag = #{item.value}
+                    </if>
+                </foreach>
+                )
+            </if>
+        </where>
+        <choose>
+            <when test="order != null and order != ''">
+                ORDER BY ${order}
+            </when>
+            <otherwise>
+                ORDER BY a.update_date DESC
+            </otherwise>
+        </choose>
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+    <select id="listAll" resultMap="resultTfamAssetMap">
+        SELECT
+        <include refid="tfamAssetColumns"/>
+        FROM tfam_asset a
+        <!--<include refid="tfamAssetJoins"/>-->
+        LEFT JOIN tfam_nature nature ON nature.id = a.nature
+        LEFT JOIN tfam_category category ON category.id = a.category_id
+        LEFT JOIN tfam_supplier producer ON producer.id = a.producer
+        LEFT JOIN org_department usedeptid ON usedeptid.id = a.usedeptid
+        LEFT JOIN sys_user userid ON userid.id = a.userid
+        LEFT JOIN tfam_usingstatus usingstatus ON usingstatus.id = a.usingstatus
+        LEFT JOIN tfam_depmethod depmethod ON depmethod.id = a.depmethod
+        LEFT JOIN tfam_change_way addReason ON addReason.id = a.add_reason
+        LEFT JOIN tfam_status status ON status.id = a.status
+        LEFT JOIN tgl_accounts ta ON ta.UQACCOUNTID = a.asset_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta1 ON ta1.UQACCOUNTID = a.accudep_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta1.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta2 ON ta2.UQACCOUNTID = a.predevaluate_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta2.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta3 ON ta3.UQACCOUNTID = a.depcost_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta3.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta4 ON ta4.UQACCOUNTID = a.project_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta4.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta5 ON ta5.UQACCOUNTID = a.predevaluate_coraccountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta5.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta6 ON ta6.UQACCOUNTID = a.tax_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta6.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        <where>
+            1=1
+            AND a.id > 0
+            AND a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test='params != null and params.size() > 0'>
+                AND ( 1=1
+                <foreach collection="params" item="item" index="index">
+                    <if test="item != null and item.queryType != null and item.columnName != 'userstatus'">
+                        <choose>
+                            <when test='item.queryType == "("'>
+                                ${item.logic} ( 1=1
+                            </when>
+                            <when test='item.queryType == ")"'>
+                                )
+                            </when>
+                            <when test='"is null".equalsIgnoreCase(item.queryType) or "is not null".equalsIgnoreCase(item.queryType)'>
+                                ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                ${item.queryType}
+                            </when>
+                            <when test='"between".equalsIgnoreCase(item.queryType) or "not between".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and item.value[0] != null and (item.value[0] != "" or item.value[0] == "0".toString()) and item.value[1] != null and (item.value[1] != "" or item.value[1] == "0".toString())'>
+                                    ${item.logic} ( <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not between".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    BETWEEN
+                                    #{item.value[0]} AND #{item.value[1]} )
+                                </if>
+                            </when>
+                            <when test='"like".equalsIgnoreCase(item.queryType) or "not like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>'%'||#{item.value}||'%'</if>
+                                    <if test='dbName == "mssql"'>'%'+#{item.value}+'%'</if>
+                                    <if test='dbName == "mysql"'>concat('%',#{item.value},'%')</if>
+                                </if>
+                            </when>
+                            <when test='"left_like".equalsIgnoreCase(item.queryType) or "not left_like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not left_like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>'%'||#{item.value}</if>
+                                    <if test='dbName == "mssql"'>'%'+#{item.value}</if>
+                                    <if test='dbName == "mysql"'>concat('%',#{item.value})</if>
+                                </if>
+                            </when>
+                            <when test='"right_like".equalsIgnoreCase(item.queryType) or "not right_like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not right_like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>#{item.value}||'%'</if>
+                                    <if test='dbName == "mssql"'>#{item.value}+'%'</if>
+                                    <if test='dbName == "mysql"'>concat(#{item.value},'%')</if>
+                                </if>
+                            </when>
+                            <when test='"in".equalsIgnoreCase(item.queryType) or "not in".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and item.value.size() > 0'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not in".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    IN
+                                    <foreach collection="item.value" item="name" index="index" open="(" close=")"
+                                             separator=",">
+                                        #{name}
+                                    </foreach>
+                                </if>
+                            </when>
+                            <otherwise>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    ${item.queryType} #{item.value}
+                                </if>
+                            </otherwise>
+                        </choose>
+                    </if>
+                    <if test='item != null and item.queryType != null and item.columnName == "userstatus"'>
+                        and userid.del_flag = #{item.value}
+                    </if>
+                </foreach>
+                )
+            </if>
+        </where>
+        <choose>
+            <when test="order != null and order != ''">
+                ORDER BY ${order}
+            </when>
+            <otherwise>
+                ORDER BY a.update_date DESC
+            </otherwise>
+        </choose>
+    </select>
+    <select id="countAssetTotal" resultType="com.geeke.fixasset.asset.resp.CountAssetResp">
+        SELECT
+        sum(a.value) as value,
+        sum(a.tax) as tax,
+        sum(a.accudep) as accudep
+        FROM tfam_asset a
+        <!--<include refid="tfamAssetJoins"/>-->
+        LEFT JOIN tfam_nature nature ON nature.id = a.nature
+        LEFT JOIN tfam_category category ON category.id = a.category_id
+        LEFT JOIN tfam_supplier producer ON producer.id = a.producer
+        LEFT JOIN org_department usedeptid ON usedeptid.id = a.usedeptid
+        LEFT JOIN sys_user userid ON userid.id = a.userid
+        LEFT JOIN tfam_usingstatus usingstatus ON usingstatus.id = a.usingstatus
+        LEFT JOIN tfam_depmethod depmethod ON depmethod.id = a.depmethod
+        LEFT JOIN tfam_change_way addReason ON addReason.id = a.add_reason
+        LEFT JOIN tfam_status status ON status.id = a.status
+        LEFT JOIN tgl_accounts ta ON ta.UQACCOUNTID = a.asset_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta1 ON ta1.UQACCOUNTID = a.accudep_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta1.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta2 ON ta2.UQACCOUNTID = a.predevaluate_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta2.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta3 ON ta3.UQACCOUNTID = a.depcost_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta3.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta4 ON ta4.UQACCOUNTID = a.project_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta4.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta5 ON ta5.UQACCOUNTID = a.predevaluate_coraccountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta5.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta6 ON ta6.UQACCOUNTID = a.tax_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta6.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        <where>
+            1=1
+            AND a.id > 0
+            AND a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test='params != null and params.size() > 0'>
+                AND ( 1=1
+                <foreach collection="params" item="item" index="index">
+                    <if test="item != null and item.queryType != null and item.columnName != 'userstatus'">
+                        <choose>
+                            <when test='item.queryType == "("'>
+                                ${item.logic} ( 1=1
+                            </when>
+                            <when test='item.queryType == ")"'>
+                                )
+                            </when>
+                            <when test='"is null".equalsIgnoreCase(item.queryType) or "is not null".equalsIgnoreCase(item.queryType)'>
+                                ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                ${item.queryType}
+                            </when>
+                            <when test='"between".equalsIgnoreCase(item.queryType) or "not between".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and item.value[0] != null and (item.value[0] != "" or item.value[0] == "0".toString()) and item.value[1] != null and (item.value[1] != "" or item.value[1] == "0".toString())'>
+                                    ${item.logic} ( <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not between".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    BETWEEN
+                                    #{item.value[0]} AND #{item.value[1]} )
+                                </if>
+                            </when>
+                            <when test='"like".equalsIgnoreCase(item.queryType) or "not like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>'%'||#{item.value}||'%'</if>
+                                    <if test='dbName == "mssql"'>'%'+#{item.value}+'%'</if>
+                                    <if test='dbName == "mysql"'>concat('%',#{item.value},'%')</if>
+                                </if>
+                            </when>
+                            <when test='"left_like".equalsIgnoreCase(item.queryType) or "not left_like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not left_like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>'%'||#{item.value}</if>
+                                    <if test='dbName == "mssql"'>'%'+#{item.value}</if>
+                                    <if test='dbName == "mysql"'>concat('%',#{item.value})</if>
+                                </if>
+                            </when>
+                            <when test='"right_like".equalsIgnoreCase(item.queryType) or "not right_like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not right_like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>#{item.value}||'%'</if>
+                                    <if test='dbName == "mssql"'>#{item.value}+'%'</if>
+                                    <if test='dbName == "mysql"'>concat(#{item.value},'%')</if>
+                                </if>
+                            </when>
+                            <when test='"in".equalsIgnoreCase(item.queryType) or "not in".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and item.value.size() > 0'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not in".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    IN
+                                    <foreach collection="item.value" item="name" index="index" open="(" close=")"
+                                             separator=",">
+                                        #{name}
+                                    </foreach>
+                                </if>
+                            </when>
+                            <otherwise>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    ${item.queryType} #{item.value}
+                                </if>
+                            </otherwise>
+                        </choose>
+                    </if>
+                    <if test='item != null and item.queryType != null and item.columnName == "userstatus"'>
+                        and userid.del_flag = #{item.value}
+                    </if>
+                </foreach>
+                )
+            </if>
+        </where>
+        <choose>
+            <when test="order != null and order != ''">
+                ORDER BY ${order}
+            </when>
+            <otherwise>
+                ORDER BY a.update_date DESC
+            </otherwise>
+        </choose>
+    </select>
+    <select id="listAlls" resultMap="resultTfamAssetMap">
+        SELECT
+        <include refid="tfamAssetColumns"/>
+        FROM tfam_asset a
+        <!--<include refid="tfamAssetJoins"/>-->
+        LEFT JOIN tfam_nature nature ON nature.id = a.nature
+        LEFT JOIN tfam_category category ON category.id = a.category_id
+        LEFT JOIN tfam_supplier producer ON producer.id = a.producer
+        LEFT JOIN org_department usedeptid ON usedeptid.id = a.usedeptid
+        LEFT JOIN sys_user userid ON userid.id = a.userid
+        LEFT JOIN tfam_usingstatus usingstatus ON usingstatus.id = a.usingstatus
+        LEFT JOIN tfam_depmethod depmethod ON depmethod.id = a.depmethod
+        LEFT JOIN tfam_change_way addReason ON addReason.id = a.add_reason
+        LEFT JOIN tfam_status status ON status.id = a.status
+        LEFT JOIN tgl_accounts ta ON ta.UQACCOUNTID = a.asset_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta1 ON ta1.UQACCOUNTID = a.accudep_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta1.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta2 ON ta2.UQACCOUNTID = a.predevaluate_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta2.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta3 ON ta3.UQACCOUNTID = a.depcost_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta3.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta4 ON ta4.UQACCOUNTID = a.project_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta4.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta5 ON ta5.UQACCOUNTID = a.predevaluate_coraccountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta5.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        LEFT JOIN tgl_accounts ta6 ON ta6.UQACCOUNTID = a.tax_accountid
+        <foreach collection="params" item="item" index="index">
+            <if test='item != null and item.queryType != null and item.columnName == "company_id"'>
+                and ta6.tenant_id = #{item.value}
+            </if>
+        </foreach>
+        <where>
+            1=1
+            AND a.id > 0
+            AND a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test='params != null and params.size() > 0'>
+                AND ( 1=1
+                <foreach collection="params" item="item" index="index">
+                    <if test="item != null and item.queryType != null and item.columnName != 'userstatus'">
+                        <choose>
+                            <when test='item.queryType == "("'>
+                                ${item.logic} ( 1=1
+                            </when>
+                            <when test='item.queryType == ")"'>
+                                )
+                            </when>
+                            <when test='"is null".equalsIgnoreCase(item.queryType) or "is not null".equalsIgnoreCase(item.queryType)'>
+                                ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                ${item.queryType}
+                            </when>
+                            <when test='"between".equalsIgnoreCase(item.queryType) or "not between".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and item.value[0] != null and (item.value[0] != "" or item.value[0] == "0".toString()) and item.value[1] != null and (item.value[1] != "" or item.value[1] == "0".toString())'>
+                                    ${item.logic} ( <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not between".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    BETWEEN
+                                    #{item.value[0]} AND #{item.value[1]} )
+                                </if>
+                            </when>
+                            <when test='"like".equalsIgnoreCase(item.queryType) or "not like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>'%'||#{item.value}||'%'</if>
+                                    <if test='dbName == "mssql"'>'%'+#{item.value}+'%'</if>
+                                    <if test='dbName == "mysql"'>concat('%',#{item.value},'%')</if>
+                                </if>
+                            </when>
+                            <when test='"left_like".equalsIgnoreCase(item.queryType) or "not left_like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not left_like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>'%'||#{item.value}</if>
+                                    <if test='dbName == "mssql"'>'%'+#{item.value}</if>
+                                    <if test='dbName == "mysql"'>concat('%',#{item.value})</if>
+                                </if>
+                            </when>
+                            <when test='"right_like".equalsIgnoreCase(item.queryType) or "not right_like".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not right_like".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    LIKE
+                                    <if test='dbName == "oracle"'>#{item.value}||'%'</if>
+                                    <if test='dbName == "mssql"'>#{item.value}+'%'</if>
+                                    <if test='dbName == "mysql"'>concat(#{item.value},'%')</if>
+                                </if>
+                            </when>
+                            <when test='"in".equalsIgnoreCase(item.queryType) or "not in".equalsIgnoreCase(item.queryType)'>
+                                <if test='item != null and item.value != null and item.value.size() > 0'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    <if test='"not in".equalsIgnoreCase(item.queryType)'>NOT</if>
+                                    IN
+                                    <foreach collection="item.value" item="name" index="index" open="(" close=")"
+                                             separator=",">
+                                        #{name}
+                                    </foreach>
+                                </if>
+                            </when>
+                            <otherwise>
+                                <if test='item != null and item.value != null and (item.value != "" or item.value == "0".toString())'>
+                                    ${item.logic} <if test='item.columnName.indexOf(".") == -1'>a.</if>${item.columnName}
+                                    ${item.queryType} #{item.value}
+                                </if>
+                            </otherwise>
+                        </choose>
+                    </if>
+                    <if test='item.columnName == "userstatus"'>
+                        and userid.del_flag = #{item.value}
+                    </if>
+                </foreach>
+                )
+            </if>
+        </where>
+        <choose>
+            <when test="order != null and order != ''">
+                ORDER BY ${order}
+            </when>
+            <otherwise>
+                ORDER BY a.update_date DESC
+            </otherwise>
+        </choose>
+    </select>
+    <insert id="insert">
+        INSERT INTO tfam_asset(
+        <trim suffixOverrides=",">
+            id,
+            year,
+            month,
+            card_code,
+            asset_code,
+            business_date,
+            nature,
+            category_id,
+            asset_name,
+            spec,
+            card_model,
+            place,
+            producer,
+            usedeptid,
+            userid,
+            num,
+            unit,
+            usingstatus,
+            memo,
+            asset_accountid,
+            accudep_accountid,
+            predevaluate_accountid,
+            depcost_accountid,
+            isproject,
+            project_accountid,
+            predevaluate_coraccountid,
+            tax_accountid,
+            value,
+            rate,
+            tax,
+            accudep,
+            predevaluate,
+            netvalue,
+            salvagerate,
+            salvage,
+            depmethod,
+            naturemonth,
+            servicemonth,
+            deprate,
+            depamount,
+            allworkloan,
+            workloanunit,
+            add_reason,
+            createrid,
+            status,
+            reduce_reason,
+            lastyearaccudep,
+            usedmonth,
+            changedmonth,
+            scrap_date,
+            company_id,
+            businessdept,
+            employeeno,
+            user_ascription,
+            asset_ascription,
+            mac_address,
+            startup_date,
+            assetbrand,
+            enable_date,
+            remarks,
+            create_by,
+            create_date,
+            update_by,
+            update_date,
+            del_flag,
+        </trim>
+        ) VALUES (
+        <trim suffixOverrides=",">
+            #{ id },
+            #{ year },
+            #{ month },
+            #{ cardCode },
+            #{ assetCode },
+            #{ businessDate },
+            #{ nature.id },
+            #{ category.id },
+            #{ assetName },
+            #{ spec },
+            #{ cardModel },
+            #{ place },
+            #{ producer.id },
+            #{ usedeptid.id },
+            #{ userid.id },
+            #{ num },
+            #{ unit },
+            #{ usingstatus.id },
+            #{ memo },
+            #{ assetAccountid.uqaccountid },
+            #{ accudepAccountid.uqaccountid },
+            #{ predevaluateAccountid.uqaccountid },
+            #{ depcostAccountid.uqaccountid },
+            #{ isproject },
+            #{ projectAccountid.uqaccountid },
+            #{ predevaluateCoraccountid.uqaccountid },
+            #{ taxAccountid.uqaccountid },
+            #{ value },
+            #{ rate },
+            #{ tax },
+            #{ accudep },
+            #{ predevaluate },
+            #{ netvalue },
+            #{ salvagerate },
+            #{ salvage },
+            #{ depmethod.id },
+            #{ naturemonth },
+            #{ servicemonth },
+            #{ deprate },
+            #{ depamount },
+            #{ allworkloan },
+            #{ workloanunit },
+            #{ addReason.id },
+            #{ createrid },
+            #{ status.id },
+            #{ reduceReason },
+            #{ lastyearaccudep },
+            #{ usedmonth },
+            #{ changedmonth },
+            #{ scrapDate },
+            #{ companyId },
+            #{ businessdept },
+            #{ employeeno },
+            #{ userAscription },
+            #{ assetAscription },
+            #{ macAddress },
+            #{ startupDate },
+            #{ assetbrand },
+            #{ enableDate },
+            #{ remarks },
+            #{ createBy },
+            #{ createDate },
+            #{ updateBy },
+            #{ updateDate },
+            #{ delFlag },
+        </trim>
+        )
+    </insert>
+    <select id="getMaxAssetCode" resultType="java.lang.String">
+        SELECT MAX(asset_code)
+        FROM tfam_asset
+        WHERE asset_code like concat('%', #{assetCode}, '%')
+    </select>
+
+    <resultMap id="countAssetMap" type="com.geeke.fixasset.asset.dto.CountAssetDto">
+        <result property="countItemId" column="countItemId"/>
+        <result property="num" column="num"/>
+        <result property="value" column="value"/>
+        <result property="netvalue" column="netvalue"/>
+        <result property="accudep" column="accudep"/>
+    </resultMap>
+
+
+    <!--  <select id="countAsset" resultMap="countAssetMap">-->
+    <select id="countAsset" resultType="com.geeke.fixasset.asset.dto.CountAssetDto">
+        select
+        <if test="groupCondition == 'category_id'">
+            category_id as countItemId,
+        </if>
+        <if test="groupCondition == 'usedeptid'">
+            usedeptid as countItemId,
+        </if>
+        <if test="groupCondition == 'asset_accountid'">
+            asset_accountid as countItemId,
+        </if>
+        <if test="groupCondition == 'depmethod'">
+            depmethod as countItemId,
+        </if>
+        <if test="groupCondition == 'usingstatus'">
+            usingstatus as countItemId,
+        </if>
+        COUNT(id) as num,
+        SUM(value) as value,
+        SUM(netvalue) as netvalue,
+        SUM(accudep) as accudep
+        from tfam_asset where del_flag = 0
+        group by
+        <if test="groupCondition == 'category_id'">
+            category_id
+        </if>
+        <if test="groupCondition == 'usedeptid'">
+            usedeptid
+        </if>
+        <if test="groupCondition == 'asset_accountid'">
+            asset_accountid
+        </if>
+        <if test="groupCondition == 'depmethod'">
+            depmethod
+        </if>
+        <if test="groupCondition == 'usingstatus'">
+            usingstatus
+        </if>
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="getMaxCardCode" resultType="java.lang.String">
+        SELECT MAX(card_code)
+        FROM tfam_asset
+        WHERE company_id = #{companyId}
+    </select>
+    <select id="getVoucherId" resultType="com.alibaba.fastjson.JSONObject">
+        select tfd.id as alterid,tfd.voucherid,tm.intvouchernum
+        from tfam_alter tfd
+                 left join tgl_voucher_mains tm on tm.uqvoucherid = tfd.voucherid
+        where tfd.asset_id = #{id}
+          and tfd.alter_type = '0001'
+        order by tfd.create_date
+    </select>
+    <update id="update">
+        UPDATE tfam_asset SET
+        <trim suffixOverrides=",">
+            year = #{ year },
+            month = #{ month },
+            asset_code = #{ assetCode },
+            business_date = #{ businessDate },
+            nature = #{ nature.id },
+            category_id = #{ category.id },
+            asset_name = #{ assetName },
+            spec = #{ spec },
+            card_model = #{ cardModel },
+            place = #{ place },
+            producer = #{ producer.id },
+            company_id = #{ companyid },
+            usedeptid = #{ usedeptid.id },
+            userid = #{ userid.id },
+            num = #{ num },
+            unit = #{ unit },
+            usingstatus = #{ usingstatus.id },
+            memo = #{ memo },
+            asset_accountid = #{ assetAccountid.uqaccountid },
+            accudep_accountid = #{ accudepAccountid.uqaccountid },
+            predevaluate_accountid = #{ predevaluateAccountid.uqaccountid },
+            depcost_accountid = #{ depcostAccountid.uqaccountid },
+            isproject = #{ isproject },
+            project_accountid = #{ projectAccountid.uqaccountid },
+            predevaluate_coraccountid = #{ predevaluateCoraccountid.uqaccountid },
+            tax_accountid = #{ taxAccountid.uqaccountid },
+            value = #{ value },
+            rate = #{ rate },
+            tax = #{ tax },
+            accudep = #{ accudep },
+            predevaluate = #{ predevaluate },
+            netvalue = #{ netvalue },
+            salvagerate = #{ salvagerate },
+            salvage = #{ salvage },
+            depmethod = #{ depmethod.id },
+            naturemonth = #{ naturemonth },
+            servicemonth = #{ servicemonth },
+            deprate = #{ deprate },
+            depamount = #{ depamount },
+            allworkloan = #{ allworkloan },
+            workloanunit = #{ workloanunit },
+            add_reason = #{ addReason.id },
+            createrid = #{ createrid },
+            status = #{ status.id },
+            reduce_reason = #{ reduceReason },
+            lastyearaccudep = #{ lastyearaccudep },
+            usedmonth = #{ usedmonth },
+            changedmonth = #{ changedmonth },
+            scrap_date = #{ scrapDate },
+
+            businessdept = #{ businessdept },
+            employeeno = #{ employeeno },
+            user_ascription = #{ userAscription },
+            asset_ascription = #{ assetAscription },
+            mac_address = #{ macAddress },
+            startup_date = #{ startupDate },
+            assetbrand = #{ assetbrand },
+            enable_date = #{ enableDate },
+            remarks = #{ remarks },
+            update_by = #{ updateBy },
+            update_date = #{ updateDate },
+        </trim>
+        WHERE id = #{id}
+        and update_date = #{oldUpdateDate}
+    </update>
+
+    <!--/*company_id = #{ companyId },*/-->
+
+    <update id="delete">
+        UPDATE tfam_asset
+        SET update_by   = #{updateBy},
+            update_date = #{updateDate},
+            del_flag    = #{DEL_FLAG_DELETE}
+        WHERE id = #{id}
+          and update_date = #{oldUpdateDate}
+    </update>
+    <insert id="bulkInsert" parameterType="java.util.List">
+        INSERT INTO tfam_asset(
+        <trim suffixOverrides=",">
+            id,
+            year,
+            month,
+            card_code,
+            asset_code,
+            business_date,
+            nature,
+            category_id,
+            asset_name,
+            spec,
+            card_model,
+            place,
+            producer,
+            usedeptid,
+            userid,
+            num,
+            unit,
+            usingstatus,
+            memo,
+            asset_accountid,
+            accudep_accountid,
+            predevaluate_accountid,
+            depcost_accountid,
+            isproject,
+            project_accountid,
+            predevaluate_coraccountid,
+            tax_accountid,
+            value,
+            rate,
+            tax,
+            accudep,
+            predevaluate,
+            netvalue,
+            salvagerate,
+            salvage,
+            depmethod,
+            naturemonth,
+            servicemonth,
+            deprate,
+            depamount,
+            allworkloan,
+            workloanunit,
+            add_reason,
+            createrid,
+            status,
+            reduce_reason,
+            lastyearaccudep,
+            usedmonth,
+            changedmonth,
+            scrap_date,
+            company_id,
+            businessdept,
+            employeeno,
+            user_ascription,
+            asset_ascription,
+            mac_address,
+            startup_date,
+            assetbrand,
+            enable_date,
+            remarks,
+            create_by,
+            create_date,
+            update_by,
+            update_date,
+            del_flag,
+        </trim>
+        ) VALUES
+        <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+            (
+            <trim suffixOverrides=",">
+                #{entity.id},
+                #{entity.year},
+                #{entity.month},
+                #{entity.cardCode},
+                #{entity.assetCode},
+                #{entity.businessDate},
+                #{entity.nature.id},
+                #{entity.category.id},
+                #{entity.assetName},
+                #{entity.spec},
+                #{entity.cardModel},
+                #{entity.place},
+                #{entity.producer.id},
+                #{entity.usedeptid.id},
+                #{entity.userid.id},
+                #{entity.num},
+                #{entity.unit},
+                #{entity.usingstatus.id},
+                #{entity.memo},
+                #{entity.assetAccountid.id},
+                #{entity.accudepAccountid.id},
+                #{entity.predevaluateAccountid.id},
+                #{entity.depcostAccountid.id},
+                #{entity.isproject},
+                #{entity.projectAccountid.id},
+                #{entity.predevaluateCoraccountid.id},
+                #{entity.taxAccountid.id},
+                #{entity.value},
+                #{entity.rate},
+                #{entity.tax},
+                #{entity.accudep},
+                #{entity.predevaluate},
+                #{entity.netvalue},
+                #{entity.salvagerate},
+                #{entity.salvage},
+                #{entity.depmethod.id},
+                #{entity.naturemonth},
+                #{entity.servicemonth},
+                #{entity.deprate},
+                #{entity.depamount},
+                #{entity.allworkloan},
+                #{entity.workloanunit},
+                #{entity.addReason.id},
+                #{entity.createrid},
+                #{entity.status.id},
+                #{entity.reduceReason},
+                #{entity.lastyearaccudep},
+                #{entity.usedmonth},
+                #{entity.changedmonth},
+                #{entity.scrapDate},
+                #{entity.companyId},
+                #{entity.businessdept},
+                #{entity.employeeno},
+                #{entity.userAscription},
+                #{entity.assetAscription},
+                #{entity.macAddress},
+                #{entity.startupDate},
+                #{entity.assetbrand},
+                #{entity.enableDate},
+                #{entity.remarks},
+                #{entity.createBy},
+                #{entity.createDate},
+                #{entity.updateBy},
+                #{entity.updateDate},
+                #{entity.delFlag},
+            </trim>
+            )
+        </foreach>
+    </insert>
+    <update id="bulkUpdate" parameterType="java.util.List">
+        UPDATE tfam_asset
+        <set>
+            <trim prefix="year=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.year}
+                </foreach>
+            </trim>
+            <trim prefix="month=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.month}
+                </foreach>
+            </trim>
+            <trim prefix="asset_code=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.assetCode}
+                </foreach>
+            </trim>
+            <trim prefix="business_date=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.businessDate}
+                </foreach>
+            </trim>
+            <trim prefix="nature=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.nature.id}
+                </foreach>
+            </trim>
+            <trim prefix="category_id=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.category.id}
+                </foreach>
+            </trim>
+            <trim prefix="asset_name=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.assetName}
+                </foreach>
+            </trim>
+            <trim prefix="spec=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.spec}
+                </foreach>
+            </trim>
+            <trim prefix="card_model=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.cardModel}
+                </foreach>
+            </trim>
+            <trim prefix="place=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.place}
+                </foreach>
+            </trim>
+            <trim prefix="producer=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.producer.id}
+                </foreach>
+            </trim>
+            <trim prefix="companyid=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.companyid}
+                </foreach>
+            </trim>
+            <trim prefix="usedeptid=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.usedeptid.id}
+                </foreach>
+            </trim>
+            <trim prefix="userid=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.userid.id}
+                </foreach>
+            </trim>
+            <trim prefix="num=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.num}
+                </foreach>
+            </trim>
+            <trim prefix="unit=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.unit}
+                </foreach>
+            </trim>
+            <trim prefix="usingstatus=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.usingstatus.id}
+                </foreach>
+            </trim>
+            <trim prefix="memo=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.memo}
+                </foreach>
+            </trim>
+            <trim prefix="asset_accountid=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.assetAccountid.id}
+                </foreach>
+            </trim>
+            <trim prefix="accudep_accountid=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.accudepAccountid.id}
+                </foreach>
+            </trim>
+            <trim prefix="predevaluate_accountid=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.predevaluateAccountid.id}
+                </foreach>
+            </trim>
+            <trim prefix="depcost_accountid=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.depcostAccountid.id}
+                </foreach>
+            </trim>
+            <trim prefix="isproject=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.isproject}
+                </foreach>
+            </trim>
+            <trim prefix="project_accountid=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.projectAccountid.id}
+                </foreach>
+            </trim>
+            <trim prefix="predevaluate_coraccountid=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.predevaluateCoraccountid.id}
+                </foreach>
+            </trim>
+            <trim prefix="tax_accountid=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.taxAccountid.id}
+                </foreach>
+            </trim>
+            <trim prefix="value=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.value}
+                </foreach>
+            </trim>
+            <trim prefix="rate=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.rate}
+                </foreach>
+            </trim>
+            <trim prefix="tax=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.tax}
+                </foreach>
+            </trim>
+            <trim prefix="accudep=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.accudep}
+                </foreach>
+            </trim>
+            <trim prefix="predevaluate=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.predevaluate}
+                </foreach>
+            </trim>
+            <trim prefix="netvalue=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.netvalue}
+                </foreach>
+            </trim>
+            <trim prefix="salvagerate=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.salvagerate}
+                </foreach>
+            </trim>
+            <trim prefix="salvage=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.salvage}
+                </foreach>
+            </trim>
+            <trim prefix="depmethod=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.depmethod.id}
+                </foreach>
+            </trim>
+            <trim prefix="naturemonth=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.naturemonth}
+                </foreach>
+            </trim>
+            <trim prefix="servicemonth=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.servicemonth}
+                </foreach>
+            </trim>
+            <trim prefix="deprate=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.deprate}
+                </foreach>
+            </trim>
+            <trim prefix="depamount=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.depamount}
+                </foreach>
+            </trim>
+            <trim prefix="allworkloan=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.allworkloan}
+                </foreach>
+            </trim>
+            <trim prefix="workloanunit=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.workloanunit}
+                </foreach>
+            </trim>
+            <trim prefix="add_reason=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.addReason.id}
+                </foreach>
+            </trim>
+            <trim prefix="createrid=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.createrid}
+                </foreach>
+            </trim>
+            <trim prefix="status=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.status.id}
+                </foreach>
+            </trim>
+            <trim prefix="reduce_reason=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.reduceReason}
+                </foreach>
+            </trim>
+            <trim prefix="lastyearaccudep=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.lastyearaccudep}
+                </foreach>
+            </trim>
+            <trim prefix="usedmonth=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.usedmonth}
+                </foreach>
+            </trim>
+            <trim prefix="changedmonth=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.changedmonth}
+                </foreach>
+            </trim>
+            <trim prefix="scrap_date=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.scrapDate}
+                </foreach>
+            </trim>
+            <trim prefix="company_id=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.companyId}
+                </foreach>
+            </trim>
+            <trim prefix="businessdept=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.businessdept}
+                </foreach>
+            </trim>
+            <trim prefix="employeeno=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.employeeno}
+                </foreach>
+            </trim>
+            <trim prefix="user_ascription=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.userAscription}
+                </foreach>
+            </trim>
+            <trim prefix="asset_ascription=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.assetAscription}
+                </foreach>
+            </trim>
+            <trim prefix="mac_address=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.macAddress}
+                </foreach>
+            </trim>
+            <trim prefix="startup_date=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.startupDate}
+                </foreach>
+            </trim>
+            <trim prefix="assetbrand=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.assetbrand}
+                </foreach>
+            </trim>
+            <trim prefix="enable_date=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.enableDate}
+                </foreach>
+            </trim>
+            <trim prefix="remarks=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.remarks}
+                </foreach>
+            </trim>
+            <trim prefix="update_by=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.updateBy}
+                </foreach>
+            </trim>
+            <trim prefix="update_date=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.updateDate}
+                </foreach>
+            </trim>
+        </set>
+        WHERE
+        <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+            id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+        </foreach>
+    </update>
+    <update id="bulkDelete" parameterType="java.util.List">
+        UPDATE tfam_asset
+        <set>
+            <trim prefix="del_flag=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then 1
+                </foreach>
+            </trim>
+            <trim prefix="update_by=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.updateBy}
+                </foreach>
+            </trim>
+            <trim prefix="update_date=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.updateDate}
+                </foreach>
+            </trim>
+        </set>
+        WHERE
+        <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+            id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+        </foreach>
+    </update>
+</mapper>

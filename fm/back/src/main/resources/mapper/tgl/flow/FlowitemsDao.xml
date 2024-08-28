@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.tgl.flow.dao.FlowitemsDao">
+  <sql id="flowitemsColumns">
+    <trim suffixOverrides=",">
+      a.id AS "id",
+      a.uqflowitemid AS "uqflowitemid",
+      a.varcode AS "varcode",
+      a.varname AS "varname",
+      a.uqflowtypeid AS "uqflowtypeid.uqflowtypeid",
+      IFNULL(uqflowtypeid.varcode,'') AS "uqflowtypeid.varcode",
+      IFNULL(uqflowtypeid.varname,'') AS "uqflowtypeid.varname",
+      a.intstatus AS "intstatus",
+      a.tenant_id AS "tenantId",
+      a.direct AS "direct.value",
+      IFNULL(direct.id,'') AS "direct.id",
+      IFNULL(direct.name,'') AS "direct.name",
+      a.isSystem AS "issystem",
+      a.remarks AS "remarks",
+      a.create_by AS "createBy",
+      a.create_date AS "createDate",
+      a.update_by AS "updateBy",
+      a.update_date AS "updateDate",
+      a.del_flag AS "delFlag",
+    </trim>
+  </sql>
+  <sql id="flowitemsJoins">
+    LEFT JOIN tgl_flowtype uqflowtypeid ON uqflowtypeid.uqflowtypeid = a.uqflowtypeid
+    LEFT JOIN sys_dict_item direct ON direct.value = a.direct AND direct.dict_type_id = "1485382141169614860"
+  </sql>
+  <select id="get" resultType="com.geeke.tgl.flow.entity.Flowitems">
+    SELECT
+    <include refid="flowitemsColumns" />
+    FROM tgl_flowitems a
+    <include refid="flowitemsJoins" />
+    WHERE a.id = #{id}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tgl_flowitems a
+    <include refid="flowitemsJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="listPage" resultType="com.geeke.tgl.flow.entity.Flowitems">
+    SELECT
+    <include refid="flowitemsColumns" />
+    FROM tgl_flowitems a
+    <include refid="flowitemsJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultType="com.geeke.tgl.flow.entity.Flowitems">
+    SELECT
+    <include refid="flowitemsColumns" />
+    FROM tgl_flowitems a
+    <include refid="flowitemsJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tgl_flowitems(
+    <trim suffixOverrides=",">
+      id,
+      uqflowitemid,
+      varcode,
+      varname,
+      uqflowtypeid,
+      intstatus,
+      tenant_id,
+      direct,
+      isSystem,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ id },
+      #{ uqflowitemid },
+      #{ varcode },
+      #{ varname },
+      #{ uqflowtypeid.uqflowtypeid },
+      #{ intstatus },
+      #{ tenantId },
+      #{ direct.value },
+      #{ issystem },
+      #{ remarks },
+      #{ createBy },
+      #{ createDate },
+      #{ updateBy },
+      #{ updateDate },
+      #{ delFlag },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tgl_flowitems SET
+    <trim suffixOverrides=",">
+      uqflowitemid = #{ uqflowitemid },
+      varcode = #{ varcode },
+      varname = #{ varname },
+      uqflowtypeid = #{ uqflowtypeid.uqflowtypeid },
+      intstatus = #{ intstatus },
+      tenant_id = #{ tenantId },
+      direct = #{ direct.value },
+      isSystem = #{ issystem },
+      remarks = #{ remarks },
+      update_by = #{ updateBy },
+      update_date = #{ updateDate },
+    </trim>
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <update id="delete">
+    UPDATE tgl_flowitems SET
+    update_by = #{updateBy},
+    update_date = #{updateDate},
+    del_flag = #{DEL_FLAG_DELETE}
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tgl_flowitems(
+    <trim suffixOverrides=",">
+      id,
+      uqflowitemid,
+      varcode,
+      varname,
+      uqflowtypeid,
+      intstatus,
+      tenant_id,
+      direct,
+      isSystem,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.id},
+        #{entity.uqflowitemid},
+        #{entity.varcode},
+        #{entity.varname},
+        #{entity.uqflowtypeid.uqflowtypeid},
+        #{entity.intstatus},
+        #{entity.tenantId},
+        #{entity.direct.value},
+        #{entity.issystem},
+        #{entity.remarks},
+        #{entity.createBy},
+        #{entity.createDate},
+        #{entity.updateBy},
+        #{entity.updateDate},
+        #{entity.delFlag},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tgl_flowitems
+    <set>
+      <trim prefix="uqflowitemid=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqflowitemid}
+        </foreach>
+      </trim>
+      <trim prefix="varcode=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.varcode}
+        </foreach>
+      </trim>
+      <trim prefix="varname=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.varname}
+        </foreach>
+      </trim>
+      <trim prefix="uqflowtypeid=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqflowtypeid.uqflowtypeid}
+        </foreach>
+      </trim>
+      <trim prefix="intstatus=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.intstatus}
+        </foreach>
+      </trim>
+      <trim prefix="tenant_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.tenantId}
+        </foreach>
+      </trim>
+      <trim prefix="direct=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.direct.value}
+        </foreach>
+      </trim>
+      <trim prefix="isSystem=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.issystem}
+        </foreach>
+      </trim>
+      <trim prefix="remarks=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.remarks}
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    UPDATE tgl_flowitems
+    <set>
+      <trim prefix="del_flag=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then 1
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+</mapper>

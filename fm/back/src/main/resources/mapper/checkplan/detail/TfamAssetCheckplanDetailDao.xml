@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.checkplan.detail.dao.TfamAssetCheckplanDetailDao">
+    <sql id="tfamAssetCheckplanDetailColumns">
+        <trim suffixOverrides=",">
+            a.id AS "id",
+            a.main_id AS "main",
+            a.card_id AS "cardId",
+            a.card_no AS "cardNo",
+            a.asset_name AS "assetName",
+            a.userid AS "userid",
+            a.card_model AS "cardModel",
+            a.netvalue AS "netvalue",
+            a.evalvalue AS "evalvalue",
+            a.num AS "num",
+            a.unit AS "unit",
+            a.act_num AS "actNum",
+            a.before_check_status AS "beforeCheckStatus.id",
+            IFNULL(beforeCheckStatus.name,'') AS "beforeCheckStatus.name",
+            a.check_result AS "checkResult.id",
+            IFNULL(checkResult.name,'') AS "checkResult.name",
+            a.asset_status AS "assetStatus.id",
+            IFNULL(assetStatus.name,'') AS "assetStatus.name",
+            a.remark AS "remark",
+            a.check_status AS "checkStatus",
+            a.check_date AS "checkDate",
+            a.remarks AS "remarks",
+            a.create_by AS "createBy",
+            a.create_date AS "createDate",
+            a.update_by AS "updateBy",
+            a.update_date AS "updateDate",
+            a.del_flag AS "delFlag",
+        </trim>
+    </sql>
+    <sql id="tfamAssetCheckplanDetailJoins">
+        LEFT JOIN tfam_asset_status beforeCheckStatus ON beforeCheckStatus.id = a.before_check_status
+    LEFT JOIN tfam_asset_checkresult checkResult ON checkResult.id = a.check_result
+    LEFT JOIN tfam_asset_status assetStatus ON assetStatus.id = a.asset_status
+    </sql>
+    <select id="get" resultType="com.geeke.checkplan.detail.entity.TfamAssetCheckplanDetail">
+        SELECT
+        <include refid="tfamAssetCheckplanDetailColumns"/>
+        FROM tfam_asset_checkplan_detail a
+        <include refid="tfamAssetCheckplanDetailJoins"/>
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="selectAlreadyCheckNum" resultType="int">
+        SELECT COUNT(*) FROM tfam_asset_checkplan_detail a where  main_id = #{mainId} and a.check_status = 1
+    </select>
+    <select id="selectCatagory" resultType="com.geeke.fixasset.category.entity.TfamCategory">
+        SELECT
+            DISTINCT(c.id) as id ,c.fullname as fullname,c.imagename as imagename,c.imagepath as imagepath
+        FROM
+            tfam_asset_checkplan_detail d
+                LEFT JOIN tfam_asset a ON d.card_id = a.id
+                LEFT JOIN tfam_category c ON a.category_id = c.id
+        WHERE d.main_id = #{mainId}
+    </select>
+
+    <select id="selectPlan" resultType="com.geeke.checkplan.detail.entity.TfamAssetCheckplanDetail">
+        SELECT
+        <include refid="tfamAssetCheckplanDetailColumns"/>
+        FROM tfam_asset_checkplan_detail a
+        <include refid="tfamAssetCheckplanDetailJoins"/>
+        WHERE a.card_id = #{assetId} and  a.main_id = #{mainId}
+    </select>
+
+    <delete id="deleteByMainId">
+        delete from  tfam_asset_checkplan_detail where  main_id = #{mainId}
+    </delete>
+    <select id="count" resultType="int">
+        SELECT COUNT(*) FROM tfam_asset_checkplan_detail a
+        <include refid="tfamAssetCheckplanDetailJoins"/>
+        <where>
+            1=1
+            AND a.id > 0
+            AND a.del_flag = #{DEL_FLAG_NORMAL}
+            <include refid="Common.whereParams"/>
+        </where>
+    </select>
+
+    <select id="selectStatusAndCategory" resultType="com.geeke.checkplan.resp.StatusAndCategoryResp">
+        SELECT (SELECT name FROM tfam_category WHERE id = a.category_id)    as categoryName,
+               a.category_id                                                as categoryId,
+               (SELECT name FROM tfam_usingstatus WHERE id = a.usingstatus) as statusName,
+               a.`usingstatus`                                                   as statusId,
+               count(1)                                                   as num,
+               d.unit                                                       as unit
+        FROM tfam_asset_checkplan_detail d
+                 LEFT JOIN tfam_asset a ON d.card_id = a.id
+        where d.main_id = #{mainId}
+        GROUP BY a.`usingstatus`,
+                 a.category_id;
+    </select>
+
+    <select id="getDeptByMainId" resultType="com.geeke.checkplan.detail.entity.TfamAssetCheckplanDetail">
+        select *
+        from tfam_asset_checkplan_detail
+        where main_id = #{mainId}
+          and del_flag = 0
+
+    </select>
+
+    <select id="getByDept" resultType="com.geeke.checkplan.resp.CheckByDeptResp">
+        SELECT (SELECT `name` FROM org_department WHERE id = a.usedeptid) as deptName,
+               count(1)                                                 as total,
+               d.unit                                                     as unit,
+               SUM(IF(d.check_status = 1, 1, 0))                      as alreadlyCkeck,
+               SUM(IF(d.check_status = 0, 1, 0))                      as waitCkeck
+        FROM tfam_asset_checkplan_detail d
+                 LEFT JOIN tfam_asset a ON d.card_id = a.id
+        where d.main_id = #{mainId}
+        GROUP BY a.usedeptid
+
+    </select>
+
+    <select id="getByCatagory" resultType="com.geeke.checkplan.resp.CheckByCategoryResp">
+        SELECT (SELECT `name` FROM tfam_category WHERE id = a.category_id) as categoryName,
+               count(1)                                                  as total,
+               d.unit                                                      as unit,
+               SUM(IF(d.check_status = 1, 1, 0))                       as alreadlyCkeck,
+               SUM(IF(d.check_status = 0, 1, 0))                       as waitCkeck
+        FROM tfam_asset_checkplan_detail d
+                 LEFT JOIN tfam_asset a ON d.card_id = a.id
+        where d.main_id = #{mainId}
+        GROUP BY a.usedeptid
+
+    </select>
+
+    <select id="listPage" resultType="com.geeke.checkplan.detail.entity.TfamAssetCheckplanDetail">
+        SELECT
+        <include refid="tfamAssetCheckplanDetailColumns"/>
+        FROM tfam_asset_checkplan_detail a
+        <include refid="tfamAssetCheckplanDetailJoins"/>
+        <where>
+            1=1
+            AND a.id > 0
+            AND a.del_flag = #{DEL_FLAG_NORMAL}
+            <include refid="Common.whereParams"/>
+        </where>
+        <choose>
+            <when test="order != null and order != ''">
+                ORDER BY ${order}
+            </when>
+            <otherwise>
+                ORDER BY a.update_date DESC
+            </otherwise>
+        </choose>
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+    <select id="listAll" resultType="com.geeke.checkplan.detail.entity.TfamAssetCheckplanDetail">
+        SELECT
+        <include refid="tfamAssetCheckplanDetailColumns"/>
+        FROM tfam_asset_checkplan_detail a
+        <include refid="tfamAssetCheckplanDetailJoins"/>
+        <where>
+            1=1
+            AND a.id > 0
+            AND a.del_flag = #{DEL_FLAG_NORMAL}
+            <include refid="Common.whereParams"/>
+        </where>
+        <choose>
+            <when test="order != null and order != ''">
+                ORDER BY ${order}
+            </when>
+            <otherwise>
+                ORDER BY a.update_date DESC
+            </otherwise>
+        </choose>
+    </select>
+    <insert id="insert">
+        INSERT INTO tfam_asset_checkplan_detail(
+        <trim suffixOverrides=",">
+            id,
+            main_id,
+            card_id,
+            card_no,
+            asset_name,
+            userid,
+            card_model,
+            netvalue,
+            evalvalue,
+            num,
+            unit,
+            act_num,
+            before_check_status,
+            check_result,
+            asset_status,
+            remark,
+            check_status,
+            check_date,
+            remarks,
+            create_by,
+            create_date,
+            update_by,
+            update_date,
+            del_flag,
+        </trim>
+        ) VALUES (
+        <trim suffixOverrides=",">
+            #{ id },
+            #{ main },
+            #{ cardId },
+            #{ cardNo },
+            #{ assetName },
+            #{ userid },
+            #{ cardModel },
+            #{ netvalue },
+            #{ evalvalue },
+            #{ num },
+            #{ unit },
+            #{ actNum },
+            #{ beforeCheckStatus.id },
+            #{ checkResult.id },
+            #{ assetStatus.id },
+            #{ remark },
+            #{ checkStatus },
+            #{ checkDate },
+            #{ remarks },
+            #{ createBy },
+            #{ createDate },
+            #{ updateBy },
+            #{ updateDate },
+            #{ delFlag },
+        </trim>
+        )
+    </insert>
+    <update id="update">
+        UPDATE tfam_asset_checkplan_detail SET
+        <trim suffixOverrides=",">
+            main_id = #{ main },
+            card_id = #{ cardId },
+            card_no = #{ cardNo },
+            asset_name = #{ assetName },
+            userid = #{ userid },
+            card_model = #{ cardModel },
+            netvalue = #{ netvalue },
+            evalvalue = #{ evalvalue },
+            num = #{ num },
+            unit = #{ unit },
+            act_num = #{ actNum },
+            before_check_status = #{ beforeCheckStatus.id },
+            check_result = #{ checkResult.id },
+            asset_status = #{ assetStatus.id },
+            remark = #{ remark },
+            check_status = #{ checkStatus },
+            check_date = #{ checkDate },
+            remarks = #{ remarks },
+            update_by = #{ updateBy },
+            update_date = #{ updateDate },
+        </trim>
+        WHERE id = #{id}
+        and update_date = #{oldUpdateDate}
+    </update>
+    <update id="delete">
+        UPDATE tfam_asset_checkplan_detail
+        SET update_by   = #{updateBy},
+            update_date = #{updateDate},
+            del_flag    = #{DEL_FLAG_DELETE}
+        WHERE id = #{id}
+          and update_date = #{oldUpdateDate}
+    </update>
+    <insert id="bulkInsert" parameterType="java.util.List">
+        INSERT INTO tfam_asset_checkplan_detail(
+        <trim suffixOverrides=",">
+            id,
+            main_id,
+            card_id,
+            card_no,
+            asset_name,
+            userid,
+            card_model,
+            netvalue,
+            evalvalue,
+            num,
+            unit,
+            act_num,
+            before_check_status,
+            check_result,
+            asset_status,
+            remark,
+            check_status,
+            check_date,
+            remarks,
+            create_by,
+            create_date,
+            update_by,
+            update_date,
+            del_flag,
+        </trim>
+        ) VALUES
+        <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+            (
+            <trim suffixOverrides=",">
+                #{entity.id},
+                #{entity.main},
+                #{entity.cardId},
+                #{entity.cardNo},
+                #{entity.assetName},
+                #{entity.userid},
+                #{entity.cardModel},
+                #{entity.netvalue},
+                #{entity.evalvalue},
+                #{entity.num},
+                #{entity.unit},
+                #{entity.actNum},
+                #{entity.beforeCheckStatus.id},
+                #{entity.checkResult.id},
+                #{entity.assetStatus.id},
+                #{entity.remark},
+                #{entity.checkStatus},
+                #{entity.checkDate},
+                #{entity.remarks},
+                #{entity.createBy},
+                #{entity.createDate},
+                #{entity.updateBy},
+                #{entity.updateDate},
+                #{entity.delFlag},
+            </trim>
+            )
+        </foreach>
+    </insert>
+    <update id="bulkUpdate" parameterType="java.util.List">
+        UPDATE tfam_asset_checkplan_detail
+        <set>
+            <trim prefix="main_id=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.main}
+                </foreach>
+            </trim>
+            <trim prefix="card_id=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.cardId}
+                </foreach>
+            </trim>
+            <trim prefix="card_no=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.cardNo}
+                </foreach>
+            </trim>
+            <trim prefix="asset_name=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.assetName}
+                </foreach>
+            </trim>
+            <trim prefix="userid=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.userid}
+                </foreach>
+            </trim>
+            <trim prefix="card_model=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.cardModel}
+                </foreach>
+            </trim>
+            <trim prefix="netvalue=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.netvalue}
+                </foreach>
+            </trim>
+            <trim prefix="evalvalue=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.evalvalue}
+                </foreach>
+            </trim>
+            <trim prefix="num=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.num}
+                </foreach>
+            </trim>
+            <trim prefix="unit=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.unit}
+                </foreach>
+            </trim>
+            <trim prefix="act_num=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.actNum}
+                </foreach>
+            </trim>
+            <trim prefix="before_check_status=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.beforeCheckStatus.id}
+                </foreach>
+            </trim>
+            <trim prefix="check_result=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.checkResult.id}
+                </foreach>
+            </trim>
+            <trim prefix="asset_status=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.assetStatus.id}
+                </foreach>
+            </trim>
+            <trim prefix="remark=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.remark}
+                </foreach>
+            </trim>
+            <trim prefix="check_status=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.checkStatus}
+                </foreach>
+            </trim>
+            <trim prefix="check_date=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.checkDate}
+                </foreach>
+            </trim>
+            <trim prefix="remarks=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.remarks}
+                </foreach>
+            </trim>
+            <trim prefix="update_by=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.updateBy}
+                </foreach>
+            </trim>
+            <trim prefix="update_date=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.updateDate}
+                </foreach>
+            </trim>
+        </set>
+        WHERE
+        <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+            id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+        </foreach>
+    </update>
+    <update id="bulkDelete" parameterType="java.util.List">
+        UPDATE tfam_asset_checkplan_detail
+        <set>
+            <trim prefix="del_flag=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then 1
+                </foreach>
+            </trim>
+            <trim prefix="update_by=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.updateBy}
+                </foreach>
+            </trim>
+            <trim prefix="update_date=case" suffix="end,">
+                <foreach collection="entitys" item="entity" index="index">
+                    when id=#{entity.id} then #{entity.updateDate}
+                </foreach>
+            </trim>
+        </set>
+        WHERE
+        <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+            id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+        </foreach>
+    </update>
+</mapper>

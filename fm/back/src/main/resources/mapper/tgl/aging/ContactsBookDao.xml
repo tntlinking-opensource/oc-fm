@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.tgl.aging.dao.ContactsBookDao">
+    <select id="count" resultType="int">
+        SELECT COUNT(tt.direct) from
+        (
+        select opt.ledgername,
+        opt.direct,
+        Format(opt.perioddebit,2) as perioddebit,
+        Format(opt.periodcredit,2) as periodcredit,
+        Format( case when INTPROPERTY=1  then (BEGINDEBIT-BEGINCREDIT) when INTPROPERTY=2 then (BEGINCREDIT-BEGINDEBIT) ELSE 0 END,2) as begphase,
+        <foreach collection="agingList" item="aging" index="index">
+            <if test="map.byWay != null and map.byWay != '' and map.byWay == '0'.toString()">
+                Format(ifnull( opt.count${index}, 0), 2) as `count${index}`,
+            </if>
+            <if test="map.byWay != null and map.byWay != '' and map.byWay == '1'.toString()">
+                Format(ifnull( opt.COUNTMNYDEBITN${index}, 0), 2) as COUNTMNYDEBITN${index},
+                Format(ifnull( opt.COUNTMNYCREDIT${index}, 0), 2) as COUNTMNYCREDIT${index},
+            </if>
+        </foreach>
+        Format( case when INTPROPERTY=1  then (ENDDEBITREST-ENDCREDITREST) when INTPROPERTY=2 then (ENDCREDITREST-ENDDEBITREST) ELSE 0 END,2) as endphase
+        from
+        (
+        select * from
+        (
+        select UQGROUPID AS LEDGERID,
+        VARGROUPCODE AS LEDGERCODE,
+        VARGROUPNAME AS ledgername,
+        BEGINDEBIT,
+        BEGINCREDIT,
+        PERIODDEBIT,
+        PERIODCREDIT,
+        T.UQACCOUNTID,
+        T.UQLEDGEID,T.INTPROPERTY,
+        case when ISBALANCE=0 THEN '借'  ELSE '贷' END AS direct,
+        case WHEN BEGINDEBIT - BEGINCREDIT + PERIODDEBIT - PERIODCREDIT >= 0 then
+        ( BEGINDEBIT - BEGINCREDIT + PERIODDEBIT - PERIODCREDIT ) ELSE 0 END AS ENDDEBITREST,
+        case WHEN BEGINDEBIT - BEGINCREDIT + PERIODDEBIT - PERIODCREDIT &lt; 0 THEN
+        ( BEGINDEBIT - BEGINCREDIT + PERIODDEBIT - PERIODCREDIT ) *- 1 ELSE 0 END AS ENDCREDITREST
+        from
+        (
+        select TL.UQLEDGEID AS UQGROUPID,
+        TL.VARLEDGEFULLNAME VARGROUPNAME,
+        TL.VARLEDGEFULLCODE VARGROUPCODE,
+        C.VARLEDGENAME,
+        TL.UQLEDGEID,
+        SUM( CASE WHEN GP.INTYEARMONTH &lt; 202305 THEN LP.MNYDEBITPERIODALL ELSE 0 END ) BEGINDEBIT,
+        SUM( CASE WHEN GP.INTYEARMONTH &lt; 202305 THEN LP.MNYCREDITPERIODALL ELSE 0 END ) BEGINCREDIT,
+        SUM( CASE WHEN GP.INTYEARMONTH &gt;= 202305 THEN LP.MNYDEBITPERIODALL ELSE 0 END ) PERIODDEBIT,
+        SUM( CASE WHEN GP.INTYEARMONTH &gt;= 202305 THEN LP.MNYCREDITPERIODALL ELSE 0 END ) PERIODCREDIT,
+        lp.UQACCOUNTID,
+        lp.ISBALANCE,
+        lp.INTPROPERTY
+        FROM TGL_LEDGER TL
+        LEFT JOIN
+        (
+        SELECT   L.* ,A.ISBALANCE,A.INTPROPERTY FROM tgl_accounts A
+        INNER JOIN TGL_COMPANY_LEDGER_PERIODS L ON A.UQACCOUNTID = L.UQACCOUNTID AND L.UQCOMPANYID = #{map.companyId}
+        WHERE 1=1 AND A.UQACCOUNTSETID = #{ map.UQACCOUNTSETID }  and A.UQACCOUNTID = #{ map.uqaccountid }
+        ) LP ON TL.UQLEDGEID = LP.UQLEDGEID
+        INNER JOIN tgl_ledger C ON C.UQLEDGEID = TL.UQLEDGEID
+        LEFT JOIN TGL_GLOBAL_PERIODS GP ON ( LP.UQGLOBALPERIODID = GP.UQGLOBALPERIODID AND GP.INTYEARMONTH &lt;= #{ map.period } )
+        WHERE 1=1 AND TL.UQLEDGEID in
+        <foreach collection="map.ledgetype" item="ledgeId" index="index" separator="," open="(" close=")">
+            #{ledgeId}
+        </foreach>
+        GROUP BY TL.UQLEDGEID, TL.VARLEDGEFULLCODE, TL.VARLEDGEFULLNAME, C.VARLEDGENAME
+        ORDER BY C.VARLEDGENAME,  TL.VARLEDGEFULLCODE
+        ) T
+        ) T1
+        <foreach collection="agingList" item="aging" index="index">
+            LEFT JOIN ( SELECT
+            <if test="map.byWay != null and map.byWay != '' and map.byWay == '0'.toString()">
+                case when tac.INTPROPERTY=1 then sum(tdl.MNYDEBIT-tdl.MNYCREDIT)
+                when tac.INTPROPERTY=2 then sum(tdl.MNYCREDIT-tdl.MNYDEBIT) ELSE 0 END as `count${index}`,
+            </if>
+            <if test="map.byWay != null and map.byWay != '' and map.byWay == '0'.toString()">
+                IFNULL( sum( tdl.MNYDEBIT ), 0 ) AS COUNTMNYDEBITN${index},
+                IFNULL( sum( tdl.MNYCREDIT ), 0 ) AS COUNTMNYCREDIT${index},
+            </if>
+            te.UQLEDGEID as te${index}
+            FROM tgl_voucher_detail_ledger tdl
+            LEFT JOIN tgl_ledger te ON tdl.UQLEDGERID = te.UQLEDGEID
+            LEFT JOIN tgl_voucher_details tvd ON tdl.UQVOUCHERDETAILID = tvd.UQVOUCHERDETAILID
+            LEFT JOIN tgl_voucher_mains tvm ON tvd.UQVOUCHERID = tvm.UQVOUCHERID
+            LEFT JOIN tgl_accounts tac on tvd.UQACCOUNTID=tac.UQACCOUNTID
+            WHERE  tac.UQACCOUNTID = #{ map.uqaccountid }
+            and te.UQLEDGEID in
+            <foreach collection="map.ledgetype" item="ledgeId" index="ledgeIndex" separator="," open="(" close=")">
+                #{ledgeId}
+            </foreach>
+            AND tvm.INTFLAG = 2
+            AND tvm.INTDELETEFLAG = 0
+            <if test="map.byDay != null and map.byDay != '' and map.byDay == '0'.toString()">
+                AND date( tvm.DTFILLER )
+            </if>
+            <if test="map.byDay != null and map.byDay != '' and map.byDay == '1'.toString()">
+                AND date( tvm.CHARGEAGAINSTSUBMITODD )
+            </if>
+            BETWEEN #{map.maxDay} - INTERVAL #{aging.aging} DAY
+            and #{map.maxDay} - INTERVAL #{aging.beforeAging} DAY
+            group by te.UQLEDGEID
+            ) M${index} ON M${index}.te${index} = T1.UQLEDGEID
+        </foreach>
+        ) opt
+        ) tt
+        where 1=1
+        and perioddebit != 0 or periodcredit != 0 or begphase != 0 or endphase != 0
+        <foreach collection="agingList" item="aging" index="index">
+            <if test="map.byWay != null and map.byWay != '' and map.byWay == '0'.toString()">
+                or count${index} != 0
+            </if>
+            <if test="map.byWay != null and map.byWay != '' and map.byWay == '1'.toString()">
+                or COUNTMNYDEBITN${index} != 0 or COUNTMNYCREDIT${index} != 0
+            </if>
+        </foreach>
+    </select>
+    <select id="listPage" resultType="java.util.Map">
+        select tt.* from
+            (
+                select opt.ledgername,
+                        opt.direct,
+                        Format(opt.perioddebit,2) as perioddebit,
+                        Format(opt.periodcredit,2) as periodcredit,
+                        Format( case when INTPROPERTY=1  then (BEGINDEBIT-BEGINCREDIT) when INTPROPERTY=2 then (BEGINCREDIT-BEGINDEBIT) ELSE 0 END,2) as begphase,
+                        <foreach collection="agingList" item="aging" index="index">
+                            <if test="map.byWay != null and map.byWay != '' and map.byWay == '0'.toString()">
+                                Format(ifnull( opt.count${index}, 0), 2) as `count${index}`,
+                            </if>
+                            <if test="map.byWay != null and map.byWay != '' and map.byWay == '1'.toString()">
+                                Format(ifnull( opt.COUNTMNYDEBITN${index}, 0), 2) as COUNTMNYDEBITN${index},
+                                Format(ifnull( opt.COUNTMNYCREDIT${index}, 0), 2) as COUNTMNYCREDIT${index},
+                            </if>
+                        </foreach>
+                        Format( case when INTPROPERTY=1  then (ENDDEBITREST-ENDCREDITREST) when INTPROPERTY=2 then (ENDCREDITREST-ENDDEBITREST) ELSE 0 END,2) as endphase
+                from
+                     (
+                        select * from
+                            (
+                                select UQGROUPID AS LEDGERID,
+                                        VARGROUPCODE AS LEDGERCODE,
+                                        VARGROUPNAME AS ledgername,
+                                        BEGINDEBIT,
+                                        BEGINCREDIT,
+                                        PERIODDEBIT,
+                                        PERIODCREDIT,
+                                        T.UQACCOUNTID,
+                                        T.UQLEDGEID,T.INTPROPERTY,
+                                        case when ISBALANCE=0 THEN '借'  ELSE '贷' END AS direct,
+                                        case WHEN BEGINDEBIT - BEGINCREDIT + PERIODDEBIT - PERIODCREDIT >= 0 then
+                                            ( BEGINDEBIT - BEGINCREDIT + PERIODDEBIT - PERIODCREDIT ) ELSE 0 END AS ENDDEBITREST,
+                                        case WHEN BEGINDEBIT - BEGINCREDIT + PERIODDEBIT - PERIODCREDIT &lt; 0 THEN
+                                            ( BEGINDEBIT - BEGINCREDIT + PERIODDEBIT - PERIODCREDIT ) *- 1 ELSE 0 END AS ENDCREDITREST
+                                from
+                                     (
+                                        select TL.UQLEDGEID AS UQGROUPID,
+                                                TL.VARLEDGEFULLNAME VARGROUPNAME,
+                                                TL.VARLEDGEFULLCODE VARGROUPCODE,
+                                                C.VARLEDGENAME,
+                                                TL.UQLEDGEID,
+                                                SUM( CASE WHEN GP.INTYEARMONTH &lt; 202305 THEN LP.MNYDEBITPERIODALL ELSE 0 END ) BEGINDEBIT,
+                                                SUM( CASE WHEN GP.INTYEARMONTH &lt; 202305 THEN LP.MNYCREDITPERIODALL ELSE 0 END ) BEGINCREDIT,
+                                                SUM( CASE WHEN GP.INTYEARMONTH &gt;= 202305 THEN LP.MNYDEBITPERIODALL ELSE 0 END ) PERIODDEBIT,
+                                                SUM( CASE WHEN GP.INTYEARMONTH &gt;= 202305 THEN LP.MNYCREDITPERIODALL ELSE 0 END ) PERIODCREDIT,
+                                                lp.UQACCOUNTID,
+                                                lp.ISBALANCE,
+                                                lp.INTPROPERTY
+                                        FROM TGL_LEDGER TL
+                                            LEFT JOIN
+                                                (
+                                                    SELECT   L.* ,A.ISBALANCE,A.INTPROPERTY FROM tgl_accounts A
+                                                    INNER JOIN TGL_COMPANY_LEDGER_PERIODS L ON A.UQACCOUNTID = L.UQACCOUNTID AND L.UQCOMPANYID = #{map.companyId}
+                                                    WHERE 1=1 AND A.UQACCOUNTSETID = #{ map.UQACCOUNTSETID }  and A.UQACCOUNTID = #{ map.uqaccountid }
+                                                ) LP ON TL.UQLEDGEID = LP.UQLEDGEID
+                                            INNER JOIN tgl_ledger C ON C.UQLEDGEID = TL.UQLEDGEID
+                                            LEFT JOIN TGL_GLOBAL_PERIODS GP ON ( LP.UQGLOBALPERIODID = GP.UQGLOBALPERIODID AND GP.INTYEARMONTH &lt;= #{ map.period } )
+                                        WHERE 1=1 AND TL.UQLEDGEID in
+                                        <foreach collection="map.ledgetype" item="ledgeId" index="index" separator="," open="(" close=")">
+                                            #{ledgeId}
+                                        </foreach>
+                                        GROUP BY TL.UQLEDGEID, TL.VARLEDGEFULLCODE, TL.VARLEDGEFULLNAME, C.VARLEDGENAME
+                                        ORDER BY C.VARLEDGENAME,  TL.VARLEDGEFULLCODE
+                                    ) T
+                            ) T1
+                        <foreach collection="agingList" item="aging" index="index">
+                            LEFT JOIN ( SELECT
+                                                <if test="map.byWay != null and map.byWay != '' and map.byWay == '0'.toString()">
+                                                    case when tac.INTPROPERTY=1 then sum(tdl.MNYDEBIT-tdl.MNYCREDIT)
+                                                         when tac.INTPROPERTY=2 then sum(tdl.MNYCREDIT-tdl.MNYDEBIT) ELSE 0 END as `count${index}`,
+                                                </if>
+                                                <if test="map.byWay != null and map.byWay != '' and map.byWay == '0'.toString()">
+                                                    IFNULL( sum( tdl.MNYDEBIT ), 0 ) AS COUNTMNYDEBITN${index},
+                                                    IFNULL( sum( tdl.MNYCREDIT ), 0 ) AS COUNTMNYCREDIT${index},
+                                                </if>
+                                                te.UQLEDGEID as te${index}
+                                        FROM tgl_voucher_detail_ledger tdl
+                                        LEFT JOIN tgl_ledger te ON tdl.UQLEDGERID = te.UQLEDGEID
+                                        LEFT JOIN tgl_voucher_details tvd ON tdl.UQVOUCHERDETAILID = tvd.UQVOUCHERDETAILID
+                                        LEFT JOIN tgl_voucher_mains tvm ON tvd.UQVOUCHERID = tvm.UQVOUCHERID
+                                        LEFT JOIN tgl_accounts tac on tvd.UQACCOUNTID=tac.UQACCOUNTID
+                                        WHERE  tac.UQACCOUNTID = #{ map.uqaccountid }
+                                                and te.UQLEDGEID in
+                                                <foreach collection="map.ledgetype" item="ledgeId" index="ledgeIndex" separator="," open="(" close=")">
+                                                    #{ledgeId}
+                                                </foreach>
+                                                AND tvm.INTFLAG = 2
+                                                AND tvm.INTDELETEFLAG = 0
+                                                <if test="map.byDay != null and map.byDay != '' and map.byDay == '0'.toString()">
+                                                    AND date( tvm.DTFILLER )
+                                                </if>
+                                                <if test="map.byDay != null and map.byDay != '' and map.byDay == '1'.toString()">
+                                                    AND date( tvm.CHARGEAGAINSTSUBMITODD )
+                                                </if>
+                                                BETWEEN #{map.maxDay} - INTERVAL #{aging.aging} DAY
+                                                        and #{map.maxDay} - INTERVAL #{aging.beforeAging} DAY
+                                        group by te.UQLEDGEID
+                                    ) M${index} ON M${index}.te${index} = T1.UQLEDGEID
+                        </foreach>
+                    ) opt
+            ) tt
+        where 1=1
+            and perioddebit != 0 or periodcredit != 0 or begphase != 0 or endphase != 0
+            <foreach collection="agingList" item="aging" index="index">
+                <if test="map.byWay != null and map.byWay != '' and map.byWay == '0'.toString()">
+                    or count${index} != 0
+                </if>
+                <if test="map.byWay != null and map.byWay != '' and map.byWay == '1'.toString()">
+                    or COUNTMNYDEBITN${index} != 0 or COUNTMNYCREDIT${index} != 0
+                </if>
+            </foreach>
+        <choose>
+            <when test="map.order != null and map.order != ''">
+                ORDER BY ${map.order}
+            </when>
+        </choose>
+        LIMIT #{map.limit} OFFSET #{map.offset}
+    </select>
+    <select id="listAll" resultType="java.util.Map">
+        select tt.* from
+        (
+        select opt.ledgername,
+        opt.direct,
+        Format(opt.perioddebit,2) as perioddebit,
+        Format(opt.periodcredit,2) as periodcredit,
+        Format( case when INTPROPERTY=1  then (BEGINDEBIT-BEGINCREDIT) when INTPROPERTY=2 then (BEGINCREDIT-BEGINDEBIT) ELSE 0 END,2) as begphase,
+        <foreach collection="agingList" item="aging" index="index">
+            <if test="map.byWay != null and map.byWay != '' and map.byWay == '0'.toString()">
+                Format(ifnull( opt.count${index}, 0), 2) as `count${index}`,
+            </if>
+            <if test="map.byWay != null and map.byWay != '' and map.byWay == '1'.toString()">
+                Format(ifnull( opt.COUNTMNYDEBITN${index}, 0), 2) as COUNTMNYDEBITN${index},
+                Format(ifnull( opt.COUNTMNYCREDIT${index}, 0), 2) as COUNTMNYCREDIT${index},
+            </if>
+        </foreach>
+        Format( case when INTPROPERTY=1  then (ENDDEBITREST-ENDCREDITREST) when INTPROPERTY=2 then (ENDCREDITREST-ENDDEBITREST) ELSE 0 END,2) as endphase
+        from
+        (
+        select * from
+        (
+        select UQGROUPID AS LEDGERID,
+        VARGROUPCODE AS LEDGERCODE,
+        VARGROUPNAME AS ledgername,
+        BEGINDEBIT,
+        BEGINCREDIT,
+        PERIODDEBIT,
+        PERIODCREDIT,
+        T.UQACCOUNTID,
+        T.UQLEDGEID,T.INTPROPERTY,
+        case when ISBALANCE=0 THEN '借'  ELSE '贷' END AS direct,
+        case WHEN BEGINDEBIT - BEGINCREDIT + PERIODDEBIT - PERIODCREDIT >= 0 then
+        ( BEGINDEBIT - BEGINCREDIT + PERIODDEBIT - PERIODCREDIT ) ELSE 0 END AS ENDDEBITREST,
+        case WHEN BEGINDEBIT - BEGINCREDIT + PERIODDEBIT - PERIODCREDIT &lt; 0 THEN
+        ( BEGINDEBIT - BEGINCREDIT + PERIODDEBIT - PERIODCREDIT ) *- 1 ELSE 0 END AS ENDCREDITREST
+        from
+        (
+        select TL.UQLEDGEID AS UQGROUPID,
+        TL.VARLEDGEFULLNAME VARGROUPNAME,
+        TL.VARLEDGEFULLCODE VARGROUPCODE,
+        C.VARLEDGENAME,
+        TL.UQLEDGEID,
+        SUM( CASE WHEN GP.INTYEARMONTH &lt; 202305 THEN LP.MNYDEBITPERIODALL ELSE 0 END ) BEGINDEBIT,
+        SUM( CASE WHEN GP.INTYEARMONTH &lt; 202305 THEN LP.MNYCREDITPERIODALL ELSE 0 END ) BEGINCREDIT,
+        SUM( CASE WHEN GP.INTYEARMONTH &gt;= 202305 THEN LP.MNYDEBITPERIODALL ELSE 0 END ) PERIODDEBIT,
+        SUM( CASE WHEN GP.INTYEARMONTH &gt;= 202305 THEN LP.MNYCREDITPERIODALL ELSE 0 END ) PERIODCREDIT,
+        lp.UQACCOUNTID,
+        lp.ISBALANCE,
+        lp.INTPROPERTY
+        FROM TGL_LEDGER TL
+        LEFT JOIN
+        (
+        SELECT   L.* ,A.ISBALANCE,A.INTPROPERTY FROM tgl_accounts A
+        INNER JOIN TGL_COMPANY_LEDGER_PERIODS L ON A.UQACCOUNTID = L.UQACCOUNTID AND L.UQCOMPANYID = #{map.companyId}
+        WHERE 1=1 AND A.UQACCOUNTSETID = #{ map.UQACCOUNTSETID }  and A.UQACCOUNTID = #{ map.uqaccountid }
+        ) LP ON TL.UQLEDGEID = LP.UQLEDGEID
+        INNER JOIN tgl_ledger C ON C.UQLEDGEID = TL.UQLEDGEID
+        LEFT JOIN TGL_GLOBAL_PERIODS GP ON ( LP.UQGLOBALPERIODID = GP.UQGLOBALPERIODID AND GP.INTYEARMONTH &lt;= #{ map.period } )
+        WHERE 1=1 AND TL.UQLEDGEID in
+        <foreach collection="map.ledgetype" item="ledgeId" index="index" separator="," open="(" close=")">
+            #{ledgeId}
+        </foreach>
+        GROUP BY TL.UQLEDGEID, TL.VARLEDGEFULLCODE, TL.VARLEDGEFULLNAME, C.VARLEDGENAME
+        ORDER BY C.VARLEDGENAME,  TL.VARLEDGEFULLCODE
+        ) T
+        ) T1
+        <foreach collection="agingList" item="aging" index="index">
+            LEFT JOIN ( SELECT
+            <if test="map.byWay != null and map.byWay != '' and map.byWay == '0'.toString()">
+                case when tac.INTPROPERTY=1 then sum(tdl.MNYDEBIT-tdl.MNYCREDIT)
+                when tac.INTPROPERTY=2 then sum(tdl.MNYCREDIT-tdl.MNYDEBIT) ELSE 0 END as `count${index}`,
+            </if>
+            <if test="map.byWay != null and map.byWay != '' and map.byWay == '0'.toString()">
+                IFNULL( sum( tdl.MNYDEBIT ), 0 ) AS COUNTMNYDEBITN${index},
+                IFNULL( sum( tdl.MNYCREDIT ), 0 ) AS COUNTMNYCREDIT${index},
+            </if>
+            te.UQLEDGEID as te${index}
+            FROM tgl_voucher_detail_ledger tdl
+            LEFT JOIN tgl_ledger te ON tdl.UQLEDGERID = te.UQLEDGEID
+            LEFT JOIN tgl_voucher_details tvd ON tdl.UQVOUCHERDETAILID = tvd.UQVOUCHERDETAILID
+            LEFT JOIN tgl_voucher_mains tvm ON tvd.UQVOUCHERID = tvm.UQVOUCHERID
+            LEFT JOIN tgl_accounts tac on tvd.UQACCOUNTID=tac.UQACCOUNTID
+            WHERE  tac.UQACCOUNTID = #{ map.uqaccountid }
+            and te.UQLEDGEID in
+            <foreach collection="map.ledgetype" item="ledgeId" index="ledgeIndex" separator="," open="(" close=")">
+                #{ledgeId}
+            </foreach>
+            AND tvm.INTFLAG = 2
+            AND tvm.INTDELETEFLAG = 0
+            <if test="map.byDay != null and map.byDay != '' and map.byDay == '0'.toString()">
+                AND date( tvm.DTFILLER )
+            </if>
+            <if test="map.byDay != null and map.byDay != '' and map.byDay == '1'.toString()">
+                AND date( tvm.CHARGEAGAINSTSUBMITODD )
+            </if>
+            BETWEEN #{map.maxDay} - INTERVAL #{aging.aging} DAY
+            and #{map.maxDay} - INTERVAL #{aging.beforeAging} DAY
+            group by te.UQLEDGEID
+            ) M${index} ON M${index}.te${index} = T1.UQLEDGEID
+        </foreach>
+        ) opt
+        ) tt
+        where 1=1
+        and perioddebit != 0 or periodcredit != 0 or begphase != 0 or endphase != 0
+        <foreach collection="agingList" item="aging" index="index">
+            <if test="map.byWay != null and map.byWay != '' and map.byWay == '0'.toString()">
+                or count${index} != 0
+            </if>
+            <if test="map.byWay != null and map.byWay != '' and map.byWay == '1'.toString()">
+                or COUNTMNYDEBITN${index} != 0 or COUNTMNYCREDIT${index} != 0
+            </if>
+        </foreach>
+        <choose>
+            <when test="map.order != null and map.order != ''">
+                ORDER BY ${map.order}
+            </when>
+        </choose>
+    </select>
+    <select id="getContactsAccouts" resultType="int">
+        SELECT count(1)
+        FROM tgl_accounts t
+        WHERE t.INTFLAG = 2
+          AND t.UQACCOUNTSETID = #{map.UQACCOUNTSETID}
+          AND t.UQACCOUNTID = #{ map.uqaccountid }
+          AND t.uqtypeid in ( 1,2,7,8 )
+        ORDER BY t.VARACCOUNTCODE ASC
+    </select>
+
+</mapper>

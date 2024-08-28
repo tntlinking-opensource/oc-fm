@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.fixasset.asset.dao.TfamAccessoryDao">
+  <sql id="tfamAccessoryColumns">
+    <trim suffixOverrides=",">
+      a.id AS "id",
+      a.card_id AS "card.id",
+      IFNULL(card.card_code,'') AS "card.cardCode",
+      IFNULL(card.asset_code,'') AS "card.assetCode",
+      IFNULL(card.asset_name,'') AS "card.assetName",
+      a.name AS "name",
+      a.spec AS "spec",
+      a.unit AS "unit",
+      a.num AS "num",
+      a.money AS "money",
+      a.remarks AS "remarks",
+      a.create_by AS "createBy",
+      a.create_date AS "createDate",
+      a.update_by AS "updateBy",
+      a.update_date AS "updateDate",
+      a.del_flag AS "delFlag",
+    </trim>
+  </sql>
+  <sql id="tfamAccessoryJoins">
+    LEFT JOIN tfam_asset card ON card.id = a.card_id
+  </sql>
+  <resultMap id="resultTfamAccessoryMap" type="com.geeke.fixasset.asset.entity.TfamAccessory">
+    <result property="id" column="id" />
+    <result property="name" column="name" />
+    <result property="spec" column="spec" />
+    <result property="unit" column="unit" />
+    <result property="num" column="num" />
+    <result property="money" column="money" />
+    <result property="remarks" column="remarks" />
+    <result property="createBy" column="createBy" />
+    <result property="createDate" column="createDate" />
+    <result property="updateBy" column="updateBy" />
+    <result property="updateDate" column="updateDate" />
+    <result property="delFlag" column="delFlag" />
+    <association property="card" javaType="com.geeke.fixasset.asset.entity.TfamAsset">
+      <result property="id" column="card.id" />
+      <result property="cardCode" column="card.cardCode" />
+      <result property="assetCode" column="card.assetCode" />
+      <result property="assetName" column="card.assetName" />
+    </association>
+  </resultMap>
+  <select id="get" resultMap="resultTfamAccessoryMap">
+    SELECT
+    <include refid="tfamAccessoryColumns" />
+    FROM tfam_accessory a
+    <include refid="tfamAccessoryJoins" />
+    WHERE a.id = #{id}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tfam_accessory a
+    <include refid="tfamAccessoryJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="listPage" resultMap="resultTfamAccessoryMap">
+    SELECT
+    <include refid="tfamAccessoryColumns" />
+    FROM tfam_accessory a
+    <include refid="tfamAccessoryJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultMap="resultTfamAccessoryMap">
+    SELECT
+    <include refid="tfamAccessoryColumns" />
+    FROM tfam_accessory a
+    <include refid="tfamAccessoryJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tfam_accessory(
+    <trim suffixOverrides=",">
+      id,
+      card_id,
+      name,
+      spec,
+      unit,
+      num,
+      money,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ id },
+      #{ card.id },
+      #{ name },
+      #{ spec },
+      #{ unit },
+      #{ num },
+      #{ money },
+      #{ remarks },
+      #{ createBy },
+      #{ createDate },
+      #{ updateBy },
+      #{ updateDate },
+      #{ delFlag },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tfam_accessory SET
+    <trim suffixOverrides=",">
+      card_id = #{ card.id },
+      name = #{ name },
+      spec = #{ spec },
+      unit = #{ unit },
+      num = #{ num },
+      money = #{ money },
+      remarks = #{ remarks },
+      update_by = #{ updateBy },
+      update_date = #{ updateDate },
+    </trim>
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <update id="delete">
+    UPDATE tfam_accessory SET
+    update_by = #{updateBy},
+    update_date = #{updateDate},
+    del_flag = #{DEL_FLAG_DELETE}
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tfam_accessory(
+    <trim suffixOverrides=",">
+      id,
+      card_id,
+      name,
+      spec,
+      unit,
+      num,
+      money,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.id},
+        #{entity.card.id},
+        #{entity.name},
+        #{entity.spec},
+        #{entity.unit},
+        #{entity.num},
+        #{entity.money},
+        #{entity.remarks},
+        #{entity.createBy},
+        #{entity.createDate},
+        #{entity.updateBy},
+        #{entity.updateDate},
+        #{entity.delFlag},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tfam_accessory
+    <set>
+      <trim prefix="card_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.card.id}
+        </foreach>
+      </trim>
+      <trim prefix="name=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.name}
+        </foreach>
+      </trim>
+      <trim prefix="spec=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.spec}
+        </foreach>
+      </trim>
+      <trim prefix="unit=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.unit}
+        </foreach>
+      </trim>
+      <trim prefix="num=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.num}
+        </foreach>
+      </trim>
+      <trim prefix="money=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.money}
+        </foreach>
+      </trim>
+      <trim prefix="remarks=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.remarks}
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    UPDATE tfam_accessory
+    <set>
+      <trim prefix="del_flag=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then 1
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+</mapper>

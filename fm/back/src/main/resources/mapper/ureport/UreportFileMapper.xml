@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geeke.ureport.mapper.UreportFileMapper">
+
+	<sql id="ureportFileTblColumns">
+		<trim suffixOverrides=",">
+			a.id_ AS "id",
+			a.name_ AS "name",
+			a.content_ AS "content",
+			a.company_id AS "company.id",
+			IFNULL(company.name,'') AS "company.name",
+			IFNULL(company.code,'') AS "company.code",
+			a.type AS "type",
+			a.status AS "status",
+			a.create_time_ AS "createTime",
+			a.update_time_ AS "updateTime",
+			a.update_by AS "updateBy",
+			a.tenant_id AS "tenantId",
+		</trim>
+	</sql>
+
+	<sql id="ureportFileTblJoins">
+		LEFT JOIN org_company company ON company.id = a.company_id
+	</sql>
+
+	<resultMap type="com.geeke.ureport.entity.UreportFileEntity" id="ureportFile">
+		<id column="id_" jdbcType="BIGINT" property="id"/>
+		<result column="name_" jdbcType="VARCHAR" property="name"/>
+		<result column="content_" jdbcType="BLOB" property="content"/>
+		<result column="company_id" jdbcType="BIGINT" property="company.id"/>
+		<result column="company.name" jdbcType="VARCHAR" property="company.name"/>
+		<result column="company.code" jdbcType="VARCHAR" property="company.code"/>
+		<result column="type" jdbcType="INTEGER" property="type"/>
+		<result column="status" jdbcType="INTEGER" property="status"/>
+		<result column="create_time_" jdbcType="TIMESTAMP" property="createTime"/>
+		<result column="update_time_" jdbcType="TIMESTAMP" property="updateTime"/>
+		<result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+		<result column="tenant_id" jdbcType="VARCHAR" property="tenantId"/>
+	</resultMap>
+
+	<select id="checkExistByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from ureport_file_tbl where name_ = #{name} 
+	</select>
+
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM ureport_file_tbl a
+		<include refid="ureportFileTblJoins" />
+		<where>
+			1=1
+			<include refid="Common.whereParams" />
+		</where>
+	</select>
+
+	<select id="listPage" resultType="com.geeke.ureport.entity.UreportFileEntity">
+		SELECT
+		<include refid="ureportFileTblColumns" />
+		FROM ureport_file_tbl a
+		<include refid="ureportFileTblJoins" />
+		<where>
+			1=1
+			<include refid="Common.whereParams" />
+		</where>
+		ORDER BY a.update_time_ DESC
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+
+	<select id="listAll" resultType="com.geeke.ureport.entity.UreportFileEntity">
+		SELECT
+		<include refid="ureportFileTblColumns" />
+		FROM ureport_file_tbl a
+		<include refid="ureportFileTblJoins" />
+		<where>
+			1=1
+			<include refid="Common.whereParams" />
+		</where>
+		<choose>
+			<when test="order != null and order != ''">
+				ORDER BY ${order}
+			</when>
+			<otherwise>
+				ORDER BY a.update_time_ DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="queryReportFileList" resultMap="ureportFile">
+		select * from ureport_file_tbl
+	</select>
+
+	<select id="get" resultType="com.geeke.ureport.entity.UreportFileEntity">
+		select
+		<include refid="ureportFileTblColumns" />
+		from ureport_file_tbl a
+		<include refid="ureportFileTblJoins" />
+		where a.id_ = #{id}
+	</select>
+	
+	<select id="queryUreportFileEntityByName" resultMap="ureportFile">
+		select * from ureport_file_tbl where name_ = #{name}
+	</select>
+ 
+	<delete id="deleteReportFileByName" parameterType="java.lang.String">
+		delete from ureport_file_tbl where name_ = #{name}
+	</delete>
+ 
+	<insert id="insertReportFile" parameterType="com.geeke.ureport.entity.UreportFileEntity">
+		insert into ureport_file_tbl (name_, content_, company_id, type, status, create_time_, update_time_, update_by, tenant_id) values
+		 (#{name}, #{content}, #{ company.id }, #{type}, #{status}, #{createTime}, #{updateTime}, #{updateBy}, #{tenantId})
+	</insert>
+ 
+ 
+	<update id="updateReportFile" parameterType="com.geeke.ureport.entity.UreportFileEntity">
+		update ureport_file_tbl set 
+			name_ = #{name} , 
+			content_ = #{content},
+			company_id = #{ company.id },
+			type = #{type},
+			status = #{status},
+			create_time_ = #{createTime}, 
+			update_time_ = #{updateTime},
+			update_by = #{updateBy},
+			tenant_id = #{tenantId}
+		    where  id_ = #{id}
+	</update>
+	<update id="bulkUpdate" parameterType="java.util.List">
+		UPDATE ureport_file_tbl
+		<set>
+			<trim prefix="id_=case" suffix="end,">
+				<foreach collection="entitys" item="entity" index="index">
+					when id_=#{entity.id} then #{entity.id}
+				</foreach>
+			</trim>
+			<trim prefix="name_=case" suffix="end,">
+				<foreach collection="entitys" item="entity" index="index">
+					when id_=#{entity.id} then #{entity.name}
+				</foreach>
+			</trim>
+			<trim prefix="content_=case" suffix="end,">
+				<foreach collection="entitys" item="entity" index="index">
+					when id_=#{entity.id} then #{entity.content}
+				</foreach>
+			</trim>
+			<trim prefix="company_id=case" suffix="end,">
+				<foreach collection="entitys" item="entity" index="index">
+					when id_=#{entity.id} then #{entity.company.id}
+				</foreach>
+			</trim>
+			<trim prefix="type=case" suffix="end,">
+				<foreach collection="entitys" item="entity" index="index">
+					when id_=#{entity.id} then #{entity.type}
+				</foreach>
+			</trim>
+			<trim prefix="status=case" suffix="end,">
+				<foreach collection="entitys" item="entity" index="index">
+					when id_=#{entity.id} then #{entity.status}
+				</foreach>
+			</trim>
+			<trim prefix="create_time_=case" suffix="end,">
+				<foreach collection="entitys" item="entity" index="index">
+					when id_=#{entity.id} then #{entity.createTime}
+				</foreach>
+			</trim>
+			<trim prefix="update_time_=case" suffix="end,">
+				<foreach collection="entitys" item="entity" index="index">
+					when id_=#{entity.id} then #{entity.updateTime}
+				</foreach>
+			</trim>
+			<trim prefix="update_by=case" suffix="end,">
+				<foreach collection="entitys" item="entity" index="index">
+					when id_=#{entity.id} then #{entity.updateBy}
+				</foreach>
+			</trim>
+			<trim prefix="tenant_id=case" suffix="end,">
+				<foreach collection="entitys" item="entity" index="index">
+					when id_=#{entity.id} then #{entity.tenantId}
+				</foreach>
+			</trim>
+		</set>
+		WHERE id_ IN
+		<foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+			#{entity.id}
+		</foreach>
+	</update>
+</mapper> 

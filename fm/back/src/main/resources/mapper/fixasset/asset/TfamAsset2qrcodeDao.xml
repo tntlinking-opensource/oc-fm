@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.fixasset.asset.dao.TfamAsset2qrcodeDao">
+  <sql id="tfamAsset2qrcodeColumns">
+    <trim suffixOverrides=",">
+      a.id AS "id",
+      a.card_id AS "card.id",
+      IFNULL(card.card_code,'') AS "card.cardCode",
+      IFNULL(card.asset_code,'') AS "card.assetCode",
+      IFNULL(card.asset_name,'') AS "card.assetName",
+      a.qrcode_path AS "qrcodePath",
+      a.remarks AS "remarks",
+      a.create_by AS "createBy",
+      a.create_date AS "createDate",
+      a.update_by AS "updateBy",
+      a.update_date AS "updateDate",
+      a.del_flag AS "delFlag",
+    </trim>
+  </sql>
+  <sql id="tfamAsset2qrcodeJoins">
+    LEFT JOIN tfam_asset card ON card.id = a.card_id
+  </sql>
+  <resultMap id="resultTfamAsset2qrcodeMap" type="com.geeke.fixasset.asset.entity.TfamAsset2qrcode">
+    <result property="id" column="id" />
+    <result property="qrcodePath" column="qrcodePath" />
+    <result property="remarks" column="remarks" />
+    <result property="createBy" column="createBy" />
+    <result property="createDate" column="createDate" />
+    <result property="updateBy" column="updateBy" />
+    <result property="updateDate" column="updateDate" />
+    <result property="delFlag" column="delFlag" />
+    <association property="card" javaType="com.geeke.fixasset.asset.entity.TfamAsset">
+      <result property="id" column="card.id" />
+      <result property="cardCode" column="card.cardCode" />
+      <result property="assetCode" column="card.assetCode" />
+      <result property="assetName" column="card.assetName" />
+    </association>
+  </resultMap>
+  <select id="getQRCode" resultType="com.geeke.fixasset.asset.entity.TfamAsset2qrcode">
+    select <include refid="tfamAsset2qrcodeColumns" />
+    FROM tfam_asset2qrcode a
+    <include refid="tfamAsset2qrcodeJoins" />
+    WHERE a.card_id = #{cardId}
+  </select>
+  <select id="get" resultMap="resultTfamAsset2qrcodeMap">
+    SELECT
+    <include refid="tfamAsset2qrcodeColumns" />
+    FROM tfam_asset2qrcode a
+    <include refid="tfamAsset2qrcodeJoins" />
+    WHERE a.id = #{id}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tfam_asset2qrcode a
+    <include refid="tfamAsset2qrcodeJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="listPage" resultMap="resultTfamAsset2qrcodeMap">
+    SELECT
+    <include refid="tfamAsset2qrcodeColumns" />
+    FROM tfam_asset2qrcode a
+    <include refid="tfamAsset2qrcodeJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultMap="resultTfamAsset2qrcodeMap">
+    SELECT
+    <include refid="tfamAsset2qrcodeColumns" />
+    FROM tfam_asset2qrcode a
+    <include refid="tfamAsset2qrcodeJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tfam_asset2qrcode(
+    <trim suffixOverrides=",">
+      id,
+      card_id,
+      qrcode_path,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ id },
+      #{ card.id },
+      #{ qrcodePath },
+      #{ remarks },
+      #{ createBy },
+      #{ createDate },
+      #{ updateBy },
+      #{ updateDate },
+      #{ delFlag },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tfam_asset2qrcode SET
+    <trim suffixOverrides=",">
+      card_id = #{ card.id },
+      qrcode_path = #{ qrcodePath },
+      remarks = #{ remarks },
+      update_by = #{ updateBy },
+      update_date = #{ updateDate },
+    </trim>
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <update id="delete">
+    UPDATE tfam_asset2qrcode SET
+    update_by = #{updateBy},
+    update_date = #{updateDate},
+    del_flag = #{DEL_FLAG_DELETE}
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tfam_asset2qrcode(
+    <trim suffixOverrides=",">
+      id,
+      card_id,
+      qrcode_path,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.id},
+        #{entity.card.id},
+        #{entity.qrcodePath},
+        #{entity.remarks},
+        #{entity.createBy},
+        #{entity.createDate},
+        #{entity.updateBy},
+        #{entity.updateDate},
+        #{entity.delFlag},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tfam_asset2qrcode
+    <set>
+      <trim prefix="card_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.card.id}
+        </foreach>
+      </trim>
+      <trim prefix="qrcode_path=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.qrcodePath}
+        </foreach>
+      </trim>
+      <trim prefix="remarks=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.remarks}
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    UPDATE tfam_asset2qrcode
+    <set>
+      <trim prefix="del_flag=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then 1
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+</mapper>

@@ -1,0 +1,838 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.vouchermanager.dao.TglAcOffsetMainDao">
+  <sql id="tglAcOffsetMainColumns">
+    <trim suffixOverrides=",">
+      a.UQMAINID AS "uqmainid",
+      a.UQCOMPANYID AS "uqcompanyid",
+      a.UQVOUCHERID AS "uqvoucherid",
+      a.UQVOUDETAILID AS "uqvoudetailid.UQDETAILID",
+      IFNULL(uqvoudetailid.UQMAINID,'') AS "uqvoudetailid.UQMAINID",
+      IFNULL(uqvoudetailid.UQCOMPANYID,'') AS "uqvoudetailid.UQCOMPANYID",
+      IFNULL(uqvoudetailid.UQVOUCHERID,'') AS "uqvoudetailid.UQVOUCHERID",
+      IFNULL(uqvoudetailid.UQVOUDETAILID,'') AS "uqvoudetailid.UQVOUDETAILID",
+      IFNULL(uqvoudetailid.INIID,'') AS "uqvoudetailid.INIID",
+      IFNULL(uqvoudetailid.UQACCOUNTID,'') AS "uqvoudetailid.UQACCOUNTID",
+      IFNULL(uqvoudetailid.UQLEDGETYPEID,'') AS "uqvoudetailid.UQLEDGETYPEID",
+      IFNULL(uqvoudetailid.UQLEDGEID,'') AS "uqvoudetailid.UQLEDGEID",
+      IFNULL(uqvoudetailid.MONEY,'') AS "uqvoudetailid.MONEY",
+      IFNULL(uqvoudetailid.UQUSERID,'') AS "uqvoudetailid.UQUSERID",
+      IFNULL(uqvoudetailid.INSERTTIME,'') AS "uqvoudetailid.INSERTTIME",
+      IFNULL(uqvoudetailid.UPDATETIME,'') AS "uqvoudetailid.UPDATETIME",
+      IFNULL(uqvoudetailid.INTTYPE,'') AS "uqvoudetailid.INTTYPE",
+      IFNULL(uqvoudetailid.tenant_id,'') AS "uqvoudetailid.tenantId",
+      IFNULL(uqvoudetailid.UQBATCHID,'') AS "uqvoudetailid.UQBATCHID",
+      a.INIID AS "iniid",
+      a.UQACCOUNTID AS "uqaccountid",
+      a.UQLEDGETYPEID AS "uqledgetypeid",
+      a.UQLEDGEID AS "uqledgeid",
+      a.TOTALMONEY AS "totalmoney",
+      a.RUSHEDMONEY AS "rushedmoney",
+      a.NOTRUSHEDMONEY AS "notrushedmoney",
+      a.UQUSERID AS "uquserid",
+      a.INSERTTIME AS "inserttime",
+      a.UPDATETIME AS "updatetime",
+      a.INTTYPE AS "inttype",
+      a.tenant_id AS "tenantId",
+    </trim>
+  </sql>
+  <sql id="tglAcOffsetMainJoins">
+    LEFT JOIN tgl_ac_offset_detail uqvoudetailid ON uqvoudetailid.UQDETAILID = a.UQVOUDETAILID
+  </sql>
+    <delete id="execute">
+       ${strSql}
+    </delete>
+    <resultMap id="resultTglAcOffsetMainMap" type="com.geeke.vouchermanager.entity.TglAcOffsetMain">
+    <result property="uqmainid" column="uqmainid" />
+    <result property="uqcompanyid" column="uqcompanyid" />
+    <result property="uqvoucherid" column="uqvoucherid" />
+    <result property="iniid" column="iniid" />
+    <result property="uqaccountid" column="uqaccountid" />
+    <result property="uqledgetypeid" column="uqledgetypeid" />
+    <result property="uqledgeid" column="uqledgeid" />
+    <result property="totalmoney" column="totalmoney" />
+    <result property="rushedmoney" column="rushedmoney" />
+    <result property="notrushedmoney" column="notrushedmoney" />
+    <result property="uquserid" column="uquserid" />
+    <result property="inserttime" column="inserttime" />
+    <result property="updatetime" column="updatetime" />
+    <result property="inttype" column="inttype" />
+    <result property="tenantId" column="tenantId" />
+    <association property="uqvoudetailid" javaType="com.geeke.vouchermanager.entity.TglAcOffsetDetail">
+      <result property="UQDETAILID" column="uqvoudetailid.UQDETAILID" />
+      <result property="UQMAINID" column="uqvoudetailid.UQMAINID" />
+      <result property="UQCOMPANYID" column="uqvoudetailid.UQCOMPANYID" />
+      <result property="UQVOUCHERID" column="uqvoudetailid.UQVOUCHERID" />
+      <result property="UQVOUDETAILID" column="uqvoudetailid.UQVOUDETAILID" />
+      <result property="INIID" column="uqvoudetailid.INIID" />
+      <result property="UQACCOUNTID" column="uqvoudetailid.UQACCOUNTID" />
+      <result property="UQLEDGETYPEID" column="uqvoudetailid.UQLEDGETYPEID" />
+      <result property="UQLEDGEID" column="uqvoudetailid.UQLEDGEID" />
+      <result property="MONEY" column="uqvoudetailid.MONEY" />
+      <result property="UQUSERID" column="uqvoudetailid.UQUSERID" />
+      <result property="INSERTTIME" column="uqvoudetailid.INSERTTIME" />
+      <result property="UPDATETIME" column="uqvoudetailid.UPDATETIME" />
+      <result property="INTTYPE" column="uqvoudetailid.INTTYPE" />
+      <result property="tenantId" column="uqvoudetailid.tenantId" />
+      <result property="UQBATCHID" column="uqvoudetailid.UQBATCHID" />
+    </association>
+  </resultMap>
+  <select id="get" resultMap="resultTglAcOffsetMainMap">
+    SELECT
+    <include refid="tglAcOffsetMainColumns" />
+    FROM tgl_ac_offset_main a
+    <include refid="tglAcOffsetMainJoins" />
+    WHERE a.id = #{id}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tgl_ac_offset_main a
+    <include refid="tglAcOffsetMainJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="getOnaccountDataPagecount" resultType="int">
+    SELECT COUNT(*) FROM tgl_ac_offset_main a
+    <include refid="tglAcOffsetMainJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="getOnaccountDataPage" resultType="map">
+    select * ,
+           t.offsetmoney as remainmoney
+    from (
+    SELECT
+        ai.iniid,
+        '' as uqvoucherdetailid,
+        '' as voucherid ,
+        ai.BUSDATE as accountdate ,
+        concat('[',ac.varaccountcode,']',
+            ac.VARACCOUNTNAME) as accountcode ,
+        ai.UQACCOUNTID as uqaccountid,
+        ai.uqledgetypeid as uqledgetypeid,
+        ai.UQLEDGEID as uqledgeid,
+        ai.UQCOMPANYID as uqcompanyid ,
+        tlt.VARLEDGETYPENAME as accountledgertype,
+        tl.VARLEDGENAME as accountledger,
+        ai.VARABSTRACT as varabstract  ,
+        CASE WHEN (ai.MNYDEBIT = 0)
+            THEN ai.MNYCREDIT
+            ELSE ai.MNYDEBIT END as offsetmoney ,
+        0 as yetmoney ,
+        '否' as isrelate ,
+        '' as intvouchernum,
+        ub.name as accountuser ,
+        ai.INTTYPE as inttype
+    FROM TGL_AC_INI ai
+        INNER JOIN TGL_AC_INI_REL ir
+            on ai.UQACCOUNTID = ir.UQACCOUNTID
+                   and ir.tenant_id=#{tenantId}
+        INNER JOIN tgl_accounts ac
+            on ac.UQACCOUNTID=ai.UQACCOUNTID
+                   and ac.tenant_id=#{tenantId}
+        left JOIN tgl_ledger tl
+            on tl.UQLEDGEID = ai.UQLEDGEID
+                   and tl.tenant_id=#{tenantId}
+        left JOIN tgl_ledgetype tlt
+            on tlt.UQLEDGETYPEID = tl.UQLEDGETYPEID
+                   and tlt.tenant_id=#{tenantId}
+        inner join sys_user ub
+            on ub.id = ir.UQUSERID
+                   and ub.company_id=#{tenantId}
+    where ai.tenant_id=#{tenantId} ) t
+    where t.inttype = #{inttype}
+    <include refid="Common.whereParams" />
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        order by t.accountdate
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="getDataByVoucher" resultType="map">
+    select
+      '' as iniid ,
+      m.DTACCOUNTANT as accountdate,
+      tvd.VARABSTRACT as varabstract,
+      m.UQVOUCHERID as voucherid,
+      case
+        when tvd.MNYDEBIT = 0 then tvd.MNYCREDIT
+        else tvd.MNYDEBIT
+        end as offsetmoney ,
+      0 as yetmoney ,
+      case
+        when tvd.MNYDEBIT = 0 then tvd.MNYCREDIT
+        else tvd.MNYDEBIT
+        end as remainmoney,
+      tvd.UQACCOUNTID as uqaccountid,
+      tc.CATEGORYNAME as vouchertype ,
+      m.INTCOMPANYSEQ as intcompanyseq,
+      ac.intisledge ,
+      tvd.UQVOUCHERDETAILID as uqvoucherdetailid,
+      tvd.MNYDEBIT as mnydebit,
+      tvd.MNYCREDIT as mnycredit,
+      '是' as isrelate,
+      concat(tvn.VARNAME, '-', m.INTVOUCHERNUM ) as intvouchernum,
+      concat('[', ac.varaccountcode, ']', ac.VARACCOUNTNAME) as accountcode ,
+      ac.UQTYPEID ,
+      ub.name as accountuser ,
+      '' as accountledgertype ,
+      '' as accountledger,
+      '' as uqledgeid ,
+      '' as uqledgertypeid,
+      tc.CATEGORYNAME
+    from
+      tgl_voucher_details tvd
+        inner join tgl_voucher_mains m on
+            m.UQVOUCHERID = tvd.UQVOUCHERID
+          and m.tenant_id =#{tenantId}
+        inner join tgl_voucher_numberings tvn on
+        m.UQNUMBERING = tvn.UQNUMBERINGID
+        inner join tgl_accounts ac on
+            ac.UQACCOUNTID = tvd.UQACCOUNTID
+          and ac.tenant_id =#{tenantId}
+        inner join sys_user ub on
+            ub.id = m.UQFILLERID
+          and ub.company_id =#{tenantId}
+        inner join tob_category tc on
+        tc.CATEGORYCODE = ac.UQTYPEID
+    where
+      tc.CATEGORYTYPE = '10000002'
+      and tc.CATEGORYCODE in (1, 2, 7, 8)
+     AND m.INTFLAG = 2
+    <if test='params.account != null and  params.account != ""'>
+      and tvd.UQACCOUNTID = #{params.account}
+    </if>
+    <if test='params.dtfilldatefrom != null and  params.dtfilldatefrom !=  ""'>
+        AND m.DTACCOUNTANT >= #{params.dtfilldatefrom}
+    </if>
+      <if test='params.dtfilldateto != null and  params.dtfilldateto !=  ""'>
+        AND m.DTACCOUNTANT &lt;= #{params.dtfilldateto}
+    </if>
+      <if test='params.account_user != null and  params.account_user !=  ""'>
+        AND ub.name  like concat('%',#{params.account_user},'%')
+    </if>
+      <if test='params.remark != null and  params.remark !=  ""'>
+        AND tvd.VARABSTRACT  like concat('%',#{params.remark},'%')
+    </if>
+    order by m.DTACCOUNTANT
+  </select>
+  <select id="getOffsetInitDatas" resultType="map">
+    select
+      * ,
+      t.offsetmoney as remainmoney
+    from
+      (
+        select
+          ai.iniid,
+          '' as uqvoucherdetailid,
+          '' as voucherid ,
+          ai.BUSDATE as accountdate ,
+          concat('[', ac.varaccountcode, ']', ac.VARACCOUNTNAME) as accountcode ,
+          ai.UQACCOUNTID as uqaccountid,
+          ai.uqledgetypeid as uqledgetypeid,
+          ai.UQLEDGEID as uqledgeid,
+          ai.UQCOMPANYID as uqcompanyid ,
+          tlt.VARLEDGETYPENAME as accountledgertype,
+          tl.VARLEDGENAME as accountledger,
+          ai.VARABSTRACT as varabstract ,
+          case
+            when (ai.MNYDEBIT = 0) then ai.MNYCREDIT
+            else ai.MNYDEBIT
+            end as offsetmoney ,
+          0 as yetmoney ,
+          '否' as isrelate ,
+          '' as intvouchernum,
+          ub.name as accountuser ,
+          ai.INTTYPE as inttype
+        from
+          TGL_AC_INI ai
+            inner join TGL_AC_INI_REL ir on
+                ai.UQACCOUNTID = ir.UQACCOUNTID
+              and ir.tenant_id =#{tenantId}
+            inner join tgl_accounts ac on
+                ac.UQACCOUNTID = ai.UQACCOUNTID
+              and ac.tenant_id =#{tenantId}
+            left join tgl_ledger tl on
+                tl.UQLEDGEID = ai.UQLEDGEID
+              and tl.tenant_id =#{tenantId}
+            left join tgl_ledgetype tlt on
+                tlt.UQLEDGETYPEID = tl.UQLEDGETYPEID
+              and tlt.tenant_id =#{tenantId}
+            inner join sys_user ub on
+                ub.id = ir.UQUSERID
+              and ub.company_id =#{tenantId}
+        where
+          ai.tenant_id =#{tenantId} ) t
+    where t.inttype = #{dataType}
+    <if test='params.money_form != null and  params.money_form != ""'>
+      AND t.offsetmoney >= #{params.money_form}
+    </if>
+    <if test='params.obj_money_to != null and  params.obj_money_to != ""'>
+      AND t.offsetmoney &lt;=  #{params.obj_money_to}
+    </if>
+      <if test='params.dtfilldatefrom != null and  params.dtfilldatefrom != ""'>
+      AND t.accountdate >=  #{params.dtfilldatefrom}
+    </if>
+      <if test='params.dtfilldateto != null and  params.dtfilldateto != ""'>
+      AND t.accountdate &lt;=  #{params.dtfilldateto}
+    </if>
+      <if test='params.account_user != null and  params.account_user != ""'>
+       AND t.accountuser  like concat('%',#{params.account_user},'%')
+    </if>
+      <if test='params.ledger != null and  params.ledger != ""'>
+        and t.uqledgeid in (${params.ledger})
+      </if>
+
+    order by t.accountdate
+  </select>
+
+  <select id="getLedgeByParentId" resultType="map">
+            SELECT uqledgeid
+            FROM tgl_ledger t
+            where t.tenant_id=#{tenantId}
+              and t.VARLEDGEFULLCODE
+                      LIKE (
+                      SELECT
+                          CONCAT(tl.VARLEDGEFULLCODE,'%')
+                      FROM tgl_ledger tl
+                      WHERE tl.UQLEDGEID = #{ledgeParentId}
+                        and
+                          tl.tenant_id=#{tenantId}
+                      )
+              AND t.UQLEDGEID &lt;&gt; #{ledgeParentId}
+  </select>
+  <select id="getRushData" resultType="map">
+    SELECT
+        tam.uqmainid,
+        tam.totalmoney,
+        tam.notrushedmoney,
+        tam.rushedmoney
+    FROM TGL_AC_OFFSET_MAIN
+        tam
+    WHERE
+        tam.tenant_id=#{tenantId}
+      and tam.INTTYPE=#{type}
+    <if test='initId==""'>
+        <if test='ledgeId != ""'>
+          and tam.UQLEDGEID=#{ledgeId}
+      and tam.UQVOUDETAILID=#{voucherDetailId}
+        </if>
+      <if test='ledgeId == ""'>
+        and tam.UQVOUDETAILID=#{voucherDetailId}
+        </if>
+    </if>
+    <if test='initId!=""'>
+      and tam.INIID=#{initId}
+    </if>
+  </select>
+  <select id="newgetRushData" resultType="map">
+    SELECT
+        tam.uqmainid,
+        tam.totalmoney,
+        tam.notrushedmoney,
+        tam.rushedmoney,
+        tam.UQLEDGEID,
+        tam.UQVOUDETAILID,
+        tam.INIID
+    FROM TGL_AC_OFFSET_MAIN
+        tam
+    WHERE
+        tam.tenant_id=#{tenantId}
+      and tam.INTTYPE=#{type}
+<!--    <if test='initId==""'>-->
+<!--        <if test='ledgeId != ""'>-->
+<!--          and tam.UQLEDGEID=#{ledgeId}-->
+<!--            and tam.UQVOUDETAILID=#{voucherDetailId}-->
+<!--        </if>-->
+<!--      <if test='ledgeId == ""'>-->
+<!--        and tam.UQVOUDETAILID=#{voucherDetailId}-->
+<!--        </if>-->
+<!--    </if>-->
+<!--    <if test='initId!=""'>-->
+<!--      and tam.INIID=#{initId}-->
+<!--    </if>-->
+  </select>
+  <select id="getLedgeByledgeTypeId" resultType="map">
+    SELECT t.uqledgeid as uqledgeid
+    FROM tgl_ledger
+        t INNER JOIN tgl_ledgetype tlt
+            ON t.UQLEDGETYPEID = tlt.UQLEDGETYPEID
+                   and tlt.tenant_id= #{tenantId}
+    WHERE t.UQLEDGETYPEID = #{ledgeTypeId} and t.tenant_id=#{tenantId}
+  </select>
+  <select id="getLedgerVouDetail" resultType="map">
+    select
+        le.uqledgeid,
+        tlt.varledgetypename,
+        le.varledgecode,
+        le.varledgename,
+        l.mnyamount,
+        l.uqledgertypeid
+    from tgl_voucher_detail_ledger l
+        inner join tgl_ledger le
+            on le.uqledgeid=l.uqledgerid
+                and le.uqledgetypeid=l.uqledgertypeid
+                   and le.tenant_id=#{tenantId}
+        inner join tgl_ledgetype tlt
+            on tlt.UQLEDGETYPEID = l.uqledgertypeid
+                   and tlt.tenant_id=#{tenantId}
+    where  l.uqvoucherdetailid= #{uqvoucherdetailid}
+    <if test='ledgeIds != null and  ledgeIds != ""'>
+      and l.uqledgerid in (${ledgeIds})
+    </if>
+    order by tlt.VARLEDGETYPENAME
+  </select>
+  <select id="queryAllOpDetails" resultType="map">
+    select
+        od.uqdetailid ,
+        od.uqmainid ,
+        od.money as opmoney ,
+        od1.money as money
+    from TGL_AC_OFFSET_DETAIL od
+        inner join  TGL_AC_OFFSET_DETAIL od1 on od1.UQBATCHID = od.UQBATCHID
+    where od.INTTYPE= #{opinttype}
+      AND od1.INTTYPE=#{inttype}
+      and od1.UQMAINID=#{mainId}
+      AND od.tenant_id=#{tenantId}
+      AND od1.tenant_id=#{tenantId}
+      and od.UQBATCHID IN (
+                        select
+                            tod.UQBATCHID
+                        from TGL_AC_OFFSET_DETAIL tod
+                        where
+                            tod.UQMAINID= #{mainId}
+                          and tod.INTTYPE = #{inttype}
+                          and tod.tenant_id=#{tenantId}
+    )
+  </select>
+  <select id="listPage" resultMap="resultTglAcOffsetMainMap">
+    SELECT
+    <include refid="tglAcOffsetMainColumns" />
+    FROM tgl_ac_offset_main a
+    <include refid="tglAcOffsetMainJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultMap="resultTglAcOffsetMainMap">
+    SELECT
+    <include refid="tglAcOffsetMainColumns" />
+    FROM tgl_ac_offset_main a
+    <include refid="tglAcOffsetMainJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tgl_ac_offset_main(
+    <trim suffixOverrides=",">
+      UQMAINID,
+      UQCOMPANYID,
+      UQVOUCHERID,
+      UQVOUDETAILID,
+      INIID,
+      UQACCOUNTID,
+      UQLEDGETYPEID,
+      UQLEDGEID,
+      TOTALMONEY,
+      RUSHEDMONEY,
+      NOTRUSHEDMONEY,
+      UQUSERID,
+      INSERTTIME,
+      UPDATETIME,
+      INTTYPE,
+      tenant_id,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ uqmainid },
+      #{ uqcompanyid },
+      #{ uqvoucherid },
+      #{ uqvoudetailid },
+      #{ iniid },
+      #{ uqaccountid },
+      #{ uqledgetypeid },
+      #{ uqledgeid },
+      #{ totalmoney },
+      #{ rushedmoney },
+      #{ notrushedmoney },
+      #{ uquserid },
+      #{ inserttime },
+      #{ updatetime },
+      #{ inttype },
+      #{ tenantId },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tgl_ac_offset_main SET
+    <trim suffixOverrides=",">
+      UQMAINID = #{ uqmainid },
+      UQCOMPANYID = #{ uqcompanyid },
+      UQVOUCHERID = #{ uqvoucherid },
+      UQVOUDETAILID = #{ uqvoudetailid.UQDETAILID },
+      INIID = #{ iniid },
+      UQACCOUNTID = #{ uqaccountid },
+      UQLEDGETYPEID = #{ uqledgetypeid },
+      UQLEDGEID = #{ uqledgeid },
+      TOTALMONEY = #{ totalmoney },
+      RUSHEDMONEY = #{ rushedmoney },
+      NOTRUSHEDMONEY = #{ notrushedmoney },
+      UQUSERID = #{ uquserid },
+      INSERTTIME = #{ inserttime },
+      UPDATETIME = #{ updatetime },
+      INTTYPE = #{ inttype },
+      tenant_id = #{ tenantId },
+    </trim>
+    WHERE id = #{id}
+  </update>
+  <update id="delete">
+    DELETE FROM tgl_ac_offset_main
+    WHERE id = #{id}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tgl_ac_offset_main(
+    <trim suffixOverrides=",">
+      UQMAINID,
+      UQCOMPANYID,
+      UQVOUCHERID,
+      UQVOUDETAILID,
+      INIID,
+      UQACCOUNTID,
+      UQLEDGETYPEID,
+      UQLEDGEID,
+      TOTALMONEY,
+      RUSHEDMONEY,
+      NOTRUSHEDMONEY,
+      UQUSERID,
+      INSERTTIME,
+      UPDATETIME,
+      INTTYPE,
+      tenant_id,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.uqmainid},
+        #{entity.uqcompanyid},
+        #{entity.uqvoucherid},
+        #{entity.uqvoudetailid.UQDETAILID},
+        #{entity.iniid},
+        #{entity.uqaccountid},
+        #{entity.uqledgetypeid},
+        #{entity.uqledgeid},
+        #{entity.totalmoney},
+        #{entity.rushedmoney},
+        #{entity.notrushedmoney},
+        #{entity.uquserid},
+        #{entity.inserttime},
+        #{entity.updatetime},
+        #{entity.inttype},
+        #{entity.tenantId},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tgl_ac_offset_main
+    <set>
+      <trim prefix="UQMAINID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqmainid}
+        </foreach>
+      </trim>
+      <trim prefix="UQCOMPANYID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqcompanyid}
+        </foreach>
+      </trim>
+      <trim prefix="UQVOUCHERID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqvoucherid}
+        </foreach>
+      </trim>
+      <trim prefix="UQVOUDETAILID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqvoudetailid.UQDETAILID}
+        </foreach>
+      </trim>
+      <trim prefix="INIID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.iniid}
+        </foreach>
+      </trim>
+      <trim prefix="UQACCOUNTID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqaccountid}
+        </foreach>
+      </trim>
+      <trim prefix="UQLEDGETYPEID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqledgetypeid}
+        </foreach>
+      </trim>
+      <trim prefix="UQLEDGEID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqledgeid}
+        </foreach>
+      </trim>
+      <trim prefix="TOTALMONEY=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.totalmoney}
+        </foreach>
+      </trim>
+      <trim prefix="RUSHEDMONEY=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.rushedmoney}
+        </foreach>
+      </trim>
+      <trim prefix="NOTRUSHEDMONEY=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.notrushedmoney}
+        </foreach>
+      </trim>
+      <trim prefix="UQUSERID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uquserid}
+        </foreach>
+      </trim>
+      <trim prefix="INSERTTIME=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.inserttime}
+        </foreach>
+      </trim>
+      <trim prefix="UPDATETIME=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updatetime}
+        </foreach>
+      </trim>
+      <trim prefix="INTTYPE=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.inttype}
+        </foreach>
+      </trim>
+      <trim prefix="tenant_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.tenantId}
+        </foreach>
+      </trim>
+    </set>
+    WHERE id IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.id}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    DELETE FROM tgl_ac_offset_main
+    WHERE id IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.id}
+    </foreach>
+  </update>
+  <select id="getSystemConfig" resultType="java.lang.String">
+    select
+        PARAMSTRING as rush_flag
+    from tssc_configparam
+    where
+        PARAMCODE=#{paramCode}
+        AND STATUS=1
+  </select>
+  <update id="deleteAllDetails">
+    delete from TGL_AC_OFFSET_DETAIL
+           where UQMAINID=#{mainId}
+             and INTTYPE = #{inttype}
+             and tenant_id=#{tenantId}
+  </update>
+  <update id="deleteMainRecord">
+    delete from
+               TGL_AC_OFFSET_MAIN
+           where
+               UQMAINID =#{mainId}
+             and tenant_id=#{tenantId}
+  </update>
+  <select id="getMain" resultType="map">
+    select
+        totalmoney,
+        rushedmoney,
+        notrushedmoney
+    from TGL_AC_OFFSET_MAIN
+    where
+        UQMAINID=#{mainId}
+      and tenant_id=#{tenantId}
+  </select>
+  <update id="deleteDetail">
+    delete from
+               TGL_AC_OFFSET_DETAIL
+           where uqdetailid=#{detailId}
+             and tenant_id=#{tenantId}
+  </update>
+  <update id="updateMain">
+    update
+        TGL_AC_OFFSET_MAIN
+    set rushedmoney=#{rushedmoney} ,
+        notrushedmoney=#{notrushedmoney}
+    where
+        uqmainid=#{mainId}
+      and tenant_id=#{tenantId}
+  </update>
+  <update id="updateDetail">
+    update
+        TGL_AC_OFFSET_DETAIL
+    set money= #{money}
+    where uqdetailid=#{detailId}
+      and tenant_id=#{tenantId}
+  </update>
+  <update id="deleteDetailForEmpty">
+    delete
+    from
+        TGL_AC_OFFSET_DETAIL
+    where
+        money=0
+      and tenant_id=#{tenantId}
+  </update>
+  <insert id="insertOffsetDetail">
+    INSERT INTO tgl_ac_offset_main(
+    <trim suffixOverrides=",">
+      UQMAINID,
+      UQCOMPANYID,
+      UQVOUCHERID,
+      UQVOUDETAILID,
+      INIID,
+      UQACCOUNTID,
+      UQLEDGETYPEID,
+      UQLEDGEID,
+      TOTALMONEY,
+      RUSHEDMONEY,
+      NOTRUSHEDMONEY,
+      UQUSERID,
+      INSERTTIME,
+      UPDATETIME,
+      INTTYPE,
+      tenant_id,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ uqmainid },
+      #{ uqcompanyid },
+      #{ uqvoucherid },
+      #{ uqvoudetailid.UQDETAILID },
+      #{ iniid },
+      #{ uqaccountid },
+      #{ uqledgetypeid },
+      #{ uqledgeid },
+      #{ totalmoney },
+      #{ rushedmoney },
+      #{ notrushedmoney },
+      #{ uquserid },
+      #{ inserttime },
+      #{ updatetime },
+      #{ inttype },
+      #{ tenantId },
+    </trim>
+    )
+  </insert>
+    <insert id="insertTglAcIni">
+        INSERT INTO tgl_ac_ini(
+        <trim suffixOverrides=",">
+            INIID,
+            UQACCOUNTID,
+            UQCOMPANYID,
+            UQLEDGETYPEID,
+            UQLEDGEID,
+            VARABSTRACT,
+            MNYDEBIT,
+            MNYCREDIT,
+            UQUSERID,
+            BUSDATE,
+            INTTYPE,
+            tenant_id,
+        </trim>
+        ) VALUES (
+        <trim suffixOverrides=",">
+            #{ iniid },
+            #{ uqaccountid },
+            #{ uqcompanyid },
+            #{ uqledgetypeid },
+            #{ uqledgeid },
+            #{ varabstract },
+            #{ mnydebit },
+            #{ mnycredit },
+            #{ uquserid },
+            #{ busdate },
+            #{ inttype },
+            #{ tenantId },
+        </trim>
+        )
+    </insert>
+    <select id="getExistInMain" resultType="map">
+    select
+        aom.uqmainid,
+        aom.totalmoney,
+        aom.notrushedmoney,
+        aom.rushedmoney
+    from TGL_AC_OFFSET_MAIN aom
+    where
+        aom.tenant_id=#{tenantId}
+      and aom.INTTYPE=#{params.inttype}
+    <if test="params.iniid==''">
+      and aom.UQVOUDETAILID = #{params.uqvoudetailid}
+        <if test="params.uqledgeid!=''">
+          and aom.UQLEDGEID=#{params.uqledgeid}
+        </if>
+    </if>
+    <if test="params.iniid!=''">
+      and aom.INIID = #{params.iniid}
+    </if>
+  </select>
+  <select id="getMapList" resultType="java.util.Map">
+    ${strSql}
+  </select>
+  <select id="getMapListcount" resultType="java.lang.Integer">
+    SELECT COUNT(*) from ( ${strSql}) tt
+  </select>
+  <update id="updateMaindata">
+    update
+        TGL_AC_OFFSET_MAIN aom
+    set aom.RUSHEDMONEY=#{params.yetmoney} ,
+        aom.NOTRUSHEDMONEY=#{params.remainmoney}
+    where
+        aom.UQMAINID=#{mainId}
+      and aom.tenant_id=#{tenantId}
+  </update>
+  <update id="updateOffsetDetail">
+    update
+        TGL_AC_OFFSET_DETAIL
+    set
+        money= money+#{money} ,
+        uqmainid=#{uqmainid},
+        updatetime=now()
+    where
+        uqdetailid=#{detailId}
+      and tenant_id=#{tenantId}
+  </update>
+</mapper>

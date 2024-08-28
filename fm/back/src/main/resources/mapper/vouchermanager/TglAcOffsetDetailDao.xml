@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.vouchermanager.dao.TglAcOffsetDetailDao">
+  <sql id="tglAcOffsetDetailColumns">
+    <trim suffixOverrides=",">
+      a.UQDETAILID AS "uqdetailid",
+      a.UQBATCHID AS "uqbatchid",
+      a.UQMAINID AS "uqmainid",
+      a.UQCOMPANYID AS "uqcompanyid",
+      a.UQVOUCHERID AS "uqvoucherid",
+      a.UQVOUDETAILID AS "uqvoudetailid",
+      a.INIID AS "iniid",
+      a.UQACCOUNTID AS "uqaccountid",
+      a.UQLEDGETYPEID AS "uqledgetypeid",
+      a.UQLEDGEID AS "uqledgeid",
+      a.MONEY AS "money",
+      a.UQUSERID AS "uquserid",
+      a.INSERTTIME AS "inserttime",
+      a.UPDATETIME AS "updatetime",
+      a.INTTYPE AS "inttype",
+      a.tenant_id AS "tenantId",
+    </trim>
+  </sql>
+  <sql id="tglAcOffsetDetailJoins">
+  </sql>
+  <resultMap id="resultTglAcOffsetDetailMap" type="com.geeke.vouchermanager.entity.TglAcOffsetDetail">
+    <result property="uqdetailid" column="uqdetailid" />
+    <result property="uqbatchid" column="uqbatchid" />
+    <result property="uqmainid" column="uqmainid" />
+    <result property="uqcompanyid" column="uqcompanyid" />
+    <result property="uqvoucherid" column="uqvoucherid" />
+    <result property="uqvoudetailid" column="uqvoudetailid" />
+    <result property="iniid" column="iniid" />
+    <result property="uqaccountid" column="uqaccountid" />
+    <result property="uqledgetypeid" column="uqledgetypeid" />
+    <result property="uqledgeid" column="uqledgeid" />
+    <result property="money" column="money" />
+    <result property="uquserid" column="uquserid" />
+    <result property="inserttime" column="inserttime" />
+    <result property="updatetime" column="updatetime" />
+    <result property="inttype" column="inttype" />
+    <result property="tenantId" column="tenantId" />
+  </resultMap>
+  <select id="get" resultMap="resultTglAcOffsetDetailMap">
+    SELECT
+    <include refid="tglAcOffsetDetailColumns" />
+    FROM tgl_ac_offset_detail a
+    <include refid="tglAcOffsetDetailJoins" />
+    WHERE a.id = #{id}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tgl_ac_offset_detail a
+    <include refid="tglAcOffsetDetailJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="listPage" resultMap="resultTglAcOffsetDetailMap">
+    SELECT
+    <include refid="tglAcOffsetDetailColumns" />
+    FROM tgl_ac_offset_detail a
+    <include refid="tglAcOffsetDetailJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultMap="resultTglAcOffsetDetailMap">
+    SELECT
+    <include refid="tglAcOffsetDetailColumns" />
+    FROM tgl_ac_offset_detail a
+    <include refid="tglAcOffsetDetailJoins" />
+    <where>
+      1=1
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tgl_ac_offset_detail(
+    <trim suffixOverrides=",">
+      UQDETAILID,
+      UQBATCHID,
+      UQMAINID,
+      UQCOMPANYID,
+      UQVOUCHERID,
+      UQVOUDETAILID,
+      INIID,
+      UQACCOUNTID,
+      UQLEDGETYPEID,
+      UQLEDGEID,
+      MONEY,
+      UQUSERID,
+      INSERTTIME,
+      UPDATETIME,
+      INTTYPE,
+      tenant_id,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ uqdetailid },
+      #{ uqbatchid },
+      #{ uqmainid },
+      #{ uqcompanyid },
+      #{ uqvoucherid },
+      #{ uqvoudetailid },
+      #{ iniid },
+      #{ uqaccountid },
+      #{ uqledgetypeid },
+      #{ uqledgeid },
+      #{ money },
+      #{ uquserid },
+      #{ inserttime },
+      #{ updatetime },
+      #{ inttype },
+      #{ tenantId },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tgl_ac_offset_detail SET
+    <trim suffixOverrides=",">
+      UQDETAILID = #{ uqdetailid },
+      UQBATCHID = #{ uqbatchid },
+      UQMAINID = #{ uqmainid },
+      UQCOMPANYID = #{ uqcompanyid },
+      UQVOUCHERID = #{ uqvoucherid },
+      UQVOUDETAILID = #{ uqvoudetailid },
+      INIID = #{ iniid },
+      UQACCOUNTID = #{ uqaccountid },
+      UQLEDGETYPEID = #{ uqledgetypeid },
+      UQLEDGEID = #{ uqledgeid },
+      MONEY = #{ money },
+      UQUSERID = #{ uquserid },
+      INSERTTIME = #{ inserttime },
+      UPDATETIME = #{ updatetime },
+      INTTYPE = #{ inttype },
+      tenant_id = #{ tenantId },
+    </trim>
+    WHERE id = #{id}
+  </update>
+  <update id="delete">
+    DELETE FROM tgl_ac_offset_detail
+    WHERE id = #{id}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tgl_ac_offset_detail(
+    <trim suffixOverrides=",">
+      UQDETAILID,
+      UQBATCHID,
+      UQMAINID,
+      UQCOMPANYID,
+      UQVOUCHERID,
+      UQVOUDETAILID,
+      INIID,
+      UQACCOUNTID,
+      UQLEDGETYPEID,
+      UQLEDGEID,
+      MONEY,
+      UQUSERID,
+      INSERTTIME,
+      UPDATETIME,
+      INTTYPE,
+      tenant_id,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.uqdetailid},
+        #{entity.uqbatchid},
+        #{entity.uqmainid},
+        #{entity.uqcompanyid},
+        #{entity.uqvoucherid},
+        #{entity.uqvoudetailid},
+        #{entity.iniid},
+        #{entity.uqaccountid},
+        #{entity.uqledgetypeid},
+        #{entity.uqledgeid},
+        #{entity.money},
+        #{entity.uquserid},
+        #{entity.inserttime},
+        #{entity.updatetime},
+        #{entity.inttype},
+        #{entity.tenantId},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tgl_ac_offset_detail
+    <set>
+      <trim prefix="UQDETAILID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqdetailid}
+        </foreach>
+      </trim>
+      <trim prefix="UQBATCHID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqbatchid}
+        </foreach>
+      </trim>
+      <trim prefix="UQMAINID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqmainid}
+        </foreach>
+      </trim>
+      <trim prefix="UQCOMPANYID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqcompanyid}
+        </foreach>
+      </trim>
+      <trim prefix="UQVOUCHERID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqvoucherid}
+        </foreach>
+      </trim>
+      <trim prefix="UQVOUDETAILID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqvoudetailid}
+        </foreach>
+      </trim>
+      <trim prefix="INIID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.iniid}
+        </foreach>
+      </trim>
+      <trim prefix="UQACCOUNTID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqaccountid}
+        </foreach>
+      </trim>
+      <trim prefix="UQLEDGETYPEID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqledgetypeid}
+        </foreach>
+      </trim>
+      <trim prefix="UQLEDGEID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqledgeid}
+        </foreach>
+      </trim>
+      <trim prefix="MONEY=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.money}
+        </foreach>
+      </trim>
+      <trim prefix="UQUSERID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uquserid}
+        </foreach>
+      </trim>
+      <trim prefix="INSERTTIME=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.inserttime}
+        </foreach>
+      </trim>
+      <trim prefix="UPDATETIME=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updatetime}
+        </foreach>
+      </trim>
+      <trim prefix="INTTYPE=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.inttype}
+        </foreach>
+      </trim>
+      <trim prefix="tenant_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.tenantId}
+        </foreach>
+      </trim>
+    </set>
+    WHERE id IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.id}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    DELETE FROM tgl_ac_offset_detail
+    WHERE id IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.id}
+    </foreach>
+  </update>
+</mapper>

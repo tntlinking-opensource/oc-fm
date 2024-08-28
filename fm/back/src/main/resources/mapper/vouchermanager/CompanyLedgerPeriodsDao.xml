@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.vouchermanager.dao.CompanyLedgerPeriodsDao">
+  <sql id="companyLedgerPeriodsColumns">
+    <trim suffixOverrides=",">
+      a.id AS "id",
+      a.UQCOMPANYID AS "uqcompanyid.id",
+      IFNULL(uqcompanyid.name,'') AS "uqcompanyid.name",
+      IFNULL(uqcompanyid.code,'') AS "uqcompanyid.code",
+      IFNULL(uqcompanyid.full_name,'') AS "uqcompanyid.fullName",
+      a.UQGLOBALPERIODID AS "uqglobalperiodid.uqglobalperiodid",
+      IFNULL(uqglobalperiodid.VARNAME,'') AS "uqglobalperiodid.varname",
+      a.UQACCOUNTID AS "uqaccountid.uqaccountid",
+      IFNULL(uqaccountid.VARACCOUNTCODE,'') AS "uqaccountid.varaccountcode",
+      IFNULL(uqaccountid.VARACCOUNTNAME,'') AS "uqaccountid.varaccountname",
+      a.UQLEDGEID AS "uqledgeid.uqledgeid",
+      IFNULL(uqledgeid.VARLEDGECODE,'') AS "uqledgeid.varledgecode",
+      IFNULL(uqledgeid.VARLEDGENAME,'') AS "uqledgeid.varledgename",
+      IFNULL(ledgetype.UQLEDGETYPEID,'') AS "uqledgeid.uqledgetypeid.uqledgetypeid",
+      IFNULL(ledgetype.VARLEDGETYPENAME,'') AS "uqledgeid.uqledgetypeid.varledgetypename",
+      a.MNYDEBITPERIODALL AS "mnydebitperiodall",
+      a.MNYCREDITPERIODALL AS "mnycreditperiodall",
+      a.MNYFDEBITPERIODALL AS "mnyfdebitperiodall",
+      a.MNYFCREDITPERIODALL AS "mnyfcreditperiodall",
+      a.MNYDEBITPERIOD AS "mnydebitperiod",
+      a.MNYCREDITPERIOD AS "mnycreditperiod",
+      a.MNYFDEBITPERIOD AS "mnyfdebitperiod",
+      a.MNYFCREDITPERIOD AS "mnyfcreditperiod",
+      a.MNYDEBITCASHED AS "mnydebitcashed",
+      a.MNYCREDITCASHED AS "mnycreditcashed",
+      a.MNYFDEBITCASHED AS "mnyfdebitcashed",
+      a.MNYFCREDITCASHED AS "mnyfcreditcashed",
+    </trim>
+  </sql>
+  <sql id="companyLedgerPeriodsJoins">
+    LEFT JOIN org_company uqcompanyid ON uqcompanyid.id = a.UQCOMPANYID
+    LEFT JOIN tgl_global_periods uqglobalperiodid ON uqglobalperiodid.UQGLOBALPERIODID = a.UQGLOBALPERIODID
+    LEFT JOIN tgl_accounts uqaccountid ON uqaccountid.UQACCOUNTID = a.UQACCOUNTID
+    LEFT JOIN tgl_ledger uqledgeid ON uqledgeid.UQLEDGEID = a.UQLEDGEID
+    LEFT JOIN tgl_ledgetype ledgetype ON uqledgeid.UQLEDGETYPEID = ledgetype.UQLEDGETYPEID
+  </sql>
+  <select id="get" resultType="com.geeke.vouchermanager.entity.CompanyLedgerPeriods">
+    SELECT
+    <include refid="companyLedgerPeriodsColumns" />
+    FROM tgl_company_ledger_periods a
+    <include refid="companyLedgerPeriodsJoins" />
+    WHERE a.id = #{id}
+  </select>
+  <select id="getByAccount" resultType="com.geeke.vouchermanager.entity.CompanyLedgerPeriods">
+    SELECT
+    <include refid="companyLedgerPeriodsColumns" />
+    FROM tgl_company_ledger_periods a
+    <include refid="companyLedgerPeriodsJoins" />
+    WHERE 1=1
+    <include refid="Common.whereParams" />
+    limit 1
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tgl_company_ledger_periods a
+    <include refid="companyLedgerPeriodsJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="listPage" resultType="com.geeke.vouchermanager.entity.CompanyLedgerPeriods">
+    SELECT
+    <include refid="companyLedgerPeriodsColumns" />
+    FROM tgl_company_ledger_periods a
+    <include refid="companyLedgerPeriodsJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultType="com.geeke.vouchermanager.entity.CompanyLedgerPeriods">
+    SELECT
+    <include refid="companyLedgerPeriodsColumns" />
+    FROM tgl_company_ledger_periods a
+    <include refid="companyLedgerPeriodsJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tgl_company_ledger_periods(
+    <trim suffixOverrides=",">
+      id,
+      UQCOMPANYID,
+      UQGLOBALPERIODID,
+      UQACCOUNTID,
+      UQLEDGEID,
+      MNYDEBITPERIODALL,
+      MNYCREDITPERIODALL,
+      MNYFDEBITPERIODALL,
+      MNYFCREDITPERIODALL,
+      MNYDEBITPERIOD,
+      MNYCREDITPERIOD,
+      MNYFDEBITPERIOD,
+      MNYFCREDITPERIOD,
+      MNYDEBITCASHED,
+      MNYCREDITCASHED,
+      MNYFDEBITCASHED,
+      MNYFCREDITCASHED,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ id },
+      #{ uqcompanyid.id },
+      #{ uqglobalperiodid.uqglobalperiodid },
+      #{ uqaccountid.uqaccountid },
+      #{ uqledgeid.uqledgeid },
+      #{ mnydebitperiodall },
+      #{ mnycreditperiodall },
+      #{ mnyfdebitperiodall },
+      #{ mnyfcreditperiodall },
+      #{ mnydebitperiod },
+      #{ mnycreditperiod },
+      #{ mnyfdebitperiod },
+      #{ mnyfcreditperiod },
+      #{ mnydebitcashed },
+      #{ mnycreditcashed },
+      #{ mnyfdebitcashed },
+      #{ mnyfcreditcashed },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tgl_company_ledger_periods SET
+    <trim suffixOverrides=",">
+      UQCOMPANYID = #{ uqcompanyid.id },
+      UQGLOBALPERIODID = #{ uqglobalperiodid.uqglobalperiodid },
+      UQACCOUNTID = #{ uqaccountid.uqaccountid },
+      UQLEDGEID = #{ uqledgeid.uqledgeid },
+      MNYDEBITPERIODALL = #{ mnydebitperiodall },
+      MNYCREDITPERIODALL = #{ mnycreditperiodall },
+      MNYFDEBITPERIODALL = #{ mnyfdebitperiodall },
+      MNYFCREDITPERIODALL = #{ mnyfcreditperiodall },
+      MNYDEBITPERIOD = #{ mnydebitperiod },
+      MNYCREDITPERIOD = #{ mnycreditperiod },
+      MNYFDEBITPERIOD = #{ mnyfdebitperiod },
+      MNYFCREDITPERIOD = #{ mnyfcreditperiod },
+      MNYDEBITCASHED = #{ mnydebitcashed },
+      MNYCREDITCASHED = #{ mnycreditcashed },
+      MNYFDEBITCASHED = #{ mnyfdebitcashed },
+      MNYFCREDITCASHED = #{ mnyfcreditcashed },
+    </trim>
+    WHERE id = #{id}
+  </update>
+  <update id="newupdate">
+    UPDATE tgl_company_ledger_periods SET
+    <trim suffixOverrides=",">
+      MNYDEBITPERIODALL = MNYDEBITPERIODALL + #{ mnydebitperiodall },
+      MNYCREDITPERIODALL = MNYCREDITPERIODALL + #{ mnycreditperiodall },
+      MNYFDEBITPERIODALL = MNYFDEBITPERIODALL + #{ mnyfdebitperiodall },
+      MNYFCREDITPERIODALL = MNYFCREDITPERIODALL + #{ mnyfcreditperiodall },
+      MNYDEBITPERIOD = MNYDEBITPERIOD + #{ mnydebitperiod },
+      MNYCREDITPERIOD = MNYCREDITPERIOD + #{ mnycreditperiod },
+      MNYFDEBITPERIOD = MNYFDEBITPERIOD + #{ mnyfdebitperiod },
+      MNYFCREDITPERIOD = MNYFCREDITPERIOD + #{ mnyfcreditperiod },
+      MNYDEBITCASHED = MNYDEBITCASHED + #{ mnydebitcashed },
+      MNYCREDITCASHED = MNYCREDITCASHED + #{ mnycreditcashed },
+      MNYFDEBITCASHED = MNYFDEBITCASHED + #{ mnyfdebitcashed },
+      MNYFCREDITCASHED = MNYFCREDITCASHED + #{ mnyfcreditcashed },
+    </trim>
+    WHERE
+        UQCOMPANYID = #{ uqcompanyid.id } AND
+        UQGLOBALPERIODID = #{ uqglobalperiodid.uqglobalperiodid } AND
+        UQACCOUNTID = #{ uqaccountid.uqaccountid } AND
+        UQLEDGEID = #{ uqledgeid.uqledgeid }
+  </update>
+  <update id="delete">
+    DELETE FROM tgl_company_ledger_periods
+    WHERE id = #{id}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tgl_company_ledger_periods(
+    <trim suffixOverrides=",">
+      id,
+      UQCOMPANYID,
+      UQGLOBALPERIODID,
+      UQACCOUNTID,
+      UQLEDGEID,
+      MNYDEBITPERIODALL,
+      MNYCREDITPERIODALL,
+      MNYFDEBITPERIODALL,
+      MNYFCREDITPERIODALL,
+      MNYDEBITPERIOD,
+      MNYCREDITPERIOD,
+      MNYFDEBITPERIOD,
+      MNYFCREDITPERIOD,
+      MNYDEBITCASHED,
+      MNYCREDITCASHED,
+      MNYFDEBITCASHED,
+      MNYFCREDITCASHED,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.id},
+        #{entity.uqcompanyid.id},
+        #{entity.uqglobalperiodid.uqglobalperiodid},
+        #{entity.uqaccountid.uqaccountid},
+        #{entity.uqledgeid.uqledgeid},
+        #{entity.mnydebitperiodall},
+        #{entity.mnycreditperiodall},
+        #{entity.mnyfdebitperiodall},
+        #{entity.mnyfcreditperiodall},
+        #{entity.mnydebitperiod},
+        #{entity.mnycreditperiod},
+        #{entity.mnyfdebitperiod},
+        #{entity.mnyfcreditperiod},
+        #{entity.mnydebitcashed},
+        #{entity.mnycreditcashed},
+        #{entity.mnyfdebitcashed},
+        #{entity.mnyfcreditcashed},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tgl_company_ledger_periods
+    <set>
+      <trim prefix="UQCOMPANYID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqcompanyid.id}
+        </foreach>
+      </trim>
+      <trim prefix="UQGLOBALPERIODID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqglobalperiodid.uqglobalperiodid}
+        </foreach>
+      </trim>
+      <trim prefix="UQACCOUNTID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqaccountid.uqaccountid}
+        </foreach>
+      </trim>
+      <trim prefix="UQLEDGEID=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.uqledgeid.uqledgeid}
+        </foreach>
+      </trim>
+      <trim prefix="MNYDEBITPERIODALL=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnydebitperiodall}
+        </foreach>
+      </trim>
+      <trim prefix="MNYCREDITPERIODALL=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnycreditperiodall}
+        </foreach>
+      </trim>
+      <trim prefix="MNYFDEBITPERIODALL=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnyfdebitperiodall}
+        </foreach>
+      </trim>
+      <trim prefix="MNYFCREDITPERIODALL=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnyfcreditperiodall}
+        </foreach>
+      </trim>
+      <trim prefix="MNYDEBITPERIOD=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnydebitperiod}
+        </foreach>
+      </trim>
+      <trim prefix="MNYCREDITPERIOD=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnycreditperiod}
+        </foreach>
+      </trim>
+      <trim prefix="MNYFDEBITPERIOD=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnyfdebitperiod}
+        </foreach>
+      </trim>
+      <trim prefix="MNYFCREDITPERIOD=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnyfcreditperiod}
+        </foreach>
+      </trim>
+      <trim prefix="MNYDEBITCASHED=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnydebitcashed}
+        </foreach>
+      </trim>
+      <trim prefix="MNYCREDITCASHED=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnycreditcashed}
+        </foreach>
+      </trim>
+      <trim prefix="MNYFDEBITCASHED=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnyfdebitcashed}
+        </foreach>
+      </trim>
+      <trim prefix="MNYFCREDITCASHED=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.mnyfcreditcashed}
+        </foreach>
+      </trim>
+    </set>
+    WHERE id IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.id}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    DELETE FROM tgl_company_ledger_periods
+    WHERE id IN
+    <foreach collection="entitys" item="entity" index="index" separator="," open="(" close=")">
+      #{entity.id}
+    </foreach>
+  </update>
+  <select id="exportLedgePeriod" resultType="map">
+    SELECT ta.varaccountcode,
+           ta.varaccountname,
+           tlt.varledgetypename,
+           tl.varledgecode,
+           tl.varledgename,
+           tcl.mnydebitperiod,
+           tcl.mnycreditperiod
+    FROM tgl_accounts ta
+           INNER JOIN tgl_account_ledgetype tal ON tal.uqaccountid = ta.uqaccountid
+           INNER JOIN tgl_ledgetype tlt ON tlt.uqledgetypeid = tal.uqledgetypeid
+           INNER JOIN tgl_ledger tl ON tl.uqledgetypeid = tlt.uqledgetypeid
+           LEFT JOIN tgl_company_ledger_periods tcl ON tcl.uqaccountid = ta.uqaccountid
+            AND tcl.uqcompanyid = #{map.UQCOMPANYID}
+            AND tcl.uqglobalperiodid = '00000000-0000-0000-0000-000000000000'
+            AND tcl.uqledgeid = tl.uqledgeid
+    WHERE ta.intisledge = 1
+      AND tl.intislastlevel = 1
+      <if test="map.UQACCOUNTID != null and map.UQACCOUNTID != ''">
+        AND ta.uqaccountid =  #{map.UQACCOUNTID}
+      </if>
+      <if test="map.UQLEDGETYPEID != null and map.UQLEDGETYPEID != ''">
+        AND tlt.UQLEDGETYPEID = #{map.UQLEDGETYPEID}
+      </if>
+    ORDER BY ta.varaccountcode,tl.varledgecode
+  </select>
+  <select id="getLedgePeriod" resultType="int">
+    SELECT COUNT(*) FROM tgl_company_ledger_periods a
+    <include refid="companyLedgerPeriodsJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="getLedgePeriodByEntity" resultType="com.geeke.vouchermanager.entity.CompanyLedgerPeriods">
+    SELECT
+    a.id AS "id",
+    a.UQCOMPANYID AS "uqcompanyid.id",
+    IFNULL(uqcompanyid.name,'') AS "uqcompanyid.name",
+    IFNULL(uqcompanyid.code,'') AS "uqcompanyid.code",
+    IFNULL(uqcompanyid.full_name,'') AS "uqcompanyid.fullName",
+    a.UQGLOBALPERIODID AS "uqglobalperiodid.uqglobalperiodid",
+    IFNULL(uqglobalperiodid.VARNAME,'') AS "uqglobalperiodid.varname",
+    a.UQACCOUNTID AS "uqaccountid.uqaccountid",
+    IFNULL(uqaccountid.VARACCOUNTCODE,'') AS "uqaccountid.varaccountcode",
+    IFNULL(uqaccountid.VARACCOUNTNAME,'') AS "uqaccountid.varaccountname",
+    a.UQLEDGEID AS "uqledgeid.uqledgeid",
+    IFNULL(uqledgeid.VARLEDGECODE,'') AS "uqledgeid.varledgecode",
+    IFNULL(uqledgeid.VARLEDGENAME,'') AS "uqledgeid.varledgename",
+    a.MNYDEBITPERIODALL AS "mnydebitperiodall",
+    a.MNYCREDITPERIODALL AS "mnycreditperiodall",
+    a.MNYDEBITPERIOD AS "mnydebitperiod",
+    a.MNYCREDITPERIOD AS "mnycreditperiod"
+    FROM tgl_company_ledger_periods a
+    LEFT JOIN org_company uqcompanyid ON uqcompanyid.id = a.UQCOMPANYID
+    LEFT JOIN tgl_global_periods uqglobalperiodid ON uqglobalperiodid.UQGLOBALPERIODID = a.UQGLOBALPERIODID
+    LEFT JOIN tgl_accounts uqaccountid ON uqaccountid.UQACCOUNTID = a.UQACCOUNTID
+    LEFT JOIN tgl_ledger uqledgeid ON uqledgeid.UQLEDGEID = a.UQLEDGEID
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.uqaccountid = #{map.uqaccountid}
+      AND a.uqcompanyid = #{map.uqcompanyid}
+      AND a.uqglobalperiodid = #{map.uqglobalperiodid}
+      AND a.uqledgeid = #{map.uqledgeid}
+    </where>
+    limit 1
+  </select>
+</mapper>

@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geeke.cardasset.credit.dao.TfamAlterEntryDao">
+  <sql id="tfamAlterEntryColumns">
+    <trim suffixOverrides=",">
+      a.id AS "id",
+      a.year AS "year",
+      a.month AS "month",
+      a.date AS "date",
+      a.asset_id AS "assetId",
+      a.alter_type AS "alterType",
+      a.old_value AS "oldValue",
+      a.new_value AS "newValue",
+      a.reason AS "reason",
+      a.voucherid AS "voucherid.UQVOUCHERID",
+      a.vouformat AS "vouformat",
+      a.abstracts AS "abstracts",
+      a.company_id AS "companyId",
+      a.remarks AS "remarks",
+      a.create_by AS "createBy",
+      a.create_date AS "createDate",
+      a.update_by AS "updateBy",
+      a.update_date AS "updateDate",
+      a.del_flag AS "delFlag",
+      a.source_type AS "sourceType",
+    </trim>
+  </sql>
+  <sql id="tfamAlterEntryJoins">
+    LEFT JOIN tgl_voucher_mains voucherid ON voucherid.UQVOUCHERID = a.voucherid
+  </sql>
+  <resultMap id="resultTfamAlterEntryMap" type="com.geeke.cardasset.credit.entity.TfamAlterEntry">
+    <result property="id" column="id" />
+    <result property="year" column="year" />
+    <result property="month" column="month" />
+    <result property="date" column="date" />
+    <result property="assetId" column="assetId" />
+    <result property="alterType" column="alterType" />
+    <result property="oldValue" column="oldValue" />
+    <result property="newValue" column="newValue" />
+    <result property="reason" column="reason" />
+    <result property="vouformat" column="vouformat" />
+    <result property="abstracts" column="abstracts" />
+    <result property="companyId" column="companyId" />
+    <result property="remarks" column="remarks" />
+    <result property="createBy" column="createBy" />
+    <result property="createDate" column="createDate" />
+    <result property="updateBy" column="updateBy" />
+    <result property="updateDate" column="updateDate" />
+    <result property="delFlag" column="delFlag" />
+    <result property="sourceType" column="sourceType" />
+    <association property="voucherid" javaType="com.geeke.cardasset.credit.entity.TglVoucherMainsEntry">
+      <result property="uqvoucherid" column="voucherid.UQVOUCHERID" />
+    </association>
+  </resultMap>
+  <select id="get" resultMap="resultTfamAlterEntryMap">
+    SELECT
+    <include refid="tfamAlterEntryColumns" />
+    FROM tfam_alter a
+    <include refid="tfamAlterEntryJoins" />
+    WHERE a.id = #{id}
+  </select>
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM tfam_alter a
+    <include refid="tfamAlterEntryJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+  </select>
+  <select id="listPage" resultMap="resultTfamAlterEntryMap">
+    SELECT
+    <include refid="tfamAlterEntryColumns" />
+    FROM tfam_alter a
+    <include refid="tfamAlterEntryJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+  <select id="listAll" resultMap="resultTfamAlterEntryMap">
+    SELECT
+    <include refid="tfamAlterEntryColumns" />
+    FROM tfam_alter a
+    <include refid="tfamAlterEntryJoins" />
+    <where>
+      1=1
+      AND a.id > 0
+      AND a.del_flag = #{DEL_FLAG_NORMAL}
+      <include refid="Common.whereParams" />
+    </where>
+    <choose>
+      <when test="order != null and order != ''">
+        ORDER BY ${order}
+      </when>
+      <otherwise>
+        ORDER BY a.update_date DESC
+      </otherwise>
+    </choose>
+  </select>
+  <insert id="insert">
+    INSERT INTO tfam_alter(
+    <trim suffixOverrides=",">
+      id,
+      year,
+      month,
+      date,
+      asset_id,
+      alter_type,
+      old_value,
+      new_value,
+      reason,
+      voucherid,
+      vouformat,
+      abstracts,
+      company_id,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+      source_type,
+    </trim>
+    ) VALUES (
+    <trim suffixOverrides=",">
+      #{ id },
+      #{ year },
+      #{ month },
+      #{ date },
+      #{ assetId },
+      #{ alterType },
+      #{ oldValue },
+      #{ newValue },
+      #{ reason },
+      #{ voucherid.UQVOUCHERID },
+      #{ vouformat },
+      #{ abstracts },
+      #{ companyId },
+      #{ remarks },
+      #{ createBy },
+      #{ createDate },
+      #{ updateBy },
+      #{ updateDate },
+      #{ delFlag },
+      #{ sourceType },
+    </trim>
+    )
+  </insert>
+  <update id="update">
+    UPDATE tfam_alter SET
+    <trim suffixOverrides=",">
+      year = #{ year },
+      month = #{ month },
+      date = #{ date },
+      asset_id = #{ assetId },
+      alter_type = #{ alterType },
+      old_value = #{ oldValue },
+      new_value = #{ newValue },
+      reason = #{ reason },
+      voucherid = #{ voucherid.UQVOUCHERID },
+      vouformat = #{ vouformat },
+      abstracts = #{ abstracts },
+      company_id = #{ companyId },
+      remarks = #{ remarks },
+      update_by = #{ updateBy },
+      update_date = #{ updateDate },
+      source_type = #{ sourceType },
+    </trim>
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <update id="delete">
+    UPDATE tfam_alter SET
+    update_by = #{updateBy},
+    update_date = #{updateDate},
+    del_flag = #{DEL_FLAG_DELETE}
+    WHERE id = #{id}
+    and update_date = #{oldUpdateDate}
+  </update>
+  <insert id="bulkInsert" parameterType="java.util.List">
+    INSERT INTO tfam_alter(
+    <trim suffixOverrides=",">
+      id,
+      year,
+      month,
+      date,
+      asset_id,
+      alter_type,
+      old_value,
+      new_value,
+      reason,
+      voucherid,
+      vouformat,
+      abstracts,
+      company_id,
+      remarks,
+      create_by,
+      create_date,
+      update_by,
+      update_date,
+      del_flag,
+      source_type,
+    </trim>
+    ) VALUES
+    <foreach collection="entitys" index="index" item="entity" open="" separator="," close="">
+      (
+      <trim suffixOverrides=",">
+        #{entity.id},
+        #{entity.year},
+        #{entity.month},
+        #{entity.date},
+        #{entity.assetId},
+        #{entity.alterType},
+        #{entity.oldValue},
+        #{entity.newValue},
+        #{entity.reason},
+        #{entity.voucherid.UQVOUCHERID},
+        #{entity.vouformat},
+        #{entity.abstracts},
+        #{entity.companyId},
+        #{entity.remarks},
+        #{entity.createBy},
+        #{entity.createDate},
+        #{entity.updateBy},
+        #{entity.updateDate},
+        #{entity.delFlag},
+        #{entity.sourceType},
+      </trim>
+      )
+    </foreach>
+  </insert>
+  <update id="bulkUpdate" parameterType="java.util.List">
+    UPDATE tfam_alter
+    <set>
+      <trim prefix="year=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.year}
+        </foreach>
+      </trim>
+      <trim prefix="month=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.month}
+        </foreach>
+      </trim>
+      <trim prefix="date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.date}
+        </foreach>
+      </trim>
+      <trim prefix="asset_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.assetId}
+        </foreach>
+      </trim>
+      <trim prefix="alter_type=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.alterType}
+        </foreach>
+      </trim>
+      <trim prefix="old_value=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.oldValue}
+        </foreach>
+      </trim>
+      <trim prefix="new_value=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.newValue}
+        </foreach>
+      </trim>
+      <trim prefix="reason=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.reason}
+        </foreach>
+      </trim>
+      <trim prefix="voucherid=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.voucherid.UQVOUCHERID}
+        </foreach>
+      </trim>
+      <trim prefix="vouformat=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.vouformat}
+        </foreach>
+      </trim>
+      <trim prefix="abstracts=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.abstracts}
+        </foreach>
+      </trim>
+      <trim prefix="company_id=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.companyId}
+        </foreach>
+      </trim>
+      <trim prefix="remarks=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.remarks}
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+      <trim prefix="source_type=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.sourceType}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+  <update id="bulkDelete" parameterType="java.util.List">
+    UPDATE tfam_alter
+    <set>
+      <trim prefix="del_flag=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then 1
+        </foreach>
+      </trim>
+      <trim prefix="update_by=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateBy}
+        </foreach>
+      </trim>
+      <trim prefix="update_date=case" suffix="end,">
+        <foreach collection="entitys" item="entity" index="index">
+          when id=#{entity.id} then #{entity.updateDate}
+        </foreach>
+      </trim>
+    </set>
+    WHERE
+    <foreach collection="entitys" item="entity" index="index" separator="OR" open="(" close=")">
+      id = #{entity.id} and update_date = #{entity.oldUpdateDate}
+    </foreach>
+  </update>
+</mapper>
