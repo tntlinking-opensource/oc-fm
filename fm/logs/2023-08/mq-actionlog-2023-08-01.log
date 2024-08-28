@@ -1,5 +1,0 @@
-2023-08-01 11:59:30.216 ERROR --- [MqProduce.java:36][SimpleAsyncTaskExecutor-1] - 【ERROR】消息发送失败: ==>> 
-唯一标识: d3095a98-9791-4ac7-9e21-99a941320e47 
-消息内容{"actionRecycleList":[],"actionType":{"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1290867985774919713","busTableName":"sys_dict_item","delFlag":"0","value":"login"},"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1220000000000000005","busTableName":"sys_action","createBy":"yd1(yd1)","createDate":"2023-08-01 11:59:30","delFlag":"0","id":"1639452204445564928","objectComments":"","objectId":"1457259193529540752","objectName":"yd1","objectType":"sys_user","status":"0","updateBy":"yd1(yd1)","updateDate":"2023-08-01 11:59:30"}
-2023-08-01 11:59:30.216 ERROR --- [MqProduce.java:37][SimpleAsyncTaskExecutor-1] - nested exception is org.apache.rocketmq.client.exception.MQClientException: No route info of this topic: TOPIC-ACTION-LOG-fm-1_0-dev
-See http://rocketmq.apache.org/docs/faq/ for further details.

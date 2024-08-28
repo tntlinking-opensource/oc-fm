@@ -1,3 +1,0 @@
-2023-05-09 11:28:20.638 INFO  --- [MqProduce.java:34][SimpleAsyncTaskExecutor-1] - 消息发送成功: ==>> 
-唯一标识: 312805ad-81ed-45f8-a026-ade5fed48536 
-消息内容{"actionRecycleList":[],"actionType":{"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1290867985774919713","busTableName":"sys_dict_item","delFlag":"0","value":"login"},"busTableComments":"","busTableHasDelFlag":true,"busTableId":"1220000000000000005","busTableName":"sys_action","createBy":"李鑫林(lxl)","createDate":"2023-05-09 11:28:19","delFlag":"0","id":"1514732401485783040","objectComments":"","objectId":"1467557202255437951","objectName":"李鑫林","objectType":"sys_user","status":"0","updateBy":"李鑫林(lxl)","updateDate":"2023-05-09 11:28:19"}
