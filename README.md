@@ -11,22 +11,18 @@
 
 
 # 官网地址
-开源企业：http://opencom.com.cn/?site=gitee
+开源企业：https://open.tntlinking.com/open/enterprise/?site=gitee
 
 # 产品体验
-地址：http://61.172.179.26:8099/fm/#/login   yd1  cDLG@336
+OpenCOM开源企业暂不提供线上测试系统，您可以[查看产品介绍](https://open.tntlinking.com/open/productMap/?site=gitee)了解产品界面与功能。如需进一步演示，请[填写登记表](https://jsj.top/f/TZua4o)预约在线演示，工作人员将尽快联系您。
 
 # 联系我们
-* 技术问题可扫码进群提问
 
-![img_10.png](readmeImg/img_10.png)
-* 产品和商务合作问题请加微沟通
+* 技术问题欢迎进群交流：https://open.tntlinking.com/ecology/joinCommunity/?site=gitee
 
-![img_9.png](readmeImg/img_9.png)
+* 公司介绍与联系电话：https://open.tntlinking.com/about/?site=gitee
 
-* 请关注开源公众号以便获得最新咨询
-
-![img_11.png](readmeImg/img_11.png)
+* 请关注公众号【天天开源软件】以便获得最新产品更新信息。
 
 
 # 源码结构
@@ -48,8 +44,5 @@
 ![img_6.png](readmeImg/img_6.png)
 ![img_7.png](readmeImg/img_7.png)
 ![img_8.png](readmeImg/img_8.png)
-
-
-
 
 
