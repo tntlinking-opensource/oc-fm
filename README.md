@@ -4,7 +4,7 @@
 
 天天开源的前⾝是新致开源，最早于2022年6⽉发布开源医疗软件平台OpenHIS.org.cn，于2023年6⽉发布开源企业软件平台OpenCOM.com.cn。2025年7⽉，新致开源品牌更新为天天开源，我们始终秉持开源、专业、协作的理念，致⼒于为医疗、教育、中⼩企业等⾏业提供优质的开源解决⽅案。
 
-官网地址：https://open.tntlinking.com/open/enterprise/?site=gitee
+天天开源企业官网：https://open.tntlinking.com/open/enterprise/?site=gitee
 
 # 项目介绍
 
