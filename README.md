@@ -7,11 +7,12 @@
 我们欢迎多元化合作方式，包括但不仅限于开源产品协作开发、信息化产品协作落地、行业活动合作举办、客户合作共享、客户产品需求协作支持等方式。欢迎联系我们咨询合作！
 
 本开源项目是OpenCOM发布的财务管理系统模块，模版包含：财务设置、凭证管理、会计报表、会计帐簿、往来管理、期末处理。
+
 如需要其他产品源码，可访问天天开源企业官网。
 
 
 # 官网地址
-开源企业：https://open.tntlinking.com/open/enterprise/?site=gitee
+天天开源企业：https://open.tntlinking.com/open/enterprise/?site=gitee
 
 # 产品体验
 OpenCOM开源企业暂不提供线上测试系统，您可以[查看产品介绍](https://open.tntlinking.com/open/productMap/?site=gitee)了解产品界面与功能。如需进一步演示，请[填写登记表](https://jsj.top/f/TZua4o)预约在线演示，工作人员将尽快联系您。
